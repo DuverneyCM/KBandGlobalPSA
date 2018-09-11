@@ -69,6 +69,8 @@ GetAlignSymbols[typeArrow_, indexH_, indexV_, seqA_, seqB_] :=
 		"invalid", {"_","_"}
 	]
 
+(*Holasdsadsa, Claudia!!*)
+(*Hola, Duver*)
 (* TODO - add the align symbols to align sequences*)
 AddAlignSymbols[symbolA_, symbolB_] :=
 	Block[{},
