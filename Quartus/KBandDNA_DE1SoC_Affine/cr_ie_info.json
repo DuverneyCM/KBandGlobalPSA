@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus_fit",
+		"comment" : "not_applicable",
+		"error_message" : "Internal Error",
+		"source_file" : "/quartus/fitter/vpr20k/altera_arch_common/altera_arch_place_anneal.c",
+		"line" : "2744",
+		"stack_trace" : "\t0x7ffa73a932b0: fitter_vpr20kmain + 0x5732b0 (vpr_qi_jump_to_exit + 0x70)\n\t0x7ffa73611717: fitter_vpr20kmain + 0xf1717 (vpr_exit_at_line + 0x97)\n\t0x7ffa73611760: fitter_vpr20kmain + 0xf1760 (handle_assertion_failure_stripped + 0x30)\n\t0x7ffa7383b70e: fitter_vpr20kmain + 0x31b70e (l_initial_low_temp_moves + 0x35e)\n\t0x7ffa736be4bb: fitter_vpr20kmain + 0x19e4bb (l_thread_pool_do_work + 0x15b)\n\t0x7ffa736be58c: fitter_vpr20kmain + 0x19e58c (l_thread_pool_fn + 0x4c)\n\t0x7ffa73ae3dad: fitter_vpr20kmain + 0x5c3dad (l_thread_start_wrapper + 0x3d)\n\t0x7fface6e4b0e: CCL_MSG + 0x14b0e (?msg_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x6e)\n\t0x7ffaebb65b00: ccl_mem + 0x15b00 (?mem_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x70)\n\t0x7ffacd6d2791: ccl_thr + 0x2791 (thr_thread_begin + 0xa1)\n\t0x7ffb019b2773: KERNEL32 + 0x12773 (BaseThreadInitThunk + 0x13)\n\t0x7ffb039e0d50: ntdll + 0x70d50 (RtlUserThreadStart + 0x20)\n",
+		"subsystem" : "VPR20KMAIN"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "16.1.0",
+		"build" : "196",
+		"edition" : "Standard Edition"
+	}
+}

@@ -1,0 +1,37 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst KBandIPsub.KBandInput_1.rst_inst -pg 1
+preplace inst KBandIPsub.clk_internal -pg 1 -lvl 2 -y 350
+preplace inst KBandIPsub.onchip_mem_LW -pg 1 -lvl 3 -y 40
+preplace inst KBandIPsub.KBandOutput.dispatcher_internal -pg 1
+preplace inst KBandIPsub.KBandOutput -pg 1 -lvl 5 -y 360
+preplace inst KBandIPsub.onchip_mem_FPGA_Slave -pg 1 -lvl 4 -y 260
+preplace inst KBandIPsub.KBandOutput.rst_inst -pg 1
+preplace inst KBandIPsub.KBandInput_1 -pg 1 -lvl 3 -y 190
+preplace inst KBandIPsub.mm_bridge_FPGA_Slave -pg 1 -lvl 2 -y 220
+preplace inst KBandIPsub.clk_0 -pg 1 -lvl 1 -y 380
+preplace inst KBandIPsub.KBand21_0 -pg 1 -lvl 4 -y 50
+preplace inst KBandIPsub -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst KBandIPsub.KBandInput_1.read_mstr_internal -pg 1
+preplace inst KBandIPsub.KBandInput_1.dispatcher_internal -pg 1
+preplace inst KBandIPsub.KBandOutput.write_mstr_internal -pg 1
+preplace inst KBandIPsub.KBandOutput.cb_inst -pg 1
+preplace inst KBandIPsub.DDR -pg 1 -lvl 6 -y 180
+preplace inst KBandIPsub.mm_bridge_LW -pg 1 -lvl 2 -y 440
+preplace inst KBandIPsub.KBandInput_1.cb_inst -pg 1
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)KBandIPsub.slw,(SLAVE)mm_bridge_LW.s0) 1 0 2 NJ 490 NJ
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)KBandIPsub.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)KBandIPsub.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)KBandIPsub.sfpga,(SLAVE)mm_bridge_FPGA_Slave.s0) 1 0 2 NJ 270 NJ
+preplace netloc POINT_TO_POINT<net_container>KBandIPsub</net_container>(MASTER)clk_internal.clk,(SLAVE)KBand21_0.clock_internal) 1 2 2 NJ 400 970
+preplace netloc POINT_TO_POINT<net_container>KBandIPsub</net_container>(SLAVE)KBandOutput.st_sink,(MASTER)KBand21_0.oArrow) 1 4 1 1260
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)KBandIPsub.kbandoutput_csr_irq,(SLAVE)KBandOutput.csr_irq) 1 0 5 NJ 340 NJ 340 NJ 380 NJ 410 NJ
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)clk_internal.clk_in,(SLAVE)KBandIPsub.clk_int) 1 0 2 NJ 320 NJ
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(MASTER)DDR.m0,(MASTER)KBandIPsub.m0) 1 6 1 N
+preplace netloc EXPORT<net_container>KBandIPsub</net_container>(SLAVE)KBandInput_1.csr_irq,(SLAVE)KBandIPsub.kbandinput_1_csr_irq) 1 0 3 NJ 170 NJ 170 NJ
+preplace netloc FAN_OUT<net_container>KBandIPsub</net_container>(SLAVE)mm_bridge_FPGA_Slave.reset,(SLAVE)KBandInput_1.reset_n,(SLAVE)onchip_mem_LW.reset1,(MASTER)clk_0.clk_reset,(SLAVE)KBand21_0.reset,(SLAVE)clk_internal.clk_in_reset,(SLAVE)onchip_mem_FPGA_Slave.reset1,(SLAVE)KBandOutput.reset_n,(SLAVE)mm_bridge_LW.reset,(SLAVE)DDR.reset) 1 1 5 370 310 600 130 1010 230 1300 210 NJ
+preplace netloc POINT_TO_POINT<net_container>KBandIPsub</net_container>(SLAVE)KBand21_0.iADN1,(MASTER)KBandInput_1.st_source) 1 3 1 930
+preplace netloc FAN_OUT<net_container>KBandIPsub</net_container>(SLAVE)DDR.clk,(SLAVE)onchip_mem_LW.clk1,(SLAVE)mm_bridge_LW.clk,(SLAVE)KBandInput_1.clock,(MASTER)clk_0.clk,(SLAVE)onchip_mem_FPGA_Slave.clk1,(SLAVE)KBandOutput.clock,(SLAVE)KBand21_0.clock_external,(SLAVE)mm_bridge_FPGA_Slave.clk) 1 1 5 350 150 680 30 990 190 1320 190 NJ
+preplace netloc INTERCONNECT<net_container>KBandIPsub</net_container>(SLAVE)onchip_mem_FPGA_Slave.s1,(SLAVE)KBandOutput.descriptor_slave,(SLAVE)KBandOutput.csr,(SLAVE)KBandInput_1.csr,(SLAVE)KBandInput_1.descriptor_slave,(MASTER)KBandInput_1.mm_read,(SLAVE)onchip_mem_LW.s1,(MASTER)KBandOutput.mm_write,(SLAVE)DDR.s0,(MASTER)mm_bridge_FPGA_Slave.m0,(MASTER)mm_bridge_LW.m0) 1 2 4 640 340 950 250 1280 250 1570
+levelinfo -pg 1 0 130 1740
+levelinfo -hier KBandIPsub 140 170 440 790 1100 1430 1600 1690

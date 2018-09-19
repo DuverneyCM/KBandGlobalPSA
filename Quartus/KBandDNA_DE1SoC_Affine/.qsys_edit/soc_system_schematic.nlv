@@ -1,0 +1,185 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst soc_system.clk_0 -pg 1 -lvl 1 -y 680
+preplace inst soc_system.demo_driver_subsys_0.demo_rom -pg 1
+preplace inst soc_system.KBandIP.KBandInput_1 -pg 1
+preplace inst soc_system.hps_0.clk_0 -pg 1
+preplace inst soc_system.fpga_only_master.p2b_adapter -pg 1
+preplace inst soc_system.fpga_only_master.b2p_adapter -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.rng_deskew_0 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.clk_0 -pg 1
+preplace inst soc_system.hps_only_master.b2p -pg 1
+preplace inst soc_system.hps_clk_out -pg 1 -lvl 17 -y 880
+preplace inst soc_system.fpga_only_master.clk_rst -pg 1
+preplace inst soc_system.demo_driver_subsys_0.demo_timer -pg 1
+preplace inst soc_system.axi_bridge_for_acp_128_0 -pg 1 -lvl 15 -y 230
+preplace inst soc_system.validator_subsys_0.val_nios2_gen2.clock_bridge -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.ring_oscillator_83 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.rng_deskew_1 -pg 1
+preplace inst soc_system.validator_subsys_0 -pg 1 -lvl 4 -y 500
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.ring_oscillator_113 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.rng_deskew_2 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys -pg 1
+preplace inst soc_system.pio_led -pg 1 -lvl 4 -y 640
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.count_entropy_master_0 -pg 1
+preplace inst soc_system.hps_only_master.b2p_adapter -pg 1
+preplace inst soc_system.hps_0.axi_sdram -pg 1
+preplace inst soc_system.KBandIP.KBandInput_1.read_mstr_internal -pg 1
+preplace inst soc_system -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst soc_system.fpga_only_master.timing_adt -pg 1
+preplace inst soc_system.validator_subsys_0.val_handshake_ram_1k -pg 1
+preplace inst soc_system.validator_subsys_0.val_nios2_tc_ram -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.random_data_fifo -pg 1
+preplace inst soc_system.validator_subsys_0.val_des_hash_rom -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.entropy_ram_1k -pg 1
+preplace inst soc_system.hps_0.timer0 -pg 1
+preplace inst soc_system.hps_0.i2c0 -pg 1
+preplace inst soc_system.hps_0.timer1 -pg 1
+preplace inst soc_system.hps_0.i2c1 -pg 1
+preplace inst soc_system.hps_0.wd_timer0 -pg 1
+preplace inst soc_system.hps_0.timer2 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.ring_combiner_0 -pg 1
+preplace inst soc_system.hps_only_master.clk_rst -pg 1
+preplace inst soc_system.hps_0.qspi -pg 1
+preplace inst soc_system.hps_0.i2c2 -pg 1
+preplace inst soc_system.hps_0.wd_timer1 -pg 1
+preplace inst soc_system.hps_0.timer3 -pg 1
+preplace inst soc_system.fpga_only_master -pg 1 -lvl 2 -y 520
+preplace inst soc_system.hps_0.i2c3 -pg 1
+preplace inst soc_system.hps_0.gpio0 -pg 1
+preplace inst soc_system.hps_0.clkmgr -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.rng_fifo -pg 1
+preplace inst soc_system.hps_0.gpio1 -pg 1
+preplace inst soc_system.hps_0.arm_a9_0 -pg 1
+preplace inst soc_system.hps_0.L2 -pg 1
+preplace inst soc_system.KBandIP.KBandOutput.write_mstr_internal -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.two_bit_collector_0 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.enable_splitter -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.ring_oscillator_97 -pg 1
+preplace inst soc_system.hps_only_master.transacto -pg 1
+preplace inst soc_system.hps_0.gpio2 -pg 1
+preplace inst soc_system.hps_0.arm_a9_1 -pg 1
+preplace inst soc_system.hps_0.uart0 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.enable_splitter -pg 1
+preplace inst soc_system.demo_driver_subsys_0.mm_bridge -pg 1
+preplace inst soc_system.KBandIP.clk_0 -pg 1
+preplace inst soc_system.hps_0.uart1 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_pio -pg 1
+preplace inst soc_system.hps_only_master.p2b_adapter -pg 1
+preplace inst soc_system.hps_only_master -pg 1 -lvl 14 -y 300
+preplace inst soc_system.hps_0.spim0 -pg 1
+preplace inst soc_system.KBandIP.KBandOutput.cb_inst -pg 1
+preplace inst soc_system.KBandIP.mm_bridge_FPGA_Slave -pg 1
+preplace inst soc_system.hps_0.spim1 -pg 1
+preplace inst soc_system.KBandIP.KBandInput_1.dispatcher_internal -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.clk_0 -pg 1
+preplace inst soc_system.hps_0.timer -pg 1
+preplace inst soc_system.hps_0.sysmgr -pg 1
+preplace inst soc_system.validator_subsys_0.val_clk -pg 1
+preplace inst soc_system.KBandIP.DDR -pg 1
+preplace inst soc_system.validator_subsys_0.val_altchip_id -pg 1
+preplace inst soc_system.validator_subsys_0.val_conduit_blender -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.ring_combiner_0 -pg 1
+preplace inst soc_system.hps_0.l3regs -pg 1
+preplace inst soc_system.hps_0.f2s_periph_ref_clk -pg 1
+preplace inst soc_system.hps_only_master.fifo -pg 1
+preplace inst soc_system.hps_0.axi_ocram -pg 1
+preplace inst soc_system.hps_0.sdmmc -pg 1
+preplace inst soc_system.demo_driver_subsys_0.clk -pg 1
+preplace inst soc_system.KBandIP.KBandInput_1.cb_inst -pg 1
+preplace inst soc_system.sysid_qsys -pg 1 -lvl 4 -y 390
+preplace inst soc_system.validator_subsys_0.val_nios2_gen2 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.ring_oscillator_97 -pg 1
+preplace inst soc_system.hps_only_master.jtag_phy_embedded_in_jtag_master -pg 1
+preplace inst soc_system.fft_ddr_bridge -pg 1 -lvl 14 -y 130
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.rng_mm_bridge -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.ring_osc_enable_splitter -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.rng_deskew_0 -pg 1
+preplace inst soc_system.hps_only_master.p2b -pg 1
+preplace inst soc_system.hps_only_master.clk_src -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.rng_deskew_1 -pg 1
+preplace inst soc_system.hps_0.arm_gic_0 -pg 1
+preplace inst soc_system.KBandIP.onchip_mem_FPGA_Slave -pg 1
+preplace inst soc_system.hps_0.rstmgr -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.rng_deskew_2 -pg 1
+preplace inst soc_system.hps_0.usb0 -pg 1
+preplace inst soc_system.hps_0.scu -pg 1
+preplace inst soc_system.hps_0.usb1 -pg 1
+preplace inst soc_system.lw_mm_bridge -pg 1 -lvl 3 -y 470
+preplace inst soc_system.demo_driver_subsys_0 -pg 1 -lvl 4 -y 50
+preplace inst soc_system.hps_0.hps_io -pg 1
+preplace inst soc_system.fpga_only_master.p2b -pg 1
+preplace inst soc_system.KBandIP -pg 1 -lvl 13 -y 150
+preplace inst soc_system.KBandIP.onchip_mem_LW -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.clk_0 -pg 1
+preplace inst soc_system.hps_0.nand0 -pg 1
+preplace inst soc_system.fpga_only_master.clk_src -pg 1
+preplace inst soc_system.validator_subsys_0.val_nios2_gen2.cpu -pg 1
+preplace inst soc_system.hps_only_master.timing_adt -pg 1
+preplace inst soc_system.hps_0.gmac0 -pg 1
+preplace inst soc_system.fpga_only_master.fifo -pg 1
+preplace inst soc_system.validator_subsys_0.val_nios2_gen2.reset_bridge -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.ring_oscillator_83 -pg 1
+preplace inst soc_system.hps_0.gmac1 -pg 1
+preplace inst soc_system.hps_0 -pg 1 -lvl 16 -y 780
+preplace inst soc_system.hps_0.hps_io.border -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.rng_fifo -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.two_bit_collector_0 -pg 1
+preplace inst soc_system.hps_0.eosc1 -pg 1
+preplace inst soc_system.hps_0.fpgamgr -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.two_bit_collector_1 -pg 1
+preplace inst soc_system.jtag_uart -pg 1 -lvl 4 -y 260
+preplace inst soc_system.hps_0.dcan0 -pg 1
+preplace inst soc_system.hps_0.eosc2 -pg 1
+preplace inst soc_system.demo_driver_subsys_0.demo_ram -pg 1
+preplace inst soc_system.KBandIP.KBand21_0 -pg 1
+preplace inst soc_system.KBandIP.KBandInput_1.rst_inst -pg 1
+preplace inst soc_system.KBandIP.KBandOutput.rst_inst -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.two_bit_collector_2 -pg 1
+preplace inst soc_system.hps_0.dcan1 -pg 1
+preplace inst soc_system.hps_0.fpga_interfaces -pg 1
+preplace inst soc_system.fpga_only_master.jtag_phy_embedded_in_jtag_master -pg 1
+preplace inst soc_system.hps_0.f2s_sdram_ref_clk -pg 1
+preplace inst soc_system.fpga_only_master.transacto -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.rng_combiner_0 -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0.ring_oscillator_113 -pg 1
+preplace inst soc_system.KBandIP.KBandOutput -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.two_bit_collector_0 -pg 1
+preplace inst soc_system.FPGA_Slave_mm_bridge -pg 1 -lvl 12 -y 210
+preplace inst soc_system.validator_subsys_0.val_chip_id_read_mm -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.two_bit_collector_1 -pg 1
+preplace inst soc_system.hps_0.sdrctl -pg 1
+preplace inst soc_system.KBandIP.mm_bridge_LW -pg 1
+preplace inst soc_system.hps_0.dma -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1.two_bit_collector_2 -pg 1
+preplace inst soc_system.intr_capturer_0 -pg 1 -lvl 2 -y 310
+preplace inst soc_system.validator_subsys_0.val_mm_bridge -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_0 -pg 1
+preplace inst soc_system.fpga_only_master.b2p -pg 1
+preplace inst soc_system.hps_0.bridges -pg 1
+preplace inst soc_system.validator_subsys_0.val_rng_subsys.single_rng_subsys_1 -pg 1
+preplace inst soc_system.KBandIP.KBandOutput.dispatcher_internal -pg 1
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)KBandIP.m0,(SLAVE)fft_ddr_bridge.windowed_slave) 1 13 1 N
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)KBandIP.slw,(SLAVE)demo_driver_subsys_0.mm_bridge_s0,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)pio_led.s1,(SLAVE)intr_capturer_0.avalon_slave_0,(SLAVE)sysid_qsys.control_slave,(SLAVE)validator_subsys_0.val_mm_bridge_s0,(MASTER)lw_mm_bridge.m0) 1 1 12 390 300 NJ 300 1000 250 NJ 250 NJ 250 NJ 250 NJ 250 NJ 250 NJ 250 NJ 250 NJ 300 3630
+preplace netloc INTERCONNECT<net_container>soc_system</net_container>(SLAVE)KBandIP.kbandoutput_csr_irq,(SLAVE)KBandIP.kbandinput_1_csr_irq,(MASTER)intr_capturer_0.interrupt_receiver,(MASTER)hps_0.f2h_irq0,(SLAVE)jtag_uart.irq,(SLAVE)demo_driver_subsys_0.demo_timer_irq) 1 2 15 NJ 340 1020 190 NJ 190 NJ 190 NJ 190 NJ 190 NJ 190 NJ 190 NJ 190 NJ 180 3670 740 NJ 740 NJ 740 NJ 740 4780
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_cold_reset_req,(SLAVE)hps_0.f2h_cold_reset_req) 1 0 16 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ 830 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)hps_0.h2f_axi_master,(SLAVE)FPGA_Slave_mm_bridge.s0) 1 11 6 3260 410 NJ 410 NJ 410 NJ 410 NJ 410 4820
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc FAN_IN<net_container>soc_system</net_container>(SLAVE)lw_mm_bridge.s0,(MASTER)hps_0.h2f_lw_axi_master,(MASTER)fpga_only_master.master) 1 2 15 740 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 NJ 610 4800
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_clk_out.clk_in_reset,(MASTER)hps_0.h2f_reset) 1 16 1 N
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)axi_bridge_for_acp_128_0.m0,(SLAVE)hps_0.f2h_axi_slave) 1 15 1 4430
+preplace netloc EXPORT<net_container>soc_system</net_container>(MASTER)hps_clk_out.clk_reset,(MASTER)soc_system.hps_0_h2f_reset) 1 17 1 N
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.hps_io,(SLAVE)soc_system.hps_0_hps_io) 1 0 16 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ 950 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.pio_led_external_connection,(SLAVE)pio_led.external_connection) 1 0 4 NJ 670 NJ 670 NJ 670 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)FPGA_Slave_mm_bridge.m0,(SLAVE)KBandIP.sfpga) 1 12 1 N
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_stm_hw_events,(SLAVE)hps_0.f2h_stm_hw_events) 1 0 16 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ 910 NJ
+preplace netloc FAN_IN<net_container>soc_system</net_container>(SLAVE)axi_bridge_for_acp_128_0.s0,(MASTER)fft_ddr_bridge.expanded_master,(MASTER)hps_only_master.master) 1 14 1 4200
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_warm_reset_req,(SLAVE)soc_system.hps_0_f2h_warm_reset_req) 1 0 16 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ 930 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.memory,(SLAVE)hps_0.memory) 1 0 16 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ 1010 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)intr_capturer_0.reset_sink,(MASTER)clk_0.clk_reset,(SLAVE)hps_only_master.clk_reset,(SLAVE)axi_bridge_for_acp_128_0.reset,(SLAVE)FPGA_Slave_mm_bridge.reset,(SLAVE)demo_driver_subsys_0.reset,(SLAVE)KBandIP.reset,(SLAVE)pio_led.reset,(SLAVE)lw_mm_bridge.reset,(SLAVE)fft_ddr_bridge.reset,(SLAVE)fpga_only_master.clk_reset,(SLAVE)sysid_qsys.reset,(SLAVE)jtag_uart.reset,(SLAVE)validator_subsys_0.reset) 1 1 14 410 600 700 580 1060 230 NJ 230 NJ 230 NJ 230 NJ 230 NJ 230 NJ 230 NJ 230 3280 200 3650 310 3940 260 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)soc_system.clk) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)hps_only_master.clk,(SLAVE)intr_capturer_0.clock,(SLAVE)hps_0.f2h_axi_clock,(SLAVE)pio_led.clk,(SLAVE)fpga_only_master.clk,(SLAVE)lw_mm_bridge.clk,(SLAVE)KBandIP.clk,(SLAVE)axi_bridge_for_acp_128_0.clock,(SLAVE)hps_0.h2f_lw_axi_clock,(SLAVE)FPGA_Slave_mm_bridge.clk,(MASTER)clk_0.clk,(SLAVE)demo_driver_subsys_0.clk,(SLAVE)fft_ddr_bridge.clock,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)hps_0.f2h_sdram0_clock,(SLAVE)jtag_uart.clk,(SLAVE)validator_subsys_0.clk,(SLAVE)sysid_qsys.clk) 1 1 15 390 480 720 560 1040 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 NJ 170 3240 160 3670 110 3960 240 4220 870 4450
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_clk_out.clk_in,(MASTER)hps_0.h2f_user1_clock) 1 16 1 4820
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_debug_reset_req,(SLAVE)hps_0.f2h_debug_reset_req) 1 0 16 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ 850 NJ
+levelinfo -pg 1 0 180 5160
+levelinfo -hier soc_system 190 220 510 900 1270 1540 1810 2140 2420 2620 2890 3220 3500 3840 4040 4300 4590 4860 5030
