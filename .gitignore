@@ -1,1 +1,11 @@
+# https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+# QUARTUS IGNORE FILES
+**/db
+**/greybox_tmp
+**/hps_isw_handoff
+**/incremental_db
+**/simulation
+**/KBandIPsub
+**/soc_system
+**/output_files

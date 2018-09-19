@@ -1,0 +1,34 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst FFT_sub -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst FFT_sub.sgdma_to_fft.rst_inst -pg 1
+preplace inst FFT_sub.sgdma_to_fft.cb_inst -pg 1
+preplace inst FFT_sub.sgdma_from_fft.dispatcher_internal -pg 1
+preplace inst FFT_sub.data -pg 1 -lvl 5 -y 200
+preplace inst FFT_sub.sgdma_from_fft.rst_inst -pg 1
+preplace inst FFT_sub.clk_0 -pg 1 -lvl 1 -y 160
+preplace inst FFT_sub.sgdma_from_fft.cb_inst -pg 1
+preplace inst FFT_sub.mm_bridge_0 -pg 1 -lvl 4 -y 320
+preplace inst FFT_sub.sgdma_to_fft -pg 1 -lvl 2 -y 80
+preplace inst FFT_sub.fft_ii_0 -pg 1 -lvl 2 -y 250
+preplace inst FFT_sub.DDR -pg 1 -lvl 5 -y 280
+preplace inst FFT_sub.sgdma_to_fft.read_mstr_internal -pg 1
+preplace inst FFT_sub.sgdma_from_fft -pg 1 -lvl 4 -y 110
+preplace inst FFT_sub.FFT_STadapter_0 -pg 1 -lvl 3 -y 190
+preplace inst FFT_sub.sgdma_from_fft.write_mstr_internal -pg 1
+preplace inst FFT_sub.sgdma_to_fft.dispatcher_internal -pg 1
+preplace netloc POINT_TO_POINT<net_container>FFT_sub</net_container>(MASTER)fft_ii_0.source,(SLAVE)FFT_STadapter_0.fromfft) 1 2 1 680
+preplace netloc FAN_OUT<net_container>FFT_sub</net_container>(SLAVE)DDR.reset,(SLAVE)data.reset1,(SLAVE)sgdma_to_fft.reset_n,(SLAVE)sgdma_from_fft.reset_n,(MASTER)clk_0.clk_reset,(SLAVE)fft_ii_0.rst,(SLAVE)mm_bridge_0.reset,(SLAVE)FFT_STadapter_0.reset) 1 1 4 380 340 740 340 960 310 1250
+preplace netloc POINT_TO_POINT<net_container>FFT_sub</net_container>(MASTER)FFT_STadapter_0.out0,(SLAVE)sgdma_from_fft.st_sink) 1 3 1 N
+preplace netloc EXPORT<net_container>FFT_sub</net_container>(MASTER)DDR.m0,(MASTER)FFT_sub.to_ddr) 1 5 1 N
+preplace netloc POINT_TO_POINT<net_container>FFT_sub</net_container>(MASTER)FFT_STadapter_0.tofft,(SLAVE)fft_ii_0.sink) 1 1 3 400 360 NJ 360 900
+preplace netloc EXPORT<net_container>FFT_sub</net_container>(SLAVE)FFT_sub.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>FFT_sub</net_container>(SLAVE)mm_bridge_0.s0,(SLAVE)FFT_sub.s0) 1 0 4 NJ 380 NJ 380 NJ 380 NJ
+preplace netloc FAN_OUT<net_container>FFT_sub</net_container>(SLAVE)sgdma_to_fft.clock,(SLAVE)sgdma_from_fft.clock,(SLAVE)mm_bridge_0.clk,(MASTER)clk_0.clk,(SLAVE)fft_ii_0.clk,(SLAVE)DDR.clk,(SLAVE)data.clk1,(SLAVE)FFT_STadapter_0.clock) 1 1 4 360 220 660 320 940 290 1230
+preplace netloc EXPORT<net_container>FFT_sub</net_container>(SLAVE)sgdma_from_fft.csr_irq,(SLAVE)FFT_sub.sgdma_from_fft_csr_irq) 1 0 4 NJ 40 NJ 40 NJ 40 NJ
+preplace netloc EXPORT<net_container>FFT_sub</net_container>(SLAVE)FFT_sub.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
+preplace netloc POINT_TO_POINT<net_container>FFT_sub</net_container>(MASTER)sgdma_to_fft.st_source,(SLAVE)FFT_STadapter_0.in0) 1 2 1 700
+preplace netloc INTERCONNECT<net_container>FFT_sub</net_container>(SLAVE)sgdma_to_fft.descriptor_slave,(SLAVE)sgdma_to_fft.csr,(SLAVE)data.s1,(MASTER)sgdma_to_fft.mm_read,(MASTER)mm_bridge_0.m0,(SLAVE)FFT_STadapter_0.s0,(SLAVE)DDR.s0,(MASTER)sgdma_from_fft.mm_write,(SLAVE)sgdma_from_fft.descriptor_slave,(SLAVE)sgdma_from_fft.csr) 1 1 4 400 240 720 140 920 270 1210
+preplace netloc EXPORT<net_container>FFT_sub</net_container>(SLAVE)sgdma_to_fft.csr_irq,(SLAVE)FFT_sub.sgdma_to_fft_csr_irq) 1 0 2 NJ 130 NJ
+levelinfo -pg 1 0 150 1440
+levelinfo -hier FFT_sub 160 190 520 780 1080 1280 1370

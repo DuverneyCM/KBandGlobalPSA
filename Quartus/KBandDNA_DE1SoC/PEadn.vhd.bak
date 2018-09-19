@@ -1,0 +1,33 @@
+library IEEE;
+use work.Proteinas_pck.all;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_signed.all;
+
+entity PEadn is
+	generic(
+		dimH		: 	natural  :=	8
+	);
+	port
+	(
+		-- Input ports
+		CLOCK_50		:	in	std_logic;
+		reset			:	in std_logic;
+		iADNa			:	in std_logic_vector(dimAmino-1 downto 0);
+		iADNb			:	in std_logic_vector(dimAmino-1 downto 0);
+		iHd			:	in std_logic_vector(dimH-1 downto 0);
+		iHu			:	in std_logic_vector(dimH-1 downto 0);
+		iHl			:	in std_logic_vector(dimH-1 downto 0);
+
+		-- Output ports
+		outH				:	out std_logic_vector(dimH-1 downto 0);
+		outDireccion	:	out std_logic_vector(1 downto 0)
+	);
+end PEadn;
+
+
+architecture rtl of PEadn is
+
+begin
+
+end rtl;
