@@ -1,0 +1,138 @@
+./tracebackhps 64 seqA.txt seqB.txt arrows.bin seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 seqA.txt seqB.txt arrowsHPS.bin seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 chr24a.fa chr24b.fa arrowsHPS.bin seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 chr24a.fa chr24b.fa arrowsHPS 10 seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 chr24a.fa chr24b.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 251 seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 chr24Ta.fa chr24Tb.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 251 seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+
+./fpga_fft 1024 seqA.txt seqB.txt arrowsHPS.bin
+sudo ./fpga_fft 1024 seqA.txt seqB.txt arrows/arrowsHPS
+./tracebackhps 1024 seqA.txt seqB.txt arrows/arrowsHPS 1 seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 sequences-singleLine/NM_001354943.1.fa sequences-singleLine/NM_001354944.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+./tracebackhps 1024 sequences-singleLine/NZ_KN849241.1.fa sequences-singleLine/NZ_KN849241.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 10 seqAalign.txt seqBalign.txt seqAindex.bin seqBindex.bin
+
+
+./fpga_fft 1024 chr24a.fa chr24b.fa arrowsHPS.bin
+./fpga_fft 1024 chr24a.fa chr24b.fa arrowsHPS
+./fpga_fft 1024 chr24a.fa chr24b.fa arrows/arrowsHPS
+sudo ./fpga_fft 1024 chr24a.fa chr24b.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS
+
+
+
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001354943.1.fa sequences-singleLine/NM_001354944.1.fa ~/KBandNW/arrows/arrowsHPS 0
+./tracebackhps 1024 sequences-singleLine/NM_001354943.1.fa sequences-singleLine/NM_001354944.1.fa ~/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+
+
+
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001354943.1.fa sequences-singleLine/NM_001354944.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001354925.1.fa sequences-singleLine/NM_001354924.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001011645.3.fa sequences-singleLine/NM_000044.4.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/PSXO01000091.1.fa sequences-singleLine/PSXO01000097.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/PSWL01000013.1.fa sequences-singleLine/PSWJ01000010.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_PQKM01000006.1.fa sequences-singleLine/NZ_PQKN01000004.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_KN849241.1.fa sequences-singleLine/NZ_LJXA01000025.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_CP007019.1.fa sequences-singleLine/NC_017545.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/CM000111.5.fa sequences-singleLine/KZ626786.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+
+sudo ./fpga_fft 1024 sequences-singleLine/KZ626786.1.fa sequences-singleLine/CM000111.5.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+
+sudo ./fpga_fft 1024 sequences-singleLine/NW_004929415.1.fa sequences-singleLine/KE150199.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 0
+
+./tracebackhps 1024 sequences-singleLine/NM_001354943.1.fa sequences-singleLine/NM_001354944.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/NM_001354925.1.fa sequences-singleLine/NM_001354924.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/NM_001011645.3.fa sequences-singleLine/NM_000044.4.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/PSXO01000091.1.fa sequences-singleLine/PSXO01000097.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/PSWL01000013.1.fa sequences-singleLine/PSWJ01000010.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/NZ_PQKM01000006.1.fa sequences-singleLine/NZ_PQKN01000004.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 3 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/NZ_KN849241.1.fa sequences-singleLine/NZ_LJXA01000025.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 10 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+
+./tracebackhps 1024 sequences-singleLine/NZ_CP007019.1.fa sequences-singleLine/NC_017545.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 30 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+./tracebackhps 1024 sequences-singleLine/CM000111.5.fa sequences-singleLine/KZ626786.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 101 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+
+./tracebackhps 1024 sequences-singleLine/KZ626786.1.fa sequences-singleLine/CM000111.5.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 1 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+
+./tracebackhps 1024 sequences-singleLine/NW_004929415.1.fa sequences-singleLine/KE150199.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS 302 seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+
+
+
+
+
+ls /mnt/
+
+sudo ./fpga_fft 1024 PSWL01000013.1.fa PSWJ01000010.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_KN849241.1.fa sequences-singleLine/NZ_KN849241.1.fa /mnt/exHDD/KBandNW/arrows/arrowsHPS
+NZ_LJXA01000025.1.fa
+
+
+ssh sin password
+www.linuxproblem.org/art_9.html
+
+mkdir -p qsys_headers
+sopc-create-header-files ../../soc_system.sopcinfo --output-dir qsys_headers
+
+scp -r user@your.server.example.com:/path/to/foo /home/user/Desktop/
+scp root@10.125.25.242:/mnt/card/KBandNW/seqAalign.txt ~/Documents/Quartus/traceback_hps/
+scp root@10.125.25.242:/mnt/card/KBandNW/arrowsHPSp10.bin ~/Documents/Quartus/traceback_hps/
+scp root@10.125.25.242:/mnt/card/KBandNW/arrowsHPSp10.bin ~/Documents/Quartus/traceback_hps/
+
+scp ubuntu@10.123.22.249:/mnt/exHDD/KBandNW/arrows/arrowsHPSp10.bin ~/Documents/Quartus/traceback_hps/
+scp ubuntu@10.123.22.249:~/KBandNW/seqAalign.txt ~/Documents/Quartus/traceback_hps/
+
+scp fpga_fft root@10.125.13.255:~/KBandNW
+
+scp fpga_fft ubuntu@10.125.22.243:/mnt/card/KBandNW
+scp fpga_fft ubuntu@10.125.22.30:~/KBandNW
+scp tracebackhps ubuntu@10.125.22.243:~/KBandNW
+scp 
+usr/bin/make
+make
+make clean
+
+hexdump -x arrowsHPS.bin 
+
+scp fpga_fft
+
+#Mismo nombre en hostname y hosts
+/etc/hostname
+DE1SoC
+/etc/hosts
+127.0.1.1 	xxx	DE1SoC
+
+#mount ntfs partitions
+#HOWTO: FUSE setup and uses 
+https://ubuntuforums.org/showthread.php?t=148359
+
+
+update-initramfs -c -k 2.6.20
+
+sudo ifdown eth0
+sudo ifup eth0
+sudo /etc/init.d/networking restart
+
+
+# apt-get install ntfs-3g
+sudo mount /dev/sdXY
+mount /dev/sda1 /mnt/exHDD/
+mount /dev/mmcblk0p4 /mnt/SDK/
+mount /dev/sda1 /mnt/exHDD/ -o dmask=000,fmask=111
+sudo mount -t vfat /dev/sda1 /mnt/exHDD/  -o dmask=000,fmask=111
+mount -t ntfs-3g /dev/sda1 /mnt/exHDD/ -o rw
+mount /dev/mmcblk0p4 /mnt/card/ -o defaults,noatime
+echo "/dev/mmcblk0p4   /mnt/card/   vfat   defaults,noatime   0   0" >> /etc/fstab
+
+password generado SSH
+3EBE3A09904044C163
+
+
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001354943.1.fa sequences-singleLine/NM_001354944.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001354925.1.fa sequences-singleLine/NM_001354924.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NM_001011645.3.fa sequences-singleLine/NM_000044.4.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/PSXO01000091.1.fa sequences-singleLine/PSXO01000097.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/PSWL01000013.1.fa sequences-singleLine/PSWJ01000010.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_PQKM01000006.1.fa sequences-singleLine/NZ_PQKN01000004.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_KN849241.1.fa sequences-singleLine/NZ_LJXA01000025.1.fa arrows/arrowsHPS 0
+
+sudo ./fpga_fft 1024 sequences-singleLine/NZ_CP007019.1.fa sequences-singleLine/NC_017545.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/CM000111.5.fa sequences-singleLine/KZ626786.1.fa arrows/arrowsHPS 0
+sudo ./fpga_fft 1024 sequences-singleLine/NW_004929415.1.fa sequences-singleLine/KE150199.1.fa arrows/arrowsHPS 0
