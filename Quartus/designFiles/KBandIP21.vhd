@@ -105,6 +105,32 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			oArrows						:	out std_logic_vector(2*NoCell-1 downto 0)
 		);
 	end component;
+	
+	component SystolicFordwardModAffine is
+		generic(
+			NoCell			: 	natural  :=	64;
+			dimH			: 	natural  :=	4;
+			dimADN		: 	natural  :=	3;
+			dimLUT	:	natural  :=	3
+		);
+		port(
+			-- Input ports (parameters)
+			iMatch, iMisMatch, iOG, iEG	:	in std_logic_vector(dimLUT-1 downto 0);
+			-- Input ports
+			CLOCK_50	:	in	std_logic;
+			reset			:	in std_logic;
+			inDireccion	:	in std_logic;	--0 vertical, 1 horizontal
+			iADNh			:	in std_logic_vector(dimADN-1 downto 0);
+			iADNv			:	in std_logic_vector(dimADN-1 downto 0);
+			iEnable		:	in std_logic;
+			iADNFinish	:	in std_logic;
+
+			-- Output ports
+			oADNfinish, oADNvalid				:	out std_logic;
+			flag						:	out	std_logic;
+		oArrows				:	out std_logic_vector(2*NoCell-1 downto 0)
+		);
+	end component;
 
 	component KbandSource is
 		generic(
@@ -175,7 +201,33 @@ BEGIN
 	);
 	
 	
-	uSystolicKBand	: SystolicFordward
+--	uSystolicKBand	: SystolicFordward
+--	generic map(
+--		NoCell		=>	NoCell,
+--		dimH			=>	dimH,
+--		dimADN		=>	dimADN
+--	)
+--	port map(
+--		-- Input ports (parameters)
+--		iMatch		=>	"0101",	--	3+2
+--		iMisMatch	=>	"0001",	--	-1+2
+--		iW			=>	"0010",	--	2
+--		-- Input ports
+--		CLOCK_50		=>	clock_int,
+--		reset			=>	reset_reset,
+--		inDireccion	=>	sDirection,
+--		iADNh			=>	sADN1,
+--		iADNv			=>	sADN2,
+--		iEnable		=>	sProcesar,
+--		iADNFinish	=>	sADNfinish,
+--		-- Output ports
+--		oADNfinish		=>	sADNfinish,--sArrowEn,
+--		oADNvalid		=>	sADNvalid,
+--		flag				=>	sFlag,
+--		oArrows			=>	sArrows
+--	);
+
+	uSystolicKBand	: SystolicFordwardModAffine
 	generic map(
 		NoCell		=>	NoCell,
 		dimH			=>	dimH,
@@ -183,9 +235,10 @@ BEGIN
 	)
 	port map(
 		-- Input ports (parameters)
-		iMatch		=>	"0101",	--	3+2
-		iMisMatch	=>	"0001",	--	-1+2
-		iW			=>	"0010",	--	2
+		iMatch		=>	"001",	--	3+2
+		iMisMatch	=>	"111",	--	-1+2
+		iOG			=>	"010",	--	3
+		iEG			=>	"010",	--	1
 		-- Input ports
 		CLOCK_50		=>	clock_int,
 		reset			=>	reset_reset,

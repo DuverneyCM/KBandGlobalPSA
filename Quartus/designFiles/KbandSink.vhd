@@ -19,7 +19,7 @@ entity KbandSink is
 		oEmpty														:	out	std_logic;
 		oFinalPacket												:	out	std_logic;
 		oADN1, oADN2												:	out	std_logic_vector(dimADN downto 1)
-		
+
 	);
 end KbandSink;
 
@@ -35,7 +35,7 @@ COMPONENT FifoKBandIN IS
 		wrreq		: IN STD_LOGIC ;
 		q		: OUT STD_LOGIC_VECTOR (5 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
-		wrfull		: OUT STD_LOGIC 
+		wrfull		: OUT STD_LOGIC
 	);
 END COMPONENT;
 
@@ -54,8 +54,8 @@ signal	sADN1mux, sADN2mux, rADN1mux, rADN2mux							:	std_logic_vector(dimADN do
 
 begin
 	--Retardos de sincronizacion
-	process(reset, clk_int) is 
-	begin 
+	process(reset, clk_int) is
+	begin
 		if(reset = '1') then
 			--sDinData	<=	(others => '0');
 			--sFifoWrite	<=	'0';
@@ -83,10 +83,10 @@ begin
 	sDinData	<=	sDinData1 & sDinData2;
 
 
-	
+
 	uFIFOin	:	FifoKBandIN
 	port map(
-		aclr		=>	reset,		
+		aclr		=>	reset,
 		data		=>	sDinData, ------- contenar 1 y 2
 		rdclk		=>	clk_int,
 		rdreq		=>	sFifoRead,
@@ -96,13 +96,13 @@ begin
 		wrfull	=>	sFifoFull,
 		q			=>	sFifoDataOut
 	);
-	
+
 	sFifoRead	<=	iRead and not(sFifoEmpty);
 	sFifoWrite	<=	din_Valid and not sFifoFull;-- and iAdquirir;
 	--sDinData		<=	din_Data;
-	
+
 	--      sFifoDataOut
-	--	      
+	--
 	--		match = 3	missmatch = -1
 	sData1	<=	din_Data(8 downto 1);
 	sData2	<=	din_Data(16 downto 9);
@@ -121,7 +121,7 @@ begin
 						--"011" when "01101110",	--n=011		n=110
 						--"011" when "01001110",	--N=011		N=78
 						"000" when others;		--nada=000
-						
+
 	with sData2 select
 	sDinData2	<= "100" when "01000001",	--A=100		A=65
 						"100" when "01100001",	--a=100		a=97
@@ -137,19 +137,18 @@ begin
 						--"011" when "01101110",	--n=011		n=110
 						--"011" when "01001110",	--N=011		N=78
 						"000" when others;		--nada=000
-					
+
 	sADN1mux	<=	sFifoDataOut(3 downto 1) when ssFifoEmpty = '0' else	(others => '0');
 	sADN2mux	<=	sFifoDataOut(6 downto 4) when ssFifoEmpty = '0' else	(others => '0');
 	--oADN1	<=	sFifoDataOut(3 downto 1);
 	--oADN2	<=	sFifoDataOut(6 downto 4);
 	oADN1	<=	rADN1mux;
 	oADN2	<=	rADN2mux;
-	
+
 	oEmpty	<=	sFifoEmpty;--sFifoEmptyDelay;--ssFifoEmpty;
 	oFinalPacket	<=	sFinalPacket;
-	
+
 	--dout_Ready	<=	not sFifoFull and iAdquirir;
 	dout_Ready	<=	not sFifoFull;
-	
-end rtl;
 
+end rtl;

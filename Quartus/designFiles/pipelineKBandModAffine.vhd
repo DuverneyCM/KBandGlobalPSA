@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.std_logic_signed.all;
 
-entity pipelineKBandMod is
+entity pipelineKBandModAffine is
 	generic(
-		dimH		: 	natural  :=	8;
+		dimH		: 	natural  :=	5;
 		dimADN	:	natural  :=	3
 	);
 	port
@@ -19,19 +19,28 @@ entity pipelineKBandMod is
 		iADNa			:	in std_logic_vector(dimADN-1 downto 0);
 		iADNb			:	in std_logic_vector(dimADN-1 downto 0);
 		iH				:	in std_logic_vector(dimH-1 downto 0);
+		iG				:	in std_logic_vector(dimH-1 downto 0);
 		iArrow		:	in std_logic_vector(1 downto 0);
+		iDirGap		:	in	std_logic;
+		iCero			:	in	std_logic;
+		iFinish		:	in	std_logic;
 		-- Output ports
 		oADNa			:	out std_logic_vector(dimADN-1 downto 0);
 		oADNb			:	out std_logic_vector(dimADN-1 downto 0);
+		oH1msb		:	out std_logic_vector(1 downto 0);
 		oH1			:	out std_logic_vector(dimH-1 downto 0);
 		oH2			:	out std_logic_vector(dimH-1 downto 0);
+		oG1			:	out std_logic_vector(dimH-1 downto 0);
+		oG2			:	out std_logic_vector(dimH-1 downto 0);
+		oDirGapDiag	:	out std_logic;
 		oArrow		:	out std_logic_vector(1 downto 0)
 	);
-end pipelineKBandMod;
+end pipelineKBandModAffine;
 
 
-architecture rtl of pipelineKBandMod is
-signal	sH1		:	std_logic_vector(dimH-1 downto 0);
+architecture rtl of pipelineKBandModAffine is
+signal	sH1, sG1		:	std_logic_vector(dimH-1 downto 0);
+signal	sDirGap1, sDirGap2	: std_logic;
 begin
 	process(reset, CLOCK_50) is 
 	begin 
@@ -40,8 +49,19 @@ begin
 			oADNb		<= (others => '0');
 			sH1		<= (others => '0');
 			oH2		<= (others => '0');
+			sG1		<= (others => '0');
+			oG2		<= (others => '0');
 			oArrow	<= (others => '0');
+			sDirGap1	<=	'0';
+			sDirGap2	<=	'0';
 		elsif(rising_edge(CLOCK_50)) then
+			if (iEnable = '1') then
+				sH1(dimH-1 downto 0)		<= iH(dimH-1 downto 0);
+				sG1(dimH-1 downto 0)		<= iG(dimH-1 downto 0);
+			elsif (iCero = '1' or iFinish = '1') then
+				sH1	<= (others => '0');
+				sG1	<= (others => '0');
+			end if;
 			if (iEnable = '1') then
 				--registros de desplazamiento para aminoH y aminoV, cargan de forma alternada
 				if (inDireccion = '0') then
@@ -49,23 +69,18 @@ begin
 				else
 					oADNb		<= iADNb;
 				end if;
-				
-				--reset del bit N (resta de 2^N) cuando dicho bit sea 1 en todo el componente
-				sH1(dimH-1)					<= iH(dimH-1);
-				oH2(dimH-1)					<= sH1(dimH-1);
-				if (iBitCl = '1') then
-					sH1(dimH-2)		<= '0';
-					oH2(dimH-2)		<= '0';
-				else
-					sH1(dimH-2)		<= iH(dimH-2);
-					oH2(dimH-2)		<= sH1(dimH-2);
-				end if;
-				sH1(dimH-3 downto 0)		<= iH(dimH-3 downto 0);
-				oH2(dimH-3 downto 0)		<= sH1(dimH-3 downto 0);
+				--sH1(dimH-1 downto 0)		<= iH(dimH-1 downto 0);
+				oH2(dimH-1 downto 0)		<= sH1(dimH-1 downto 0);
+				oG2(dimH-1 downto 0)		<= sG1(dimH-1 downto 0);
+				sDirGap1	<=	iDirGap;
+				sDirGap2	<=	sDirGap1;
 				
 				oArrow	<= iArrow;
 			end if;
 		end if;
 	end process;
-	oH1	<=	sH1;
+	oDirGapDiag	<=	sDirGap2;
+	oH1		<=	sH1;
+	oG1		<=	sG1;
+	oH1msb	<=	sH1(dimH-1 downto dimH-2);
 end rtl;
