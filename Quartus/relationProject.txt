@@ -1,0 +1,70 @@
+Versiones más completas
+KBandIP21                   -> nueva carpeta de10
+SystolicFordwardModAffine   -> nueva carpeta de10
+PEadnModAffine              -> de10 toggle priority oG = eG *
+pipelineKBandModAffine      -> de10 toggle priority iEnable iCero
+
+*
+Resta3	<=	mayorOG - mayorEG;	--0:ex	1:op
+Resta3	<=	mayorEG - mayorOG;	--0:ex	1:op  *
+
+MSb(3)	<=	Resta3(dimH-1);
+
+mayorGapTotal	<=	mayorOG when MSb(3) = '0' else mayorEG;	--value
+mayorGapTotal	<=	mayorEG when MSb(3) = '0' else mayorOG; --value *
+
+--Gap Output
+oGap	<=	mayorGapTotal;
+
+oDirGap	<=	MSb(1) when MSb(3) = '0' else MSb(2);		--direction
+oDirGap	<=	MSb(2) when MSb(3) = '0' else MSb(1);		--direction *
+*
+
+** FifoKBandOUTmod
+lpm_widthu_r => 3,
+rdsync_delaypipe => 3,
+wrsync_delaypipe => 3
+**
+
+Directivas de presintesis
+
+KBandIP21 "Linear Gap"
+  KbandControl
+  KBandSink
+    FifoKBandIN
+  KBandSource
+    FifoKBandOUT
+  SystolicFordward
+    PEadnMod
+    PipelineKBandMod
+
+KBandIP21 "Affine Gap"
+  KbandControl
+  KBandSink
+    FifoKBandIN
+  KBandSource
+    FifoKBandOUT
+    FifoKBandOUT"mod"
+  SystolicFordwardModAffine ""
+    PEadnModAffine ""
+    PipelineKBandModAffine ""
+
+
+KBandIP21 "Affine Gap"
+  KbandControl
+  KBandSink
+    FifoKBandIN
+  KBandSource
+    FifoKBandOUT
+    FifoKBandOUT"mod" ***delete (no use)
+  SystolicFordward ***add
+    PEadnMod ***add
+    PipelineKBandMod ***
+  SystolicFordwardModAffine ""
+    PEadnModAffine ""
+    PipelineKBandModAffine ""
+
+
+
+No Utilizados
+my_data_types
