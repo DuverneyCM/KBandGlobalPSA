@@ -46,35 +46,6 @@
          type = "String";
       }
    }
-   element _
-   {
-      datum _sortIndex
-      {
-         value = "11";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element _.expanded_master
-   {
-      datum _tags
-      {
-         value = "";
-         type = "String";
-      }
-   }
-   element _.windowed_slave
-   {
-      datum baseAddress
-      {
-         value = "0";
-         type = "String";
-      }
-   }
    element axi_bridge_for_acp_128_0
    {
       datum _sortIndex
@@ -115,6 +86,35 @@
       {
          value = "-13369600";
          type = "int";
+      }
+   }
+   element fft_ddr_bridge
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element fft_ddr_bridge.expanded_master
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
+   element fft_ddr_bridge.windowed_slave
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
       }
    }
    element fpga_only_master
@@ -465,23 +465,9 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_M0_ADDRESS_MAP"><![CDATA[<address-map><slave name='_.windowed_slave' start='0x0' end='0x40000000' /></address-map>]]></parameter>
+  <parameter name="AUTO_M0_ADDRESS_MAP"><![CDATA[<address-map><slave name='fft_ddr_bridge.windowed_slave' start='0x0' end='0x40000000' /></address-map>]]></parameter>
   <parameter name="AUTO_M0_ADDRESS_WIDTH" value="AddressWidth = 30" />
   <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_KBandIP</parameter>
- </module>
- <module
-   name="_"
-   kind="altera_address_span_extender"
-   version="16.1"
-   enabled="1">
-  <parameter name="BURSTCOUNT_WIDTH" value="5" />
-  <parameter name="DATA_WIDTH" value="128" />
-  <parameter name="ENABLE_SLAVE_PORT" value="true" />
-  <parameter name="MASTER_ADDRESS_DEF" value="2147483648" />
-  <parameter name="MASTER_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_PENDING_READS" value="8" />
-  <parameter name="SLAVE_ADDRESS_WIDTH" value="26" />
-  <parameter name="SUB_WINDOW_COUNT" value="1" />
  </module>
  <module
    name="axi_bridge_for_acp_128_0"
@@ -493,6 +479,20 @@
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module
+   name="fft_ddr_bridge"
+   kind="altera_address_span_extender"
+   version="16.1"
+   enabled="1">
+  <parameter name="BURSTCOUNT_WIDTH" value="5" />
+  <parameter name="DATA_WIDTH" value="128" />
+  <parameter name="ENABLE_SLAVE_PORT" value="true" />
+  <parameter name="MASTER_ADDRESS_DEF" value="2147483648" />
+  <parameter name="MASTER_ADDRESS_WIDTH" value="32" />
+  <parameter name="MAX_PENDING_READS" value="8" />
+  <parameter name="SLAVE_ADDRESS_WIDTH" value="26" />
+  <parameter name="SUB_WINDOW_COUNT" value="1" />
  </module>
  <module
    name="fpga_only_master"
@@ -1279,7 +1279,7 @@
  <connection
    kind="avalon"
    version="16.1"
-   start="_.expanded_master"
+   start="fft_ddr_bridge.expanded_master"
    end="axi_bridge_for_acp_128_0.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -1352,7 +1352,7 @@
    kind="avalon"
    version="16.1"
    start="KBandIP.m0"
-   end="_.windowed_slave">
+   end="fft_ddr_bridge.windowed_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1404,7 +1404,11 @@
    version="16.1"
    start="pll_0.outclk0"
    end="axi_bridge_for_acp_128_0.clock" />
- <connection kind="clock" version="16.1" start="pll_0.outclk0" end="_.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="pll_0.outclk0"
+   end="fft_ddr_bridge.clock" />
  <connection
    kind="clock"
    version="16.1"
@@ -1473,7 +1477,11 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="axi_bridge_for_acp_128_0.reset" />
- <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="_.reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="fft_ddr_bridge.reset" />
  <connection
    kind="reset"
    version="16.1"

@@ -4,7 +4,7 @@
 -- created in component editor.  It ties off all outputs to ground and
 -- ignores all inputs.  It needs to be edited to make it do something
 -- useful.
--- 
+--
 -- This file will not be automatically regenerated.  You should check it in
 -- to your version control system if you want to keep it.
 
@@ -19,7 +19,8 @@ ENTITY KBandIP21 is
 		dimSymbol	:	natural	:=	32;
 		dimADN		: 	natural  :=	3;
 		bitsOUT		:	natural	:=	64; --Source data width
-		widthu		:	natural	:=	6 --2**w = #regs
+		widthu		:	natural	:=	6; --2**w = #regs
+		dimLUT		:	natural  :=	4
 	);
 	port (
 		clock_ext    : in  std_logic  := '0';             --  clock.clk
@@ -37,9 +38,10 @@ ENTITY KBandIP21 is
 		iArrow_ready : in  std_logic  := '0';             --       .ready
 		oArrow_valid : out std_logic;                                         --       .valid
 		--pruebas
+		iParameters		:	in	std_logic_vector(31 downto 0);
 		oADN1, oADN2	:	out std_logic_vector(dimADN-1 downto 0);
 		oDirection		:	out std_logic
-		
+
 	);
 END ENTITY KBandIP21;
 
@@ -51,7 +53,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sArrows					:	std_logic_vector(2*NoCell-1 downto 0);
 	signal	sFIFOfullKBsrc			:	std_logic;
 	signal	sArrow_data  			:	std_logic_vector(bitsOUT-1 downto 0);
-	
+
 	signal	sArrow_valid			: std_logic;
 	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket ¿De donde saco esta señal?
 	signal	sSourceEmpty			: std_logic;
@@ -59,12 +61,15 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sSourceSendDirection	:	std_logic;
 	signal	sResetSync	:	std_logic;
 	signal	sTransmitir	:	std_logic;
-	
+	signal	sLoadParameter	:	std_logic;
+	signal	sMatch, sMisMatch, sOG, sEG	:	std_logic_vector(dimLUT-1 downto 0);
+
 
 	component KbandSink is
 		generic(
 			dimSymbol	:	natural	:=	8;
-			dimADN		:	natural	:=	3
+			dimADN		:	natural	:=	3;
+			dimLUT		:	natural  :=	4
 		);
 		port(
 			-- clk and reset interface
@@ -74,11 +79,16 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			din_Valid													:	in		std_logic;
 			din_Data														:	in		std_logic_vector(dimSymbol downto 1);
 			--interLogic Ports
+			iParameters			:	in	std_logic_vector(31 downto 0);
+			oMatch		:	out	std_logic_vector(dimLUT-1 downto 0);
+			oMisMatch	:	out	std_logic_vector(dimLUT-1 downto 0);
+			oOG				:	out	std_logic_vector(dimLUT-1 downto 0);
+			oEG				:	out	std_logic_vector(dimLUT-1 downto 0);
 			iRead															:	in		std_logic;
 			oEmpty														:	out	std_logic;
 			oFinalPacket												:	out	std_logic;
 			oADN1, oADN2												:	out	std_logic_vector(dimADN downto 1)
-			
+
 		);
 	end component;
 
@@ -86,11 +96,12 @@ ARCHITECTURE rtl OF KBandIP21 IS
 		generic(
 			NoCell		: 	natural  :=	64;
 			dimH			: 	natural  :=	8;
-			dimADN		: 	natural  :=	3
+			dimADN		: 	natural  :=	3;
+			dimLUT		:	natural  :=	3
 		);
 		port(
 			-- Input ports (parameters)
-			iMatch, iMisMatch, iW	:	in std_logic_vector(3 downto 0);
+			iMatch, iMisMatch, iOG, iEG	:	in std_logic_vector(dimLUT-1 downto 0);
 			-- Input ports
 			CLOCK_50		:	in	std_logic;
 			reset			:	in std_logic;
@@ -105,7 +116,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			oArrows						:	out std_logic_vector(2*NoCell-1 downto 0)
 		);
 	end component;
-	
+
 	component SystolicFordwardModAffine is
 		generic(
 			NoCell			: 	natural  :=	64;
@@ -146,7 +157,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			--Streamming Source Interface
 			din_Ready															:	in		std_logic;
 			dout_Valid															:	out	std_logic;
-			dout_Data															:	out	std_logic_vector(bitsOUT downto 1);	
+			dout_Data															:	out	std_logic_vector(bitsOUT downto 1);
 			--interLogic Ports
 			iSendDirection, iDirection										:	in	std_logic;
 			iWrite																:	in	std_logic;
@@ -156,7 +167,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			iArrows																:	in	std_logic_vector(2*NoCell downto 1)
 		);
 	end component;
-	
+
 	component KbandControl is
 		port(
 			-- clk and reset interface
@@ -183,65 +194,45 @@ BEGIN
 
 
 	STSink	:	KbandSink
-	generic map( dimSymbol, dimADN )
+	generic map( dimSymbol, dimADN, dimLUT )
 	port map(
 		clk_ext		=>	clock_ext,
 		clk_int		=>	clock_int,
-		reset			=>	reset_reset,	
+		reset			=>	reset_reset,
 		--Streamming Sink Interface
 		dout_Ready	=>	oADN1_ready,
 		din_Valid	=>	iADN1_valid,
 		din_Data		=>	iADN1_data,
 		--interLogic Ports
+		iParameters			=>	iParameters,
+		oMatch		=>	sMatch,
+		oMisMatch	=>	sMisMatch,
+		oOG		=>	sOG,
+		oEG		=>	sEG,
 		iRead			=>	sSinkRead,
 		oEmpty		=>	sSink1Empty,
 		oFinalPacket	=>	sFinalPacket,
 		oADN1			=>	sADN1,
 		oADN2			=>	sADN2
 	);
-	
-	
---	uSystolicKBand	: SystolicFordward
---	generic map(
---		NoCell		=>	NoCell,
---		dimH			=>	dimH,
---		dimADN		=>	dimADN
---	)
---	port map(
---		-- Input ports (parameters)
---		iMatch		=>	"0101",	--	3+2
---		iMisMatch	=>	"0001",	--	-1+2
---		iW			=>	"0010",	--	2
---		-- Input ports
---		CLOCK_50		=>	clock_int,
---		reset			=>	reset_reset,
---		inDireccion	=>	sDirection,
---		iADNh			=>	sADN1,
---		iADNv			=>	sADN2,
---		iEnable		=>	sProcesar,
---		iADNFinish	=>	sADNfinish,
---		-- Output ports
---		oADNfinish		=>	sADNfinish,--sArrowEn,
---		oADNvalid		=>	sADNvalid,
---		flag				=>	sFlag,
---		oArrows			=>	sArrows
---	);
 
-	uSystolicKBand	: SystolicFordwardModAffine
+
+	uSystolicKBand	: SystolicFordward
 	generic map(
 		NoCell		=>	NoCell,
 		dimH			=>	dimH,
-		dimADN		=>	dimADN
+		dimADN		=>	dimADN,
+		dimLUT		=>	dimLUT
 	)
 	port map(
 		-- Input ports (parameters)
-		iMatch		=>	"001",	--	3+2
-		iMisMatch	=>	"111",	--	-1+2
-		iOG			=>	"010",	--	3
-		iEG			=>	"010",	--	1
+		iMatch		=>	sMatch,	--	3+2
+		iMisMatch	=>	sMisMatch,	--	-1+2
+		iOG			=>	sOG,	--	2
+		iEG			=>	sEG,	--	1
 		-- Input ports
 		CLOCK_50		=>	clock_int,
-		reset			=>	reset_reset,
+		reset			=>	reset_reset or sResetSync,
 		inDireccion	=>	sDirection,
 		iADNh			=>	sADN1,
 		iADNv			=>	sADN2,
@@ -253,7 +244,7 @@ BEGIN
 		flag				=>	sFlag,
 		oArrows			=>	sArrows
 	);
-	
+
 	STSource	:	KbandSource
 	generic map(
 		NoCell		=>	NoCell,
@@ -279,7 +270,7 @@ BEGIN
 		oFIFOEmpty	=>	sSourceEmpty,
 		iArrows		=>	sArrows
 	);
-	
+
 	STControl	:	KbandControl
 	port map(
 		clk						=> clock_int,

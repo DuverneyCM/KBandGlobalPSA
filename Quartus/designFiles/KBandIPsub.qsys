@@ -62,6 +62,14 @@
          type = "String";
       }
    }
+   element KBandIPsub
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element KBandInput_1
    {
       datum _sortIndex
@@ -190,6 +198,22 @@
          type = "String";
       }
    }
+   element pio_0
+   {
+      datum _sortIndex
+      {
+         value = "10";
+         type = "int";
+      }
+   }
+   element pio_0.s1
+   {
+      datum baseAddress
+      {
+         value = "65760";
+         type = "String";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -204,7 +228,7 @@
  <parameter name="hideFromIPCatalog" value="false" />
  <parameter name="lockedInterfaceDefinition" value="" />
  <parameter name="maxAdditionalLatency" value="1" />
- <parameter name="projectName" value="Kband.qpf" />
+ <parameter name="projectName" value="" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="0" />
  <parameter name="testBenchDutName" value="" />
@@ -249,7 +273,8 @@
   <parameter name="NoCell" value="1024" />
   <parameter name="bitsOUT" value="128" />
   <parameter name="dimADN" value="3" />
-  <parameter name="dimH" value="5" />
+  <parameter name="dimH" value="4" />
+  <parameter name="dimLUT" value="4" />
   <parameter name="dimSymbol" value="32" />
   <parameter name="widthu" value="3" />
  </module>
@@ -340,7 +365,7 @@
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module name="clk_0" kind="clock_source" version="16.1" enabled="1">
-  <parameter name="clockFrequency" value="250000000" />
+  <parameter name="clockFrequency" value="200000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
@@ -451,6 +476,20 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
+ <module name="pio_0" kind="altera_avalon_pio" version="16.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="200000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="0" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="32" />
+ </module>
  <connection
    kind="avalon"
    version="16.1"
@@ -505,6 +544,11 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
+ <connection kind="avalon" version="16.1" start="mm_bridge_LW.m0" end="pio_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x000100e0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection
    kind="avalon"
    version="16.1"
@@ -544,8 +588,13 @@
  <connection
    kind="avalon_streaming"
    version="16.1"
-   start="KBandInput_1.st_source"
+   start="KBand21_0.oArrow"
    end="KBandOutput.st_sink" />
+ <connection
+   kind="avalon_streaming"
+   version="16.1"
+   start="KBandInput_1.st_source"
+   end="KBand21_0.iADN1" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="mm_bridge_LW.clk" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="DDR.clk" />
  <connection
@@ -553,6 +602,7 @@
    version="16.1"
    start="clk_0.clk"
    end="mm_bridge_FPGA_Slave.clk" />
+ <connection kind="clock" version="16.1" start="clk_0.clk" end="pio_0.clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -580,6 +630,17 @@
    start="clk_internal.clk"
    end="KBand21_0.clock_internal" />
  <connection
+   kind="conduit"
+   version="16.1"
+   start="pio_0.external_connection"
+   end="KBand21_0.Parameters">
+  <parameter name="endPort" value="" />
+  <parameter name="endPortLSB" value="0" />
+  <parameter name="startPort" value="" />
+  <parameter name="startPortLSB" value="0" />
+  <parameter name="width" value="0" />
+ </connection>
+ <connection
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
@@ -600,6 +661,7 @@
    version="16.1"
    start="clk_0.clk_reset"
    end="mm_bridge_FPGA_Slave.reset" />
+ <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="pio_0.reset" />
  <connection
    kind="reset"
    version="16.1"

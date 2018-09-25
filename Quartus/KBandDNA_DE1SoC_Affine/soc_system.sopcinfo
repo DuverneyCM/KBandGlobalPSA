@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.03.15.16:49:20 -->
+ <!-- 2018.09.25.11:28:22 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1521150558</value>
+  <value>1537892900</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1045,28 +1045,32 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.s0</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.s0</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
   </interface>
  </module>
- <module name="KBandIP" kind="KBandIPsub" version="1.0" path="KBandIP">
+ <module
+   name="KBandIPAffine"
+   kind="KBandIPsubAffine"
+   version="1.0"
+   path="KBandIPAffine">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1521150558</value>
+   <value>1537892900</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -1075,7 +1079,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_UNIQUE_ID">
    <type>java.lang.String</type>
-   <value>soc_system_KBandIP</value>
+   <value>soc_system_KBandIPAffine</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -1342,7 +1346,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>KBandIP.slw</value>
+    <value>KBandIPAffine.slw</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -1419,7 +1423,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>KBandIP.slw</value>
+    <value>KBandIPAffine.slw</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -2662,10 +2666,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_DDR"
+   name="KBandIPAffine_DDR"
    kind="altera_avalon_mm_bridge"
    version="16.1"
-   path="KBandIP.DDR">
+   path="KBandIPAffine.DDR">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="DATA_WIDTH">
@@ -3620,10 +3624,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_KBand21_0"
-   kind="KBand21"
+   name="KBandIPAffine_KBand21affine"
+   kind="KBand21affine"
    version="1.0"
-   path="KBandIP.KBand21_0">
+   path="KBandIPAffine.KBand21affine">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="NoCell">
@@ -3674,6 +3678,14 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
+  <parameter name="dimLUT">
+   <type>int</type>
+   <value>4</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -3690,24 +3702,24 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="reset" kind="reset_sink" version="16.1">
+  <interface name="clock_external" kind="clock_sink" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>clock_external</value>
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
     <derived>false</derived>
     <enabled>true</enabled>
-    <visible>true</visible>
+    <visible>false</visible>
     <valid>true</valid>
    </parameter>
-   <parameter name="synchronousEdges">
-    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
-    <value>DEASSERT</value>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
-    <visible>true</visible>
+    <visible>false</visible>
     <valid>true</valid>
    </parameter>
    <parameter name="deviceFamily">
@@ -3726,13 +3738,90 @@ parameters are a RESULT of the module parameters. -->
     <visible>true</visible>
     <valid>true</valid>
    </parameter>
-   <type>reset</type>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>200000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
    <isStart>false</isStart>
    <port>
-    <name>reset_reset</name>
+    <name>clock_ext</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>reset</role>
+    <role>clk</role>
+   </port>
+  </interface>
+  <interface name="clock_internal" kind="clock_sink" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>50000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>clock_int</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
    </port>
   </interface>
   <interface name="iADN1" kind="avalon_streaming_sink" version="16.1">
@@ -3860,16 +3949,16 @@ parameters are a RESULT of the module parameters. -->
     <role>data</role>
    </port>
    <port>
-    <name>oADN1_ready</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>ready</role>
-   </port>
-   <port>
     <name>iADN1_valid</name>
     <direction>Input</direction>
     <width>1</width>
     <role>valid</role>
+   </port>
+   <port>
+    <name>oADN1_ready</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>ready</role>
    </port>
   </interface>
   <interface name="oArrow" kind="avalon_streaming_source" version="16.1">
@@ -3991,16 +4080,16 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon_streaming</type>
    <isStart>true</isStart>
    <port>
-    <name>oArrow_data</name>
-    <direction>Output</direction>
-    <width>128</width>
-    <role>data</role>
-   </port>
-   <port>
     <name>iArrow_ready</name>
     <direction>Input</direction>
     <width>1</width>
     <role>ready</role>
+   </port>
+   <port>
+    <name>oArrow_data</name>
+    <direction>Output</direction>
+    <width>128</width>
+    <role>data</role>
    </port>
    <port>
     <name>oArrow_valid</name>
@@ -4009,24 +4098,24 @@ parameters are a RESULT of the module parameters. -->
     <role>valid</role>
    </port>
   </interface>
-  <interface name="clock_internal" kind="clock_sink" version="16.1">
+  <interface name="reset" kind="reset_sink" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_external</value>
     <derived>false</derived>
     <enabled>true</enabled>
-    <visible>false</visible>
+    <visible>true</visible>
     <valid>true</valid>
    </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
+   <parameter name="synchronousEdges">
+    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
+    <value>DEASSERT</value>
     <derived>false</derived>
     <enabled>true</enabled>
-    <visible>false</visible>
+    <visible>true</visible>
     <valid>true</valid>
    </parameter>
    <parameter name="deviceFamily">
@@ -4045,49 +4134,33 @@ parameters are a RESULT of the module parameters. -->
     <visible>true</visible>
     <valid>true</valid>
    </parameter>
-   <parameter name="clockRateKnown">
-    <type>java.lang.Boolean</type>
-    <value>true</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRate">
-    <type>java.lang.Long</type>
-    <value>50000000</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
+   <type>reset</type>
    <isStart>false</isStart>
    <port>
-    <name>clock_int</name>
+    <name>reset_reset</name>
     <direction>Input</direction>
     <width>1</width>
-    <role>clk</role>
+    <role>reset</role>
    </port>
   </interface>
-  <interface name="clock_external" kind="clock_sink" version="16.1">
+  <interface name="Parameters" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
+   <parameter name="associatedClock">
     <type>java.lang.String</type>
     <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
-    <visible>false</visible>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
     <valid>true</valid>
    </parameter>
    <parameter name="deviceFamily">
@@ -4106,37 +4179,21 @@ parameters are a RESULT of the module parameters. -->
     <visible>true</visible>
     <valid>true</valid>
    </parameter>
-   <parameter name="clockRateKnown">
-    <type>java.lang.Boolean</type>
-    <value>true</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRate">
-    <type>java.lang.Long</type>
-    <value>250000000</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
+   <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>clock_ext</name>
+    <name>iParameters</name>
     <direction>Input</direction>
-    <width>1</width>
-    <role>clk</role>
+    <width>32</width>
+    <role>export</role>
    </port>
   </interface>
  </module>
  <module
-   name="KBandIP_KBandInput_1"
+   name="KBandIPAffine_KBandInput_1"
    kind="altera_msgdma"
    version="16.1"
-   path="KBandIP.KBandInput_1">
+   path="KBandIPAffine.KBandInput_1">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -4915,9 +4972,9 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_DDR</moduleName>
+    <moduleName>KBandIPAffine_DDR</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_DDR.s0</name>
+    <name>KBandIPAffine_DDR.s0</name>
     <baseAddress>1073741824</baseAddress>
     <span>1073741824</span>
    </memoryBlock>
@@ -4931,9 +4988,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>0</baseAddress>
     <span>4096</span>
    </memoryBlock>
@@ -5974,10 +6031,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_KBandOutput"
+   name="KBandIPAffine_KBandOutput"
    kind="altera_msgdma"
    version="16.1"
-   path="KBandIP.KBandOutput">
+   path="KBandIPAffine.KBandOutput">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -6750,9 +6807,9 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_DDR</moduleName>
+    <moduleName>KBandIPAffine_DDR</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_DDR.s0</name>
+    <name>KBandIPAffine_DDR.s0</name>
     <baseAddress>1073741824</baseAddress>
     <span>1073741824</span>
    </memoryBlock>
@@ -6766,9 +6823,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
@@ -7809,15 +7866,15 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_clk_0"
+   name="KBandIPAffine_clk_0"
    kind="clock_source"
    version="16.1"
-   path="KBandIP.clk_0">
+   path="KBandIPAffine.clk_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="clockFrequency">
    <type>long</type>
-   <value>250000000</value>
+   <value>200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -8049,51 +8106,57 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>clk</slaveName>
-    <name>KBandIP_mm_bridge_LW.clk</name>
+    <name>KBandIPAffine_mm_bridge_LW.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_DDR</moduleName>
+    <moduleName>KBandIPAffine_DDR</moduleName>
     <slaveName>clk</slaveName>
-    <name>KBandIP_DDR.clk</name>
+    <name>KBandIPAffine_DDR.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>clk</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.clk</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>KBandIPAffine_pio_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>clk1</slaveName>
-    <name>KBandIP_onchip_mem_LW.clk1</name>
+    <name>KBandIPAffine_onchip_mem_LW.clk1</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>clk1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.clk1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.clk1</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>clock</slaveName>
-    <name>KBandIP_KBandOutput.clock</name>
+    <name>KBandIPAffine_KBandOutput.clock</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>clock</slaveName>
-    <name>KBandIP_KBandInput_1.clock</name>
+    <name>KBandIPAffine_KBandInput_1.clock</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBand21_0</moduleName>
+    <moduleName>KBandIPAffine_KBand21affine</moduleName>
     <slaveName>clock_external</slaveName>
-    <name>KBandIP_KBand21_0.clock_external</name>
+    <name>KBandIPAffine_KBand21affine.clock_external</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
@@ -8159,10 +8222,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_clk_internal"
+   name="KBandIPAffine_clk_internal"
    kind="clock_source"
    version="16.1"
-   path="KBandIP.clk_internal">
+   path="KBandIPAffine.clk_internal">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="clockFrequency">
@@ -8399,9 +8462,9 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBand21_0</moduleName>
+    <moduleName>KBandIPAffine_KBand21affine</moduleName>
     <slaveName>clock_internal</slaveName>
-    <name>KBandIP_KBand21_0.clock_internal</name>
+    <name>KBandIPAffine_KBand21affine.clock_internal</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
@@ -8467,10 +8530,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_mm_bridge_FPGA_Slave"
+   name="KBandIPAffine_mm_bridge_FPGA_Slave"
    kind="altera_avalon_mm_bridge"
    version="16.1"
-   path="KBandIP.mm_bridge_FPGA_Slave">
+   path="KBandIPAffine.mm_bridge_FPGA_Slave">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="DATA_WIDTH">
@@ -9416,19 +9479,19 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
   </interface>
  </module>
  <module
-   name="KBandIP_mm_bridge_LW"
+   name="KBandIPAffine_mm_bridge_LW"
    kind="altera_avalon_mm_bridge"
    version="16.1"
-   path="KBandIP.mm_bridge_LW">
+   path="KBandIPAffine.mm_bridge_LW">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="DATA_WIDTH">
@@ -10374,51 +10437,59 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>65600</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>65536</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>65664</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>65632</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>0</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>65760</baseAddress>
+    <span>16</span>
    </memoryBlock>
   </interface>
  </module>
  <module
-   name="KBandIP_onchip_mem_FPGA_Slave"
+   name="KBandIPAffine_onchip_mem_FPGA_Slave"
    kind="altera_avalon_onchip_memory2"
    version="16.1"
-   path="KBandIP.onchip_mem_FPGA_Slave">
+   path="KBandIPAffine.onchip_mem_FPGA_Slave">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -10443,7 +10514,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_CONTENTS_FILE</name>
-   <value>soc_system_KBandIP_onchip_mem_FPGA_Slave</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_FPGA_Slave</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_MEM_CONTENT</name>
@@ -10507,7 +10578,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.memoryInfo.MEM_INIT_FILENAME</name>
-   <value>soc_system_KBandIP_onchip_mem_FPGA_Slave</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_FPGA_Slave</value>
   </assignment>
   <assignment>
    <name>postgeneration.simulation.init_file.param_name</name>
@@ -10719,7 +10790,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="autoInitializationFileName">
    <type>java.lang.String</type>
-   <value>soc_system_KBandIP_onchip_mem_FPGA_Slave</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_FPGA_Slave</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10794,7 +10865,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="derived_init_file_name">
    <type>java.lang.String</type>
-   <value>soc_system_KBandIP_onchip_mem_FPGA_Slave.hex</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_FPGA_Slave.hex</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -11283,10 +11354,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <module
-   name="KBandIP_onchip_mem_LW"
+   name="KBandIPAffine_onchip_mem_LW"
    kind="altera_avalon_onchip_memory2"
    version="16.1"
-   path="KBandIP.onchip_mem_LW">
+   path="KBandIPAffine.onchip_mem_LW">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <assignment>
@@ -11311,7 +11382,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_CONTENTS_FILE</name>
-   <value>soc_system_KBandIP_onchip_mem_LW</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_LW</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.INIT_MEM_CONTENT</name>
@@ -11375,7 +11446,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.memoryInfo.MEM_INIT_FILENAME</name>
-   <value>soc_system_KBandIP_onchip_mem_LW</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_LW</value>
   </assignment>
   <assignment>
    <name>postgeneration.simulation.init_file.param_name</name>
@@ -11587,7 +11658,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="autoInitializationFileName">
    <type>java.lang.String</type>
-   <value>soc_system_KBandIP_onchip_mem_LW</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_LW</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -11662,7 +11733,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="derived_init_file_name">
    <type>java.lang.String</type>
-   <value>soc_system_KBandIP_onchip_mem_LW.hex</value>
+   <value>soc_system_KBandIPAffine_onchip_mem_LW.hex</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12147,6 +12218,784 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>reset_req</role>
+   </port>
+  </interface>
+ </module>
+ <module
+   name="KBandIPAffine_pio_0"
+   kind="altera_avalon_pio"
+   version="16.1"
+   path="KBandIPAffine.pio_0">
+  <!-- Describes a single module. Module parameters are
+the requested settings for a module instance. -->
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>32</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>200000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>32</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <parameter name="bitClearingEdgeCapReg">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="bitModifyingOutReg">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="captureEdge">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="direction">
+   <type>java.lang.String</type>
+   <value>Output</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="edgeType">
+   <type>java.lang.String</type>
+   <value>RISING</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateIRQ">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="irqType">
+   <type>java.lang.String</type>
+   <value>LEVEL</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="resetValue">
+   <type>long</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="simDoTestBenchWiring">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="simDrivenValue">
+   <type>long</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>false</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>32</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="clockRate">
+   <type>long</type>
+   <value>200000000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+   <sysinfo_type>CLOCK_RATE</sysinfo_type>
+   <sysinfo_arg>clk</sysinfo_arg>
+  </parameter>
+  <parameter name="derived_has_tri">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_has_out">
+   <type>boolean</type>
+   <value>true</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_has_in">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_do_test_bench_wiring">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_capture">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_edge_type">
+   <type>java.lang.String</type>
+   <value>NONE</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_irq_type">
+   <type>java.lang.String</type>
+   <value>NONE</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="derived_has_irq">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>true</derived>
+   <enabled>true</enabled>
+   <visible>false</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <interface name="clk" kind="clock_sink" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRateKnown">
+    <type>java.lang.Boolean</type>
+    <value>true</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="clockRate">
+    <type>java.lang.Long</type>
+    <value>200000000</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>clk</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
+   </port>
+  </interface>
+  <interface name="reset" kind="reset_sink" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clk</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="synchronousEdges">
+    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
+    <value>DEASSERT</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>reset</type>
+   <isStart>false</isStart>
+   <port>
+    <name>reset_n</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>reset_n</role>
+   </port>
+  </interface>
+  <interface name="s1" kind="avalon_slave" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <assignment>
+    <name>embeddedsw.configuration.isFlash</name>
+    <value>0</value>
+   </assignment>
+   <assignment>
+    <name>embeddedsw.configuration.isMemoryDevice</name>
+    <value>0</value>
+   </assignment>
+   <assignment>
+    <name>embeddedsw.configuration.isNonVolatileStorage</name>
+    <value>0</value>
+   </assignment>
+   <assignment>
+    <name>embeddedsw.configuration.isPrintableDevice</name>
+    <value>0</value>
+   </assignment>
+   <parameter name="addressAlignment">
+    <type>com.altera.sopcmodel.avalon.AvalonConnectionPoint$AddressAlignment</type>
+    <value>NATIVE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="addressGroup">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="addressSpan">
+    <type>java.math.BigInteger</type>
+    <value>4</value>
+    <derived>true</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="addressUnits">
+    <type>com.altera.sopcmodel.avalon.EAddrBurstUnits</type>
+    <value>WORDS</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="alwaysBurstMaxBurst">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clk</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bitsPerSymbol">
+    <type>int</type>
+    <value>8</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedAddressOffset">
+    <type>java.math.BigInteger</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToMaster">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="burstOnBurstBoundariesOnly">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="burstcountUnits">
+    <type>com.altera.sopcmodel.avalon.EAddrBurstUnits</type>
+    <value>WORDS</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="constantBurstBehavior">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="explicitAddressSpan">
+    <type>java.math.BigInteger</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="holdTime">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="interleaveBursts">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isBigEndian">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isFlash">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isMemoryDevice">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="isNonVolatileStorage">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="linewrapBursts">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="maximumPendingReadTransactions">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>false</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="maximumPendingWriteTransactions">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>false</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="minimumUninterruptedRunLength">
+    <type>int</type>
+    <value>1</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="printableDevice">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="readLatency">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="readWaitStates">
+    <type>int</type>
+    <value>1</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="readWaitTime">
+    <type>int</type>
+    <value>1</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="registerIncomingSignals">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="registerOutgoingSignals">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="setupTime">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="timingUnits">
+    <type>com.altera.sopcmodel.avalon.TimingUnits</type>
+    <value>Cycles</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="transparentBridge">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="wellBehavedWaitrequest">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="writeLatency">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="writeWaitStates">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="writeWaitTime">
+    <type>int</type>
+    <value>0</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>avalon</type>
+   <isStart>false</isStart>
+   <port>
+    <name>address</name>
+    <direction>Input</direction>
+    <width>2</width>
+    <role>address</role>
+   </port>
+   <port>
+    <name>write_n</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>write_n</role>
+   </port>
+   <port>
+    <name>writedata</name>
+    <direction>Input</direction>
+    <width>32</width>
+    <role>writedata</role>
+   </port>
+   <port>
+    <name>chipselect</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>chipselect</role>
+   </port>
+   <port>
+    <name>readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
+   </port>
+  </interface>
+  <interface name="external_connection" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>out_port</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>export</role>
    </port>
   </interface>
  </module>
@@ -13499,15 +14348,15 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_clk_internal</moduleName>
+    <moduleName>KBandIPAffine_clk_internal</moduleName>
     <slaveName>clk_in</slaveName>
-    <name>KBandIP_clk_internal.clk_in</name>
+    <name>KBandIPAffine_clk_internal.clk_in</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBand21_0</moduleName>
+    <moduleName>KBandIPAffine_KBand21affine</moduleName>
     <slaveName>clock_internal</slaveName>
-    <name>KBandIP_KBand21_0.clock_internal</name>
+    <name>KBandIPAffine_KBand21affine.clock_internal</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -15806,51 +16655,59 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_LW.s0</name>
+    <name>KBandIPAffine_mm_bridge_LW.s0</name>
     <baseAddress>524288</baseAddress>
     <span>131072</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>589888</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>589824</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>589952</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>589920</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>524288</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>590048</baseAddress>
+    <span>16</span>
    </memoryBlock>
   </interface>
   <interface name="master_reset" kind="reset_source" version="16.1">
@@ -32325,17 +33182,17 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.s0</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.s0</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
@@ -33145,51 +34002,59 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_LW.s0</name>
+    <name>KBandIPAffine_mm_bridge_LW.s0</name>
     <baseAddress>524288</baseAddress>
     <span>131072</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>589888</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>589824</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>589952</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>589920</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>524288</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>590048</baseAddress>
+    <span>16</span>
    </memoryBlock>
   </interface>
   <interface name="f2h_irq0" kind="interrupt_receiver" version="16.1">
@@ -33270,16 +34135,16 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr_irq</slaveName>
-    <name>KBandIP_KBandInput_1.csr_irq</name>
+    <name>KBandIPAffine_KBandInput_1.csr_irq</name>
     <interruptNumber>0</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr_irq</slaveName>
-    <name>KBandIP_KBandOutput.csr_irq</name>
+    <name>KBandIPAffine_KBandOutput.csr_irq</name>
     <interruptNumber>4</interruptNumber>
    </interrupt>
   </interface>
@@ -59881,17 +60746,17 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.s0</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.s0</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>0</baseAddress>
     <span>262144</span>
    </memoryBlock>
@@ -60277,51 +61142,59 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_LW.s0</name>
+    <name>KBandIPAffine_mm_bridge_LW.s0</name>
     <baseAddress>524288</baseAddress>
     <span>131072</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>589888</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>589824</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>589952</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>589920</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>524288</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>590048</baseAddress>
+    <span>16</span>
    </memoryBlock>
   </interface>
   <interface name="f2h_axi_clock" kind="clock_sink" version="16.1">
@@ -62294,17 +63167,17 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.s0</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.s0</name>
     <baseAddress>3221225472</baseAddress>
     <span>262144</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>3221225472</baseAddress>
     <span>262144</span>
    </memoryBlock>
@@ -62342,51 +63215,59 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_LW.s0</name>
+    <name>KBandIPAffine_mm_bridge_LW.s0</name>
     <baseAddress>4280811520</baseAddress>
     <span>131072</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>4280877120</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>4280877056</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>4280877184</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>4280877152</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>4280811520</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>4280877280</baseAddress>
+    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -63213,17 +64094,17 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.s0</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.s0</name>
     <baseAddress>3221225472</baseAddress>
     <span>262144</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.s1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.s1</name>
     <baseAddress>3221225472</baseAddress>
     <span>262144</span>
    </memoryBlock>
@@ -63261,51 +64142,59 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_LW.s0</name>
+    <name>KBandIPAffine_mm_bridge_LW.s0</name>
     <baseAddress>4280811520</baseAddress>
     <span>131072</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>4280877120</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>4280877056</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>4280877184</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>4280877152</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>4280811520</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>4280877280</baseAddress>
+    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -64278,16 +65167,16 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr_irq</slaveName>
-    <name>KBandIP_KBandInput_1.csr_irq</name>
+    <name>KBandIPAffine_KBandInput_1.csr_irq</name>
     <interruptNumber>0</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr_irq</slaveName>
-    <name>KBandIP_KBandOutput.csr_irq</name>
+    <name>KBandIPAffine_KBandOutput.csr_irq</name>
     <interruptNumber>4</interruptNumber>
    </interrupt>
   </interface>
@@ -91772,16 +92661,16 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr_irq</slaveName>
-    <name>KBandIP_KBandInput_1.csr_irq</name>
+    <name>KBandIPAffine_KBandInput_1.csr_irq</name>
     <interruptNumber>0</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr_irq</slaveName>
-    <name>KBandIP_KBandOutput.csr_irq</name>
+    <name>KBandIPAffine_KBandOutput.csr_irq</name>
     <interruptNumber>4</interruptNumber>
    </interrupt>
   </interface>
@@ -92752,51 +93641,59 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>s0</slaveName>
-    <name>KBandIP_mm_bridge_LW.s0</name>
+    <name>KBandIPAffine_mm_bridge_LW.s0</name>
     <baseAddress>524288</baseAddress>
     <span>131072</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandOutput.csr</name>
+    <name>KBandIPAffine_KBandOutput.csr</name>
     <baseAddress>589888</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>csr</slaveName>
-    <name>KBandIP_KBandInput_1.csr</name>
+    <name>KBandIPAffine_KBandInput_1.csr</name>
     <baseAddress>589824</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandOutput.descriptor_slave</name>
+    <name>KBandIPAffine_KBandOutput.descriptor_slave</name>
     <baseAddress>589952</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>descriptor_slave</slaveName>
-    <name>KBandIP_KBandInput_1.descriptor_slave</name>
+    <name>KBandIPAffine_KBandInput_1.descriptor_slave</name>
     <baseAddress>589920</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>s1</slaveName>
-    <name>KBandIP_onchip_mem_LW.s1</name>
+    <name>KBandIPAffine_onchip_mem_LW.s1</name>
     <baseAddress>524288</baseAddress>
     <span>4096</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>s1</slaveName>
+    <name>KBandIPAffine_pio_0.s1</name>
+    <baseAddress>590048</baseAddress>
+    <span>16</span>
    </memoryBlock>
   </interface>
  </module>
@@ -96781,57 +97678,63 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>true</isBridge>
-    <moduleName>KBandIP_clk_0</moduleName>
+    <moduleName>KBandIPAffine_clk_0</moduleName>
     <slaveName>clk_in</slaveName>
-    <name>KBandIP_clk_0.clk_in</name>
+    <name>KBandIPAffine_clk_0.clk_in</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_mm_bridge_LW</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_LW</moduleName>
     <slaveName>clk</slaveName>
-    <name>KBandIP_mm_bridge_LW.clk</name>
+    <name>KBandIPAffine_mm_bridge_LW.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_DDR</moduleName>
+    <moduleName>KBandIPAffine_DDR</moduleName>
     <slaveName>clk</slaveName>
-    <name>KBandIP_DDR.clk</name>
+    <name>KBandIPAffine_DDR.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_mm_bridge_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_mm_bridge_FPGA_Slave</moduleName>
     <slaveName>clk</slaveName>
-    <name>KBandIP_mm_bridge_FPGA_Slave.clk</name>
+    <name>KBandIPAffine_mm_bridge_FPGA_Slave.clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_LW</moduleName>
+    <moduleName>KBandIPAffine_pio_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>KBandIPAffine_pio_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>KBandIPAffine_onchip_mem_LW</moduleName>
     <slaveName>clk1</slaveName>
-    <name>KBandIP_onchip_mem_LW.clk1</name>
+    <name>KBandIPAffine_onchip_mem_LW.clk1</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_onchip_mem_FPGA_Slave</moduleName>
+    <moduleName>KBandIPAffine_onchip_mem_FPGA_Slave</moduleName>
     <slaveName>clk1</slaveName>
-    <name>KBandIP_onchip_mem_FPGA_Slave.clk1</name>
+    <name>KBandIPAffine_onchip_mem_FPGA_Slave.clk1</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandOutput</moduleName>
+    <moduleName>KBandIPAffine_KBandOutput</moduleName>
     <slaveName>clock</slaveName>
-    <name>KBandIP_KBandOutput.clock</name>
+    <name>KBandIPAffine_KBandOutput.clock</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBandInput_1</moduleName>
+    <moduleName>KBandIPAffine_KBandInput_1</moduleName>
     <slaveName>clock</slaveName>
-    <name>KBandIP_KBandInput_1.clock</name>
+    <name>KBandIPAffine_KBandInput_1.clock</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>KBandIP_KBand21_0</moduleName>
+    <moduleName>KBandIPAffine_KBand21affine</moduleName>
     <slaveName>clock_external</slaveName>
-    <name>KBandIP_KBand21_0.clock_external</name>
+    <name>KBandIPAffine_KBand21affine.clock_external</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -96890,7 +97793,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1521150558</value>
+   <value>1537892900</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -96910,7 +97813,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1521150558</value>
+   <value>1537892900</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -96926,7 +97829,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1521150558</value>
+   <value>1537892900</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -97384,11 +98287,11 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <connection
-   name="KBandIP_mm_bridge_LW.m0/KBandIP_KBandOutput.csr"
+   name="KBandIPAffine_mm_bridge_LW.m0/KBandIPAffine_KBandOutput.csr"
    kind="avalon"
    version="16.1"
-   start="KBandIP_mm_bridge_LW.m0"
-   end="KBandIP_KBandOutput.csr">
+   start="KBandIPAffine_mm_bridge_LW.m0"
+   end="KBandIPAffine_KBandOutput.csr">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97429,17 +98332,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_mm_bridge_LW</startModule>
+  <startModule>KBandIPAffine_mm_bridge_LW</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>csr</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_mm_bridge_LW.m0/KBandIP_KBandInput_1.csr"
+   name="KBandIPAffine_mm_bridge_LW.m0/KBandIPAffine_KBandInput_1.csr"
    kind="avalon"
    version="16.1"
-   start="KBandIP_mm_bridge_LW.m0"
-   end="KBandIP_KBandInput_1.csr">
+   start="KBandIPAffine_mm_bridge_LW.m0"
+   end="KBandIPAffine_KBandInput_1.csr">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97480,17 +98383,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_mm_bridge_LW</startModule>
+  <startModule>KBandIPAffine_mm_bridge_LW</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_KBandInput_1</endModule>
+  <endModule>KBandIPAffine_KBandInput_1</endModule>
   <endConnectionPoint>csr</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_mm_bridge_LW.m0/KBandIP_KBandOutput.descriptor_slave"
+   name="KBandIPAffine_mm_bridge_LW.m0/KBandIPAffine_KBandOutput.descriptor_slave"
    kind="avalon"
    version="16.1"
-   start="KBandIP_mm_bridge_LW.m0"
-   end="KBandIP_KBandOutput.descriptor_slave">
+   start="KBandIPAffine_mm_bridge_LW.m0"
+   end="KBandIPAffine_KBandOutput.descriptor_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97531,17 +98434,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_mm_bridge_LW</startModule>
+  <startModule>KBandIPAffine_mm_bridge_LW</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>descriptor_slave</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_mm_bridge_LW.m0/KBandIP_KBandInput_1.descriptor_slave"
+   name="KBandIPAffine_mm_bridge_LW.m0/KBandIPAffine_KBandInput_1.descriptor_slave"
    kind="avalon"
    version="16.1"
-   start="KBandIP_mm_bridge_LW.m0"
-   end="KBandIP_KBandInput_1.descriptor_slave">
+   start="KBandIPAffine_mm_bridge_LW.m0"
+   end="KBandIPAffine_KBandInput_1.descriptor_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97582,17 +98485,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_mm_bridge_LW</startModule>
+  <startModule>KBandIPAffine_mm_bridge_LW</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_KBandInput_1</endModule>
+  <endModule>KBandIPAffine_KBandInput_1</endModule>
   <endConnectionPoint>descriptor_slave</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_mm_bridge_LW.m0/KBandIP_onchip_mem_LW.s1"
+   name="KBandIPAffine_mm_bridge_LW.m0/KBandIPAffine_onchip_mem_LW.s1"
    kind="avalon"
    version="16.1"
-   start="KBandIP_mm_bridge_LW.m0"
-   end="KBandIP_onchip_mem_LW.s1">
+   start="KBandIPAffine_mm_bridge_LW.m0"
+   end="KBandIPAffine_onchip_mem_LW.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97633,17 +98536,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_mm_bridge_LW</startModule>
+  <startModule>KBandIPAffine_mm_bridge_LW</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_LW</endModule>
+  <endModule>KBandIPAffine_onchip_mem_LW</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_mm_bridge_FPGA_Slave.m0/KBandIP_onchip_mem_FPGA_Slave.s1"
+   name="KBandIPAffine_mm_bridge_FPGA_Slave.m0/KBandIPAffine_onchip_mem_FPGA_Slave.s1"
    kind="avalon"
    version="16.1"
-   start="KBandIP_mm_bridge_FPGA_Slave.m0"
-   end="KBandIP_onchip_mem_FPGA_Slave.s1">
+   start="KBandIPAffine_mm_bridge_FPGA_Slave.m0"
+   end="KBandIPAffine_onchip_mem_FPGA_Slave.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97684,17 +98587,68 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_mm_bridge_FPGA_Slave</startModule>
+  <startModule>KBandIPAffine_mm_bridge_FPGA_Slave</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_onchip_mem_FPGA_Slave</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_KBandInput_1.mm_read/KBandIP_DDR.s0"
+   name="KBandIPAffine_mm_bridge_LW.m0/KBandIPAffine_pio_0.s1"
    kind="avalon"
    version="16.1"
-   start="KBandIP_KBandInput_1.mm_read"
-   end="KBandIP_DDR.s0">
+   start="KBandIPAffine_mm_bridge_LW.m0"
+   end="KBandIPAffine_pio_0.s1">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x000100e0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>KBandIPAffine_mm_bridge_LW</startModule>
+  <startConnectionPoint>m0</startConnectionPoint>
+  <endModule>KBandIPAffine_pio_0</endModule>
+  <endConnectionPoint>s1</endConnectionPoint>
+ </connection>
+ <connection
+   name="KBandIPAffine_KBandInput_1.mm_read/KBandIPAffine_DDR.s0"
+   kind="avalon"
+   version="16.1"
+   start="KBandIPAffine_KBandInput_1.mm_read"
+   end="KBandIPAffine_DDR.s0">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97735,17 +98689,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_KBandInput_1</startModule>
+  <startModule>KBandIPAffine_KBandInput_1</startModule>
   <startConnectionPoint>mm_read</startConnectionPoint>
-  <endModule>KBandIP_DDR</endModule>
+  <endModule>KBandIPAffine_DDR</endModule>
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_KBandInput_1.mm_read/KBandIP_onchip_mem_LW.s1"
+   name="KBandIPAffine_KBandInput_1.mm_read/KBandIPAffine_onchip_mem_LW.s1"
    kind="avalon"
    version="16.1"
-   start="KBandIP_KBandInput_1.mm_read"
-   end="KBandIP_onchip_mem_LW.s1">
+   start="KBandIPAffine_KBandInput_1.mm_read"
+   end="KBandIPAffine_onchip_mem_LW.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97786,17 +98740,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_KBandInput_1</startModule>
+  <startModule>KBandIPAffine_KBandInput_1</startModule>
   <startConnectionPoint>mm_read</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_LW</endModule>
+  <endModule>KBandIPAffine_onchip_mem_LW</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_KBandOutput.mm_write/KBandIP_DDR.s0"
+   name="KBandIPAffine_KBandOutput.mm_write/KBandIPAffine_DDR.s0"
    kind="avalon"
    version="16.1"
-   start="KBandIP_KBandOutput.mm_write"
-   end="KBandIP_DDR.s0">
+   start="KBandIPAffine_KBandOutput.mm_write"
+   end="KBandIPAffine_DDR.s0">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97837,17 +98791,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_KBandOutput</startModule>
+  <startModule>KBandIPAffine_KBandOutput</startModule>
   <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>KBandIP_DDR</endModule>
+  <endModule>KBandIPAffine_DDR</endModule>
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_KBandOutput.mm_write/KBandIP_onchip_mem_FPGA_Slave.s1"
+   name="KBandIPAffine_KBandOutput.mm_write/KBandIPAffine_onchip_mem_FPGA_Slave.s1"
    kind="avalon"
    version="16.1"
-   start="KBandIP_KBandOutput.mm_write"
-   end="KBandIP_onchip_mem_FPGA_Slave.s1">
+   start="KBandIPAffine_KBandOutput.mm_write"
+   end="KBandIPAffine_onchip_mem_FPGA_Slave.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -97888,17 +98842,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_KBandOutput</startModule>
+  <startModule>KBandIPAffine_KBandOutput</startModule>
   <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_onchip_mem_FPGA_Slave</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_KBand21_0.oArrow/KBandIP_KBandOutput.st_sink"
+   name="KBandIPAffine_KBand21affine.oArrow/KBandIPAffine_KBandOutput.st_sink"
    kind="avalon_streaming"
    version="16.1"
-   start="KBandIP_KBand21_0.oArrow"
-   end="KBandIP_KBandOutput.st_sink">
+   start="KBandIPAffine_KBand21affine.oArrow"
+   end="KBandIPAffine_KBandOutput.st_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -97915,17 +98869,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_KBand21_0</startModule>
+  <startModule>KBandIPAffine_KBand21affine</startModule>
   <startConnectionPoint>oArrow</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>st_sink</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_KBandInput_1.st_source/KBandIP_KBand21_0.iADN1"
+   name="KBandIPAffine_KBandInput_1.st_source/KBandIPAffine_KBand21affine.iADN1"
    kind="avalon_streaming"
    version="16.1"
-   start="KBandIP_KBandInput_1.st_source"
-   end="KBandIP_KBand21_0.iADN1">
+   start="KBandIPAffine_KBandInput_1.st_source"
+   end="KBandIPAffine_KBand21affine.iADN1">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -97942,17 +98896,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_KBandInput_1</startModule>
+  <startModule>KBandIPAffine_KBandInput_1</startModule>
   <startConnectionPoint>st_source</startConnectionPoint>
-  <endModule>KBandIP_KBand21_0</endModule>
+  <endModule>KBandIPAffine_KBand21affine</endModule>
   <endConnectionPoint>iADN1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_mm_bridge_LW.clk"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_mm_bridge_LW.clk"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_mm_bridge_LW.clk">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_mm_bridge_LW.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -97969,17 +98923,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_mm_bridge_LW</endModule>
+  <endModule>KBandIPAffine_mm_bridge_LW</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_DDR.clk"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_DDR.clk"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_DDR.clk">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_DDR.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -97996,17 +98950,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_DDR</endModule>
+  <endModule>KBandIPAffine_DDR</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_mm_bridge_FPGA_Slave.clk"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_mm_bridge_FPGA_Slave.clk"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_mm_bridge_FPGA_Slave.clk">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_mm_bridge_FPGA_Slave.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98023,17 +98977,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_mm_bridge_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_mm_bridge_FPGA_Slave</endModule>
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_onchip_mem_LW.clk1"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_pio_0.clk"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_onchip_mem_LW.clk1">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_pio_0.clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98050,17 +99004,44 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_LW</endModule>
+  <endModule>KBandIPAffine_pio_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_onchip_mem_LW.clk1"
+   kind="clock"
+   version="16.1"
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_onchip_mem_LW.clk1">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>KBandIPAffine_clk_0</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>KBandIPAffine_onchip_mem_LW</endModule>
   <endConnectionPoint>clk1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_onchip_mem_FPGA_Slave.clk1"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_onchip_mem_FPGA_Slave.clk1"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_onchip_mem_FPGA_Slave.clk1">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_onchip_mem_FPGA_Slave.clk1">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98077,17 +99058,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_onchip_mem_FPGA_Slave</endModule>
   <endConnectionPoint>clk1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_KBandOutput.clock"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_KBandOutput.clock"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_KBandOutput.clock">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_KBandOutput.clock">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98104,17 +99085,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_KBandInput_1.clock"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_KBandInput_1.clock"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_KBandInput_1.clock">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_KBandInput_1.clock">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98131,17 +99112,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_KBandInput_1</endModule>
+  <endModule>KBandIPAffine_KBandInput_1</endModule>
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk/KBandIP_KBand21_0.clock_external"
+   name="KBandIPAffine_clk_0.clk/KBandIPAffine_KBand21affine.clock_external"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_0.clk"
-   end="KBandIP_KBand21_0.clock_external">
+   start="KBandIPAffine_clk_0.clk"
+   end="KBandIPAffine_KBand21affine.clock_external">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98158,17 +99139,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_KBand21_0</endModule>
+  <endModule>KBandIPAffine_KBand21affine</endModule>
   <endConnectionPoint>clock_external</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_internal.clk/KBandIP_KBand21_0.clock_internal"
+   name="KBandIPAffine_clk_internal.clk/KBandIPAffine_KBand21affine.clock_internal"
    kind="clock"
    version="16.1"
-   start="KBandIP_clk_internal.clk"
-   end="KBandIP_KBand21_0.clock_internal">
+   start="KBandIPAffine_clk_internal.clk"
+   end="KBandIPAffine_KBand21affine.clock_internal">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98185,17 +99166,57 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_internal</startModule>
+  <startModule>KBandIPAffine_clk_internal</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_KBand21_0</endModule>
+  <endModule>KBandIPAffine_KBand21affine</endModule>
   <endConnectionPoint>clock_internal</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_clk_internal.clk_in_reset"
-   kind="reset"
+   name="KBandIPAffine_pio_0.external_connection/KBandIPAffine_KBand21affine.Parameters"
+   kind="conduit"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_clk_internal.clk_in_reset">
+   start="KBandIPAffine_pio_0.external_connection"
+   end="KBandIPAffine_KBand21affine.Parameters">
+  <parameter name="endPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="endPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPort">
+   <type>com.altera.entityinterfaces.IPort</type>
+   <value></value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="startPortLSB">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="width">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98212,17 +99233,44 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_pio_0</startModule>
+  <startConnectionPoint>external_connection</startConnectionPoint>
+  <endModule>KBandIPAffine_KBand21affine</endModule>
+  <endConnectionPoint>Parameters</endConnectionPoint>
+ </connection>
+ <connection
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_clk_internal.clk_in_reset"
+   kind="reset"
+   version="16.1"
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_clk_internal.clk_in_reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_clk_internal</endModule>
+  <endModule>KBandIPAffine_clk_internal</endModule>
   <endConnectionPoint>clk_in_reset</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_mm_bridge_LW.reset"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_mm_bridge_LW.reset"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_mm_bridge_LW.reset">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_mm_bridge_LW.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98239,17 +99287,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_mm_bridge_LW</endModule>
+  <endModule>KBandIPAffine_mm_bridge_LW</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_DDR.reset"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_DDR.reset"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_DDR.reset">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_DDR.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98266,17 +99314,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_DDR</endModule>
+  <endModule>KBandIPAffine_DDR</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_KBand21_0.reset"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_mm_bridge_FPGA_Slave.reset"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_KBand21_0.reset">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_mm_bridge_FPGA_Slave.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98293,17 +99341,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_KBand21_0</endModule>
+  <endModule>KBandIPAffine_mm_bridge_FPGA_Slave</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_mm_bridge_FPGA_Slave.reset"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_KBand21affine.reset"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_mm_bridge_FPGA_Slave.reset">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_KBand21affine.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98320,17 +99368,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_mm_bridge_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_KBand21affine</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_onchip_mem_LW.reset1"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_pio_0.reset"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_onchip_mem_LW.reset1">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_pio_0.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98347,17 +99395,44 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_LW</endModule>
+  <endModule>KBandIPAffine_pio_0</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_onchip_mem_LW.reset1"
+   kind="reset"
+   version="16.1"
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_onchip_mem_LW.reset1">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>KBandIPAffine_clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>KBandIPAffine_onchip_mem_LW</endModule>
   <endConnectionPoint>reset1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_onchip_mem_FPGA_Slave.reset1"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_onchip_mem_FPGA_Slave.reset1"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_onchip_mem_FPGA_Slave.reset1">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_onchip_mem_FPGA_Slave.reset1">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98374,17 +99449,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_onchip_mem_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_onchip_mem_FPGA_Slave</endModule>
   <endConnectionPoint>reset1</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_KBandOutput.reset_n"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_KBandOutput.reset_n"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_KBandOutput.reset_n">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_KBandOutput.reset_n">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98401,17 +99476,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>reset_n</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_clk_0.clk_reset/KBandIP_KBandInput_1.reset_n"
+   name="KBandIPAffine_clk_0.clk_reset/KBandIPAffine_KBandInput_1.reset_n"
    kind="reset"
    version="16.1"
-   start="KBandIP_clk_0.clk_reset"
-   end="KBandIP_KBandInput_1.reset_n">
+   start="KBandIPAffine_clk_0.clk_reset"
+   end="KBandIPAffine_KBandInput_1.reset_n">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -98428,9 +99503,9 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_clk_0</startModule>
+  <startModule>KBandIPAffine_clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_KBandInput_1</endModule>
+  <endModule>KBandIPAffine_KBandInput_1</endModule>
   <endConnectionPoint>reset_n</endConnectionPoint>
  </connection>
  <connection
@@ -108866,11 +109941,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>f2h</endConnectionPoint>
  </connection>
  <connection
-   name="FPGA_Slave_mm_bridge.m0/KBandIP_mm_bridge_FPGA_Slave.s0"
+   name="FPGA_Slave_mm_bridge.m0/KBandIPAffine_mm_bridge_FPGA_Slave.s0"
    kind="avalon"
    version="16.1"
    start="FPGA_Slave_mm_bridge.m0"
-   end="KBandIP_mm_bridge_FPGA_Slave.s0">
+   end="KBandIPAffine_mm_bridge_FPGA_Slave.s0">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -108913,15 +109988,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>FPGA_Slave_mm_bridge</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_mm_bridge_FPGA_Slave</endModule>
+  <endModule>KBandIPAffine_mm_bridge_FPGA_Slave</endModule>
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="lw_mm_bridge.m0/KBandIP_mm_bridge_LW.s0"
+   name="lw_mm_bridge.m0/KBandIPAffine_mm_bridge_LW.s0"
    kind="avalon"
    version="16.1"
    start="lw_mm_bridge.m0"
-   end="KBandIP_mm_bridge_LW.s0">
+   end="KBandIPAffine_mm_bridge_LW.s0">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -108964,14 +110039,14 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>lw_mm_bridge</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>KBandIP_mm_bridge_LW</endModule>
+  <endModule>KBandIPAffine_mm_bridge_LW</endModule>
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="KBandIP_DDR.m0/fft_ddr_bridge.windowed_slave"
+   name="KBandIPAffine_DDR.m0/fft_ddr_bridge.windowed_slave"
    kind="avalon"
    version="16.1"
-   start="KBandIP_DDR.m0"
+   start="KBandIPAffine_DDR.m0"
    end="fft_ddr_bridge.windowed_slave">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -109013,7 +110088,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>KBandIP_DDR</startModule>
+  <startModule>KBandIPAffine_DDR</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
   <endModule>fft_ddr_bridge</endModule>
   <endConnectionPoint>windowed_slave</endConnectionPoint>
@@ -109070,11 +110145,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk/KBandIP_clk_internal.clk_in"
+   name="clk_0.clk/KBandIPAffine_clk_internal.clk_in"
    kind="clock"
    version="16.1"
    start="clk_0.clk"
-   end="KBandIP_clk_internal.clk_in">
+   end="KBandIPAffine_clk_internal.clk_in">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -109093,7 +110168,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>KBandIP_clk_internal</endModule>
+  <endModule>KBandIPAffine_clk_internal</endModule>
   <endConnectionPoint>clk_in</endConnectionPoint>
  </connection>
  <connection
@@ -109259,11 +110334,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="pll_0.outclk0/KBandIP_clk_0.clk_in"
+   name="pll_0.outclk0/KBandIPAffine_clk_0.clk_in"
    kind="clock"
    version="16.1"
    start="pll_0.outclk0"
-   end="KBandIP_clk_0.clk_in">
+   end="KBandIPAffine_clk_0.clk_in">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -109282,7 +110357,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>pll_0</startModule>
   <startConnectionPoint>outclk0</startConnectionPoint>
-  <endModule>KBandIP_clk_0</endModule>
+  <endModule>KBandIPAffine_clk_0</endModule>
   <endConnectionPoint>clk_in</endConnectionPoint>
  </connection>
  <connection
@@ -109475,11 +110550,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>h2f_lw_axi_clock</endConnectionPoint>
  </connection>
  <connection
-   name="hps_0_arm_gic_0.f2h_irq_0_irq_rx_offset_40/KBandIP_KBandInput_1.csr_irq"
+   name="hps_0_arm_gic_0.f2h_irq_0_irq_rx_offset_40/KBandIPAffine_KBandInput_1.csr_irq"
    kind="interrupt"
    version="16.1"
    start="hps_0_arm_gic_0.f2h_irq_0_irq_rx_offset_40"
-   end="KBandIP_KBandInput_1.csr_irq">
+   end="KBandIPAffine_KBandInput_1.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
    <value>0</value>
@@ -109506,15 +110581,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>hps_0_arm_gic_0</startModule>
   <startConnectionPoint>f2h_irq_0_irq_rx_offset_40</startConnectionPoint>
-  <endModule>KBandIP_KBandInput_1</endModule>
+  <endModule>KBandIPAffine_KBandInput_1</endModule>
   <endConnectionPoint>csr_irq</endConnectionPoint>
  </connection>
  <connection
-   name="hps_0_arm_gic_0.f2h_irq_0_irq_rx_offset_40/KBandIP_KBandOutput.csr_irq"
+   name="hps_0_arm_gic_0.f2h_irq_0_irq_rx_offset_40/KBandIPAffine_KBandOutput.csr_irq"
    kind="interrupt"
    version="16.1"
    start="hps_0_arm_gic_0.f2h_irq_0_irq_rx_offset_40"
-   end="KBandIP_KBandOutput.csr_irq">
+   end="KBandIPAffine_KBandOutput.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
    <value>4</value>
@@ -109541,15 +110616,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>hps_0_arm_gic_0</startModule>
   <startConnectionPoint>f2h_irq_0_irq_rx_offset_40</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>csr_irq</endConnectionPoint>
  </connection>
  <connection
-   name="intr_capturer_0.interrupt_receiver/KBandIP_KBandInput_1.csr_irq"
+   name="intr_capturer_0.interrupt_receiver/KBandIPAffine_KBandInput_1.csr_irq"
    kind="interrupt"
    version="16.1"
    start="intr_capturer_0.interrupt_receiver"
-   end="KBandIP_KBandInput_1.csr_irq">
+   end="KBandIPAffine_KBandInput_1.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
    <value>0</value>
@@ -109576,15 +110651,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>intr_capturer_0</startModule>
   <startConnectionPoint>interrupt_receiver</startConnectionPoint>
-  <endModule>KBandIP_KBandInput_1</endModule>
+  <endModule>KBandIPAffine_KBandInput_1</endModule>
   <endConnectionPoint>csr_irq</endConnectionPoint>
  </connection>
  <connection
-   name="intr_capturer_0.interrupt_receiver/KBandIP_KBandOutput.csr_irq"
+   name="intr_capturer_0.interrupt_receiver/KBandIPAffine_KBandOutput.csr_irq"
    kind="interrupt"
    version="16.1"
    start="intr_capturer_0.interrupt_receiver"
-   end="KBandIP_KBandOutput.csr_irq">
+   end="KBandIPAffine_KBandOutput.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
    <value>4</value>
@@ -109611,7 +110686,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>intr_capturer_0</startModule>
   <startConnectionPoint>interrupt_receiver</startConnectionPoint>
-  <endModule>KBandIP_KBandOutput</endModule>
+  <endModule>KBandIPAffine_KBandOutput</endModule>
   <endConnectionPoint>csr_irq</endConnectionPoint>
  </connection>
  <connection
@@ -109750,33 +110825,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/KBandIP_clk_0.clk_in_reset"
-   kind="reset"
-   version="16.1"
-   start="clk_0.clk_reset"
-   end="KBandIP_clk_0.clk_in_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>KBandIP_clk_0</endModule>
-  <endConnectionPoint>clk_in_reset</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk_reset/FPGA_Slave_mm_bridge.reset"
    kind="reset"
    version="16.1"
@@ -109829,6 +110877,33 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>pll_0</endModule>
   <endConnectionPoint>reset</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk_reset/KBandIPAffine_clk_0.clk_in_reset"
+   kind="reset"
+   version="16.1"
+   start="clk_0.clk_reset"
+   end="KBandIPAffine_clk_0.clk_in_reset">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>KBandIPAffine_clk_0</endModule>
+  <endConnectionPoint>clk_in_reset</endConnectionPoint>
  </connection>
  <connection
    name="clk_0.clk_reset/intr_capturer_0.reset_sink"
@@ -109893,7 +110968,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>71</instanceCount>
+  <instanceCount>72</instanceCount>
   <name>clock_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -109901,7 +110976,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>64</instanceCount>
+  <instanceCount>65</instanceCount>
   <name>reset_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -109909,7 +110984,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>19</instanceCount>
+  <instanceCount>20</instanceCount>
   <name>avalon_slave</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -109926,10 +111001,10 @@ parameters are a RESULT of the module parameters. -->
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
-  <name>KBandIPsub</name>
+  <name>KBandIPsubAffine</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>KBandIPsub</displayName>
+  <displayName>KBandIPsubAffine</displayName>
   <version>1.0</version>
  </plugin>
  <plugin>
@@ -109958,10 +111033,10 @@ parameters are a RESULT of the module parameters. -->
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
-  <name>KBand21</name>
+  <name>KBand21affine</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>KBand 2in 1out</displayName>
+  <displayName>KBand 2in 1out affine</displayName>
   <version>1.0</version>
  </plugin>
  <plugin>
@@ -109978,6 +111053,14 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Avalon Streaming Source</displayName>
+  <version>16.1</version>
+ </plugin>
+ <plugin>
+  <instanceCount>8</instanceCount>
+  <name>conduit_end</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
+  <displayName>Conduit</displayName>
   <version>16.1</version>
  </plugin>
  <plugin>
@@ -110018,6 +111101,14 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>On-Chip Memory (RAM or ROM)</displayName>
+  <version>16.1</version>
+ </plugin>
+ <plugin>
+  <instanceCount>1</instanceCount>
+  <name>altera_avalon_pio</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IModule</subtype>
+  <displayName>PIO (Parallel I/O)</displayName>
   <version>16.1</version>
  </plugin>
  <plugin>
@@ -110082,14 +111173,6 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Clock Output</displayName>
-  <version>16.1</version>
- </plugin>
- <plugin>
-  <instanceCount>6</instanceCount>
-  <name>conduit_end</name>
-  <type>com.altera.entityinterfaces.IElementClass</type>
-  <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
-  <displayName>Conduit</displayName>
   <version>16.1</version>
  </plugin>
  <plugin>
@@ -110381,7 +111464,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>150</instanceCount>
+  <instanceCount>151</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -110397,7 +111480,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>70</instanceCount>
+  <instanceCount>71</instanceCount>
   <name>clock</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -110405,7 +111488,15 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>61</instanceCount>
+  <instanceCount>1</instanceCount>
+  <name>conduit</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IConnection</subtype>
+  <displayName>Conduit Connection</displayName>
+  <version>16.1</version>
+ </plugin>
+ <plugin>
+  <instanceCount>62</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

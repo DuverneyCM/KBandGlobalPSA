@@ -5,7 +5,8 @@ use ieee.std_logic_unsigned.all;
 entity KbandSink is
 	generic(
 		dimSymbol	:	natural	:=	32;
-		dimADN		:	natural	:=	3
+		dimADN		:	natural	:=	3;
+		dimLUT		:	natural  :=	4
 	);
 	port(
 		-- clk and reset interface
@@ -15,6 +16,12 @@ entity KbandSink is
 		din_Valid													:	in		std_logic;
 		din_Data														:	in		std_logic_vector(dimSymbol downto 1);
 		--interLogic Ports
+		iParameters			:	in	std_logic_vector(31 downto 0);
+		iLoadParameter	:	in	std_logic;
+		oMatch		:	out	std_logic_vector(dimLUT-1 downto 0);
+		oMisMatch	:	out	std_logic_vector(dimLUT-1 downto 0);
+		oOG				:	out	std_logic_vector(dimLUT-1 downto 0);
+		oEG				:	out	std_logic_vector(dimLUT-1 downto 0);
 		iRead															:	in		std_logic;
 		oEmpty														:	out	std_logic;
 		oFinalPacket												:	out	std_logic;
@@ -51,6 +58,8 @@ signal	sLoadShReg, shr	:	std_logic;
 signal	cnt	:	std_logic_vector(3 downto 0);
 signal	adquirir, procesar, sFinalPacket	:	std_logic;
 signal	sADN1mux, sADN2mux, rADN1mux, rADN2mux							:	std_logic_vector(dimADN downto 1);
+signal	sParameters							:	std_logic_vector(31 downto 0);
+signal	sMatch, sMisMatch, sOG, sEG	:	std_logic_vector(7 downto 0);
 
 begin
 	--Retardos de sincronizacion
@@ -150,5 +159,19 @@ begin
 
 	--dout_Ready	<=	not sFifoFull and iAdquirir;
 	dout_Ready	<=	not sFifoFull;
+
+
+	--parameters
+	sParameters	<=	iParameters;
+
+	sMatch		<=	sParameters(31 downto 24);
+	sMisMatch	<=	sParameters(23 downto 16);
+	sOG				<=	sParameters(15 downto 8);
+	sEG				<=	sParameters(7 downto 0);
+
+	oMatch		<=	"0001";--sMatch(dimLUT-1 downto 0);
+	oMisMatch	<=	"1111";--sMisMatch(dimLUT-1 downto 0);
+	oOG				<=	"1100";--sOG(dimLUT-1 downto 0);
+	oEG				<=	"1111";--sEG(dimLUT-1 downto 0);
 
 end rtl;

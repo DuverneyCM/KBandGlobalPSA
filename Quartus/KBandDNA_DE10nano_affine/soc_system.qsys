@@ -25,20 +25,15 @@
          type = "int";
       }
    }
-   element KBandIP
+   element KBandIPsubAffine_0
    {
       datum _sortIndex
       {
          value = "10";
          type = "int";
       }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
    }
-   element KBandIP.slw
+   element KBandIPsubAffine_0.slw
    {
       datum baseAddress
       {
@@ -352,6 +347,14 @@
          type = "String";
       }
    }
+   element soc_system
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Cyclone V";
+         type = "String";
+      }
+   }
    element sysid_qsys
    {
       datum _sortIndex
@@ -446,7 +449,11 @@
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
   <parameter name="USE_RESPONSE" value="0" />
  </module>
- <module name="KBandIP" kind="KBandIPsub" version="1.0" enabled="1">
+ <module
+   name="KBandIPsubAffine_0"
+   kind="KBandIPsubAffine"
+   version="1.0"
+   enabled="1">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="9" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="200000000" />
   <parameter name="AUTO_CLK_INT_CLOCK_DOMAIN" value="1" />
@@ -459,7 +466,7 @@
   <parameter name="AUTO_GENERATION_ID" value="0" />
   <parameter name="AUTO_M0_ADDRESS_MAP"><![CDATA[<address-map><slave name='fft_ddr_bridge.windowed_slave' start='0x0' end='0x40000000' /></address-map>]]></parameter>
   <parameter name="AUTO_M0_ADDRESS_WIDTH" value="AddressWidth = 30" />
-  <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_KBandIP</parameter>
+  <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_KBandIPsubAffine_0</parameter>
  </module>
  <module
    name="axi_bridge_for_acp_128_0"
@@ -1326,7 +1333,7 @@
    kind="avalon"
    version="16.1"
    start="FPGA_Slave_mm_bridge.m0"
-   end="KBandIP.sfpga">
+   end="KBandIPsubAffine_0.sfpga">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -1335,7 +1342,7 @@
    kind="avalon"
    version="16.1"
    start="lw_mm_bridge.m0"
-   end="KBandIP.slw">
+   end="KBandIPsubAffine_0.slw">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00080000" />
   <parameter name="defaultConnection" value="false" />
@@ -1343,7 +1350,7 @@
  <connection
    kind="avalon"
    version="16.1"
-   start="KBandIP.m0"
+   start="KBandIPsubAffine_0.m0"
    end="fft_ddr_bridge.windowed_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -1358,7 +1365,11 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="16.1" start="clk_0.clk" end="KBandIP.clk_int" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_0.clk"
+   end="KBandIPsubAffine_0.clk_int" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="pll_0.refclk" />
  <connection
    kind="clock"
@@ -1385,7 +1396,11 @@
    version="16.1"
    start="pll_0.outclk0"
    end="sysid_qsys.clk" />
- <connection kind="clock" version="16.1" start="pll_0.outclk0" end="KBandIP.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="pll_0.outclk0"
+   end="KBandIPsubAffine_0.clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -1425,28 +1440,28 @@
    kind="interrupt"
    version="16.1"
    start="hps_0.f2h_irq0"
-   end="KBandIP.kbandinput_1_csr_irq">
+   end="KBandIPsubAffine_0.kbandinput_1_csr_irq">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="hps_0.f2h_irq0"
-   end="KBandIP.kbandoutput_csr_irq">
+   end="KBandIPsubAffine_0.kbandoutput_csr_irq">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="intr_capturer_0.interrupt_receiver"
-   end="KBandIP.kbandinput_1_csr_irq">
+   end="KBandIPsubAffine_0.kbandinput_1_csr_irq">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="intr_capturer_0.interrupt_receiver"
-   end="KBandIP.kbandoutput_csr_irq">
+   end="KBandIPsubAffine_0.kbandoutput_csr_irq">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
@@ -1478,13 +1493,13 @@
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
-   end="KBandIP.reset" />
+   end="FPGA_Slave_mm_bridge.reset" />
+ <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="pll_0.reset" />
  <connection
    kind="reset"
    version="16.1"
    start="clk_0.clk_reset"
-   end="FPGA_Slave_mm_bridge.reset" />
- <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="pll_0.reset" />
+   end="KBandIPsubAffine_0.reset" />
  <connection
    kind="reset"
    version="16.1"

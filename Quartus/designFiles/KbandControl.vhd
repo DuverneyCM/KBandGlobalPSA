@@ -25,7 +25,7 @@ entity KbandControl is
 end KbandControl;
 
 architecture rtl of KbandControl  is
-	
+
 
 signal	sFifoCount	:	std_logic_vector(6 downto 0);
 signal	sFifoRead, sFifoWrite, sFifoEmpty, sFifoFull		:	std_logic;
@@ -39,9 +39,9 @@ signal	sTransmitir	:	std_logic;
 
 	type state_type is (s0, s0a, s1, s2, s00, s2a, s3, s4, s5, s6);
 	signal state   : state_type;
-	
+
 begin
-	
+
 	--start	<=	not(iSinkFIFOempty1 or iSinkFIFOempty2);
 	start	<=	not(iSinkFIFOempty1);
 	sFinalPacket	<= iFinalPacket;
@@ -117,6 +117,7 @@ begin
 				sSourceSendDirection	<=	'0';
 				sResetSync				<=	'0';
 				sTransmitir				<=	'0';
+
 			when s0a =>
 				--oSinkRead				<=	'0';
 				sSystolicProcesar		<=	'0';
@@ -182,8 +183,8 @@ begin
 				sTransmitir				<=	'0';
 		end case;
 	end process;
-	
-	
+
+
 	--Direction
 	process (clk, reset)
 	begin
@@ -226,14 +227,14 @@ begin
 --		Start
 --		Pause
 --		Finish
-	
+
 	--sink
 	--data length is defined by DMA descriptor
 	--Adquirir	<=	run or pause;
 	--sinkRead	<=	run and not(FIFOempty);
-	
+
 	--source
 	--data length is defined in DMA descriptor
 --	valid
-	
+
 end rtl;
