@@ -454,19 +454,19 @@
    kind="KBandIPsubAffine"
    version="1.0"
    enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="9" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="5" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="200000000" />
-  <parameter name="AUTO_CLK_INT_CLOCK_DOMAIN" value="1" />
+  <parameter name="AUTO_CLK_INT_CLOCK_DOMAIN" value="6" />
   <parameter name="AUTO_CLK_INT_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_INT_RESET_DOMAIN" value="1" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="9" />
+  <parameter name="AUTO_CLK_INT_RESET_DOMAIN" value="6" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="5" />
   <parameter name="AUTO_DEVICE" value="5CSEBA6U23I7" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
   <parameter name="AUTO_M0_ADDRESS_MAP"><![CDATA[<address-map><slave name='fft_ddr_bridge.windowed_slave' start='0x0' end='0x40000000' /></address-map>]]></parameter>
   <parameter name="AUTO_M0_ADDRESS_WIDTH" value="AddressWidth = 30" />
-  <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_KBandIPsubAffine_0</parameter>
+  <parameter name="AUTO_UNIQUE_ID">soc_system_KBandIPsubAffine_0</parameter>
  </module>
  <module
    name="axi_bridge_for_acp_128_0"
@@ -497,7 +497,7 @@
    name="fpga_only_master"
    kind="altera_jtag_avalon_master"
    version="16.1"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_DEVICE" value="5CSEBA6U23I7" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
@@ -1182,10 +1182,10 @@
   <parameter name="gui_fractional_cout" value="32" />
   <parameter name="gui_mif_generate" value="false" />
   <parameter name="gui_multiply_factor" value="1" />
-  <parameter name="gui_number_of_clocks" value="1" />
+  <parameter name="gui_number_of_clocks" value="2" />
   <parameter name="gui_operation_mode" value="direct" />
   <parameter name="gui_output_clock_frequency0" value="200.0" />
-  <parameter name="gui_output_clock_frequency1" value="100.0" />
+  <parameter name="gui_output_clock_frequency1" value="50.0" />
   <parameter name="gui_output_clock_frequency10" value="100.0" />
   <parameter name="gui_output_clock_frequency11" value="100.0" />
   <parameter name="gui_output_clock_frequency12" value="100.0" />
@@ -1365,11 +1365,6 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_0.clk"
-   end="KBandIPsubAffine_0.clk_int" />
  <connection kind="clock" version="16.1" start="clk_0.clk" end="pll_0.refclk" />
  <connection
    kind="clock"
@@ -1436,6 +1431,11 @@
    version="16.1"
    start="pll_0.outclk0"
    end="hps_0.h2f_lw_axi_clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="pll_0.outclk1"
+   end="KBandIPsubAffine_0.clk_int" />
  <connection
    kind="interrupt"
    version="16.1"

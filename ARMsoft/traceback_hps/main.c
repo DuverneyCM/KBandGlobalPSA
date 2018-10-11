@@ -14,7 +14,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 
 /*
 	Estructura de parametros del MAIN
-	0.	Nombre del ejecutable. Probablemente será traceBack
+	0.	Nombre del ejecutable. Probablemente serï¿½ traceBack
 	1.	Nombre del archivo con la seqA, ruta incluida
 	2.	Nombre del archivo con la seqB, ruta incluida
 	3.	Nombre del archivo con las flechas, resultado del proceso de FordWard
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 	clock_t beginT = clock();
 	printf("CLOCKS_BY_SEC = %d \n", CLOCKS_BY_SEC );
 	printf("CLOCKS_PER_SEC = %d \n", CLOCKS_PER_SEC );
-	//Definiciones (pueden volverse constantes. NoPEs puede ser un parámetro de entrada)
+	//Definiciones (pueden volverse constantes. NoPEs puede ser un parï¿½metro de entrada)
 	int NoPEs = atoi(argv[1]); //64
 	int dimFila = 2*NoPEs;
 	int dimUInt = sizeof(unsigned int);
@@ -41,10 +41,10 @@ int main(int argc, char *argv[]) {
 	int cntLocal = 0;
 	int similitud = 0;
 	int distancia = 0;
-	
-	int i = 0; //Indice de los registros empezando por el último
+
+	int i = 0; //Indice de los registros empezando por el ï¿½ltimo
 	int j = 0;
-	
+
 	//Definir archivos a utilizar, tanto fuentes como destinos
 	FILE *fseqA;		//r
 	FILE *fseqB;
@@ -63,15 +63,15 @@ int main(int argc, char *argv[]) {
 	fnewseqB	= fopen(argv[7],"w+");
 	fnewIndexA	= fopen(argv[8],"w");
 	fnewIndexB	= fopen(argv[9],"w");
-	
-	
+
+
 	//////CARGAR SECUENCIAS DE ENTRADA Y SALIDA, MANEJADAS CON VARIABLES
-	//identificar tamaño de del archivo A y B
+	//identificar tamaï¿½o de del archivo A y B
 		fseek(fseqA, 0, SEEK_END);
 		long int dimFileSeqA = ftell(fseqA);
 		fseek(fseqB, 0, SEEK_END);
 		long int dimFileSeqB = ftell(fseqB);
-	//Buscar la posición del primer enter, solo si es un archivo fasta >
+	//Buscar la posiciï¿½n del primer enter, solo si es un archivo fasta >
 		int SearchPacket, posFirstEnterA, posFirstEnterB = 0;
 		if (dimFileSeqA > dimPacket)	SearchPacket = dimPacket;
 			else SearchPacket = dimFileSeqA;
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
 			printf("SeqA no es un archivo con formato fasta\n");
 			return 100;
 		}
-		
+
 		if (dimFileSeqB > dimPacket)	SearchPacket = dimPacket;
 			else SearchPacket = dimFileSeqB;
 		fseek(fseqB, 0, SEEK_SET);
@@ -98,28 +98,28 @@ int main(int argc, char *argv[]) {
 			printf("SeqB no es un archivo con formato fasta\n");
 			return 100;
 		}
-	//identificar tamaño de seqA y seqB+
+	//identificar tamaï¿½o de seqA y seqB+
 		int dimSeqA, dimSeqB = 0; //dimSeqMAX = 0;
 		dimSeqA = dimFileSeqA - (posFirstEnterA + 1);
 			printf("dimSeqA = %d\n",dimSeqA);
 		dimSeqB = dimFileSeqB - (posFirstEnterB + 1);
 			printf("dimSeqB = %d\n",dimSeqB);
-	
-		
-	int currentFILA; //lastPosMemory, firstPosMemory, 	
-	//////VERIFICAR QUE LA ÚLTIMA FILA CONTIENE LA DIRECCIÓN H/V DEL ÚLTIMO CICLO DEL KBAND
+
+
+	int currentFILA; //lastPosMemory, firstPosMemory,
+	//////VERIFICAR QUE LA ï¿½LTIMA FILA CONTIENE LA DIRECCIï¿½N H/V DEL ï¿½LTIMO CICLO DEL KBAND
 	sprintf(arrowFILEname, "%sp%d.bin", argv[4], noFile);
 	farrows =	fopen(arrowFILEname,"rb");
 		printf("File = %s\n",arrowFILEname);
-		
+
 	fseek(farrows, 0, SEEK_END);
 	currentFILA = ftell(farrows)/(NoRegs*dimUInt); //pos next arrow
 	fseek(farrows, 0, SEEK_SET);
 	fread(&bufferArrows,dimUInt,currentFILA*NoRegs,farrows);
 	currentFILA = currentFILA - 1; // next row
-	
+
 	//fseek(farrows, -1*NoRegs*dimUInt, SEEK_CUR);
-	
+
 
 	int isHV = 0;
 	int dirHV = 0;
@@ -136,14 +136,14 @@ int main(int argc, char *argv[]) {
 	if (isHV == -NoRegs) dirHV = -1;	// H
 		printf("isHV = %d\n",dirHV);
 		printf("dirHV = %d\n",dirHV);
-			
-	//////BUSCAR LA POSICIÓN DE LA FLECHA EN LA PRIMERA FILA DE FLECHAS (next row). SOLO DEBE HABER UNA FLECHA
+
+	//////BUSCAR LA POSICIï¿½N DE LA FLECHA EN LA PRIMERA FILA DE FLECHAS (next row). SOLO DEBE HABER UNA FLECHA
 	currentFILA = currentFILA - 1; // next row
 	for (i=0; i<NoRegs; i++)
 		fila[i] = bufferArrows[i + currentFILA*NoRegs];
 	//fseek(farrows, -2*NoRegs*dimUInt, SEEK_CUR);
 	//fread(&fila,dimUInt,NoRegs,farrows); //Lee la fila desde el archivo
-	
+
 	int dupla = 0;
 	int noArrows = 0;
 	int posArrow = -1;
@@ -161,11 +161,11 @@ int main(int argc, char *argv[]) {
 		}
 	}
 		//Si noArrows es cero, no hay flechas en la fila.
-		//Si es mayor a 1, hay varias flechas en la fila, lo cual no corresponde con la última fila de flechas
+		//Si es mayor a 1, hay varias flechas en la fila, lo cual no corresponde con la ï¿½ltima fila de flechas
 		printf("ARROW = %d\n",ARROW);
 		printf("noArrows = %d\n",noArrows);
 		printf("posArrow = %d\n",posArrow);
-		
+
 	//definir variables de destino
 		int posSeqA = dimSeqA;
 		int posSeqB = dimSeqB;
@@ -173,38 +173,46 @@ int main(int argc, char *argv[]) {
 		int gapB = 0;
 		int offsetPos;
 		int offsetFila;
-	
+
 	int packA, packB;
 		if (dimSeqA % dimPackSeq == 0) packA = dimSeqA / dimPackSeq;
 		else packA = dimSeqA / dimPackSeq + 1;
 		if (dimSeqB % dimPackSeq == 0) packB = dimSeqB / dimPackSeq;
 		else packB = dimSeqB / dimPackSeq + 1;
-		
-		//LEER SEQA Y SEQB POR PAQUETES DE TAMAÑO dimPackSeq. Primer paquete (este) es de residuo
+
+		//LEER SEQA Y SEQB POR PAQUETES DE TAMAï¿½O dimPackSeq. Primer paquete (este) es de residuo
 			fseek(fseqA, posFirstEnterA + 1 + dimPackSeq*(packA-1), SEEK_SET);
 			fread(&VseqA,dimSeqA%dimPackSeq,1,fseqA);
 			printf("packA = %d\n",packA);
 			printf("range packA = %d %d\n", dimPackSeq*(packA-1), (int)ftell(fseqA) - (posFirstEnterA + 1) );
 			packA--;
-			
+
 			fseek(fseqB, posFirstEnterB + 1 + dimPackSeq*(packB-1), SEEK_SET);
 			fread(&VseqB,dimSeqB%dimPackSeq,1,fseqB);
 			printf("packB = %d\n",packB);
 			printf("range packB = %d %d\n",dimPackSeq*(packB-1), (int)ftell(fseqB) - (posFirstEnterB + 1) );
 			packB--;
-		
+
 	int cnt = 0;
 	int flag = 0;
+	int lastArrowTag = ARROW;
 	while (/*ARROW != 0 ||*/ posSeqA != 0 || posSeqB != 0 ) {
 		cntLocal = cnt%dimPackSeq;
-				
+
 		//////DECODIFICAR LA FLECHA
-		if 		(posSeqA == 0)	decoArrow(&offsetPos, &offsetFila, &dirHV, 2, &posSeqA, &posSeqB, &gapA, &gapB);
-		else if (posSeqB == 0)	decoArrow(&offsetPos, &offsetFila, &dirHV, 1, &posSeqA, &posSeqB, &gapA, &gapB);
-		else	decoArrow(&offsetPos, &offsetFila, &dirHV, ARROW, &posSeqA, &posSeqB, &gapA, &gapB);
-		
-		
-				
+		if 		(posSeqA == 0)	lastArrowTag = 2;
+		else if (posSeqB == 0)	lastArrowTag = 1;
+		else if (ARROW == 0)		{
+			if (VfnewseqA[(cnt-1)%dimPackSeq] == VfnewseqB[(cnt-1)%dimPackSeq])
+				lastArrowTag = 3;
+			else
+				lastArrowTag = lastArrowTag;
+		}
+		else	lastArrowTag = ARROW;
+		decoArrow(&offsetPos, &offsetFila, &dirHV, lastArrowTag, &posSeqA, &posSeqB, &gapA, &gapB);
+
+
+
 		//////GUARDAR LAS NUEVAS SECUENCIAS EN LOS ARCHIVOS
 		if (cntLocal == 0 && cnt != 0){
 			printf("posSeqA**** = %d\n",posSeqA);
@@ -225,9 +233,9 @@ int main(int argc, char *argv[]) {
 				fwrite(&VfnewseqB[i], 1, 1, fnewseqB);
 			}
 		}
-		
 
-		//LEER SEQA Y SEQB POR PAQUETES DE TAMAÑO dimPackSeq
+
+		//LEER SEQA Y SEQB POR PAQUETES DE TAMAï¿½O dimPackSeq
 		if ((posSeqA) % dimPackSeq == 0) {
 		//if ((dimSeqA - posSeqA) % dimPackSeq == 0) {
 			if (packA != 0){
@@ -250,15 +258,15 @@ int main(int argc, char *argv[]) {
 				packB--;
 			}
 		}
-		
-		
+
+
 		//////Antes o despues del siguiente bloque
 		//Agregar a la secuencia alineada el nuevo elemento: nucleotido o gap
 		if (gapA == 0) VfnewseqA[cntLocal] = VseqA[(posSeqA)%dimPackSeq];
 			else VfnewseqA[cntLocal] = '_';
 		if (gapB == 0) VfnewseqB[cntLocal] = VseqB[(posSeqB)%dimPackSeq];
 			else VfnewseqB[cntLocal] = '_';
-		//calcular distancia/similitud segun alineamiento óptimo
+		//calcular distancia/similitud segun alineamiento ï¿½ptimo
 		if (VfnewseqA[cntLocal] == VfnewseqB[cntLocal]) {
 			if (VfnewseqA[cntLocal] != '_') similitud++;
 		}
@@ -267,8 +275,8 @@ int main(int argc, char *argv[]) {
 			distancia++;
 		}
 
-		
-		//////OBTENER PRÓXIMA FLECHA
+
+		//////OBTENER PRï¿½XIMA FLECHA
 		//currentFILA = ftell(farrows)/(NoRegs*dimUInt); //pos next arrow
 		if (currentFILA < offsetFila){ //&& noFile != 1
 			printf("cnt = %d\n",cnt);
@@ -276,10 +284,10 @@ int main(int argc, char *argv[]) {
 			printf("posSeqB = %d\n",posSeqB);
 			printf("ARROW = %d\n",ARROW);
 			printf("posArrow = %d\n",posArrow);
-			
+
 			flag = 1;
-			//////GUARDAR FILA A INICIAR EN EL PRÓXIMO ARCHIVO
-				offsetFila = (offsetFila - currentFILA); //más constante
+			//////GUARDAR FILA A INICIAR EN EL PRï¿½XIMO ARCHIVO
+				offsetFila = (offsetFila - currentFILA); //mï¿½s constante
 				printf("offsetFila = %d\n",offsetFila);
 			//////CERRAR EL ARCHIVO ACTUAL Y ABRIR EL SIGUIENTE ARCHIVO
 			fclose(farrows);
@@ -288,37 +296,37 @@ int main(int argc, char *argv[]) {
 			farrows =	fopen(arrowFILEname,"rb");
 			printf("File = %s\n",arrowFILEname);
 
-			//////MOVER EL CURSOR A LA POSICIÓN DE LA NUEVA FLECHA
+			//////MOVER EL CURSOR A LA POSICIï¿½N DE LA NUEVA FLECHA
 				fseek(farrows, 0, SEEK_END);
 				//currentFILA = ftell(farrows)/(NoRegs*dimUInt); //pos next arrow
 				currentFILA = ftell(farrows)/(NoRegs*dimUInt); //pos next arrow
 				fseek(farrows, 0, SEEK_SET);
 				fread(&bufferArrows,dimUInt,currentFILA*NoRegs,farrows);
 		}
-		
-		
+
+
 		//fseek(farrows, -(1+offsetFila)*NoRegs*dimUInt, SEEK_CUR);
-		
+
 		currentFILA = currentFILA - offsetFila; //pos next arrow
 		fseek(farrows, -(1+offsetFila)*NoRegs*dimUInt, SEEK_CUR);
 		//fread(&fila,dimUInt,NoRegs,farrows); //Lee la fila desde el archivo
 		for (i=0; i<NoRegs; i++)
 			fila[i] = bufferArrows[i + currentFILA*NoRegs];
-		
+
 		posArrow = posArrow + offsetPos;
 			i = (posArrow) / (8*dimUInt); //cociente, #reg de la fila
 			j = (posArrow) % (8*dimUInt); //residuo, #pos en el reg
 		ARROW = (fila[i]>>j) & 3; //ARROW = 0 @ ERROR, 1 @ UP, 2 @ LEFT, 3 @ DIAGONAL
 			//printf("ARROW = %d, posArrow = %d, dirHV = %d\n",ARROW,posArrow,dirHV);
-		
-		
+
+
 		cnt++;
 
 	}
 	printf("distancia = %d, similitud = %d\n", distancia,similitud);
 
-	
-	//cerrar archivos 
+
+	//cerrar archivos
 	fclose(fseqA);
 	fclose(fseqB);
 	fclose(farrows);
@@ -326,24 +334,24 @@ int main(int argc, char *argv[]) {
 	fclose(fnewseqB);
 	fclose(fnewIndexA);
 	fclose(fnewIndexB);
-	
+
 	clock_t endT = clock();
 	double timeSpent = (double)(beginT - endT)/ CLOCKS_BY_SEC;
 	printf("timeSpent = %f \n", timeSpent );
-	
+
 	return 0;
 }
 
 
 //////DECODIFICAR LA FLECHA
-//(invertir offsetPos pq están invertidas con respecto a Mathematica)
-//(invertir up y left, ya que el orden de bits está invertido)
+//(invertir offsetPos pq estï¿½n invertidas con respecto a Mathematica)
+//(invertir up y left, ya que el orden de bits estï¿½ invertido)
 void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posSeqA, int* posSeqB, int* gapA, int* gapB) {
 	if (*dirHV == 1){ //V
 		if (ARROW == 0) {	//Error
 			*offsetFila = 0;
 			*offsetPos = 0;
-			
+
 			printf("posSeqA** = %d\n",*posSeqA);
 			printf("posSeqB** = %d\n",*posSeqB);
 			if (*posSeqA != 0) {
@@ -359,7 +367,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 			*offsetFila = 1;
 			*offsetPos = 0;
 			*dirHV = -1;
-			
+
 			*posSeqA = *posSeqA - 1;
 			*gapA = 0;
 			*gapB = 1;
@@ -368,7 +376,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 			*offsetFila = 1;
 			*offsetPos = 2;
 			*dirHV = -1;
-			
+
 			*posSeqB = *posSeqB - 1;
 			*gapB = 0;
 			*gapA = 1;
@@ -376,7 +384,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 		else if (ARROW == 3) {	//Diagonal
 			*offsetFila = 2;
 			*offsetPos = 0;
-			
+
 			*posSeqA = *posSeqA - 1;
 			*gapA = 0;
 			*posSeqB = *posSeqB - 1;
@@ -387,7 +395,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 		if (ARROW == 0) {	//Error
 			*offsetFila = 0;
 			*offsetPos = 0;
-			
+
 			printf("posSeqA** = %d\n",*posSeqA);
 			printf("posSeqB** = %d\n",*posSeqB);
 			if (*posSeqA != 0) {
@@ -403,7 +411,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 			*offsetFila = 1;
 			*offsetPos = -2;
 			*dirHV = 1;
-			
+
 			*posSeqA = *posSeqA - 1;
 			*gapA = 0;
 			*gapB = 1;
@@ -412,7 +420,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 			*offsetFila = 1;
 			*offsetPos = 0;
 			*dirHV = 1;
-			
+
 			*posSeqB = *posSeqB - 1;
 			*gapB = 0;
 			*gapA = 1;
@@ -420,7 +428,7 @@ void decoArrow(int* offsetPos, int* offsetFila, int* dirHV, int ARROW, int* posS
 		if (ARROW == 3) {	//Diagonal
 			*offsetFila = 2;
 			*offsetPos = 0;
-			
+
 			*posSeqA = *posSeqA - 1;
 			*gapA = 0;
 			*posSeqB = *posSeqB - 1;

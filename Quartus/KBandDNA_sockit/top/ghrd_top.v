@@ -333,6 +333,7 @@ module ghrd_top (
 //  assign user_led_fpga = ~fpga_led_internal;
   //assign user_led_fpga = fpga_led_internal;
   assign stm_hw_events    = {{18{1'b0}}, user_dipsw_fpga, fpga_led_internal, user_pb_fpga};
+  assign	user_led_fpga = user_dipsw_fpga;
 	 
  
     soc_system u0 (
@@ -431,6 +432,7 @@ wire [3:0] key_os;
 wire [3:0] delay;
 wire main_clk = clk_bot1;
 
+/*
 oneshot os (
     .clk (main_clk),
     .edge_sig (user_pb_fpga),
@@ -444,6 +446,7 @@ blinker b (
     .reset (key_os[3]),
     .pause (key_os[2])
 );
+*/
       
 // Source/Probe megawizard instance
 hps_reset hps_reset_inst (

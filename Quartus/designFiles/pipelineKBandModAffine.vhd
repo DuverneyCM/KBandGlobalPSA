@@ -22,6 +22,7 @@ entity pipelineKBandModAffine is
 		iG				:	in std_logic_vector(dimH-1 downto 0);
 		iArrow		:	in std_logic_vector(1 downto 0);
 		iDirGap		:	in	std_logic;
+		iHGDiagEqual:	in std_logic;
 		iCero			:	in	std_logic;
 		iFinish		:	in	std_logic;
 		-- Output ports
@@ -39,48 +40,84 @@ end pipelineKBandModAffine;
 
 
 architecture rtl of pipelineKBandModAffine is
-signal	sH1, sG1		:	std_logic_vector(dimH-1 downto 0);
-signal	sDirGap1, sDirGap2	: std_logic;
+signal	sH1, sH2, sG1, sG2	:	std_logic_vector(dimH-1 downto 0);
+signal	sDirGap1, sDirGap2, sHGDiagEqual	: std_logic;
+signal	sArrow		:	std_logic_vector(1 downto 0);
 begin
-	process(reset, CLOCK_50) is 
-	begin 
+	process(reset, CLOCK_50) is
+	begin
 		if(reset = '1') then
 			oADNa		<= (others => '0');
 			oADNb		<= (others => '0');
 			sH1		<= (others => '0');
-			oH2		<= (others => '0');
+			sH2		<= (others => '0');
 			sG1		<= (others => '0');
-			oG2		<= (others => '0');
-			oArrow	<= (others => '0');
+			sG2		<= (others => '0');
+			sArrow	<= (others => '0');
+			sHGDiagEqual	<=	'0';
 			sDirGap1	<=	'0';
 			sDirGap2	<=	'0';
 		elsif(rising_edge(CLOCK_50)) then
+			--first delay
+			--if (iEnable = '1') then
+				--if (iCero = '1') then
+					--sH1	<= (others => '0');
+					--sG1	<= (others => '0');
+				--else
+					--sH1		<= iH;
+					--sG1		<= iG;
+				--end if;
+			--end if;
+			--Second Delay
 			if (iEnable = '1') then
-				sH1(dimH-1 downto 0)		<= iH(dimH-1 downto 0);
-				sG1(dimH-1 downto 0)		<= iG(dimH-1 downto 0);
-			elsif (iCero = '1' or iFinish = '1') then
-				sH1	<= (others => '0');
-				sG1	<= (others => '0');
+				if (iCero = '1' or iFinish = '1') then
+					sH2	<= (others => '0');
+					--sG2	<= (others => '0');
+				else
+					sH2		<= sH1;
+					--sG2		<= sG1;
+				end if;
+			end if;
+			--registros de desplazamiento para aminoH y aminoV, cargan de forma alternada
+			if (inDireccion = '0' AND iEnable = '1') then
+				oADNa		<= iADNa;
+			end if;
+			if (inDireccion = '1' AND iEnable = '1') then
+				oADNb		<= iADNb;
 			end if;
 			if (iEnable = '1') then
-				--registros de desplazamiento para aminoH y aminoV, cargan de forma alternada
-				if (inDireccion = '0') then
-					oADNa		<= iADNa;
-				else
-					oADNb		<= iADNb;
-				end if;
-				--sH1(dimH-1 downto 0)		<= iH(dimH-1 downto 0);
-				oH2(dimH-1 downto 0)		<= sH1(dimH-1 downto 0);
-				oG2(dimH-1 downto 0)		<= sG1(dimH-1 downto 0);
-				sDirGap1	<=	iDirGap;
+--				if (inDireccion = '0') then
+--					oADNa		<= iADNa;
+--				else
+--					oADNb		<= iADNb;
+--				end if;
+				sH1		<= iH;
+				sG2	<= sG1;
+				sG1	<= iG;
 				sDirGap2	<=	sDirGap1;
-				
-				oArrow	<= iArrow;
+				sDirGap1	<=	iDirGap;
+
+				sArrow	<= iArrow;
+				sHGDiagEqual	<=	iHGDiagEqual;
 			end if;
 		end if;
+		oDirGapDiag	<=	sDirGap2;
+		oH2		<=	sH2;
+		if (iCero = '1' or iFinish = '1') then
+			oH1	<= (others => '0');
+		else
+			oH1		<= sH1;
+		end if;
+--		if (sHGDiagEqual = '1' or iFinish = '1') then
+--			oArrow	<= (others => '0');
+--		else
+--			oArrow		<= sArrow;
+--		end if;
+		--sH1		<= iH;
+		oG2		<=	sG2;
+		oG1		<=	sG1;
+		oH1msb	<=	sH1(dimH-1 downto dimH-2);
+		oArrow		<= sArrow;
 	end process;
-	oDirGapDiag	<=	sDirGap2;
-	oH1		<=	sH1;
-	oG1		<=	sG1;
-	oH1msb	<=	sH1(dimH-1 downto dimH-2);
+	--oH1		<=	(others => '0') when iCero = '1' or iFinish = '1' else	sH1;
 end rtl;

@@ -701,7 +701,7 @@
   <parameter name="MEM_DLL_EN" value="true" />
   <parameter name="MEM_DQ_PER_DQS" value="8" />
   <parameter name="MEM_DQ_WIDTH" value="32" />
-  <parameter name="MEM_DRV_STR" value="RZQ/6" />
+  <parameter name="MEM_DRV_STR" value="RZQ/7" />
   <parameter name="MEM_FORMAT" value="DISCRETE" />
   <parameter name="MEM_GUARANTEED_WRITE_INIT" value="false" />
   <parameter name="MEM_IF_BOARD_BASE_DELAY" value="10" />
@@ -717,10 +717,10 @@
   <parameter name="MEM_PD" value="DLL off" />
   <parameter name="MEM_RANK_MULTIPLICATION_FACTOR" value="1" />
   <parameter name="MEM_ROW_ADDR_WIDTH" value="15" />
-  <parameter name="MEM_RTT_NOM" value="RZQ/6" />
-  <parameter name="MEM_RTT_WR" value="Dynamic ODT off" />
+  <parameter name="MEM_RTT_NOM" value="RZQ/4" />
+  <parameter name="MEM_RTT_WR" value="RZQ/4" />
   <parameter name="MEM_SRT" value="Normal" />
-  <parameter name="MEM_TCL" value="7" />
+  <parameter name="MEM_TCL" value="11" />
   <parameter name="MEM_TFAW_NS" value="30.0" />
   <parameter name="MEM_TINIT_US" value="500" />
   <parameter name="MEM_TMRD_CK" value="4" />
@@ -729,15 +729,15 @@
   <parameter name="MEM_TREFI_US" value="7.8" />
   <parameter name="MEM_TRFC_NS" value="260.0" />
   <parameter name="MEM_TRP_NS" value="13.75" />
-  <parameter name="MEM_TRRD_NS" value="10.0" />
-  <parameter name="MEM_TRTP_NS" value="10.0" />
+  <parameter name="MEM_TRRD_NS" value="7.5" />
+  <parameter name="MEM_TRTP_NS" value="7.5" />
   <parameter name="MEM_TWR_NS" value="15.0" />
   <parameter name="MEM_TWTR" value="4" />
   <parameter name="MEM_USER_LEVELING_MODE" value="Leveling" />
   <parameter name="MEM_VENDOR" value="JEDEC" />
   <parameter name="MEM_VERBOSE" value="true" />
   <parameter name="MEM_VOLTAGE" value="1.5V DDR3" />
-  <parameter name="MEM_WTCL" value="6" />
+  <parameter name="MEM_WTCL" value="8" />
   <parameter name="MPU_EVENTS_Enable" value="false" />
   <parameter name="MRS_MIRROR_PING_PONG_ATSO" value="false" />
   <parameter name="MULTICAST_EN" value="false" />
@@ -971,7 +971,7 @@
   <parameter name="dbg_trace_clk_div" value="0" />
   <parameter name="desired_can0_clk_mhz" value="100.0" />
   <parameter name="desired_can1_clk_mhz" value="100.0" />
-  <parameter name="desired_cfg_clk_mhz" value="123.333333" />
+  <parameter name="desired_cfg_clk_mhz" value="100.0" />
   <parameter name="desired_emac0_clk_mhz" value="250.0" />
   <parameter name="desired_emac1_clk_mhz" value="250.0" />
   <parameter name="desired_gpio_db_clk_hz" value="32000" />

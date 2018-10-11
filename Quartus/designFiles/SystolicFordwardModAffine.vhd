@@ -67,6 +67,7 @@ architecture rtl of SystolicFordwardModAffine is
 	signal	sEnable, sADNfinish, sDirection	:	std_logic;
 	
 	signal	sBlockCero	:	std_logic_vector(NoCell downto 0);
+	signal	sValid, sHGDiagEqual	:	std_logic_vector(NoCell downto 0);
 	
 	
 	component PEadnModAffine is
@@ -76,30 +77,33 @@ architecture rtl of SystolicFordwardModAffine is
 			dimLUT	:	natural  :=	3
 		);
 		port
-		(
-			-- Input ports (parameters)
-			iMatch, iMisMatch, iOG, iEG	:	in std_logic_vector(dimLUT-1 downto 0);
+	(
+		-- Input ports (parameters)
+		iMatch, iMisMatch, iOG, iEG	:	in std_logic_vector(dimLUT-1 downto 0);
 
-			--	Input ports
-			iADNa			:	in std_logic_vector(dimADN-1 downto 0);
-			iADNb			:	in std_logic_vector(dimADN-1 downto 0);
-			iHd			:	in std_logic_vector(dimH-1 downto 0);
-			iHu			:	in std_logic_vector(dimH-1 downto 0);
-			iHl			:	in std_logic_vector(dimH-1 downto 0);
-			iADNFinish	:	in	std_logic;
-			iDirGap		:	in	std_logic;
-			iGapDiag		:	in std_logic_vector(dimH-1 downto 0);
-			iGapUp		:	in std_logic_vector(dimH-1 downto 0);
-			iGapLeft		:	in std_logic_vector(dimH-1 downto 0);
-			iGedge		:	in std_logic_vector(dimH-1 downto 0);
-			-- Output ports
-			oGap			:	out std_logic_vector(dimH-1 downto 0);
-			oDirGap		:	out	std_logic;
-			oADNa			:	out std_logic_vector(dimADN-1 downto 0);
-			oADNb			:	out std_logic_vector(dimADN-1 downto 0);
-			oH				:	out std_logic_vector(dimH-1 downto 0);
-			oArrow		:	out std_logic_vector(1 downto 0)
-		);
+		--	Input ports
+		iADNa			:	in std_logic_vector(dimADN-1 downto 0);
+		iADNb			:	in std_logic_vector(dimADN-1 downto 0);
+		iHd			:	in std_logic_vector(dimH-1 downto 0);
+		iHu			:	in std_logic_vector(dimH-1 downto 0);
+		iHl			:	in std_logic_vector(dimH-1 downto 0);
+		iADNFinish	:	in	std_logic;
+		iDirGap		:	in	std_logic;
+		iGapDiag		:	in std_logic_vector(dimH-1 downto 0);
+		iGapUp		:	in std_logic_vector(dimH-1 downto 0);
+		iGapLeft		:	in std_logic_vector(dimH-1 downto 0);
+		iGedge		:	in std_logic_vector(dimH-1 downto 0);
+
+		-- Output ports
+		oGap			:	out std_logic_vector(dimH-1 downto 0);
+		oDirGap		:	out	std_logic;
+		oADNa			:	out std_logic_vector(dimADN-1 downto 0);
+		oADNb			:	out std_logic_vector(dimADN-1 downto 0);
+		oHGDiagEqual	:	out std_logic;
+		oValid			:	out std_logic;
+		oH				:	out std_logic_vector(dimH-1 downto 0);
+		oArrow		:	out std_logic_vector(1 downto 0)
+	);
 	end component;
 	
 	component pipelineKBandModAffine is
@@ -108,32 +112,33 @@ architecture rtl of SystolicFordwardModAffine is
 			dimADN	:	natural  :=	3
 		);
 		port
-		(
-			-- Input ports
-			CLOCK_50		:	in	std_logic;
-			reset			:	in std_logic;
-			iEnable		:	in std_logic;
-			inDireccion	:	in std_logic;	--0 vertical, 1 horizontal
-			iBitCl		:	in std_logic;
-			iADNa			:	in std_logic_vector(dimADN-1 downto 0);
-			iADNb			:	in std_logic_vector(dimADN-1 downto 0);
-			iH				:	in std_logic_vector(dimH-1 downto 0);
-			iG				:	in std_logic_vector(dimH-1 downto 0);
-			iArrow		:	in std_logic_vector(1 downto 0);
-			iDirGap		:	in	std_logic;
-			iCero			:	in	std_logic;
-			iFinish		:	in	std_logic;
-			-- Output ports
-			oADNa			:	out std_logic_vector(dimADN-1 downto 0);
-			oADNb			:	out std_logic_vector(dimADN-1 downto 0);
-			oH1msb		:	out std_logic_vector(1 downto 0);
-			oH1			:	out std_logic_vector(dimH-1 downto 0);
-			oH2			:	out std_logic_vector(dimH-1 downto 0);
-			oG1			:	out std_logic_vector(dimH-1 downto 0);
-			oG2			:	out std_logic_vector(dimH-1 downto 0);
-			oDirGapDiag	:	out std_logic;
-			oArrow		:	out std_logic_vector(1 downto 0)
-		);
+	(
+		-- Input ports
+		CLOCK_50		:	in	std_logic;
+		reset			:	in std_logic;
+		iEnable		:	in std_logic;
+		inDireccion	:	in std_logic;	--0 vertical, 1 horizontal
+		iBitCl		:	in std_logic;
+		iADNa			:	in std_logic_vector(dimADN-1 downto 0);
+		iADNb			:	in std_logic_vector(dimADN-1 downto 0);
+		iH				:	in std_logic_vector(dimH-1 downto 0);
+		iG				:	in std_logic_vector(dimH-1 downto 0);
+		iArrow		:	in std_logic_vector(1 downto 0);
+		iDirGap		:	in	std_logic;
+		iHGDiagEqual:	in std_logic;
+		iCero			:	in	std_logic;
+		iFinish		:	in	std_logic;
+		-- Output ports
+		oADNa			:	out std_logic_vector(dimADN-1 downto 0);
+		oADNb			:	out std_logic_vector(dimADN-1 downto 0);
+		oH1msb		:	out std_logic_vector(1 downto 0);
+		oH1			:	out std_logic_vector(dimH-1 downto 0);
+		oH2			:	out std_logic_vector(dimH-1 downto 0);
+		oG1			:	out std_logic_vector(dimH-1 downto 0);
+		oG2			:	out std_logic_vector(dimH-1 downto 0);
+		oDirGapDiag	:	out std_logic;
+		oArrow		:	out std_logic_vector(1 downto 0)
+	);
 	end component;
 	
 begin
@@ -170,6 +175,8 @@ begin
 			oDirGap		=>	sDirGap(i),	--:	out	std_logic;
 			oADNa			=>	sADNa(i),
 			oADNb			=>	sADNb(i),
+			oHGDiagEqual	=>	sHGDiagEqual(i),
+			oValid			=>	sValid(i),
 			oH				=>	sH(i), --igual a antes en H1, h0
 			oArrow		=>	sArrow(i)
 		);
@@ -196,6 +203,7 @@ begin
 			iG				=>	sG(i),
 			iArrow		=>	sArrow(i),
 			iDirGap		=>	sDirGap(i),
+			iHGDiagEqual=>	sHGDiagEqual(i),
 			iCero			=>	'0',--sBlockCero(i),
 			iFinish		=>	iADNFinish,--'0',--iADNFinish,
 			-- Output ports
@@ -270,7 +278,8 @@ begin
 	oArrows	<=	reverse_any_vector(rDireccionVector); --(0 to 2*NoCell-1)
 	
 	sEnable	<=	iEnable;
-	sADNfinish	<=	'1' when sDireccionVector = 0 else '0';	--sEnable;
+	--sADNfinish	<=	'1' when sDireccionVector = 0 else '0';	--sEnable;
+	sADNfinish	<=	'1' when sValid = 0 else '0';	--sEnable;
 	oADNfinish	<=	sADNfinish;
 	oADNvalid	<=	iEnable and not sADNfinish;
 	--el procesador debe seguir funcionando hasta que la salida de flechas sea nula
