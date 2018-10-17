@@ -124,6 +124,38 @@ architecture rtl of KBandIPsubAffine is
 		);
 	end component KBandIPsubAffine_KBandOutput;
 
+	component KBandIPsubAffine_onchip_mem_FPGA_Slave is
+		port (
+			clk        : in  std_logic                      := 'X';             -- clk
+			address    : in  std_logic_vector(13 downto 0)  := (others => 'X'); -- address
+			clken      : in  std_logic                      := 'X';             -- clken
+			chipselect : in  std_logic                      := 'X';             -- chipselect
+			write      : in  std_logic                      := 'X';             -- write
+			readdata   : out std_logic_vector(127 downto 0);                    -- readdata
+			writedata  : in  std_logic_vector(127 downto 0) := (others => 'X'); -- writedata
+			byteenable : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
+			reset      : in  std_logic                      := 'X';             -- reset
+			reset_req  : in  std_logic                      := 'X';             -- reset_req
+			freeze     : in  std_logic                      := 'X'              -- freeze
+		);
+	end component KBandIPsubAffine_onchip_mem_FPGA_Slave;
+
+	component KBandIPsubAffine_onchip_mem_LW is
+		port (
+			clk        : in  std_logic                      := 'X';             -- clk
+			address    : in  std_logic_vector(11 downto 0)  := (others => 'X'); -- address
+			clken      : in  std_logic                      := 'X';             -- clken
+			chipselect : in  std_logic                      := 'X';             -- chipselect
+			write      : in  std_logic                      := 'X';             -- write
+			readdata   : out std_logic_vector(127 downto 0);                    -- readdata
+			writedata  : in  std_logic_vector(127 downto 0) := (others => 'X'); -- writedata
+			byteenable : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
+			reset      : in  std_logic                      := 'X';             -- reset
+			reset_req  : in  std_logic                      := 'X';             -- reset_req
+			freeze     : in  std_logic                      := 'X'              -- freeze
+		);
+	end component KBandIPsubAffine_onchip_mem_LW;
+
 	component KBandIPsubAffine_pio_0 is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -141,6 +173,27 @@ architecture rtl of KBandIPsubAffine is
 		port (
 			clk_0_clk_clk                                  : in  std_logic                      := 'X';             -- clk
 			mm_bridge_LW_reset_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
+			KBandInput_1_mm_read_address                   : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
+			KBandInput_1_mm_read_waitrequest               : out std_logic;                                         -- waitrequest
+			KBandInput_1_mm_read_byteenable                : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			KBandInput_1_mm_read_read                      : in  std_logic                      := 'X';             -- read
+			KBandInput_1_mm_read_readdata                  : out std_logic_vector(31 downto 0);                     -- readdata
+			KBandInput_1_mm_read_readdatavalid             : out std_logic;                                         -- readdatavalid
+			KBandOutput_mm_write_address                   : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
+			KBandOutput_mm_write_waitrequest               : out std_logic;                                         -- waitrequest
+			KBandOutput_mm_write_byteenable                : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
+			KBandOutput_mm_write_write                     : in  std_logic                      := 'X';             -- write
+			KBandOutput_mm_write_writedata                 : in  std_logic_vector(127 downto 0) := (others => 'X'); -- writedata
+			mm_bridge_FPGA_Slave_m0_address                : in  std_logic_vector(17 downto 0)  := (others => 'X'); -- address
+			mm_bridge_FPGA_Slave_m0_waitrequest            : out std_logic;                                         -- waitrequest
+			mm_bridge_FPGA_Slave_m0_burstcount             : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
+			mm_bridge_FPGA_Slave_m0_byteenable             : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
+			mm_bridge_FPGA_Slave_m0_read                   : in  std_logic                      := 'X';             -- read
+			mm_bridge_FPGA_Slave_m0_readdata               : out std_logic_vector(63 downto 0);                     -- readdata
+			mm_bridge_FPGA_Slave_m0_readdatavalid          : out std_logic;                                         -- readdatavalid
+			mm_bridge_FPGA_Slave_m0_write                  : in  std_logic                      := 'X';             -- write
+			mm_bridge_FPGA_Slave_m0_writedata              : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- writedata
+			mm_bridge_FPGA_Slave_m0_debugaccess            : in  std_logic                      := 'X';             -- debugaccess
 			mm_bridge_LW_m0_address                        : in  std_logic_vector(16 downto 0)  := (others => 'X'); -- address
 			mm_bridge_LW_m0_waitrequest                    : out std_logic;                                         -- waitrequest
 			mm_bridge_LW_m0_burstcount                     : in  std_logic_vector(0 downto 0)   := (others => 'X'); -- burstcount
@@ -151,6 +204,16 @@ architecture rtl of KBandIPsubAffine is
 			mm_bridge_LW_m0_write                          : in  std_logic                      := 'X';             -- write
 			mm_bridge_LW_m0_writedata                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			mm_bridge_LW_m0_debugaccess                    : in  std_logic                      := 'X';             -- debugaccess
+			DDR_s0_address                                 : out std_logic_vector(29 downto 0);                     -- address
+			DDR_s0_write                                   : out std_logic;                                         -- write
+			DDR_s0_read                                    : out std_logic;                                         -- read
+			DDR_s0_readdata                                : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata
+			DDR_s0_writedata                               : out std_logic_vector(127 downto 0);                    -- writedata
+			DDR_s0_burstcount                              : out std_logic_vector(4 downto 0);                      -- burstcount
+			DDR_s0_byteenable                              : out std_logic_vector(15 downto 0);                     -- byteenable
+			DDR_s0_readdatavalid                           : in  std_logic                      := 'X';             -- readdatavalid
+			DDR_s0_waitrequest                             : in  std_logic                      := 'X';             -- waitrequest
+			DDR_s0_debugaccess                             : out std_logic;                                         -- debugaccess
 			KBandInput_1_csr_address                       : out std_logic_vector(2 downto 0);                      -- address
 			KBandInput_1_csr_write                         : out std_logic;                                         -- write
 			KBandInput_1_csr_read                          : out std_logic;                                         -- read
@@ -171,6 +234,20 @@ architecture rtl of KBandIPsubAffine is
 			KBandOutput_descriptor_slave_writedata         : out std_logic_vector(127 downto 0);                    -- writedata
 			KBandOutput_descriptor_slave_byteenable        : out std_logic_vector(15 downto 0);                     -- byteenable
 			KBandOutput_descriptor_slave_waitrequest       : in  std_logic                      := 'X';             -- waitrequest
+			onchip_mem_FPGA_Slave_s1_address               : out std_logic_vector(13 downto 0);                     -- address
+			onchip_mem_FPGA_Slave_s1_write                 : out std_logic;                                         -- write
+			onchip_mem_FPGA_Slave_s1_readdata              : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata
+			onchip_mem_FPGA_Slave_s1_writedata             : out std_logic_vector(127 downto 0);                    -- writedata
+			onchip_mem_FPGA_Slave_s1_byteenable            : out std_logic_vector(15 downto 0);                     -- byteenable
+			onchip_mem_FPGA_Slave_s1_chipselect            : out std_logic;                                         -- chipselect
+			onchip_mem_FPGA_Slave_s1_clken                 : out std_logic;                                         -- clken
+			onchip_mem_LW_s1_address                       : out std_logic_vector(11 downto 0);                     -- address
+			onchip_mem_LW_s1_write                         : out std_logic;                                         -- write
+			onchip_mem_LW_s1_readdata                      : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata
+			onchip_mem_LW_s1_writedata                     : out std_logic_vector(127 downto 0);                    -- writedata
+			onchip_mem_LW_s1_byteenable                    : out std_logic_vector(15 downto 0);                     -- byteenable
+			onchip_mem_LW_s1_chipselect                    : out std_logic;                                         -- chipselect
+			onchip_mem_LW_s1_clken                         : out std_logic;                                         -- clken
 			pio_0_s1_address                               : out std_logic_vector(1 downto 0);                      -- address
 			pio_0_s1_write                                 : out std_logic;                                         -- write
 			pio_0_s1_readdata                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
@@ -178,34 +255,6 @@ architecture rtl of KBandIPsubAffine is
 			pio_0_s1_chipselect                            : out std_logic                                          -- chipselect
 		);
 	end component KBandIPsubAffine_mm_interconnect_0;
-
-	component KBandIPsubAffine_mm_interconnect_1 is
-		port (
-			clk_0_clk_clk                                    : in  std_logic                      := 'X';             -- clk
-			KBandInput_1_reset_n_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
-			KBandInput_1_mm_read_address                     : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			KBandInput_1_mm_read_waitrequest                 : out std_logic;                                         -- waitrequest
-			KBandInput_1_mm_read_byteenable                  : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
-			KBandInput_1_mm_read_read                        : in  std_logic                      := 'X';             -- read
-			KBandInput_1_mm_read_readdata                    : out std_logic_vector(31 downto 0);                     -- readdata
-			KBandInput_1_mm_read_readdatavalid               : out std_logic;                                         -- readdatavalid
-			KBandOutput_mm_write_address                     : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
-			KBandOutput_mm_write_waitrequest                 : out std_logic;                                         -- waitrequest
-			KBandOutput_mm_write_byteenable                  : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
-			KBandOutput_mm_write_write                       : in  std_logic                      := 'X';             -- write
-			KBandOutput_mm_write_writedata                   : in  std_logic_vector(127 downto 0) := (others => 'X'); -- writedata
-			DDR_s0_address                                   : out std_logic_vector(29 downto 0);                     -- address
-			DDR_s0_write                                     : out std_logic;                                         -- write
-			DDR_s0_read                                      : out std_logic;                                         -- read
-			DDR_s0_readdata                                  : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata
-			DDR_s0_writedata                                 : out std_logic_vector(127 downto 0);                    -- writedata
-			DDR_s0_burstcount                                : out std_logic_vector(4 downto 0);                      -- burstcount
-			DDR_s0_byteenable                                : out std_logic_vector(15 downto 0);                     -- byteenable
-			DDR_s0_readdatavalid                             : in  std_logic                      := 'X';             -- readdatavalid
-			DDR_s0_waitrequest                               : in  std_logic                      := 'X';             -- waitrequest
-			DDR_s0_debugaccess                               : out std_logic                                          -- debugaccess
-		);
-	end component KBandIPsubAffine_mm_interconnect_1;
 
 	component altera_reset_controller is
 		generic (
@@ -401,6 +450,27 @@ architecture rtl of KBandIPsubAffine is
 	signal mm_bridge_lw_m0_writedata                                   : std_logic_vector(31 downto 0);  -- mm_bridge_LW:m0_writedata -> mm_interconnect_0:mm_bridge_LW_m0_writedata
 	signal mm_bridge_lw_m0_write                                       : std_logic;                      -- mm_bridge_LW:m0_write -> mm_interconnect_0:mm_bridge_LW_m0_write
 	signal mm_bridge_lw_m0_burstcount                                  : std_logic_vector(0 downto 0);   -- mm_bridge_LW:m0_burstcount -> mm_interconnect_0:mm_bridge_LW_m0_burstcount
+	signal kbandinput_1_mm_read_readdata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:KBandInput_1_mm_read_readdata -> KBandInput_1:mm_read_readdata
+	signal kbandinput_1_mm_read_waitrequest                            : std_logic;                      -- mm_interconnect_0:KBandInput_1_mm_read_waitrequest -> KBandInput_1:mm_read_waitrequest
+	signal kbandinput_1_mm_read_address                                : std_logic_vector(30 downto 0);  -- KBandInput_1:mm_read_address -> mm_interconnect_0:KBandInput_1_mm_read_address
+	signal kbandinput_1_mm_read_read                                   : std_logic;                      -- KBandInput_1:mm_read_read -> mm_interconnect_0:KBandInput_1_mm_read_read
+	signal kbandinput_1_mm_read_byteenable                             : std_logic_vector(3 downto 0);   -- KBandInput_1:mm_read_byteenable -> mm_interconnect_0:KBandInput_1_mm_read_byteenable
+	signal kbandinput_1_mm_read_readdatavalid                          : std_logic;                      -- mm_interconnect_0:KBandInput_1_mm_read_readdatavalid -> KBandInput_1:mm_read_readdatavalid
+	signal kbandoutput_mm_write_waitrequest                            : std_logic;                      -- mm_interconnect_0:KBandOutput_mm_write_waitrequest -> KBandOutput:mm_write_waitrequest
+	signal kbandoutput_mm_write_address                                : std_logic_vector(30 downto 0);  -- KBandOutput:mm_write_address -> mm_interconnect_0:KBandOutput_mm_write_address
+	signal kbandoutput_mm_write_byteenable                             : std_logic_vector(15 downto 0);  -- KBandOutput:mm_write_byteenable -> mm_interconnect_0:KBandOutput_mm_write_byteenable
+	signal kbandoutput_mm_write_write                                  : std_logic;                      -- KBandOutput:mm_write_write -> mm_interconnect_0:KBandOutput_mm_write_write
+	signal kbandoutput_mm_write_writedata                              : std_logic_vector(127 downto 0); -- KBandOutput:mm_write_writedata -> mm_interconnect_0:KBandOutput_mm_write_writedata
+	signal mm_bridge_fpga_slave_m0_waitrequest                         : std_logic;                      -- mm_interconnect_0:mm_bridge_FPGA_Slave_m0_waitrequest -> mm_bridge_FPGA_Slave:m0_waitrequest
+	signal mm_bridge_fpga_slave_m0_readdata                            : std_logic_vector(63 downto 0);  -- mm_interconnect_0:mm_bridge_FPGA_Slave_m0_readdata -> mm_bridge_FPGA_Slave:m0_readdata
+	signal mm_bridge_fpga_slave_m0_debugaccess                         : std_logic;                      -- mm_bridge_FPGA_Slave:m0_debugaccess -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_debugaccess
+	signal mm_bridge_fpga_slave_m0_address                             : std_logic_vector(17 downto 0);  -- mm_bridge_FPGA_Slave:m0_address -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_address
+	signal mm_bridge_fpga_slave_m0_read                                : std_logic;                      -- mm_bridge_FPGA_Slave:m0_read -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_read
+	signal mm_bridge_fpga_slave_m0_byteenable                          : std_logic_vector(7 downto 0);   -- mm_bridge_FPGA_Slave:m0_byteenable -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_byteenable
+	signal mm_bridge_fpga_slave_m0_readdatavalid                       : std_logic;                      -- mm_interconnect_0:mm_bridge_FPGA_Slave_m0_readdatavalid -> mm_bridge_FPGA_Slave:m0_readdatavalid
+	signal mm_bridge_fpga_slave_m0_writedata                           : std_logic_vector(63 downto 0);  -- mm_bridge_FPGA_Slave:m0_writedata -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_writedata
+	signal mm_bridge_fpga_slave_m0_write                               : std_logic;                      -- mm_bridge_FPGA_Slave:m0_write -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_write
+	signal mm_bridge_fpga_slave_m0_burstcount                          : std_logic_vector(0 downto 0);   -- mm_bridge_FPGA_Slave:m0_burstcount -> mm_interconnect_0:mm_bridge_FPGA_Slave_m0_burstcount
 	signal mm_interconnect_0_kbandoutput_csr_readdata                  : std_logic_vector(31 downto 0);  -- KBandOutput:csr_readdata -> mm_interconnect_0:KBandOutput_csr_readdata
 	signal mm_interconnect_0_kbandoutput_csr_address                   : std_logic_vector(2 downto 0);   -- mm_interconnect_0:KBandOutput_csr_address -> KBandOutput:csr_address
 	signal mm_interconnect_0_kbandoutput_csr_read                      : std_logic;                      -- mm_interconnect_0:KBandOutput_csr_read -> KBandOutput:csr_read
@@ -421,33 +491,37 @@ architecture rtl of KBandIPsubAffine is
 	signal mm_interconnect_0_kbandinput_1_descriptor_slave_byteenable  : std_logic_vector(15 downto 0);  -- mm_interconnect_0:KBandInput_1_descriptor_slave_byteenable -> KBandInput_1:descriptor_slave_byteenable
 	signal mm_interconnect_0_kbandinput_1_descriptor_slave_write       : std_logic;                      -- mm_interconnect_0:KBandInput_1_descriptor_slave_write -> KBandInput_1:descriptor_slave_write
 	signal mm_interconnect_0_kbandinput_1_descriptor_slave_writedata   : std_logic_vector(127 downto 0); -- mm_interconnect_0:KBandInput_1_descriptor_slave_writedata -> KBandInput_1:descriptor_slave_writedata
+	signal mm_interconnect_0_onchip_mem_lw_s1_chipselect               : std_logic;                      -- mm_interconnect_0:onchip_mem_LW_s1_chipselect -> onchip_mem_LW:chipselect
+	signal mm_interconnect_0_onchip_mem_lw_s1_readdata                 : std_logic_vector(127 downto 0); -- onchip_mem_LW:readdata -> mm_interconnect_0:onchip_mem_LW_s1_readdata
+	signal mm_interconnect_0_onchip_mem_lw_s1_address                  : std_logic_vector(11 downto 0);  -- mm_interconnect_0:onchip_mem_LW_s1_address -> onchip_mem_LW:address
+	signal mm_interconnect_0_onchip_mem_lw_s1_byteenable               : std_logic_vector(15 downto 0);  -- mm_interconnect_0:onchip_mem_LW_s1_byteenable -> onchip_mem_LW:byteenable
+	signal mm_interconnect_0_onchip_mem_lw_s1_write                    : std_logic;                      -- mm_interconnect_0:onchip_mem_LW_s1_write -> onchip_mem_LW:write
+	signal mm_interconnect_0_onchip_mem_lw_s1_writedata                : std_logic_vector(127 downto 0); -- mm_interconnect_0:onchip_mem_LW_s1_writedata -> onchip_mem_LW:writedata
+	signal mm_interconnect_0_onchip_mem_lw_s1_clken                    : std_logic;                      -- mm_interconnect_0:onchip_mem_LW_s1_clken -> onchip_mem_LW:clken
 	signal mm_interconnect_0_pio_0_s1_chipselect                       : std_logic;                      -- mm_interconnect_0:pio_0_s1_chipselect -> pio_0:chipselect
 	signal mm_interconnect_0_pio_0_s1_readdata                         : std_logic_vector(31 downto 0);  -- pio_0:readdata -> mm_interconnect_0:pio_0_s1_readdata
 	signal mm_interconnect_0_pio_0_s1_address                          : std_logic_vector(1 downto 0);   -- mm_interconnect_0:pio_0_s1_address -> pio_0:address
 	signal mm_interconnect_0_pio_0_s1_write                            : std_logic;                      -- mm_interconnect_0:pio_0_s1_write -> mm_interconnect_0_pio_0_s1_write:in
 	signal mm_interconnect_0_pio_0_s1_writedata                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:pio_0_s1_writedata -> pio_0:writedata
-	signal kbandinput_1_mm_read_readdata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_1:KBandInput_1_mm_read_readdata -> KBandInput_1:mm_read_readdata
-	signal kbandinput_1_mm_read_waitrequest                            : std_logic;                      -- mm_interconnect_1:KBandInput_1_mm_read_waitrequest -> KBandInput_1:mm_read_waitrequest
-	signal kbandinput_1_mm_read_address                                : std_logic_vector(30 downto 0);  -- KBandInput_1:mm_read_address -> mm_interconnect_1:KBandInput_1_mm_read_address
-	signal kbandinput_1_mm_read_read                                   : std_logic;                      -- KBandInput_1:mm_read_read -> mm_interconnect_1:KBandInput_1_mm_read_read
-	signal kbandinput_1_mm_read_byteenable                             : std_logic_vector(3 downto 0);   -- KBandInput_1:mm_read_byteenable -> mm_interconnect_1:KBandInput_1_mm_read_byteenable
-	signal kbandinput_1_mm_read_readdatavalid                          : std_logic;                      -- mm_interconnect_1:KBandInput_1_mm_read_readdatavalid -> KBandInput_1:mm_read_readdatavalid
-	signal kbandoutput_mm_write_waitrequest                            : std_logic;                      -- mm_interconnect_1:KBandOutput_mm_write_waitrequest -> KBandOutput:mm_write_waitrequest
-	signal kbandoutput_mm_write_address                                : std_logic_vector(30 downto 0);  -- KBandOutput:mm_write_address -> mm_interconnect_1:KBandOutput_mm_write_address
-	signal kbandoutput_mm_write_byteenable                             : std_logic_vector(15 downto 0);  -- KBandOutput:mm_write_byteenable -> mm_interconnect_1:KBandOutput_mm_write_byteenable
-	signal kbandoutput_mm_write_write                                  : std_logic;                      -- KBandOutput:mm_write_write -> mm_interconnect_1:KBandOutput_mm_write_write
-	signal kbandoutput_mm_write_writedata                              : std_logic_vector(127 downto 0); -- KBandOutput:mm_write_writedata -> mm_interconnect_1:KBandOutput_mm_write_writedata
-	signal mm_interconnect_1_ddr_s0_readdata                           : std_logic_vector(127 downto 0); -- DDR:s0_readdata -> mm_interconnect_1:DDR_s0_readdata
-	signal mm_interconnect_1_ddr_s0_waitrequest                        : std_logic;                      -- DDR:s0_waitrequest -> mm_interconnect_1:DDR_s0_waitrequest
-	signal mm_interconnect_1_ddr_s0_debugaccess                        : std_logic;                      -- mm_interconnect_1:DDR_s0_debugaccess -> DDR:s0_debugaccess
-	signal mm_interconnect_1_ddr_s0_address                            : std_logic_vector(29 downto 0);  -- mm_interconnect_1:DDR_s0_address -> DDR:s0_address
-	signal mm_interconnect_1_ddr_s0_read                               : std_logic;                      -- mm_interconnect_1:DDR_s0_read -> DDR:s0_read
-	signal mm_interconnect_1_ddr_s0_byteenable                         : std_logic_vector(15 downto 0);  -- mm_interconnect_1:DDR_s0_byteenable -> DDR:s0_byteenable
-	signal mm_interconnect_1_ddr_s0_readdatavalid                      : std_logic;                      -- DDR:s0_readdatavalid -> mm_interconnect_1:DDR_s0_readdatavalid
-	signal mm_interconnect_1_ddr_s0_write                              : std_logic;                      -- mm_interconnect_1:DDR_s0_write -> DDR:s0_write
-	signal mm_interconnect_1_ddr_s0_writedata                          : std_logic_vector(127 downto 0); -- mm_interconnect_1:DDR_s0_writedata -> DDR:s0_writedata
-	signal mm_interconnect_1_ddr_s0_burstcount                         : std_logic_vector(4 downto 0);   -- mm_interconnect_1:DDR_s0_burstcount -> DDR:s0_burstcount
-	signal rst_controller_reset_out_reset                              : std_logic;                      -- rst_controller:reset_out -> [DDR:reset, KBand21affine:reset_reset, mm_bridge_FPGA_Slave:reset, mm_bridge_LW:reset, mm_interconnect_0:mm_bridge_LW_reset_reset_bridge_in_reset_reset, mm_interconnect_1:KBandInput_1_reset_n_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
+	signal mm_interconnect_0_ddr_s0_readdata                           : std_logic_vector(127 downto 0); -- DDR:s0_readdata -> mm_interconnect_0:DDR_s0_readdata
+	signal mm_interconnect_0_ddr_s0_waitrequest                        : std_logic;                      -- DDR:s0_waitrequest -> mm_interconnect_0:DDR_s0_waitrequest
+	signal mm_interconnect_0_ddr_s0_debugaccess                        : std_logic;                      -- mm_interconnect_0:DDR_s0_debugaccess -> DDR:s0_debugaccess
+	signal mm_interconnect_0_ddr_s0_address                            : std_logic_vector(29 downto 0);  -- mm_interconnect_0:DDR_s0_address -> DDR:s0_address
+	signal mm_interconnect_0_ddr_s0_read                               : std_logic;                      -- mm_interconnect_0:DDR_s0_read -> DDR:s0_read
+	signal mm_interconnect_0_ddr_s0_byteenable                         : std_logic_vector(15 downto 0);  -- mm_interconnect_0:DDR_s0_byteenable -> DDR:s0_byteenable
+	signal mm_interconnect_0_ddr_s0_readdatavalid                      : std_logic;                      -- DDR:s0_readdatavalid -> mm_interconnect_0:DDR_s0_readdatavalid
+	signal mm_interconnect_0_ddr_s0_write                              : std_logic;                      -- mm_interconnect_0:DDR_s0_write -> DDR:s0_write
+	signal mm_interconnect_0_ddr_s0_writedata                          : std_logic_vector(127 downto 0); -- mm_interconnect_0:DDR_s0_writedata -> DDR:s0_writedata
+	signal mm_interconnect_0_ddr_s0_burstcount                         : std_logic_vector(4 downto 0);   -- mm_interconnect_0:DDR_s0_burstcount -> DDR:s0_burstcount
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_chipselect       : std_logic;                      -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_chipselect -> onchip_mem_FPGA_Slave:chipselect
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_readdata         : std_logic_vector(127 downto 0); -- onchip_mem_FPGA_Slave:readdata -> mm_interconnect_0:onchip_mem_FPGA_Slave_s1_readdata
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_address          : std_logic_vector(13 downto 0);  -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_address -> onchip_mem_FPGA_Slave:address
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_byteenable       : std_logic_vector(15 downto 0);  -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_byteenable -> onchip_mem_FPGA_Slave:byteenable
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_write            : std_logic;                      -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_write -> onchip_mem_FPGA_Slave:write
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_writedata        : std_logic_vector(127 downto 0); -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_writedata -> onchip_mem_FPGA_Slave:writedata
+	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_clken            : std_logic;                      -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_clken -> onchip_mem_FPGA_Slave:clken
+	signal rst_controller_reset_out_reset                              : std_logic;                      -- rst_controller:reset_out -> [DDR:reset, KBand21affine:reset_reset, mm_bridge_FPGA_Slave:reset, mm_bridge_LW:reset, mm_interconnect_0:mm_bridge_LW_reset_reset_bridge_in_reset_reset, onchip_mem_FPGA_Slave:reset, onchip_mem_LW:reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
+	signal rst_controller_reset_out_reset_req                          : std_logic;                      -- rst_controller:reset_req -> [onchip_mem_FPGA_Slave:reset_req, onchip_mem_LW:reset_req, rst_translator:reset_req_in]
 	signal reset_reset_n_ports_inv                                     : std_logic;                      -- reset_reset_n:inv -> rst_controller:reset_in0
 	signal mm_interconnect_0_pio_0_s1_write_ports_inv                  : std_logic;                      -- mm_interconnect_0_pio_0_s1_write:inv -> pio_0:write_n
 	signal rst_controller_reset_out_reset_ports_inv                    : std_logic;                      -- rst_controller_reset_out_reset:inv -> [KBandInput_1:reset_n_reset_n, KBandOutput:reset_n_reset_n, pio_0:reset_n]
@@ -466,16 +540,16 @@ begin
 		port map (
 			clk              => clk_clk,                                --   clk.clk
 			reset            => rst_controller_reset_out_reset,         -- reset.reset
-			s0_waitrequest   => mm_interconnect_1_ddr_s0_waitrequest,   --    s0.waitrequest
-			s0_readdata      => mm_interconnect_1_ddr_s0_readdata,      --      .readdata
-			s0_readdatavalid => mm_interconnect_1_ddr_s0_readdatavalid, --      .readdatavalid
-			s0_burstcount    => mm_interconnect_1_ddr_s0_burstcount,    --      .burstcount
-			s0_writedata     => mm_interconnect_1_ddr_s0_writedata,     --      .writedata
-			s0_address       => mm_interconnect_1_ddr_s0_address,       --      .address
-			s0_write         => mm_interconnect_1_ddr_s0_write,         --      .write
-			s0_read          => mm_interconnect_1_ddr_s0_read,          --      .read
-			s0_byteenable    => mm_interconnect_1_ddr_s0_byteenable,    --      .byteenable
-			s0_debugaccess   => mm_interconnect_1_ddr_s0_debugaccess,   --      .debugaccess
+			s0_waitrequest   => mm_interconnect_0_ddr_s0_waitrequest,   --    s0.waitrequest
+			s0_readdata      => mm_interconnect_0_ddr_s0_readdata,      --      .readdata
+			s0_readdatavalid => mm_interconnect_0_ddr_s0_readdatavalid, --      .readdatavalid
+			s0_burstcount    => mm_interconnect_0_ddr_s0_burstcount,    --      .burstcount
+			s0_writedata     => mm_interconnect_0_ddr_s0_writedata,     --      .writedata
+			s0_address       => mm_interconnect_0_ddr_s0_address,       --      .address
+			s0_write         => mm_interconnect_0_ddr_s0_write,         --      .write
+			s0_read          => mm_interconnect_0_ddr_s0_read,          --      .read
+			s0_byteenable    => mm_interconnect_0_ddr_s0_byteenable,    --      .byteenable
+			s0_debugaccess   => mm_interconnect_0_ddr_s0_debugaccess,   --      .debugaccess
 			m0_waitrequest   => m0_waitrequest,                         --    m0.waitrequest
 			m0_readdata      => m0_readdata,                            --      .readdata
 			m0_readdatavalid => m0_readdatavalid,                       --      .readdatavalid
@@ -492,8 +566,8 @@ begin
 
 	kband21affine : component KBandIP21
 		generic map (
-			NoCell    => 1024,
-			dimH      => 4,
+			NoCell    => 256,
+			dimH      => 5,
 			dimSymbol => 32,
 			dimADN    => 3,
 			bitsOUT   => 128,
@@ -574,30 +648,30 @@ begin
 			PIPELINE_RESPONSE => 1
 		)
 		port map (
-			clk              => clk_clk,                        --   clk.clk
-			reset            => rst_controller_reset_out_reset, -- reset.reset
-			s0_waitrequest   => sfpga_waitrequest,              --    s0.waitrequest
-			s0_readdata      => sfpga_readdata,                 --      .readdata
-			s0_readdatavalid => sfpga_readdatavalid,            --      .readdatavalid
-			s0_burstcount    => sfpga_burstcount,               --      .burstcount
-			s0_writedata     => sfpga_writedata,                --      .writedata
-			s0_address       => sfpga_address,                  --      .address
-			s0_write         => sfpga_write,                    --      .write
-			s0_read          => sfpga_read,                     --      .read
-			s0_byteenable    => sfpga_byteenable,               --      .byteenable
-			s0_debugaccess   => sfpga_debugaccess,              --      .debugaccess
-			m0_waitrequest   => open,                           --    m0.waitrequest
-			m0_readdata      => open,                           --      .readdata
-			m0_readdatavalid => open,                           --      .readdatavalid
-			m0_burstcount    => open,                           --      .burstcount
-			m0_writedata     => open,                           --      .writedata
-			m0_address       => open,                           --      .address
-			m0_write         => open,                           --      .write
-			m0_read          => open,                           --      .read
-			m0_byteenable    => open,                           --      .byteenable
-			m0_debugaccess   => open,                           --      .debugaccess
-			s0_response      => open,                           -- (terminated)
-			m0_response      => "00"                            -- (terminated)
+			clk              => clk_clk,                               --   clk.clk
+			reset            => rst_controller_reset_out_reset,        -- reset.reset
+			s0_waitrequest   => sfpga_waitrequest,                     --    s0.waitrequest
+			s0_readdata      => sfpga_readdata,                        --      .readdata
+			s0_readdatavalid => sfpga_readdatavalid,                   --      .readdatavalid
+			s0_burstcount    => sfpga_burstcount,                      --      .burstcount
+			s0_writedata     => sfpga_writedata,                       --      .writedata
+			s0_address       => sfpga_address,                         --      .address
+			s0_write         => sfpga_write,                           --      .write
+			s0_read          => sfpga_read,                            --      .read
+			s0_byteenable    => sfpga_byteenable,                      --      .byteenable
+			s0_debugaccess   => sfpga_debugaccess,                     --      .debugaccess
+			m0_waitrequest   => mm_bridge_fpga_slave_m0_waitrequest,   --    m0.waitrequest
+			m0_readdata      => mm_bridge_fpga_slave_m0_readdata,      --      .readdata
+			m0_readdatavalid => mm_bridge_fpga_slave_m0_readdatavalid, --      .readdatavalid
+			m0_burstcount    => mm_bridge_fpga_slave_m0_burstcount,    --      .burstcount
+			m0_writedata     => mm_bridge_fpga_slave_m0_writedata,     --      .writedata
+			m0_address       => mm_bridge_fpga_slave_m0_address,       --      .address
+			m0_write         => mm_bridge_fpga_slave_m0_write,         --      .write
+			m0_read          => mm_bridge_fpga_slave_m0_read,          --      .read
+			m0_byteenable    => mm_bridge_fpga_slave_m0_byteenable,    --      .byteenable
+			m0_debugaccess   => mm_bridge_fpga_slave_m0_debugaccess,   --      .debugaccess
+			s0_response      => open,                                  -- (terminated)
+			m0_response      => "00"                                   -- (terminated)
 		);
 
 	mm_bridge_lw : component kbandipsubaffine_mm_bridge_lw
@@ -636,6 +710,36 @@ begin
 			m0_response      => "00"                            -- (terminated)
 		);
 
+	onchip_mem_fpga_slave : component KBandIPsubAffine_onchip_mem_FPGA_Slave
+		port map (
+			clk        => clk_clk,                                               --   clk1.clk
+			address    => mm_interconnect_0_onchip_mem_fpga_slave_s1_address,    --     s1.address
+			clken      => mm_interconnect_0_onchip_mem_fpga_slave_s1_clken,      --       .clken
+			chipselect => mm_interconnect_0_onchip_mem_fpga_slave_s1_chipselect, --       .chipselect
+			write      => mm_interconnect_0_onchip_mem_fpga_slave_s1_write,      --       .write
+			readdata   => mm_interconnect_0_onchip_mem_fpga_slave_s1_readdata,   --       .readdata
+			writedata  => mm_interconnect_0_onchip_mem_fpga_slave_s1_writedata,  --       .writedata
+			byteenable => mm_interconnect_0_onchip_mem_fpga_slave_s1_byteenable, --       .byteenable
+			reset      => rst_controller_reset_out_reset,                        -- reset1.reset
+			reset_req  => rst_controller_reset_out_reset_req,                    --       .reset_req
+			freeze     => '0'                                                    -- (terminated)
+		);
+
+	onchip_mem_lw : component KBandIPsubAffine_onchip_mem_LW
+		port map (
+			clk        => clk_clk,                                       --   clk1.clk
+			address    => mm_interconnect_0_onchip_mem_lw_s1_address,    --     s1.address
+			clken      => mm_interconnect_0_onchip_mem_lw_s1_clken,      --       .clken
+			chipselect => mm_interconnect_0_onchip_mem_lw_s1_chipselect, --       .chipselect
+			write      => mm_interconnect_0_onchip_mem_lw_s1_write,      --       .write
+			readdata   => mm_interconnect_0_onchip_mem_lw_s1_readdata,   --       .readdata
+			writedata  => mm_interconnect_0_onchip_mem_lw_s1_writedata,  --       .writedata
+			byteenable => mm_interconnect_0_onchip_mem_lw_s1_byteenable, --       .byteenable
+			reset      => rst_controller_reset_out_reset,                -- reset1.reset
+			reset_req  => rst_controller_reset_out_reset_req,            --       .reset_req
+			freeze     => '0'                                            -- (terminated)
+		);
+
 	pio_0 : component KBandIPsubAffine_pio_0
 		port map (
 			clk        => clk_clk,                                    --                 clk.clk
@@ -652,6 +756,27 @@ begin
 		port map (
 			clk_0_clk_clk                                  => clk_clk,                                                     --                                clk_0_clk.clk
 			mm_bridge_LW_reset_reset_bridge_in_reset_reset => rst_controller_reset_out_reset,                              -- mm_bridge_LW_reset_reset_bridge_in_reset.reset
+			KBandInput_1_mm_read_address                   => kbandinput_1_mm_read_address,                                --                     KBandInput_1_mm_read.address
+			KBandInput_1_mm_read_waitrequest               => kbandinput_1_mm_read_waitrequest,                            --                                         .waitrequest
+			KBandInput_1_mm_read_byteenable                => kbandinput_1_mm_read_byteenable,                             --                                         .byteenable
+			KBandInput_1_mm_read_read                      => kbandinput_1_mm_read_read,                                   --                                         .read
+			KBandInput_1_mm_read_readdata                  => kbandinput_1_mm_read_readdata,                               --                                         .readdata
+			KBandInput_1_mm_read_readdatavalid             => kbandinput_1_mm_read_readdatavalid,                          --                                         .readdatavalid
+			KBandOutput_mm_write_address                   => kbandoutput_mm_write_address,                                --                     KBandOutput_mm_write.address
+			KBandOutput_mm_write_waitrequest               => kbandoutput_mm_write_waitrequest,                            --                                         .waitrequest
+			KBandOutput_mm_write_byteenable                => kbandoutput_mm_write_byteenable,                             --                                         .byteenable
+			KBandOutput_mm_write_write                     => kbandoutput_mm_write_write,                                  --                                         .write
+			KBandOutput_mm_write_writedata                 => kbandoutput_mm_write_writedata,                              --                                         .writedata
+			mm_bridge_FPGA_Slave_m0_address                => mm_bridge_fpga_slave_m0_address,                             --                  mm_bridge_FPGA_Slave_m0.address
+			mm_bridge_FPGA_Slave_m0_waitrequest            => mm_bridge_fpga_slave_m0_waitrequest,                         --                                         .waitrequest
+			mm_bridge_FPGA_Slave_m0_burstcount             => mm_bridge_fpga_slave_m0_burstcount,                          --                                         .burstcount
+			mm_bridge_FPGA_Slave_m0_byteenable             => mm_bridge_fpga_slave_m0_byteenable,                          --                                         .byteenable
+			mm_bridge_FPGA_Slave_m0_read                   => mm_bridge_fpga_slave_m0_read,                                --                                         .read
+			mm_bridge_FPGA_Slave_m0_readdata               => mm_bridge_fpga_slave_m0_readdata,                            --                                         .readdata
+			mm_bridge_FPGA_Slave_m0_readdatavalid          => mm_bridge_fpga_slave_m0_readdatavalid,                       --                                         .readdatavalid
+			mm_bridge_FPGA_Slave_m0_write                  => mm_bridge_fpga_slave_m0_write,                               --                                         .write
+			mm_bridge_FPGA_Slave_m0_writedata              => mm_bridge_fpga_slave_m0_writedata,                           --                                         .writedata
+			mm_bridge_FPGA_Slave_m0_debugaccess            => mm_bridge_fpga_slave_m0_debugaccess,                         --                                         .debugaccess
 			mm_bridge_LW_m0_address                        => mm_bridge_lw_m0_address,                                     --                          mm_bridge_LW_m0.address
 			mm_bridge_LW_m0_waitrequest                    => mm_bridge_lw_m0_waitrequest,                                 --                                         .waitrequest
 			mm_bridge_LW_m0_burstcount                     => mm_bridge_lw_m0_burstcount,                                  --                                         .burstcount
@@ -662,6 +787,16 @@ begin
 			mm_bridge_LW_m0_write                          => mm_bridge_lw_m0_write,                                       --                                         .write
 			mm_bridge_LW_m0_writedata                      => mm_bridge_lw_m0_writedata,                                   --                                         .writedata
 			mm_bridge_LW_m0_debugaccess                    => mm_bridge_lw_m0_debugaccess,                                 --                                         .debugaccess
+			DDR_s0_address                                 => mm_interconnect_0_ddr_s0_address,                            --                                   DDR_s0.address
+			DDR_s0_write                                   => mm_interconnect_0_ddr_s0_write,                              --                                         .write
+			DDR_s0_read                                    => mm_interconnect_0_ddr_s0_read,                               --                                         .read
+			DDR_s0_readdata                                => mm_interconnect_0_ddr_s0_readdata,                           --                                         .readdata
+			DDR_s0_writedata                               => mm_interconnect_0_ddr_s0_writedata,                          --                                         .writedata
+			DDR_s0_burstcount                              => mm_interconnect_0_ddr_s0_burstcount,                         --                                         .burstcount
+			DDR_s0_byteenable                              => mm_interconnect_0_ddr_s0_byteenable,                         --                                         .byteenable
+			DDR_s0_readdatavalid                           => mm_interconnect_0_ddr_s0_readdatavalid,                      --                                         .readdatavalid
+			DDR_s0_waitrequest                             => mm_interconnect_0_ddr_s0_waitrequest,                        --                                         .waitrequest
+			DDR_s0_debugaccess                             => mm_interconnect_0_ddr_s0_debugaccess,                        --                                         .debugaccess
 			KBandInput_1_csr_address                       => mm_interconnect_0_kbandinput_1_csr_address,                  --                         KBandInput_1_csr.address
 			KBandInput_1_csr_write                         => mm_interconnect_0_kbandinput_1_csr_write,                    --                                         .write
 			KBandInput_1_csr_read                          => mm_interconnect_0_kbandinput_1_csr_read,                     --                                         .read
@@ -682,6 +817,20 @@ begin
 			KBandOutput_descriptor_slave_writedata         => mm_interconnect_0_kbandoutput_descriptor_slave_writedata,    --                                         .writedata
 			KBandOutput_descriptor_slave_byteenable        => mm_interconnect_0_kbandoutput_descriptor_slave_byteenable,   --                                         .byteenable
 			KBandOutput_descriptor_slave_waitrequest       => mm_interconnect_0_kbandoutput_descriptor_slave_waitrequest,  --                                         .waitrequest
+			onchip_mem_FPGA_Slave_s1_address               => mm_interconnect_0_onchip_mem_fpga_slave_s1_address,          --                 onchip_mem_FPGA_Slave_s1.address
+			onchip_mem_FPGA_Slave_s1_write                 => mm_interconnect_0_onchip_mem_fpga_slave_s1_write,            --                                         .write
+			onchip_mem_FPGA_Slave_s1_readdata              => mm_interconnect_0_onchip_mem_fpga_slave_s1_readdata,         --                                         .readdata
+			onchip_mem_FPGA_Slave_s1_writedata             => mm_interconnect_0_onchip_mem_fpga_slave_s1_writedata,        --                                         .writedata
+			onchip_mem_FPGA_Slave_s1_byteenable            => mm_interconnect_0_onchip_mem_fpga_slave_s1_byteenable,       --                                         .byteenable
+			onchip_mem_FPGA_Slave_s1_chipselect            => mm_interconnect_0_onchip_mem_fpga_slave_s1_chipselect,       --                                         .chipselect
+			onchip_mem_FPGA_Slave_s1_clken                 => mm_interconnect_0_onchip_mem_fpga_slave_s1_clken,            --                                         .clken
+			onchip_mem_LW_s1_address                       => mm_interconnect_0_onchip_mem_lw_s1_address,                  --                         onchip_mem_LW_s1.address
+			onchip_mem_LW_s1_write                         => mm_interconnect_0_onchip_mem_lw_s1_write,                    --                                         .write
+			onchip_mem_LW_s1_readdata                      => mm_interconnect_0_onchip_mem_lw_s1_readdata,                 --                                         .readdata
+			onchip_mem_LW_s1_writedata                     => mm_interconnect_0_onchip_mem_lw_s1_writedata,                --                                         .writedata
+			onchip_mem_LW_s1_byteenable                    => mm_interconnect_0_onchip_mem_lw_s1_byteenable,               --                                         .byteenable
+			onchip_mem_LW_s1_chipselect                    => mm_interconnect_0_onchip_mem_lw_s1_chipselect,               --                                         .chipselect
+			onchip_mem_LW_s1_clken                         => mm_interconnect_0_onchip_mem_lw_s1_clken,                    --                                         .clken
 			pio_0_s1_address                               => mm_interconnect_0_pio_0_s1_address,                          --                                 pio_0_s1.address
 			pio_0_s1_write                                 => mm_interconnect_0_pio_0_s1_write,                            --                                         .write
 			pio_0_s1_readdata                              => mm_interconnect_0_pio_0_s1_readdata,                         --                                         .readdata
@@ -689,39 +838,12 @@ begin
 			pio_0_s1_chipselect                            => mm_interconnect_0_pio_0_s1_chipselect                        --                                         .chipselect
 		);
 
-	mm_interconnect_1 : component KBandIPsubAffine_mm_interconnect_1
-		port map (
-			clk_0_clk_clk                                    => clk_clk,                                --                                  clk_0_clk.clk
-			KBandInput_1_reset_n_reset_bridge_in_reset_reset => rst_controller_reset_out_reset,         -- KBandInput_1_reset_n_reset_bridge_in_reset.reset
-			KBandInput_1_mm_read_address                     => kbandinput_1_mm_read_address,           --                       KBandInput_1_mm_read.address
-			KBandInput_1_mm_read_waitrequest                 => kbandinput_1_mm_read_waitrequest,       --                                           .waitrequest
-			KBandInput_1_mm_read_byteenable                  => kbandinput_1_mm_read_byteenable,        --                                           .byteenable
-			KBandInput_1_mm_read_read                        => kbandinput_1_mm_read_read,              --                                           .read
-			KBandInput_1_mm_read_readdata                    => kbandinput_1_mm_read_readdata,          --                                           .readdata
-			KBandInput_1_mm_read_readdatavalid               => kbandinput_1_mm_read_readdatavalid,     --                                           .readdatavalid
-			KBandOutput_mm_write_address                     => kbandoutput_mm_write_address,           --                       KBandOutput_mm_write.address
-			KBandOutput_mm_write_waitrequest                 => kbandoutput_mm_write_waitrequest,       --                                           .waitrequest
-			KBandOutput_mm_write_byteenable                  => kbandoutput_mm_write_byteenable,        --                                           .byteenable
-			KBandOutput_mm_write_write                       => kbandoutput_mm_write_write,             --                                           .write
-			KBandOutput_mm_write_writedata                   => kbandoutput_mm_write_writedata,         --                                           .writedata
-			DDR_s0_address                                   => mm_interconnect_1_ddr_s0_address,       --                                     DDR_s0.address
-			DDR_s0_write                                     => mm_interconnect_1_ddr_s0_write,         --                                           .write
-			DDR_s0_read                                      => mm_interconnect_1_ddr_s0_read,          --                                           .read
-			DDR_s0_readdata                                  => mm_interconnect_1_ddr_s0_readdata,      --                                           .readdata
-			DDR_s0_writedata                                 => mm_interconnect_1_ddr_s0_writedata,     --                                           .writedata
-			DDR_s0_burstcount                                => mm_interconnect_1_ddr_s0_burstcount,    --                                           .burstcount
-			DDR_s0_byteenable                                => mm_interconnect_1_ddr_s0_byteenable,    --                                           .byteenable
-			DDR_s0_readdatavalid                             => mm_interconnect_1_ddr_s0_readdatavalid, --                                           .readdatavalid
-			DDR_s0_waitrequest                               => mm_interconnect_1_ddr_s0_waitrequest,   --                                           .waitrequest
-			DDR_s0_debugaccess                               => mm_interconnect_1_ddr_s0_debugaccess    --                                           .debugaccess
-		);
-
 	rst_controller : component altera_reset_controller
 		generic map (
 			NUM_RESET_INPUTS          => 1,
 			OUTPUT_RESET_SYNC_EDGES   => "deassert",
 			SYNC_DEPTH                => 2,
-			RESET_REQUEST_PRESENT     => 0,
+			RESET_REQUEST_PRESENT     => 1,
 			RESET_REQ_WAIT_TIME       => 1,
 			MIN_RST_ASSERTION_TIME    => 3,
 			RESET_REQ_EARLY_DSRT_TIME => 1,
@@ -744,41 +866,41 @@ begin
 			ADAPT_RESET_REQUEST       => 0
 		)
 		port map (
-			reset_in0      => reset_reset_n_ports_inv,        -- reset_in0.reset
-			clk            => clk_clk,                        --       clk.clk
-			reset_out      => rst_controller_reset_out_reset, -- reset_out.reset
-			reset_req      => open,                           -- (terminated)
-			reset_req_in0  => '0',                            -- (terminated)
-			reset_in1      => '0',                            -- (terminated)
-			reset_req_in1  => '0',                            -- (terminated)
-			reset_in2      => '0',                            -- (terminated)
-			reset_req_in2  => '0',                            -- (terminated)
-			reset_in3      => '0',                            -- (terminated)
-			reset_req_in3  => '0',                            -- (terminated)
-			reset_in4      => '0',                            -- (terminated)
-			reset_req_in4  => '0',                            -- (terminated)
-			reset_in5      => '0',                            -- (terminated)
-			reset_req_in5  => '0',                            -- (terminated)
-			reset_in6      => '0',                            -- (terminated)
-			reset_req_in6  => '0',                            -- (terminated)
-			reset_in7      => '0',                            -- (terminated)
-			reset_req_in7  => '0',                            -- (terminated)
-			reset_in8      => '0',                            -- (terminated)
-			reset_req_in8  => '0',                            -- (terminated)
-			reset_in9      => '0',                            -- (terminated)
-			reset_req_in9  => '0',                            -- (terminated)
-			reset_in10     => '0',                            -- (terminated)
-			reset_req_in10 => '0',                            -- (terminated)
-			reset_in11     => '0',                            -- (terminated)
-			reset_req_in11 => '0',                            -- (terminated)
-			reset_in12     => '0',                            -- (terminated)
-			reset_req_in12 => '0',                            -- (terminated)
-			reset_in13     => '0',                            -- (terminated)
-			reset_req_in13 => '0',                            -- (terminated)
-			reset_in14     => '0',                            -- (terminated)
-			reset_req_in14 => '0',                            -- (terminated)
-			reset_in15     => '0',                            -- (terminated)
-			reset_req_in15 => '0'                             -- (terminated)
+			reset_in0      => reset_reset_n_ports_inv,            -- reset_in0.reset
+			clk            => clk_clk,                            --       clk.clk
+			reset_out      => rst_controller_reset_out_reset,     -- reset_out.reset
+			reset_req      => rst_controller_reset_out_reset_req, --          .reset_req
+			reset_req_in0  => '0',                                -- (terminated)
+			reset_in1      => '0',                                -- (terminated)
+			reset_req_in1  => '0',                                -- (terminated)
+			reset_in2      => '0',                                -- (terminated)
+			reset_req_in2  => '0',                                -- (terminated)
+			reset_in3      => '0',                                -- (terminated)
+			reset_req_in3  => '0',                                -- (terminated)
+			reset_in4      => '0',                                -- (terminated)
+			reset_req_in4  => '0',                                -- (terminated)
+			reset_in5      => '0',                                -- (terminated)
+			reset_req_in5  => '0',                                -- (terminated)
+			reset_in6      => '0',                                -- (terminated)
+			reset_req_in6  => '0',                                -- (terminated)
+			reset_in7      => '0',                                -- (terminated)
+			reset_req_in7  => '0',                                -- (terminated)
+			reset_in8      => '0',                                -- (terminated)
+			reset_req_in8  => '0',                                -- (terminated)
+			reset_in9      => '0',                                -- (terminated)
+			reset_req_in9  => '0',                                -- (terminated)
+			reset_in10     => '0',                                -- (terminated)
+			reset_req_in10 => '0',                                -- (terminated)
+			reset_in11     => '0',                                -- (terminated)
+			reset_req_in11 => '0',                                -- (terminated)
+			reset_in12     => '0',                                -- (terminated)
+			reset_req_in12 => '0',                                -- (terminated)
+			reset_in13     => '0',                                -- (terminated)
+			reset_req_in13 => '0',                                -- (terminated)
+			reset_in14     => '0',                                -- (terminated)
+			reset_req_in14 => '0',                                -- (terminated)
+			reset_in15     => '0',                                -- (terminated)
+			reset_req_in15 => '0'                                 -- (terminated)
 		);
 
 	reset_reset_n_ports_inv <= not reset_reset_n;

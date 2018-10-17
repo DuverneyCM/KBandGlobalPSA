@@ -102,7 +102,7 @@ module KBandIPsubAffine_KBandOutput (
 		.NUMBER_OF_SYMBOLS_LOG2         (4),
 		.MAX_BURST_COUNT_WIDTH          (1),
 		.UNALIGNED_ACCESSES_ENABLE      (0),
-		.ONLY_FULL_ACCESS_ENABLE        (0),
+		.ONLY_FULL_ACCESS_ENABLE        (1),
 		.BURST_WRAPPING_SUPPORT         (0),
 		.PROGRAMMABLE_BURST_ENABLE      (0),
 		.MAX_BURST_COUNT                (1),

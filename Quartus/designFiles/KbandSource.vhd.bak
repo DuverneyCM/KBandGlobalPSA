@@ -86,8 +86,8 @@ begin
 	--envio de direccion
 	uLastRow:
 	for i in 1 to NoCell generate
-		LastRow(2*i-1)	<=	not iDirection;--iDirection;
-		LastRow(2*i)	<=	iDirection;--not iDirection;
+		LastRow(2*i-1)	<=	iDirection;--iDirection;
+		LastRow(2*i)	<=	not iDirection;--not iDirection;
 	end generate;
 	sDirFifoDataIn	<=	ssFifoDataIn when iSendDirection = '0' else
 							LastRow;

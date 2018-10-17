@@ -27,8 +27,8 @@
 
 // ------------------------------------------
 // Generation parameters:
-//   output_name:         KBandIPsubAffine_mm_interconnect_0_rsp_demux
-//   ST_DATA_W:           111
+//   output_name:         KBandIPsubAffine_mm_interconnect_0_rsp_demux_002
+//   ST_DATA_W:           219
 //   ST_CHANNEL_W:        8
 //   NUM_OUTPUTS:         1
 //   VALID_WIDTH:         1
@@ -40,13 +40,13 @@
 // 15610 - Warning: Design contains x input pin(s) that do not drive logic
 //------------------------------------------
 
-module KBandIPsubAffine_mm_interconnect_0_rsp_demux
+module KBandIPsubAffine_mm_interconnect_0_rsp_demux_002
 (
     // -------------------
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [111-1    : 0]   sink_data, // ST_DATA_W=111
+    input  [219-1    : 0]   sink_data, // ST_DATA_W=219
     input  [8-1 : 0]   sink_channel, // ST_CHANNEL_W=8
     input                         sink_startofpacket,
     input                         sink_endofpacket,
@@ -56,7 +56,7 @@ module KBandIPsubAffine_mm_interconnect_0_rsp_demux
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [111-1    : 0] src0_data, // ST_DATA_W=111
+    output reg [219-1    : 0] src0_data, // ST_DATA_W=219
     output reg [8-1 : 0] src0_channel, // ST_CHANNEL_W=8
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,

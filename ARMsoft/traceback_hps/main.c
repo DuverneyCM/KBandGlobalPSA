@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define dimPacket		512
+#define dimPacketDef		512
 #define NoPacketFile	200
 #define NooRegs			64
 #define dimPackSeq	10000000
@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
 	printf("CLOCKS_PER_SEC = %d \n", CLOCKS_PER_SEC );
 	//Definiciones (pueden volverse constantes. NoPEs puede ser un par�metro de entrada)
 	int NoPEs = atoi(argv[1]); //64
+	int dimPacket = NoPEs/2;
 	int dimFila = 2*NoPEs;
 	int dimUInt = sizeof(unsigned int);
 	int NoRegs = dimFila/(8*dimUInt);
@@ -33,11 +34,12 @@ int main(int argc, char *argv[]) {
 	//static char VfnewseqB[2*50*1000*1000];//[2*dimSeqB];
 		char dataIn1[dimPacket + 1];
 		unsigned int fila[NoRegs];
-		static unsigned int bufferArrows[NooRegs*NoPacketFile*(2*dimPacket)];
+		static unsigned int bufferArrows[NooRegs*NoPacketFile*(2*dimPacketDef)];
 		static char VseqA[dimPackSeq+1];
 		static char VseqB[dimPackSeq+1];
 		static char VfnewseqA[dimPackSeq+1];
 		static char VfnewseqB[dimPackSeq+1];
+		char	symbolA, symbolB;
 	int cntLocal = 0;
 	int similitud = 0;
 	int distancia = 0;
@@ -167,11 +169,11 @@ int main(int argc, char *argv[]) {
 		printf("posArrow = %d\n",posArrow);
 
 	//definir variables de destino
-		int posSeqA = dimSeqA;
-		int posSeqB = dimSeqB;
+		int posSeqA = dimSeqA-1;
+		int posSeqB = dimSeqB-1;
 		int gapA = 0;
 		int gapB = 0;
-		int offsetPos;
+		int offsetPos = 0;
 		int offsetFila;
 
 	int packA, packB;
@@ -196,23 +198,52 @@ int main(int argc, char *argv[]) {
 	int cnt = 0;
 	int flag = 0;
 	int lastArrowTag = ARROW;
-	while (/*ARROW != 0 ||*/ posSeqA != 0 || posSeqB != 0 ) {
+	while (/*ARROW != 0 ||*/ posSeqA != -1 || posSeqB != -1 ) {
 		cntLocal = cnt%dimPackSeq;
 
+
+
+		//**	DecodeArrow	**
 		//////DECODIFICAR LA FLECHA
-		if 		(posSeqA == 0)	lastArrowTag = 2;
-		else if (posSeqB == 0)	lastArrowTag = 1;
+		if 		(posSeqA == -1)	lastArrowTag = 2;
+		else if (posSeqB == -1)	lastArrowTag = 1;
+		else if (VseqA[(posSeqA)%dimPackSeq] == VseqB[(posSeqB)%dimPackSeq] && lastArrowTag == 3)
+			lastArrowTag = 3;
 		else if (ARROW == 0)		{
-			if (VfnewseqA[(cnt-1)%dimPackSeq] == VfnewseqB[(cnt-1)%dimPackSeq])
+			if (VseqA[(posSeqA)%dimPackSeq] == VseqB[(posSeqB)%dimPackSeq])
 				lastArrowTag = 3;
 			else
 				lastArrowTag = lastArrowTag;
 		}
 		else	lastArrowTag = ARROW;
+
+
+
+		//**	GetAlignSymbols	**
+		if ( lastArrowTag == 3 || lastArrowTag == 1 ) symbolA = VseqA[(posSeqA)%dimPackSeq];
+			else symbolA = '_';
+		if ( lastArrowTag == 3 || lastArrowTag == 2 ) symbolB = VseqB[(posSeqB)%dimPackSeq];
+			else symbolB = '_';
+		VfnewseqA[cntLocal] = symbolA;
+		VfnewseqB[cntLocal] = symbolB;
+
+		//**	GetSimilarityAndDistance	**
+		//calcular distancia/similitud segun alineamiento �ptimo
+		if (symbolA == symbolB) {
+			if (symbolA != '_') similitud++;
+		}
+		else {
+			similitud--;
+			distancia++;
+		}
+
+
+		//**	AddAlignSymbols NOOOOO	**
+		//**	GetAlignIndexes	**
+		//**	DecodePosNextArrow	**
+		//**	GetNextDirectionSweep	**
 		decoArrow(&offsetPos, &offsetFila, &dirHV, lastArrowTag, &posSeqA, &posSeqB, &gapA, &gapB);
-
-
-
+		//**	AddAlignSymbols 	**
 		//////GUARDAR LAS NUEVAS SECUENCIAS EN LOS ARCHIVOS
 		if (cntLocal == 0 && cnt != 0){
 			printf("posSeqA**** = %d\n",posSeqA);
@@ -221,21 +252,38 @@ int main(int argc, char *argv[]) {
 				fwrite(&VfnewseqA[i], 1, 1, fnewseqA);
 				fwrite(&VfnewseqB[i], 1, 1, fnewseqB);
 			}
-		}else if (posSeqA == 0 && posSeqB == 0){
+		}else if (posSeqA == -1 && posSeqB == -1){
 			//////Antes o despues del siguiente bloque
-			if (gapA == 0) VfnewseqA[cntLocal] = VseqA[(posSeqA)%dimPackSeq];
-				else VfnewseqA[cntLocal] = '_';
-			if (gapB == 0) VfnewseqB[cntLocal] = VseqB[(posSeqB)%dimPackSeq];
-				else VfnewseqB[cntLocal] = '_';
+			cnt++;
+			//cntLocal = cnt%dimPackSeq;
+			//**	GetAlignSymbols	**
+			if ( lastArrowTag == 3 || lastArrowTag == 1 ) symbolA = VseqA[(posSeqA)%dimPackSeq];
+				else symbolA = '_';
+			if ( lastArrowTag == 3 || lastArrowTag == 2 ) symbolB = VseqB[(posSeqB)%dimPackSeq];
+				else symbolB = '_';
+			VfnewseqA[cnt%dimPackSeq] = symbolA;
+			VfnewseqB[cnt%dimPackSeq] = symbolB;
 
-			for (i=0; i<=cntLocal; i++){
+			for (i=0; i<=cnt%dimPackSeq; i++){
 				fwrite(&VfnewseqA[i], 1, 1, fnewseqA);
 				fwrite(&VfnewseqB[i], 1, 1, fnewseqB);
 			}
+
+			//**	GetSimilarityAndDistance	**
+			//calcular distancia/similitud segun alineamiento �ptimo
+			/*
+			if (symbolA == symbolB) {
+				if (symbolA != '_') similitud++;
+			}
+			else {
+				similitud--;
+				distancia++;
+			}
+			*/
 		}
 
 
-		//LEER SEQA Y SEQB POR PAQUETES DE TAMA�O dimPackSeq
+		//** LEER SEQA Y SEQB POR PAQUETES DE TAMA�O dimPackSeq **
 		if ((posSeqA) % dimPackSeq == 0) {
 		//if ((dimSeqA - posSeqA) % dimPackSeq == 0) {
 			if (packA != 0){
@@ -258,22 +306,21 @@ int main(int argc, char *argv[]) {
 				packB--;
 			}
 		}
+		//**				**				**				**				**
 
 
+		//**	GetAlignSymbols	**
+		//**	AddAlignSymbols	**
 		//////Antes o despues del siguiente bloque
 		//Agregar a la secuencia alineada el nuevo elemento: nucleotido o gap
+/*
 		if (gapA == 0) VfnewseqA[cntLocal] = VseqA[(posSeqA)%dimPackSeq];
 			else VfnewseqA[cntLocal] = '_';
 		if (gapB == 0) VfnewseqB[cntLocal] = VseqB[(posSeqB)%dimPackSeq];
 			else VfnewseqB[cntLocal] = '_';
-		//calcular distancia/similitud segun alineamiento �ptimo
-		if (VfnewseqA[cntLocal] == VfnewseqB[cntLocal]) {
-			if (VfnewseqA[cntLocal] != '_') similitud++;
-		}
-		else {
-			similitud--;
-			distancia++;
-		}
+*/
+
+
 
 
 		//////OBTENER PR�XIMA FLECHA
@@ -305,6 +352,9 @@ int main(int argc, char *argv[]) {
 		}
 
 
+
+
+		//**	GetNextArrow	**
 		//fseek(farrows, -(1+offsetFila)*NoRegs*dimUInt, SEEK_CUR);
 
 		currentFILA = currentFILA - offsetFila; //pos next arrow

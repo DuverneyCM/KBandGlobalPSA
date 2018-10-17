@@ -99,7 +99,7 @@ begin
 	--detecta si hay elementos de secuencia para alinear. Datos invalidos se indica con 0
 	--orADN	<=	'0' when LUTadn = (LUTadn'range => '0') else '1';
 	orADN	<=	'0' when iADNa = (iADNa'range => '0') or iADNb = (iADNb'range => '0') else '1';
-	datoInvalidoAux	<=	sHGDiagEqual;--orADN;
+	datoInvalidoAux	<=	'0' when sHGDiagEqual='1' or orADN='0' else '1';
 	oValid	<=	orADN;--datoInvalidoAux;
 	--Señales de entrada
 	Hdiag	<=	iHd;
@@ -130,9 +130,9 @@ begin
 	Resta4	<=	Hdiag - iGapDiag	;--iGapDiag;
 	MSb(4)	<=	Resta4(dimH-1);
 	HGdiag	<=	Hdiag when MSb(4) = '0' else iGapDiag;
-	sHGDiagEqual	<=	'1' when Hdiag = iGapDiag or orADN = '0' else '0';
-	oHGDiagEqual	<=	sHGDiagEqual;
-	
+	sHGDiagEqual	<=	'1' when Hdiag = iGapDiag else '0';
+	oHGDiagEqual	<=	datoInvalidoAux;--sHGDiagEqual;
+
 	--Apply score function
 	HGdiagScore	<=	HGdiag + ( (dimH-1 downto dimLUT => LUTadn(dimLUT-1)) & LUTadn );
 
@@ -145,8 +145,8 @@ begin
 	--Arrows
 	oArrow	<=	"00" when datoInvalidoAux = '0' else
 					"11" when MSb(4) ='0' else
-					"01" when iDirGap = '0' else
-					"10" when iDirGap = '1';
+					"01" when iDirGap = '1' else
+					"10" when iDirGap = '0';
 
 
 end rtl;

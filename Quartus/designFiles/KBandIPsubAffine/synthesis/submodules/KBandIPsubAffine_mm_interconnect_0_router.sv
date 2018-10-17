@@ -44,26 +44,26 @@
 
 module KBandIPsubAffine_mm_interconnect_0_router_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 1,
+     parameter DEFAULT_CHANNEL = 4,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 0 
+               DEFAULT_DESTID = 6 
    )
-  (output [79 - 77 : 0] default_destination_id,
-   output [5-1 : 0] default_wr_channel,
-   output [5-1 : 0] default_rd_channel,
-   output [5-1 : 0] default_src_channel
+  (output [97 - 95 : 0] default_destination_id,
+   output [8-1 : 0] default_wr_channel,
+   output [8-1 : 0] default_rd_channel,
+   output [8-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[79 - 77 : 0];
+    DEFAULT_DESTID[97 - 95 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 5'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 8'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module KBandIPsubAffine_mm_interconnect_0_router_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 5'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 5'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 8'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 8'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module KBandIPsubAffine_mm_interconnect_0_router
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [93-1 : 0]    sink_data,
+    input  [111-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module KBandIPsubAffine_mm_interconnect_0_router
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [93-1    : 0] src_data,
-    output reg [5-1 : 0] src_channel,
+    output reg [111-1    : 0] src_data,
+    output reg [8-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -112,18 +112,18 @@ module KBandIPsubAffine_mm_interconnect_0_router
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 52;
+    localparam PKT_ADDR_H = 66;
     localparam PKT_ADDR_L = 36;
-    localparam PKT_DEST_ID_H = 79;
-    localparam PKT_DEST_ID_L = 77;
-    localparam PKT_PROTECTION_H = 83;
-    localparam PKT_PROTECTION_L = 81;
-    localparam ST_DATA_W = 93;
-    localparam ST_CHANNEL_W = 5;
+    localparam PKT_DEST_ID_H = 97;
+    localparam PKT_DEST_ID_L = 95;
+    localparam PKT_PROTECTION_H = 101;
+    localparam PKT_PROTECTION_L = 99;
+    localparam ST_DATA_W = 111;
+    localparam ST_CHANNEL_W = 8;
     localparam DECODER_TYPE = 0;
 
-    localparam PKT_TRANS_WRITE = 55;
-    localparam PKT_TRANS_READ  = 56;
+    localparam PKT_TRANS_WRITE = 69;
+    localparam PKT_TRANS_READ  = 70;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -134,11 +134,12 @@ module KBandIPsubAffine_mm_interconnect_0_router
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h10020 - 64'h10000); 
-    localparam PAD1 = log2ceil(64'h10060 - 64'h10040); 
-    localparam PAD2 = log2ceil(64'h10070 - 64'h10060); 
-    localparam PAD3 = log2ceil(64'h10090 - 64'h10080); 
-    localparam PAD4 = log2ceil(64'h100f0 - 64'h100e0); 
+    localparam PAD0 = log2ceil(64'h10000 - 64'h0); 
+    localparam PAD1 = log2ceil(64'h10020 - 64'h10000); 
+    localparam PAD2 = log2ceil(64'h10060 - 64'h10040); 
+    localparam PAD3 = log2ceil(64'h10070 - 64'h10060); 
+    localparam PAD4 = log2ceil(64'h10090 - 64'h10080); 
+    localparam PAD5 = log2ceil(64'h100f0 - 64'h100e0); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
@@ -168,7 +169,7 @@ module KBandIPsubAffine_mm_interconnect_0_router
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [5-1 : 0] default_src_channel;
+    wire [8-1 : 0] default_src_channel;
 
 
 
@@ -197,34 +198,40 @@ module KBandIPsubAffine_mm_interconnect_0_router
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
+    // ( 0x0 .. 0x10000 )
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 17'h0   ) begin
+            src_channel = 8'b010000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
+    end
+
     // ( 0x10000 .. 0x10020 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 17'h10000   ) begin
-            src_channel = 5'b00010;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
-    end
-
-    // ( 0x10040 .. 0x10060 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 17'h10040   ) begin
-            src_channel = 5'b00001;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
-    end
-
-    // ( 0x10060 .. 0x10070 )
-    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 17'h10060  && write_transaction  ) begin
-            src_channel = 5'b01000;
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 17'h10000   ) begin
+            src_channel = 8'b000010;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
     end
 
-    // ( 0x10080 .. 0x10090 )
-    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 17'h10080  && write_transaction  ) begin
-            src_channel = 5'b00100;
+    // ( 0x10040 .. 0x10060 )
+    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 17'h10040   ) begin
+            src_channel = 8'b000001;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
-    // ( 0x100e0 .. 0x100f0 )
-    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 17'h100e0   ) begin
-            src_channel = 5'b10000;
+    // ( 0x10060 .. 0x10070 )
+    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 17'h10060  && write_transaction  ) begin
+            src_channel = 8'b001000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
+    end
+
+    // ( 0x10080 .. 0x10090 )
+    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 17'h10080  && write_transaction  ) begin
+            src_channel = 8'b000100;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
+    end
+
+    // ( 0x100e0 .. 0x100f0 )
+    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 17'h100e0   ) begin
+            src_channel = 8'b100000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
     end
 
 end

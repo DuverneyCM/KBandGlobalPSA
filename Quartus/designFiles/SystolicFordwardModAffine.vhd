@@ -25,7 +25,7 @@ entity SystolicFordwardModAffine is
 		oADNfinish, oADNvalid				:	out std_logic;
 		flag						:	out	std_logic;
 		oArrows				:	out std_logic_vector(2*NoCell-1 downto 0)
-		
+
 		--prueba
 		--H1, H2, H3, H4, H5	:	out std_logic_vector(dimH-1 downto 0);
 		--rADNa0, rADNa1, rADNa2, rADNa3, rADNa4, rADNa5 : out	std_logic_vector(dimADN-1 downto 0);
@@ -34,7 +34,7 @@ entity SystolicFordwardModAffine is
 end SystolicFordwardModAffine;
 
 	--(0 => Ne, others => '0')
-	--(others => '0')	
+	--(others => '0')
 
 architecture rtl of SystolicFordwardModAffine is
 
@@ -53,7 +53,7 @@ architecture rtl of SystolicFordwardModAffine is
 	Type TipoH		is	Array (NoCell+1 downto 0) of std_logic_vector(dimH-1 downto 0);
 	Type TipoArrow	is	Array (NoCell+1 downto 0) of std_logic_vector(1 downto 0);
 
-	
+
 	signal	andAux		:	std_logic_vector(NoCell downto 1);
 	signal	sensorAnd	:	std_logic;
 
@@ -63,13 +63,13 @@ architecture rtl of SystolicFordwardModAffine is
 	signal	sDireccionVector, rDireccionVector	:	std_logic_vector(2*NoCell-1 downto 0);
 	signal	sArrow, rArrow								:	TipoArrow;
 	signal	sDirGap, sDirGapDiag						:	std_logic_vector(NoCell downto 0);
-	
+
 	signal	sEnable, sADNfinish, sDirection	:	std_logic;
-	
+
 	signal	sBlockCero	:	std_logic_vector(NoCell downto 0);
 	signal	sValid, sHGDiagEqual	:	std_logic_vector(NoCell downto 0);
-	
-	
+
+
 	component PEadnModAffine is
 		generic(
 			dimH		: 	natural  :=	4;
@@ -105,7 +105,7 @@ architecture rtl of SystolicFordwardModAffine is
 		oArrow		:	out std_logic_vector(1 downto 0)
 	);
 	end component;
-	
+
 	component pipelineKBandModAffine is
 		generic(
 			dimH		: 	natural  :=	5;
@@ -140,11 +140,11 @@ architecture rtl of SystolicFordwardModAffine is
 		oArrow		:	out std_logic_vector(1 downto 0)
 	);
 	end component;
-	
+
 begin
-	
+
 	--crea las celdas de procesamiento
-	processor_cell: 
+	processor_cell:
 	for i in 1 to NoCell generate
 		PE: PEadnModAffine
 		generic map(
@@ -164,7 +164,7 @@ begin
 			iHd			=>	rH2(i),
 			iHu			=>	arrayHU(i),
 			iHl			=>	arrayHL(i),
-			iADNFinish	=>	'0',--iADNFinish,--'0',		
+			iADNFinish	=>	'0',--iADNFinish,--'0',
 			iDirGap		=>	sDirGapDiag(i),		--:	in	std_logic;
 			iGapDiag		=>	rG2(i),		--:	in std_logic_vector(dimH-1 downto 0);
 			iGapUp		=>	arrayGU(i),	--:	in std_logic_vector(dimH-1 downto 0);
@@ -181,9 +181,9 @@ begin
 			oArrow		=>	sArrow(i)
 		);
 	end generate;
-	
+
 	--crea los registros de pipeline
-	register_cell: 
+	register_cell:
 	for i in 0 to NoCell generate
 		rPIPE	:	pipelineKBandModAffine
 		generic map(
@@ -195,7 +195,7 @@ begin
 			CLOCK_50		=>	CLOCK_50,
 			reset			=>	reset,
 			iEnable		=>	sEnable,
-			inDireccion	=>	inDireccion,
+			inDireccion	=>	sDirection,--inDireccion,
 			iBitCl		=>	sensorAnd,
 			iADNa			=>	sADNa(i),
 			iADNb			=>	sADNb(i+1),
@@ -217,18 +217,18 @@ begin
 			oArrow		=>	rArrow(i)
 		);
 	end generate;
-	
+
 	--REGISTROS
 	--carga los registros de desplazamiento
 	sADNb(NoCell+1)	<=	iADNh;
 	sADNa(0)				<=	iADNv;
-	
+
 	--Sincronizacion de dirección
 	--Direction
 	process (CLOCK_50, reset)
 	begin
 		if reset = '1' then
-			sDirection <= '1';
+			sDirection <= '0';
 		elsif (rising_edge(CLOCK_50)) then
 			if iEnable = '1' then
 				--sDirection <= inDireccion;
@@ -237,30 +237,30 @@ begin
 		end if;
 	end process;
 	--sDirection <= inDireccion;
-	
-	
+
+
 	--crea los multiplexores
 	--son los registros que se conectan en U y L en los bordes
-	rH1(NoCell+1)	<=	rH2(NoCell);--(dimH-1 => '1', 1 => '1', others => '0'); --(others => '1');
-	sH(0)				<=	rH2(1);--(dimH-1 => '1', 1 => '1', others => '0'); --sH
-	rG1(NoCell+1)	<=	rG2(NoCell);
+	rH1(NoCell+1)	<=	rH1(NoCell)-1;		--rH2(NoCell);--(dimH-1 => '1', 1 => '1', others => '0'); --(others => '1');
+	sH(0)				<=	rH2(1);				--(dimH-1 => '1', 1 => '1', others => '0'); --sH
+	rG1(NoCell+1)	<=	rG1(NoCell)-1;		--rG2(NoCell);
 	sG(0)				<=	rG2(1);
-	
+
 	mux:
 	for i in 2 to NoCell generate
-		mux_HU: arrayHU(i) <=	rH1(i) when sDirection = '1' else rH1(i+1); --si el ultimo movimiento fue vertical (0)										
-		mux_HL: arrayHL(i) <=	rH1(i) when sDirection = '0' else rH1(i-1); --si el ultimo movimiento fue horizontal(1)											
-		mux_GU: arrayGU(i) <=	rG1(i) when sDirection = '1' else rG1(i+1);									
-		mux_GL: arrayGL(i) <=	rG1(i) when sDirection = '0' else rG1(i-1);	
+		mux_HU: arrayHU(i) <=	rH1(i) when sDirection = '1' else rH1(i+1); --si el ultimo movimiento fue vertical (0)
+		mux_HL: arrayHL(i) <=	rH1(i) when sDirection = '0' else rH1(i-1); --si el ultimo movimiento fue horizontal(1)
+		mux_GU: arrayGU(i) <=	rG1(i) when sDirection = '1' else rG1(i+1);
+		mux_GL: arrayGL(i) <=	rG1(i) when sDirection = '0' else rG1(i-1);
 	end generate;
 	arrayHU(1) <=	rH1(1) when sDirection = '1' else rH1(2);
-	arrayHL(1) <=	rH1(1) when sDirection = '0' else sH(0);
-	arrayGU(1) <=	rG1(1) when sDirection = '1' else rG1(2);
-	arrayGL(1) <=	rG1(1) when sDirection = '0' else sG(0);
-	
-	
+	arrayHL(1) <=	rH1(1) when sDirection = '0' else sH(0); 
+	arrayGU(1) <=	rG1(1) when sDirection = '1' else rG1(2); 
+	arrayGL(1) <=	rG1(1) when sDirection = '0' else sG(0); 
 
-	
+
+
+
 	--AND del segundo bit mas significativo
 	and_sensor:
 	for i in 1 to NoCell generate
@@ -268,15 +268,15 @@ begin
 	end generate;
 	sensorAnd	<=	'1' when andAux = (andAux'range => '1') else '0';
 	flag	<= sDirection;
-	
+
 	--pasa el array a std_logic_vector
-	array2stdLogicVector: 
+	array2stdLogicVector:
 	for i in 0 to NoCell-1 generate
 		sDireccionVector(2*i+1 downto 2*i)	<=	sArrow(i+1);
-		rDireccionVector(2*i+1 downto 2*i)	<=	rArrow(i+1);	
+		rDireccionVector(2*i+1 downto 2*i)	<=	rArrow(i+1);
 	end generate;
 	oArrows	<=	reverse_any_vector(rDireccionVector); --(0 to 2*NoCell-1)
-	
+
 	sEnable	<=	iEnable;
 	--sADNfinish	<=	'1' when sDireccionVector = 0 else '0';	--sEnable;
 	sADNfinish	<=	'1' when sValid = 0 else '0';	--sEnable;
@@ -285,15 +285,15 @@ begin
 	--el procesador debe seguir funcionando hasta que la salida de flechas sea nula
 	--pero debe detenerse mientras la trama no ha terminado
 	--Startofpacket y Endofpacket pueden usarse
-	
+
 	--Prueba
 --	H1	<=	sH(1);	H2	<=	sH(2);	H3	<=	sH(3);	H4	<=	sH(4);	H5	<=	sH(5);
---	rADNa0	<=	rADNa(0);	rADNa1	<=	rADNa(1);	rADNa2	<=	rADNa(2);	
+--	rADNa0	<=	rADNa(0);	rADNa1	<=	rADNa(1);	rADNa2	<=	rADNa(2);
 --	rADNa3	<=	rADNa(3);	rADNa4	<=	rADNa(4);	rADNa5	<=	rADNa(5);
---	
+--
 --	rADNb0	<=	rADNb(0);	rADNb1	<=	rADNb(1);	rADNb2	<=	rADNb(2);
 --	rADNb3	<=	rADNb(3);	rADNb4	<=	rADNb(4);	rADNb5	<=	rADNb(5);
-	
+
 end rtl;
 
 --	IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE IMPORTANTE

@@ -64,23 +64,21 @@ architecture rtl of SystolicFordward is
 	signal	sArrow, rArrow					:	TipoArrow;
 
 	signal	sEnable, sADNfinish, sDirection	:	std_logic;
-	signal	sMatch, sMisMatch		:	std_logic_vector(dimLUT-1 downto 0);
-	signal	sValid, sHGDiagEqual	:	std_logic_vector(NoCell downto 0);
+	signal	sMatch, sMisMatch		:	in std_logic_vector(dimLUT-1 downto 0);
 
 
 	component PEadnMod is
 		generic(
-			dimH		: 	natural  :=	4;
-			dimADN	:	natural  :=	3;
-			dimLUT	:	natural  :=	3
+			dimH		: 	natural  :=	8;
+			dimADN	:	natural  :=	3
 		);
 		port
 		(
 			-- Input ports (parameters)
-			iMatch, iMisMatch, iW	:	in std_logic_vector(dimLUT-1 downto 0);
-
-			--	Input ports
-
+			iMatch, iMisMatch, iW	:	in std_logic_vector(3 downto 0);
+			-- Input ports
+			CLOCK_50		:	in	std_logic;
+			reset			:	in std_logic;
 			iADNa			:	in std_logic_vector(dimADN-1 downto 0);
 			iADNb			:	in std_logic_vector(dimADN-1 downto 0);
 			iH1			:	in std_logic_vector(dimH-1 downto 0);
@@ -92,8 +90,6 @@ architecture rtl of SystolicFordward is
 			-- Output ports
 			oADNa			:	out std_logic_vector(dimADN-1 downto 0);
 			oADNb			:	out std_logic_vector(dimADN-1 downto 0);
-			oHGDiagEqual	:	out std_logic;
-			oValid		:	out std_logic;
 			oH				:	out std_logic_vector(dimH-1 downto 0);
 			oArrow		:	out std_logic_vector(1 downto 0)
 		);
@@ -134,8 +130,7 @@ begin
 		PE: PEadnMod
 		generic map(
 			dimH		=>	dimH,
-			dimADN	=>	dimADN,
-			dimLUT	=> dimLUT
+			dimADN	=>	dimADN
 		)
 		port map(
 			-- Input ports (parameters)
@@ -143,6 +138,8 @@ begin
 			iMisMatch	=>	sMisMatch,--"0001",	-- -1+2
 			iW				=>	iOG,--iW,--"0010",	--  2
 			-- Input ports
+			CLOCK_50		=>	CLOCK_50,
+			reset			=>	reset,
 			iADNa			=>	rADNa(i-1),
 			iADNb			=>	rADNb(i),--arrayInAminoV(NoCell+1 - i),
 			iH1			=>	rH1(i),
@@ -154,8 +151,6 @@ begin
 			-- Output ports
 			oADNa			=>	sADNa(i),
 			oADNb			=>	sADNb(i),
-			oHGDiagEqual=>	sHGDiagEqual(i),
-			oValid		=>	sValid(i),
 			oH				=>	sH(i), --igual a antes en H1, h0
 			oArrow		=>	sArrow(i)
 		);
@@ -242,8 +237,7 @@ begin
 	oArrows	<=	reverse_any_vector(rDireccionVector); --(0 to 2*NoCell-1)
 
 	sEnable	<=	iEnable;
-	--sADNfinish	<=	'1' when sDireccionVector = 0 else '0';	--sEnable;
-	sADNfinish	<=	'1' when sValid = 0 else '0';	--sEnable;
+	sADNfinish	<=	'1' when sDireccionVector = 0 else '0';	--sEnable;
 	oADNfinish	<=	sADNfinish;
 	oADNvalid	<=	iEnable and not sADNfinish;
 	--el procesador debe seguir funcionando hasta que la salida de flechas sea nula

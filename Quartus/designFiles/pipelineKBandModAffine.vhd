@@ -40,9 +40,11 @@ end pipelineKBandModAffine;
 
 
 architecture rtl of pipelineKBandModAffine is
-signal	sH1, sH2, sG1, sG2	:	std_logic_vector(dimH-1 downto 0);
+signal	sH1, sH1mux, sH2, sG1, sG2	:	std_logic_vector(dimH-1 downto 0);
 signal	sDirGap1, sDirGap2, sHGDiagEqual	: std_logic;
 signal	sArrow		:	std_logic_vector(1 downto 0);
+signal	clearH2		:	std_logic;
+
 begin
 	process(reset, CLOCK_50) is
 	begin
@@ -69,14 +71,16 @@ begin
 				--end if;
 			--end if;
 			--Second Delay
+			--se podría considerar eliminar este retardo para ahorrar hardware
 			if (iEnable = '1') then
-				if (iCero = '1' or iFinish = '1') then
-					sH2	<= (others => '0');
-					--sG2	<= (others => '0');
-				else
-					sH2		<= sH1;
-					--sG2		<= sG1;
-				end if;
+		--		if (iCero = '1' or iFinish = '1') then
+		--			sH1	<= (others => '0');
+		--		else
+		--			sH1	<=	iH;
+		--		end if;
+
+				sH2		<= sH1mux;
+				sH1		<= iH;
 			end if;
 			--registros de desplazamiento para aminoH y aminoV, cargan de forma alternada
 			if (inDireccion = '0' AND iEnable = '1') then
@@ -91,7 +95,7 @@ begin
 --				else
 --					oADNb		<= iADNb;
 --				end if;
-				sH1		<= iH;
+--				clearH2	<=	iCero or iFinish;--iCero = '1' or iFinish = '1'
 				sG2	<= sG1;
 				sG1	<= iG;
 				sDirGap2	<=	sDirGap1;
@@ -103,11 +107,14 @@ begin
 		end if;
 		oDirGapDiag	<=	sDirGap2;
 		oH2		<=	sH2;
-		if (iCero = '1' or iFinish = '1') then
-			oH1	<= (others => '0');
+		clearH2	<=	iCero or iFinish;
+		if (clearH2 = '1') then
+			sH1mux	<= (others => '0');
 		else
-			oH1		<= sH1;
+			sH1mux	<= sH1;
 		end if;
+		oH1	<=	sH1mux;
+
 --		if (sHGDiagEqual = '1' or iFinish = '1') then
 --			oArrow	<= (others => '0');
 --		else
@@ -120,4 +127,5 @@ begin
 		oArrow		<= sArrow;
 	end process;
 	--oH1		<=	(others => '0') when iCero = '1' or iFinish = '1' else	sH1;
+	--sH1		<=	(others => '0') when iCero = '1' or iFinish = '1' else	iH;
 end rtl;

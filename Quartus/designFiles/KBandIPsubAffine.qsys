@@ -273,10 +273,10 @@
   <parameter name="USE_RESPONSE" value="0" />
  </module>
  <module name="KBand21affine" kind="KBand21affine" version="1.0" enabled="1">
-  <parameter name="NoCell" value="1024" />
+  <parameter name="NoCell" value="256" />
   <parameter name="bitsOUT" value="128" />
   <parameter name="dimADN" value="3" />
-  <parameter name="dimH" value="4" />
+  <parameter name="dimH" value="5" />
   <parameter name="dimLUT" value="4" />
   <parameter name="dimSymbol" value="32" />
   <parameter name="widthu" value="3" />
