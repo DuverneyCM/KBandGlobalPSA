@@ -131,7 +131,7 @@ begin
 	MSb(4)	<=	Resta4(dimH-1);
 	HGdiag	<=	Hdiag when MSb(4) = '0' else iGapDiag;
 	sHGDiagEqual	<=	'1' when Hdiag = iGapDiag else '0';
-	oHGDiagEqual	<=	datoInvalidoAux;--sHGDiagEqual;
+	oHGDiagEqual	<=	not datoInvalidoAux;--sHGDiagEqual;
 
 	--Apply score function
 	HGdiagScore	<=	HGdiag + ( (dimH-1 downto dimLUT => LUTadn(dimLUT-1)) & LUTadn );
@@ -143,7 +143,7 @@ begin
 	oH			<=	mayorT;--mayorT when iADNFinish = '0' else (others => '0');
 
 	--Arrows
-	oArrow	<=	"00" when datoInvalidoAux = '0' else
+	oArrow	<=	"00" when orADN = '0' else --datoInvalidoAux = '0' else
 					"11" when MSb(4) ='0' else
 					"01" when iDirGap = '1' else
 					"10" when iDirGap = '0';

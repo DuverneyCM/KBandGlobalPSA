@@ -276,7 +276,7 @@
   <parameter name="NoCell" value="256" />
   <parameter name="bitsOUT" value="128" />
   <parameter name="dimADN" value="3" />
-  <parameter name="dimH" value="5" />
+  <parameter name="dimH" value="4" />
   <parameter name="dimLUT" value="4" />
   <parameter name="dimSymbol" value="32" />
   <parameter name="widthu" value="3" />

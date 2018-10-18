@@ -115,7 +115,7 @@ begin
 		end if;
 		oH1	<=	sH1mux;
 
---		if (sHGDiagEqual = '1' or iFinish = '1') then
+--		if (sHGDiagEqual = '1') then	-- or iFinish = '1'
 --			oArrow	<= (others => '0');
 --		else
 --			oArrow		<= sArrow;
@@ -124,8 +124,9 @@ begin
 		oG2		<=	sG2;
 		oG1		<=	sG1;
 		oH1msb	<=	sH1(dimH-1 downto dimH-2);
-		oArrow		<= sArrow;
+		--oArrow		<= sArrow;
 	end process;
+	oArrow		<= (others => '0') when sHGDiagEqual = '1' and clearH2 = '0' else sArrow;
 	--oH1		<=	(others => '0') when iCero = '1' or iFinish = '1' else	sH1;
 	--sH1		<=	(others => '0') when iCero = '1' or iFinish = '1' else	iH;
 end rtl;
