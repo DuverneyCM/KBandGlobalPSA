@@ -32,17 +32,19 @@ DecodeArrow[curArrow_, indexH_, indexV_, seqA_, seqB_, lastArrowTag_] :=
 	If[indexH == 0 && indexV == 0, "invalid",
 	If[indexH == 0, "up",
 	If[indexV == 0, "left",
+	If[seqA[[indexH]]==seqB[[indexV]] && lastArrowTag=="diag", "diag",
 	Switch[curArrow,
 		{1,1}, "diag",
 		{1,0}, "up",
 		{0,1}, "left",
-		{0,0},	If[seqA[[indexH]]==seqB[[indexV]], "diag",lastArrowTag]
-					(*If[lastArrowTag=="diag",lastArrowTag],
+		{0,0}, If[seqA[[indexH]]==seqB[[indexV]], "diag",lastArrowTag]
+
+					(*If[lastArrowTag=="diag",(*lastArrowTag],*)
 						If[indexH > indexV, "left", "up"]],
 					lastArrowTag]*)
 				(*"diag"*)
 				(*lastArrowTag*)
-	]]]]
+	]]]]]
 
 
 (* TODO - gives a list with the next align indexes *)
@@ -564,6 +566,7 @@ NWSeqAlignAffine2[h_, g_, arrowGD_, iGEdge_, valid_, lut_, gapO_, gapE_, flagD_]
 		(*Seleccionar flecha asociada al mayor*)
    		selMayorH = Table[If[HUp[[i]] < HLeft[[i]],1,0], {i, n}];
    		selMayorG = Table[If[GUp[[i]] < GLeft[[i]],1,0], {i, n}];
+   			(*prioridad a extension*)
    		selMayorHGUL = Table[If[mayorHUL[[i]]-gapO < mayorGUL[[i]]-gapE,1,0], {i, n}];
    		selMayorHGD = Table[If[HDiag[[i]] < GDiag[[i]],1,0], {i, n}];
    		arrowHGequal = Table[If[HDiag[[i]] == GDiag[[i]],1,0], {i, n}];
@@ -579,6 +582,7 @@ NWSeqAlignAffine2[h_, g_, arrowGD_, iGEdge_, valid_, lut_, gapO_, gapE_, flagD_]
 		arrowsRow = Table[
    			If[selMayorHGD[[i]] == 0,
    				{1,1},
+   				(*arrowsG[[i]]*)
    				arrowGD[[i]]
    				(*If[ HDiag[[i]] == GDiag[[i]] && lut[[i]]==1, arrowsG[[i]], arrowsG[[i]] ],*)
    				(*arrowGD[[i]],*)
@@ -598,7 +602,7 @@ ForwardKBandNWAffine[mode_,noPEs_, seqA_, seqB_, match_, mismatch_, gapO_, gapE_
 	Block[{lenA = Length@seqA, lenB = Length@seqB, enhSeqA, enhSeqB, lenSeqMax, offset,
 		lutByPE, validPEs, cycle, matrixH, matrixG, arrowsRow, outputH, outputG, GEdge,
 		arrowsG, rowArrowGD, noCYCLE=1, noValidRows, inBufferA, inBufferB, flagD, matrixHpremux,
-		anyValidDelay, arrowsRowMux, arrowHGequal },
+		anyValidDelay, arrowsRowMux, arrowHGequal, finish, finish1 },
 
 		lenSeqMax = Max[lenA, lenB];
 		noValidRows = lenA + lenB - 1;
@@ -627,11 +631,14 @@ ForwardKBandNWAffine[mode_,noPEs_, seqA_, seqB_, match_, mismatch_, gapO_, gapE_
   			{inBufferA, inBufferB} = LoadInputBuffer[enhSeqA[[noCYCLE]], enhSeqB[[noCYCLE]], inBufferA, inBufferB, flagD];
   			{validPEs, lutByPE} = ScoreMatrix[inBufferA, inBufferB, match, mismatch, 0, noPEs];
 
-
+  			(*Total[Abs[N@validPEs]]*)
+  			finish = Total[validPEs] == 0;
   			arrowsRowMux = Table[ If[arrowHGequal[[i]]==1, {0,0}, arrowsRow[[i]] ], {i, noPEs}];
-  			arrowsRowMux = If[ Total[Abs[N@validPEs]] == 0, arrowsRow, arrowsRowMux];
+  			arrowsRowMux = If[finish, arrowsRow, arrowsRowMux];
+  			(*arrowsRowMux = arrowsRow;*)
 
-  			matrixH[[2;;-2,1]] = If[Total[Abs[N@validPEs]] == 0, Table[0, noPEs], outputH ];
+
+  			matrixH[[2;;-2,1]] = If[finish, Table[0, noPEs], outputH ];
 
   			{arrowsRow, outputH, outputG, arrowsG, GEdge, arrowHGequal} =
   			If[mode == 1,
@@ -640,8 +647,9 @@ ForwardKBandNWAffine[mode_,noPEs_, seqA_, seqB_, match_, mismatch_, gapO_, gapE_
   			];
 
 
-  			matrixH[[2;;-2,2]] = If[Total[Abs[N@validPEs]] == 0, Table[0, noPEs], matrixHpremux ];
+  			matrixH[[2;;-2,2]] = If[finish, Table[0, noPEs], matrixHpremux ];
   			matrixHpremux = outputH;
+  			finish1 = finish;
   			(*matrixH[[;;,2]] = matrixH[[;;,1]];*)
   			(*matrixH[[2;;-2,1]] = If[Total[Abs[N@validPEs]] == 0, Table[0, noPEs], outputH ];*)
   			(*matrixH[[2;;-2,1]] = outputH;*)
@@ -655,7 +663,7 @@ ForwardKBandNWAffine[mode_,noPEs_, seqA_, seqB_, match_, mismatch_, gapO_, gapE_
   			rowArrowGD[[;;,2]] = rowArrowGD[[;;,1]];
   			rowArrowGD[[;;,1]] = arrowsG;
 
-  				(*Sow[arrowsRow//Flatten, tagArrow];*)
+  				Sow[arrowHGequal, tagEqHG];
   				Sow[arrowsRowMux//Flatten, tagArrow];
   				Sow[outputH(*matrixH[[2;;-2,1]]*), tagMatrixH];
   				Sow[outputG, tagMatrixG];
