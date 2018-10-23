@@ -228,7 +228,7 @@ begin
 	process (CLOCK_50, reset)
 	begin
 		if reset = '1' then
-			sDirection <= '0';
+			sDirection <= '1';
 		elsif (rising_edge(CLOCK_50)) then
 			if iEnable = '1' then
 				--sDirection <= inDireccion;

@@ -12,9 +12,13 @@ entity KbandSink is
 		-- clk and reset interface
 		clk_ext, clk_int, reset													:	in		std_logic;
 		--Streamming Sink Interface
-		dout_Ready													:	out	std_logic;
-		din_Valid													:	in		std_logic;
-		din_Data														:	in		std_logic_vector(dimSymbol downto 1);
+		dout_Ready1													:	out	std_logic;
+		din_Valid1													:	in		std_logic;
+		din_Data1													:	in		std_logic_vector(dimSymbol downto 1);
+		--Streamming Sink Interface
+		dout_Ready2													:	out	std_logic;
+		din_Valid2													:	in		std_logic;
+		din_Data2													:	in		std_logic_vector(dimSymbol downto 1);
 		--interLogic Ports
 		iParameters			:	in	std_logic_vector(31 downto 0);
 		iLoadParameter	:	in	std_logic;
@@ -35,12 +39,12 @@ COMPONENT FifoKBandIN IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';
-		data		: IN STD_LOGIC_VECTOR (5 DOWNTO 0);
+		data		: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 		rdclk		: IN STD_LOGIC ;
 		rdreq		: IN STD_LOGIC ;
 		wrclk		: IN STD_LOGIC ;
 		wrreq		: IN STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (5 DOWNTO 0);
+		q		: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
 		wrfull		: OUT STD_LOGIC
 	);
@@ -51,9 +55,11 @@ signal state   : state_type;
 
 signal	sDinData1, sDinData2	:	std_logic_vector(dimADN downto 1);
 signal	sData1, sData2			:	std_logic_vector(8 downto 1);
-signal	sDinData, sFifoDataOut	:	std_logic_vector(2*dimADN downto 1);
+signal	sDinData, sFifoDataOut1, sFifoDataOut2	:	std_logic_vector(1*dimADN downto 1);
 signal	sFifoCount	:	std_logic_vector(2 downto 0);
-signal	sFifoRead, sFifoWrite, sFifoEmpty, sFifoFull, ssFifoEmpty, sssFifoEmpty, ssssFifoEmpty, sFifoEmptyDelay	:	std_logic;
+signal	sFifoEmpty, ssFifoEmpty, sssFifoEmpty, ssssFifoEmpty, sFifoEmptyDelay	:	std_logic;
+signal	sFifoRead1, sFifoWrite1, sFifoEmpty1, sFifoFull1				:	std_logic;
+signal	sFifoRead2, sFifoWrite2, sFifoEmpty2, sFifoFull2		 		:	std_logic;
 signal	sLoadShReg, shr	:	std_logic;
 signal	cnt	:	std_logic_vector(3 downto 0);
 signal	adquirir, procesar, sFinalPacket	:	std_logic;
@@ -84,37 +90,49 @@ begin
 				rADN1mux	<=	sADN1mux;
 				rADN2mux	<=	sADN2mux;
 			end if;
-			if(sFifoWrite = '1') then
-				sFinalPacket	<=	din_Data(32);
-			end if;
 		end if;
 	end process;
-	sDinData	<=	sDinData1 & sDinData2;
+	--sDinData	<=	sDinData1 & sDinData2;
 
 
 
-	uFIFOin	:	FifoKBandIN
+	uFIFOin1	:	FifoKBandIN
 	port map(
 		aclr		=>	reset,
-		data		=>	sDinData, ------- contenar 1 y 2
+		data		=>	sDinData1, ------- contenar 1 y 2
 		rdclk		=>	clk_int,
-		rdreq		=>	sFifoRead,
+		rdreq		=>	sFifoRead1,
 		wrclk		=>	clk_ext,
-		wrreq		=>	sFifoWrite,
-		rdempty	=>	sFifoEmpty,
-		wrfull	=>	sFifoFull,
-		q			=>	sFifoDataOut
+		wrreq		=>	sFifoWrite1,
+		rdempty	=>	sFifoEmpty1,
+		wrfull	=>	sFifoFull1,
+		q			=>	sFifoDataOut1
+	);
+	
+	uFIFOin2	:	FifoKBandIN
+	port map(
+		aclr		=>	reset,
+		data		=>	sDinData2, ------- contenar 1 y 2
+		rdclk		=>	clk_int,
+		rdreq		=>	sFifoRead2,
+		wrclk		=>	clk_ext,
+		wrreq		=>	sFifoWrite2,
+		rdempty	=>	sFifoEmpty2,
+		wrfull	=>	sFifoFull2,
+		q			=>	sFifoDataOut2
 	);
 
-	sFifoRead	<=	iRead and not(sFifoEmpty);
-	sFifoWrite	<=	din_Valid and not sFifoFull;-- and iAdquirir;
+	sFifoRead1	<=	iRead and not(sFifoEmpty1);
+	sFifoRead2	<=	iRead and not(sFifoEmpty2);
+	sFifoWrite1	<=	din_Valid1 and not sFifoFull1;-- and iAdquirir;
+	sFifoWrite2	<=	din_Valid2 and not sFifoFull2;-- and iAdquirir;
 	--sDinData		<=	din_Data;
 
 	--      sFifoDataOut
 	--
 	--		match = 3	missmatch = -1
-	sData1	<=	din_Data(8 downto 1);
-	sData2	<=	din_Data(16 downto 9);
+	sData1	<=	din_Data1(8 downto 1);--din_Data(8 downto 1);
+	sData2	<=	din_Data2(8 downto 1);--din_Data(16 downto 9);
 	with sData1 select
 	sDinData1	<= "100" when "01000001",	--A=100		A=65
 						"100" when "01100001",	--a=100		a=97
@@ -147,18 +165,19 @@ begin
 						--"011" when "01001110",	--N=011		N=78
 						"000" when others;		--nada=000
 
-	sADN1mux	<=	sFifoDataOut(3 downto 1) when ssFifoEmpty = '0' else	(others => '0');
-	sADN2mux	<=	sFifoDataOut(6 downto 4) when ssFifoEmpty = '0' else	(others => '0');
+	sADN1mux	<=	sFifoDataOut1; --when ssFifoEmpty = '0' else	(others => '0');
+	sADN2mux	<=	sFifoDataOut2; --when ssFifoEmpty = '0' else	(others => '0');
 	--oADN1	<=	sFifoDataOut(3 downto 1);
 	--oADN2	<=	sFifoDataOut(6 downto 4);
-	oADN1	<=	rADN1mux;
-	oADN2	<=	rADN2mux;
+	oADN2	<=	rADN1mux;--rADN1mux;
+	oADN1	<=	rADN2mux;--rADN2mux;
 
-	oEmpty	<=	sFifoEmpty;--sFifoEmptyDelay;--ssFifoEmpty;
+	oEmpty	<=	sFifoEmpty1 or sFifoEmpty2;--sFifoEmptyDelay;--ssFifoEmpty; --AND/OR
 	oFinalPacket	<=	sFinalPacket;
 
 	--dout_Ready	<=	not sFifoFull and iAdquirir;
-	dout_Ready	<=	not sFifoFull;
+	dout_Ready1	<=	not sFifoFull1;
+	dout_Ready2	<=	not sFifoFull2;
 
 
 	--parameters

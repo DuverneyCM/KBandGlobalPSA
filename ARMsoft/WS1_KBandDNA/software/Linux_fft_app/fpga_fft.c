@@ -153,13 +153,7 @@ int main(int argc, char **argv)
 	volatile unsigned int *valueo;//  output
 
 
-	int dimPacket = 512;
-	char dataIn1[dimPacket + 1]; //VseqA
-	char dataIn2[dimPacket + 1]; //VseqB
-	//char dataIn1[] = "GAATTCCTATTTATACTTCAAGATCCAGCTTCAACGCTACCTCCTTATTTAAAATTGATCAACTGATTAATTCAATAAAGAGTTCATGAGAGGCTCTTCC";//"TAGTAAGGGTGG";
-	//char dataIn2[] = "GAATTCCAGGTGGGTGCTCTAACTTTTGGACCATACTCTGAGATTGGCATCTTACAAGGCCAAGATGGTAGTGCCTGTCTTTGTGCCTGATATAGACTTT";//"GTATGTGGG   ";
-		//char dataIn1[dimSeqA + 1]; //VseqA
-		//char dataIn2[dimSeqB + 1]; //VseqB
+
 
 	void *mappedBaseLW;	// where linux sees the lw bridge.
 	void *mappedBaseSLAVE;
@@ -197,7 +191,15 @@ int main(int argc, char **argv)
 		printf("No PEs = %d\n", NoPEs);
 	int NoRegsFila = NoPEs*2/32;
 
-	//////ABRIR ARCHIVOS
+	int dimPacket = NoPEs/2;
+	char dataIn1[dimPacket + 1]; //VseqA
+	char dataIn2[dimPacket + 1]; //VseqB
+	//char dataIn1[] = "GAATTCCTATTTATACTTCAAGATCCAGCTTCAACGCTACCTCCTTATTTAAAATTGATCAACTGATTAATTCAATAAAGAGTTCATGAGAGGCTCTTCC";//"TAGTAAGGGTGG";
+	//char dataIn2[] = "GAATTCCAGGTGGGTGCTCTAACTTTTGGACCATACTCTGAGATTGGCATCTTACAAGGCCAAGATGGTAGTGCCTGTCTTTGTGCCTGATATAGACTTT";//"GTATGTGGG   ";
+		//char dataIn1[dimSeqA + 1]; //VseqA
+		//char dataIn2[dimSeqB + 1]; //VseqB
+
+			//////ABRIR ARCHIVOS
 	fseqA =		fopen(argv[2],"r+");
 	fseqB =		fopen(argv[3],"r+");
 
@@ -335,7 +337,7 @@ int main(int argc, char **argv)
 	unsigned seqA, seqB, seqControl, pack;
 	int dimPacketMAX;
 	int latenciaKBand = 3*2; //Latency = 6
-	int usPause = 500;//200;
+	int usPause = 200;
 	valuei = (unsigned int *)((int)hps_DATAin1);
 	valueo = (unsigned int *)((int)hps_DATAout);
 

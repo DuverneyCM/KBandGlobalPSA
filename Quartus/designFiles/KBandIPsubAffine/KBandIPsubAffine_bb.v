@@ -3,6 +3,7 @@ module KBandIPsubAffine (
 	clk_clk,
 	clk_int_clk,
 	kbandinput_1_csr_irq_irq,
+	kbandinput_2_csr_irq_irq,
 	kbandoutput_csr_irq_irq,
 	m0_waitrequest,
 	m0_readdata,
@@ -39,6 +40,7 @@ module KBandIPsubAffine (
 	input		clk_clk;
 	input		clk_int_clk;
 	output		kbandinput_1_csr_irq_irq;
+	output		kbandinput_2_csr_irq_irq;
 	output		kbandoutput_csr_irq_irq;
 	input		m0_waitrequest;
 	input	[127:0]	m0_readdata;

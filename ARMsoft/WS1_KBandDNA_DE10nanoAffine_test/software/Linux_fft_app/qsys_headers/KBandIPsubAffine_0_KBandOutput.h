@@ -46,7 +46,7 @@
 #define RESPONSE_PORT 2
 #define STRIDE_ENABLE 0
 #define STRIDE_ENABLE_DERIVED 0
-#define TRANSFER_TYPE Aligned Accesses
+#define TRANSFER_TYPE Full Word Accesses Only
 
 /*
  * Macros for device 'KBandIPsubAffine_0_onchip_mem_FPGA_Slave', class 'altera_avalon_onchip_memory2'

@@ -3,6 +3,7 @@
 			clk_clk                  : in  std_logic                      := 'X';             -- clk
 			clk_int_clk              : in  std_logic                      := 'X';             -- clk
 			kbandinput_1_csr_irq_irq : out std_logic;                                         -- irq
+			kbandinput_2_csr_irq_irq : out std_logic;                                         -- irq
 			kbandoutput_csr_irq_irq  : out std_logic;                                         -- irq
 			m0_waitrequest           : in  std_logic                      := 'X';             -- waitrequest
 			m0_readdata              : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata
@@ -43,6 +44,7 @@
 			clk_clk                  => CONNECTED_TO_clk_clk,                  --                  clk.clk
 			clk_int_clk              => CONNECTED_TO_clk_int_clk,              --              clk_int.clk
 			kbandinput_1_csr_irq_irq => CONNECTED_TO_kbandinput_1_csr_irq_irq, -- kbandinput_1_csr_irq.irq
+			kbandinput_2_csr_irq_irq => CONNECTED_TO_kbandinput_2_csr_irq_irq, -- kbandinput_2_csr_irq.irq
 			kbandoutput_csr_irq_irq  => CONNECTED_TO_kbandoutput_csr_irq_irq,  --  kbandoutput_csr_irq.irq
 			m0_waitrequest           => CONNECTED_TO_m0_waitrequest,           --                   m0.waitrequest
 			m0_readdata              => CONNECTED_TO_m0_readdata,              --                     .readdata

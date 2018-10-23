@@ -47,23 +47,23 @@ module KBandIPsubAffine_mm_interconnect_0_router_008_default_decode
      parameter DEFAULT_CHANNEL = 0,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 3 
+               DEFAULT_DESTID = 4 
    )
-  (output [205 - 203 : 0] default_destination_id,
-   output [8-1 : 0] default_wr_channel,
-   output [8-1 : 0] default_rd_channel,
-   output [8-1 : 0] default_src_channel
+  (output [207 - 204 : 0] default_destination_id,
+   output [11-1 : 0] default_wr_channel,
+   output [11-1 : 0] default_rd_channel,
+   output [11-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[205 - 203 : 0];
+    DEFAULT_DESTID[207 - 204 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 8'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 11'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module KBandIPsubAffine_mm_interconnect_0_router_008_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 8'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 8'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 11'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 11'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module KBandIPsubAffine_mm_interconnect_0_router_008
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [219-1 : 0]    sink_data,
+    input  [221-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module KBandIPsubAffine_mm_interconnect_0_router_008
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [219-1    : 0] src_data,
-    output reg [8-1 : 0] src_channel,
+    output reg [221-1    : 0] src_data,
+    output reg [11-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -114,12 +114,12 @@ module KBandIPsubAffine_mm_interconnect_0_router_008
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 174;
     localparam PKT_ADDR_L = 144;
-    localparam PKT_DEST_ID_H = 205;
-    localparam PKT_DEST_ID_L = 203;
-    localparam PKT_PROTECTION_H = 209;
-    localparam PKT_PROTECTION_L = 207;
-    localparam ST_DATA_W = 219;
-    localparam ST_CHANNEL_W = 8;
+    localparam PKT_DEST_ID_H = 207;
+    localparam PKT_DEST_ID_L = 204;
+    localparam PKT_PROTECTION_H = 211;
+    localparam PKT_PROTECTION_L = 209;
+    localparam ST_DATA_W = 221;
+    localparam ST_CHANNEL_W = 11;
     localparam DECODER_TYPE = 1;
 
     localparam PKT_TRANS_WRITE = 177;
@@ -158,16 +158,11 @@ module KBandIPsubAffine_mm_interconnect_0_router_008
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
-    wire [8-1 : 0] default_src_channel;
+    wire [11-1 : 0] default_src_channel;
 
 
 
 
-    // -------------------------------------------------------
-    // Write and read transaction signals
-    // -------------------------------------------------------
-    wire read_transaction;
-    assign read_transaction  = sink_data[PKT_TRANS_READ];
 
 
     KBandIPsubAffine_mm_interconnect_0_router_008_default_decode the_default_decode(
@@ -189,12 +184,8 @@ module KBandIPsubAffine_mm_interconnect_0_router_008
 
 
 
-        if (destid == 3 ) begin
-            src_channel = 8'b01;
-        end
-
-        if (destid == 0  && read_transaction) begin
-            src_channel = 8'b10;
+        if (destid == 4 ) begin
+            src_channel = 11'b1;
         end
 
 

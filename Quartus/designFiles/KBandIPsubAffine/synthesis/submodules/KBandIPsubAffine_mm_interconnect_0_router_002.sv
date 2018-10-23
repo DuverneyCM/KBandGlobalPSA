@@ -44,26 +44,26 @@
 
 module KBandIPsubAffine_mm_interconnect_0_router_002_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 0,
+     parameter DEFAULT_CHANNEL = 1,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 0 
    )
-  (output [205 - 203 : 0] default_destination_id,
-   output [8-1 : 0] default_wr_channel,
-   output [8-1 : 0] default_rd_channel,
-   output [8-1 : 0] default_src_channel
+  (output [99 - 96 : 0] default_destination_id,
+   output [11-1 : 0] default_wr_channel,
+   output [11-1 : 0] default_rd_channel,
+   output [11-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[205 - 203 : 0];
+    DEFAULT_DESTID[99 - 96 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 8'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 11'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module KBandIPsubAffine_mm_interconnect_0_router_002_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 8'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 8'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 11'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 11'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module KBandIPsubAffine_mm_interconnect_0_router_002
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [219-1 : 0]    sink_data,
+    input  [113-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module KBandIPsubAffine_mm_interconnect_0_router_002
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [219-1    : 0] src_data,
-    output reg [8-1 : 0] src_channel,
+    output reg [113-1    : 0] src_data,
+    output reg [11-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -112,18 +112,18 @@ module KBandIPsubAffine_mm_interconnect_0_router_002
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 174;
-    localparam PKT_ADDR_L = 144;
-    localparam PKT_DEST_ID_H = 205;
-    localparam PKT_DEST_ID_L = 203;
-    localparam PKT_PROTECTION_H = 209;
-    localparam PKT_PROTECTION_L = 207;
-    localparam ST_DATA_W = 219;
-    localparam ST_CHANNEL_W = 8;
+    localparam PKT_ADDR_H = 66;
+    localparam PKT_ADDR_L = 36;
+    localparam PKT_DEST_ID_H = 99;
+    localparam PKT_DEST_ID_L = 96;
+    localparam PKT_PROTECTION_H = 103;
+    localparam PKT_PROTECTION_L = 101;
+    localparam ST_DATA_W = 113;
+    localparam ST_CHANNEL_W = 11;
     localparam DECODER_TYPE = 0;
 
-    localparam PKT_TRANS_WRITE = 177;
-    localparam PKT_TRANS_READ  = 178;
+    localparam PKT_TRANS_WRITE = 69;
+    localparam PKT_TRANS_READ  = 70;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -134,7 +134,7 @@ module KBandIPsubAffine_mm_interconnect_0_router_002
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h40000 - 64'h0); 
+    localparam PAD0 = log2ceil(64'h8000 - 64'h0); 
     localparam PAD1 = log2ceil(64'h80000000 - 64'h40000000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
@@ -165,7 +165,7 @@ module KBandIPsubAffine_mm_interconnect_0_router_002
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [8-1 : 0] default_src_channel;
+    wire [11-1 : 0] default_src_channel;
 
 
 
@@ -189,15 +189,15 @@ module KBandIPsubAffine_mm_interconnect_0_router_002
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
-    // ( 0x0 .. 0x40000 )
+    // ( 0x0 .. 0x8000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 31'h0   ) begin
-            src_channel = 8'b10;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
+            src_channel = 11'b01;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
     end
 
     // ( 0x40000000 .. 0x80000000 )
     if ( {address[RG:PAD1],{PAD1{1'b0}}} == 31'h40000000   ) begin
-            src_channel = 8'b01;
+            src_channel = 11'b10;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 

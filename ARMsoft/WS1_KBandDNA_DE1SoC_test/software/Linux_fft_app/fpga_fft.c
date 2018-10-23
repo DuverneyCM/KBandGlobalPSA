@@ -191,7 +191,7 @@ int main(int argc, char **argv)
 		printf("No PEs = %d\n", NoPEs);
 	int NoRegsFila = NoPEs*2/32;
 
-	int dimPacket = 512;
+	int dimPacket = NoPEs/2;
 	char dataIn1[dimPacket + 1]; //VseqA
 	char dataIn2[dimPacket + 1]; //VseqB
 	//char dataIn1[] = "GAATTCCTATTTATACTTCAAGATCCAGCTTCAACGCTACCTCCTTATTTAAAATTGATCAACTGATTAATTCAATAAAGAGTTCATGAGAGGCTCTTCC";//"TAGTAAGGGTGG";

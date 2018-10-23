@@ -30,9 +30,9 @@ ENTITY KBandIP21 is
 		iADN1_data   : in  std_logic_vector(dimSymbol-1 downto 0)	:= (others => '0'); --  iADN1.data
 		oADN1_ready  : out std_logic;                                        --       .ready
 		iADN1_valid  : in  std_logic	:= '0';             --       .valid
-		--iADN2_data   : in  std_logic_vector(dimSymbol-1 downto 0)	:= (others => '0'); --  iADN2.data
-		--oADN2_ready  : out std_logic;                                        --       .ready
-		--iADN2_valid  : in  std_logic  := '0';             --       .valid
+		iADN2_data   : in  std_logic_vector(dimSymbol-1 downto 0)	:= (others => '0'); --  iADN2.data
+		oADN2_ready  : out std_logic;                                        --       .ready
+		iADN2_valid  : in  std_logic  := '0';             --       .valid
 		-- Qsys source
 		oArrow_data  : out std_logic_vector(bitsOUT-1 downto 0);                    -- oArrow.data
 		iArrow_ready : in  std_logic  := '0';             --       .ready
@@ -66,30 +66,35 @@ ARCHITECTURE rtl OF KBandIP21 IS
 
 
 	component KbandSink is
-		generic(
-			dimSymbol	:	natural	:=	8;
-			dimADN		:	natural	:=	3;
-			dimLUT		:	natural  :=	4
-		);
-		port(
-			-- clk and reset interface
-			clk_ext, clk_int, reset									:	in		std_logic;
-			--Streamming Sink Interface
-			dout_Ready													:	out	std_logic;
-			din_Valid													:	in		std_logic;
-			din_Data														:	in		std_logic_vector(dimSymbol downto 1);
-			--interLogic Ports
-			iParameters			:	in	std_logic_vector(31 downto 0);
-			oMatch		:	out	std_logic_vector(dimLUT-1 downto 0);
-			oMisMatch	:	out	std_logic_vector(dimLUT-1 downto 0);
-			oOG				:	out	std_logic_vector(dimLUT-1 downto 0);
-			oEG				:	out	std_logic_vector(dimLUT-1 downto 0);
-			iRead															:	in		std_logic;
-			oEmpty														:	out	std_logic;
-			oFinalPacket												:	out	std_logic;
-			oADN1, oADN2												:	out	std_logic_vector(dimADN downto 1)
+	generic(
+		dimSymbol	:	natural	:=	32;
+		dimADN		:	natural	:=	3;
+		dimLUT		:	natural  :=	4
+	);
+	port(
+		-- clk and reset interface
+		clk_ext, clk_int, reset													:	in		std_logic;
+		--Streamming Sink Interface
+		dout_Ready1													:	out	std_logic;
+		din_Valid1													:	in		std_logic;
+		din_Data1													:	in		std_logic_vector(dimSymbol downto 1);
+		--Streamming Sink Interface
+		dout_Ready2													:	out	std_logic;
+		din_Valid2													:	in		std_logic;
+		din_Data2													:	in		std_logic_vector(dimSymbol downto 1);
+		--interLogic Ports
+		iParameters			:	in	std_logic_vector(31 downto 0);
+		iLoadParameter	:	in	std_logic;
+		oMatch		:	out	std_logic_vector(dimLUT-1 downto 0);
+		oMisMatch	:	out	std_logic_vector(dimLUT-1 downto 0);
+		oOG				:	out	std_logic_vector(dimLUT-1 downto 0);
+		oEG				:	out	std_logic_vector(dimLUT-1 downto 0);
+		iRead															:	in		std_logic;
+		oEmpty														:	out	std_logic;
+		oFinalPacket												:	out	std_logic;
+		oADN1, oADN2												:	out	std_logic_vector(dimADN downto 1)
 
-		);
+	);
 	end component;
 
 	component SystolicFordward is
@@ -200,11 +205,16 @@ BEGIN
 		clk_int		=>	clock_int,
 		reset			=>	reset_reset,
 		--Streamming Sink Interface
-		dout_Ready	=>	oADN1_ready,
-		din_Valid	=>	iADN1_valid,
-		din_Data		=>	iADN1_data,
+		dout_Ready1	=>	oADN1_ready,
+		din_Valid1	=>	iADN1_valid,
+		din_Data1	=>	iADN1_data,
+		--Streamming Sink Interface
+		dout_Ready2	=>	oADN2_ready,
+		din_Valid2	=>	iADN2_valid,
+		din_Data2	=>	iADN2_data,
 		--interLogic Ports
 		iParameters			=>	iParameters,
+		iLoadParameter		=>	sLoadParameter,
 		oMatch		=>	sMatch,
 		oMisMatch	=>	sMisMatch,
 		oOG		=>	sOG,

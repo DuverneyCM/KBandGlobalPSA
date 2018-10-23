@@ -68,6 +68,13 @@
 #define KBANDIP_KBANDINPUT_1_DESCRIPTOR_SLAVE_SPAN 16
 #define KBANDIP_KBANDINPUT_1_DESCRIPTOR_SLAVE_END 0x9006f
 
+#define KBANDIP_KBANDINPUT_2_CSR_BASE 0x90020
+#define KBANDIP_KBANDINPUT_2_CSR_SPAN 32
+#define KBANDIP_KBANDINPUT_2_CSR_END 0x9003f
+#define KBANDIP_KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE 0x90070
+#define KBANDIP_KBANDINPUT_2_DESCRIPTOR_SLAVE_SPAN 16
+#define KBANDIP_KBANDINPUT_2_DESCRIPTOR_SLAVE_END 0x9007f
+
 #define KBANDIP_KBANDOUTPUT_CSR_BASE 0x90040
 #define KBANDIP_KBANDOUTPUT_CSR_SPAN 32
 #define KBANDIP_KBANDOUTPUT_CSR_END 0x9005f
@@ -96,9 +103,9 @@
 #define DMA_KBANDIP_ONCHIP_MEM_SLAVE_END  0x3ffff
 
 //ACP Memory space for IP
-#define ACPWresOffset 0x10000000
+#define ACPWresOffset 0x00000000
 #define BOOT_REGION_BASE	0x00000000
-#define BOOT_REGION_SPAN	0x00200000 //1MB
+#define BOOT_REGION_SPAN	0x00100000 //1MB
 #define FPGA_ACP_BASE			(0x00000000 + BOOT_REGION_SPAN + ACPWresOffset)
 #define FPGA_ACP_SPAN			(0x10200000 - BOOT_REGION_SPAN + ACPWresOffset) //0x40000000 // 1GB //0x01000000	//16MB 	//1GB, 8Gb, 33b... 26b, 23B, 8MB... 256MB, 31b
 
@@ -110,37 +117,43 @@
 //#define ACPW_FPGA_DDR_SPAN	FPGA_ACP_SPAN
 
 //INPUT-OUTPUT DATA OFFSET
-#define	DataOUT_offset	0x00000000	//256MB
-#define	DataIN1_offset	0x10000000	//1MB
-#define	DataIN2_offset	0x10100000	//1MB
+#define	DataOUT_span	0x00000000	//256MB
+#define	DataIN1_span	0x00008000	//32k	//0x00100000	//1MB
+#define	DataIN2_span	0x00008000	//32k	//0x00100000	//1MB
 
 //////////////////////////
 
 #define KBANDINPUT_1_CSR_BASE ((int)mappedBaseLW + KBANDIP_KBANDINPUT_1_CSR_BASE)
 #define KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE ((int)mappedBaseLW + KBANDIP_KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE)
+#define KBANDINPUT_2_CSR_BASE ((int)mappedBaseLW + KBANDIP_KBANDINPUT_2_CSR_BASE)
+#define KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE ((int)mappedBaseLW + KBANDIP_KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE)
 #define KBANDOUTPUT_CSR_BASE ((int)mappedBaseLW + KBANDIP_KBANDOUTPUT_CSR_BASE)
 #define KBANDOUTPUT_DESCRIPTOR_SLAVE_BASE ((int)mappedBaseLW + KBANDIP_KBANDOUTPUT_DESCRIPTOR_SLAVE_BASE)
 
 
 //onChip from the Linux's point of view
-#define DATA_BASE (KBANDIP_ONCHIP_MEM_LW_BASE + (int)mappedBaseLW) // 0.04MB //mappedBaseLW)
+#define DATA_BASE1 (KBANDIP_ONCHIP_MEM_LW_BASE + (int)mappedBaseLW) // 0.04MB //mappedBaseLW)
+#define DATA_BASE2 (DATA_BASE1 + DataIN1_span)
 #define RESULT_BASE (KBANDIP_ONCHIP_MEM_SLAVE_BASE + (int)mappedBaseSLAVE)// 2.56MB //mappedBaseLW + 400//(KBANDIP_ONCHIP_MEMORY2_0_SPAN/2))
 //onchip from the DMA's point of view
-#define  DMA_DATA_BASE  DMA_KBANDIP_ONCHIP_MEM_LW_BASE
+#define  DMA_DATA_BASE1  DMA_KBANDIP_ONCHIP_MEM_LW_BASE
+#define  DMA_DATA_BASE2  (DMA_DATA_BASE1 + DataIN1_span)
 #define  DMA_RESULT_BASE  (DMA_KBANDIP_ONCHIP_MEM_SLAVE_BASE)
 //ACP window. Linux's point of view.
 #define	ACPW_DATA_BASE			(ACPW_HPS_DDR_BASE + (int)ACPinputBuffer)
-#define	DMA_ACPW_DATA_BASE	(F2H_SLAVE_DDR_BASE + BOOT_REGION_SPAN + ACPWresOffset)
+#define	DMA_ACPW_DATA_BASE	(F2H_SLAVE_DDR_BASE + BOOT_REGION_SPAN + ACPWresOffset + 0)
 
 
 // FPGA pointer address, Linux's point of view.
-#define hps_DATAout	RESULT_BASE//(ACPW_DATA_BASE + DataOUT_offset)
-#define hps_DATAin1	DATA_BASE//(ACPW_DATA_BASE + DataIN1_offset)
-#define hps_DATAin2	(ACPW_DATA_BASE + DataIN2_offset)
+#define hps_DATAout	RESULT_BASE//(ACPW_DATA_BASE)			//
+#define hps_DATAin1	DATA_BASE1//(ACPW_DATA_BASE + DataOUT_span)				//DATA_BASE//
+#define hps_DATAin2	DATA_BASE2//(ACPW_DATA_BASE + DataIN1_span)
 // memoria reservada ADN vista desde el dma
-#define DMA_DATAout	DMA_RESULT_BASE//(DMA_ACPW_DATA_BASE + DataOUT_offset)
-#define DMA_DATAin1	DMA_DATA_BASE//(DMA_ACPW_DATA_BASE + DataIN1_offset)
-#define DMA_DATAin2	(DMA_ACPW_DATA_BASE + DataIN2_offset)
+#define DMA_DATAout	DMA_RESULT_BASE//(DMA_ACPW_DATA_BASE )		//
+#define DMA_DATAin1	DMA_DATA_BASE1//(DMA_ACPW_DATA_BASE + DataOUT_span)			//DMA_DATA_BASE//
+#define DMA_DATAin2	DMA_DATA_BASE2//(DMA_ACPW_DATA_BASE + DataIN1_span)
+
+//dimPacketMAX * 4
 
 //FPGA_ACP_SPAN_input
 #define CLOCKS_BY_SEC 800000
@@ -166,7 +179,9 @@ int main(int argc, char **argv)
 	int mem;
 	int noFile = 1;
 
-	volatile unsigned int *valuei;//, real, image;
+	//volatile unsigned int *valuei;
+	volatile unsigned int *valuei1;//, real, image;
+	volatile unsigned int *valuei2;//, real, image;
 	volatile unsigned int *valueo;//  output
 
 
@@ -209,7 +224,7 @@ int main(int argc, char **argv)
 		FILE *fseqB;
 		FILE *farrows;
 
-		sgdma_standard_descriptor descriptorIN1, descriptorOUT;
+		sgdma_standard_descriptor descriptorIN1, descriptorIN2, descriptorOUT;
 		// now that the fpga space is mapped we need to clear out the onchip ram so it is ready for data
 
 
@@ -359,12 +374,12 @@ int main(int argc, char **argv)
 
 
 	//////PAQUETES DE ENTRADA	( DESDE AQUI... FOR )
-	unsigned seqA, seqB, seqControl, csrLastPacket, pack;
-	csrLastPacket = 0;
+	unsigned seqA, seqB, pack;
 	int dimPacketMAX;
-	int latenciaKBand = 3*2; //Latency = 6
-	int usPause = 200;
-	valuei = (unsigned int *)((int)hps_DATAin1);
+	int latenciaKBand = 6;//3*2; //Latency = 6
+	int usPause = 150;//200;
+	valuei1 = (unsigned int *)((int)hps_DATAin1);
+	valuei2 = (unsigned int *)((int)hps_DATAin2);
 	valueo = (unsigned int *)((int)hps_DATAout);
 
 
@@ -403,23 +418,23 @@ int main(int argc, char **argv)
 		//printf("dataIn2 = %s\n",dataIn2);
 
 	//Pasar las secuencias A, B y CSR a la OnChip Memory
-	valuei = (unsigned int *)((int)hps_DATAin1);
 	for (i=0; i<dimPacketMAX; i++) {
 		if (dimSeqA > dimSeqB){
 			if (i<dimPacketA)	seqA = ( (((unsigned int)dataIn1[i])<<24) );
 				else seqA = 0;
-			if (i>=offsetBand && i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i-offsetBand])<<16) );
+			if (i>=offsetBand && i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i-offsetBand])<<24) );
 				else seqB = 0;
 		}else{
 			if (i>=offsetBand && i<dimPacketA)	seqA = ( (((unsigned int)dataIn1[i-offsetBand])<<24) );
 				else seqA = 0;
-			if (i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i])<<16) );
+			if (i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i])<<24) );
 				else seqB = 0;
 		}
 		//Flags
-		seqControl = (csrLastPacket<<7);
-		a = ( seqA | seqB | seqControl );
-		valuei[i]  = a;
+		//a = ( seqA | seqB );
+		//valuei[i]  = a;
+		valuei1[i]  = seqA;
+		valuei2[i]  = seqB;
 		//printf("%x", (int)(valuei[i]));
 	}
 //printf("\n\n");
@@ -485,18 +500,19 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		//printf("TOKEN A\n");
 		//printf("tag0 \n");
 		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, dimPacketMAX * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, dimPacketMAX * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
+		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 		//printf("TOKEN B\n");
 		if ( ( noPacket == 1) ) {
 			//Pasar las secuencias A, B y CSR a la OnChip Memory (CEROS)
-			valuei = (unsigned int *)((int)hps_DATAin1);
-			for (i=0; i<dimPacket; i++) 	valuei[i]  = 0;
+			for (i=0; i<dimPacket; i++) 	valuei1[i]  = 0;
+			for (i=0; i<dimPacket; i++) 	valuei2[i]  = 0;
 			//enviar un paquete de ceros paquete para activar el IP (REVISAR EL offsetBand para un PACK )
-			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand ) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand + dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+			construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand + dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 			write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
-
-			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, dimPacket * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-			write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
+			write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 		}
 		//printf("TOKEN C\n");
 		//Configurar y Enviar descriptores DMA output	- 	HAY QUE RESTARLE A ESTE PAQUETE Y AUMENTARLE AL PAQUETE FINAL
@@ -575,17 +591,17 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		else							dimPacketMAX = dimPacketB;
 		dimPacketMAXout = dimPacketA + dimPacketB;
 		//printf("dimPacketMAX = %d\n",dimPacketMAX);
-		//printf("csrLastPacket = %d\n",csrLastPacket);
 		if (noPacket != pack) {
 			for (i=0; i<dimPacketMAX; i++) {
 				if (i<dimPacketA)	seqA = ( (((unsigned int)dataIn1[i])<<24) );
 					else seqA = 0;
-				if (i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i])<<16) );
+				if (i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i])<<24) );
 					else seqB = 0;
 
-				seqControl = (csrLastPacket<<7);
-				a = ( seqA | seqB | seqControl );
-				valuei[i]  = a;
+				//a = ( seqA | seqB );
+				//valuei[i]  = a;
+				valuei1[i]  = seqA;
+				valuei2[i]  = seqB;
 			}
 		}
 		//printf("tag4 \n");
@@ -599,12 +615,14 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 
 		//PAQUETE COMPLETO
 		//Pasar las secuencias A, B y CSR a la OnChip Memory (CEROS)
-		valuei = (unsigned int *)((int)hps_DATAin1);
-		for (i=0; i<dimPacket; i++) 	valuei[i]  = 0;
+		for (i=0; i<dimPacket; i++) 	valuei1[i]  = 0;
+		for (i=0; i<dimPacket; i++) 	valuei2[i]  = 0;
 
 		//enviar un paquete de ceros paquete para activar el IP
 		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
+		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 
 		construct_standard_st_to_mm_descriptor(&descriptorOUT, (alt_u32 *) DMA_DATAout, ( 2*dimPacket + offsetBand - diffSeqAB ) *4*NoRegsFila, DESCRIPTOR_CONTROL_END_ON_EOP_MASK);
 		write_standard_descriptor(KBANDOUTPUT_CSR_BASE, KBANDOUTPUT_DESCRIPTOR_SLAVE_BASE, &descriptorOUT);
@@ -624,7 +642,9 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		//PAQUETE DE LATENCIA
 		//enviar un paquete de ceros paquete para activar el IP
 		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
+		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 
 		construct_standard_st_to_mm_descriptor(&descriptorOUT, (alt_u32 *) DMA_DATAout, (latenciaKBand) *4*NoRegsFila, DESCRIPTOR_CONTROL_END_ON_EOP_MASK);
 		write_standard_descriptor(KBANDOUTPUT_CSR_BASE, KBANDOUTPUT_DESCRIPTOR_SLAVE_BASE, &descriptorOUT);

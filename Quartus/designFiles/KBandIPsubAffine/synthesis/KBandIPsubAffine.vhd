@@ -11,6 +11,7 @@ entity KBandIPsubAffine is
 		clk_clk                  : in  std_logic                      := '0';             --                  clk.clk
 		clk_int_clk              : in  std_logic                      := '0';             --              clk_int.clk
 		kbandinput_1_csr_irq_irq : out std_logic;                                         -- kbandinput_1_csr_irq.irq
+		kbandinput_2_csr_irq_irq : out std_logic;                                         -- kbandinput_2_csr_irq.irq
 		kbandoutput_csr_irq_irq  : out std_logic;                                         --  kbandoutput_csr_irq.irq
 		m0_waitrequest           : in  std_logic                      := '0';             --                   m0.waitrequest
 		m0_readdata              : in  std_logic_vector(127 downto 0) := (others => '0'); --                     .readdata
@@ -67,7 +68,10 @@ architecture rtl of KBandIPsubAffine is
 			oArrow_data  : out std_logic_vector(127 downto 0);                    -- data
 			oArrow_valid : out std_logic;                                         -- valid
 			reset_reset  : in  std_logic                      := 'X';             -- reset
-			iParameters  : in  std_logic_vector(31 downto 0)  := (others => 'X')  -- export
+			iParameters  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- export
+			iADN2_data   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- data
+			iADN2_valid  : in  std_logic                      := 'X';             -- valid
+			oADN2_ready  : out std_logic                                          -- ready
 		);
 	end component KBandIP21;
 
@@ -97,6 +101,33 @@ architecture rtl of KBandIPsubAffine is
 			st_source_ready              : in  std_logic                      := 'X'              -- ready
 		);
 	end component KBandIPsubAffine_KBandInput_1;
+
+	component KBandIPsubAffine_KBandInput_2 is
+		port (
+			mm_read_address              : out std_logic_vector(30 downto 0);                     -- address
+			mm_read_read                 : out std_logic;                                         -- read
+			mm_read_byteenable           : out std_logic_vector(3 downto 0);                      -- byteenable
+			mm_read_readdata             : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
+			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			clock_clk                    : in  std_logic                      := 'X';             -- clk
+			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
+			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			csr_write                    : in  std_logic                      := 'X';             -- write
+			csr_byteenable               : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			csr_readdata                 : out std_logic_vector(31 downto 0);                     -- readdata
+			csr_read                     : in  std_logic                      := 'X';             -- read
+			csr_address                  : in  std_logic_vector(2 downto 0)   := (others => 'X'); -- address
+			descriptor_slave_write       : in  std_logic                      := 'X';             -- write
+			descriptor_slave_waitrequest : out std_logic;                                         -- waitrequest
+			descriptor_slave_writedata   : in  std_logic_vector(127 downto 0) := (others => 'X'); -- writedata
+			descriptor_slave_byteenable  : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
+			csr_irq_irq                  : out std_logic;                                         -- irq
+			st_source_data               : out std_logic_vector(31 downto 0);                     -- data
+			st_source_valid              : out std_logic;                                         -- valid
+			st_source_ready              : in  std_logic                      := 'X'              -- ready
+		);
+	end component KBandIPsubAffine_KBandInput_2;
 
 	component KBandIPsubAffine_KBandOutput is
 		port (
@@ -142,19 +173,35 @@ architecture rtl of KBandIPsubAffine is
 
 	component KBandIPsubAffine_onchip_mem_LW is
 		port (
-			clk        : in  std_logic                      := 'X';             -- clk
-			address    : in  std_logic_vector(11 downto 0)  := (others => 'X'); -- address
-			clken      : in  std_logic                      := 'X';             -- clken
-			chipselect : in  std_logic                      := 'X';             -- chipselect
-			write      : in  std_logic                      := 'X';             -- write
-			readdata   : out std_logic_vector(127 downto 0);                    -- readdata
-			writedata  : in  std_logic_vector(127 downto 0) := (others => 'X'); -- writedata
-			byteenable : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
-			reset      : in  std_logic                      := 'X';             -- reset
-			reset_req  : in  std_logic                      := 'X';             -- reset_req
-			freeze     : in  std_logic                      := 'X'              -- freeze
+			clk        : in  std_logic                     := 'X';             -- clk
+			address    : in  std_logic_vector(12 downto 0) := (others => 'X'); -- address
+			clken      : in  std_logic                     := 'X';             -- clken
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			write      : in  std_logic                     := 'X';             -- write
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			byteenable : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			reset      : in  std_logic                     := 'X';             -- reset
+			reset_req  : in  std_logic                     := 'X';             -- reset_req
+			freeze     : in  std_logic                     := 'X'              -- freeze
 		);
 	end component KBandIPsubAffine_onchip_mem_LW;
+
+	component KBandIPsubAffine_onchip_mem_LW2 is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			address    : in  std_logic_vector(12 downto 0) := (others => 'X'); -- address
+			clken      : in  std_logic                     := 'X';             -- clken
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			write      : in  std_logic                     := 'X';             -- write
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			byteenable : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			reset      : in  std_logic                     := 'X';             -- reset
+			reset_req  : in  std_logic                     := 'X';             -- reset_req
+			freeze     : in  std_logic                     := 'X'              -- freeze
+		);
+	end component KBandIPsubAffine_onchip_mem_LW2;
 
 	component KBandIPsubAffine_pio_0 is
 		port (
@@ -179,6 +226,12 @@ architecture rtl of KBandIPsubAffine is
 			KBandInput_1_mm_read_read                      : in  std_logic                      := 'X';             -- read
 			KBandInput_1_mm_read_readdata                  : out std_logic_vector(31 downto 0);                     -- readdata
 			KBandInput_1_mm_read_readdatavalid             : out std_logic;                                         -- readdatavalid
+			KBandInput_2_mm_read_address                   : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
+			KBandInput_2_mm_read_waitrequest               : out std_logic;                                         -- waitrequest
+			KBandInput_2_mm_read_byteenable                : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			KBandInput_2_mm_read_read                      : in  std_logic                      := 'X';             -- read
+			KBandInput_2_mm_read_readdata                  : out std_logic_vector(31 downto 0);                     -- readdata
+			KBandInput_2_mm_read_readdatavalid             : out std_logic;                                         -- readdatavalid
 			KBandOutput_mm_write_address                   : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
 			KBandOutput_mm_write_waitrequest               : out std_logic;                                         -- waitrequest
 			KBandOutput_mm_write_byteenable                : in  std_logic_vector(15 downto 0)  := (others => 'X'); -- byteenable
@@ -224,6 +277,16 @@ architecture rtl of KBandIPsubAffine is
 			KBandInput_1_descriptor_slave_writedata        : out std_logic_vector(127 downto 0);                    -- writedata
 			KBandInput_1_descriptor_slave_byteenable       : out std_logic_vector(15 downto 0);                     -- byteenable
 			KBandInput_1_descriptor_slave_waitrequest      : in  std_logic                      := 'X';             -- waitrequest
+			KBandInput_2_csr_address                       : out std_logic_vector(2 downto 0);                      -- address
+			KBandInput_2_csr_write                         : out std_logic;                                         -- write
+			KBandInput_2_csr_read                          : out std_logic;                                         -- read
+			KBandInput_2_csr_readdata                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			KBandInput_2_csr_writedata                     : out std_logic_vector(31 downto 0);                     -- writedata
+			KBandInput_2_csr_byteenable                    : out std_logic_vector(3 downto 0);                      -- byteenable
+			KBandInput_2_descriptor_slave_write            : out std_logic;                                         -- write
+			KBandInput_2_descriptor_slave_writedata        : out std_logic_vector(127 downto 0);                    -- writedata
+			KBandInput_2_descriptor_slave_byteenable       : out std_logic_vector(15 downto 0);                     -- byteenable
+			KBandInput_2_descriptor_slave_waitrequest      : in  std_logic                      := 'X';             -- waitrequest
 			KBandOutput_csr_address                        : out std_logic_vector(2 downto 0);                      -- address
 			KBandOutput_csr_write                          : out std_logic;                                         -- write
 			KBandOutput_csr_read                           : out std_logic;                                         -- read
@@ -241,13 +304,20 @@ architecture rtl of KBandIPsubAffine is
 			onchip_mem_FPGA_Slave_s1_byteenable            : out std_logic_vector(15 downto 0);                     -- byteenable
 			onchip_mem_FPGA_Slave_s1_chipselect            : out std_logic;                                         -- chipselect
 			onchip_mem_FPGA_Slave_s1_clken                 : out std_logic;                                         -- clken
-			onchip_mem_LW_s1_address                       : out std_logic_vector(11 downto 0);                     -- address
+			onchip_mem_LW_s1_address                       : out std_logic_vector(12 downto 0);                     -- address
 			onchip_mem_LW_s1_write                         : out std_logic;                                         -- write
-			onchip_mem_LW_s1_readdata                      : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata
-			onchip_mem_LW_s1_writedata                     : out std_logic_vector(127 downto 0);                    -- writedata
-			onchip_mem_LW_s1_byteenable                    : out std_logic_vector(15 downto 0);                     -- byteenable
+			onchip_mem_LW_s1_readdata                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			onchip_mem_LW_s1_writedata                     : out std_logic_vector(31 downto 0);                     -- writedata
+			onchip_mem_LW_s1_byteenable                    : out std_logic_vector(3 downto 0);                      -- byteenable
 			onchip_mem_LW_s1_chipselect                    : out std_logic;                                         -- chipselect
 			onchip_mem_LW_s1_clken                         : out std_logic;                                         -- clken
+			onchip_mem_LW2_s1_address                      : out std_logic_vector(12 downto 0);                     -- address
+			onchip_mem_LW2_s1_write                        : out std_logic;                                         -- write
+			onchip_mem_LW2_s1_readdata                     : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
+			onchip_mem_LW2_s1_writedata                    : out std_logic_vector(31 downto 0);                     -- writedata
+			onchip_mem_LW2_s1_byteenable                   : out std_logic_vector(3 downto 0);                      -- byteenable
+			onchip_mem_LW2_s1_chipselect                   : out std_logic;                                         -- chipselect
+			onchip_mem_LW2_s1_clken                        : out std_logic;                                         -- clken
 			pio_0_s1_address                               : out std_logic_vector(1 downto 0);                      -- address
 			pio_0_s1_write                                 : out std_logic;                                         -- write
 			pio_0_s1_readdata                              : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
@@ -439,6 +509,9 @@ architecture rtl of KBandIPsubAffine is
 	signal kbandinput_1_st_source_valid                                : std_logic;                      -- KBandInput_1:st_source_valid -> KBand21affine:iADN1_valid
 	signal kbandinput_1_st_source_data                                 : std_logic_vector(31 downto 0);  -- KBandInput_1:st_source_data -> KBand21affine:iADN1_data
 	signal kbandinput_1_st_source_ready                                : std_logic;                      -- KBand21affine:oADN1_ready -> KBandInput_1:st_source_ready
+	signal kbandinput_2_st_source_valid                                : std_logic;                      -- KBandInput_2:st_source_valid -> KBand21affine:iADN2_valid
+	signal kbandinput_2_st_source_data                                 : std_logic_vector(31 downto 0);  -- KBandInput_2:st_source_data -> KBand21affine:iADN2_data
+	signal kbandinput_2_st_source_ready                                : std_logic;                      -- KBand21affine:oADN2_ready -> KBandInput_2:st_source_ready
 	signal pio_0_external_connection_export                            : std_logic_vector(31 downto 0);  -- pio_0:out_port -> KBand21affine:iParameters
 	signal mm_bridge_lw_m0_waitrequest                                 : std_logic;                      -- mm_interconnect_0:mm_bridge_LW_m0_waitrequest -> mm_bridge_LW:m0_waitrequest
 	signal mm_bridge_lw_m0_readdata                                    : std_logic_vector(31 downto 0);  -- mm_interconnect_0:mm_bridge_LW_m0_readdata -> mm_bridge_LW:m0_readdata
@@ -450,6 +523,12 @@ architecture rtl of KBandIPsubAffine is
 	signal mm_bridge_lw_m0_writedata                                   : std_logic_vector(31 downto 0);  -- mm_bridge_LW:m0_writedata -> mm_interconnect_0:mm_bridge_LW_m0_writedata
 	signal mm_bridge_lw_m0_write                                       : std_logic;                      -- mm_bridge_LW:m0_write -> mm_interconnect_0:mm_bridge_LW_m0_write
 	signal mm_bridge_lw_m0_burstcount                                  : std_logic_vector(0 downto 0);   -- mm_bridge_LW:m0_burstcount -> mm_interconnect_0:mm_bridge_LW_m0_burstcount
+	signal kbandinput_2_mm_read_readdata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:KBandInput_2_mm_read_readdata -> KBandInput_2:mm_read_readdata
+	signal kbandinput_2_mm_read_waitrequest                            : std_logic;                      -- mm_interconnect_0:KBandInput_2_mm_read_waitrequest -> KBandInput_2:mm_read_waitrequest
+	signal kbandinput_2_mm_read_address                                : std_logic_vector(30 downto 0);  -- KBandInput_2:mm_read_address -> mm_interconnect_0:KBandInput_2_mm_read_address
+	signal kbandinput_2_mm_read_read                                   : std_logic;                      -- KBandInput_2:mm_read_read -> mm_interconnect_0:KBandInput_2_mm_read_read
+	signal kbandinput_2_mm_read_byteenable                             : std_logic_vector(3 downto 0);   -- KBandInput_2:mm_read_byteenable -> mm_interconnect_0:KBandInput_2_mm_read_byteenable
+	signal kbandinput_2_mm_read_readdatavalid                          : std_logic;                      -- mm_interconnect_0:KBandInput_2_mm_read_readdatavalid -> KBandInput_2:mm_read_readdatavalid
 	signal kbandinput_1_mm_read_readdata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:KBandInput_1_mm_read_readdata -> KBandInput_1:mm_read_readdata
 	signal kbandinput_1_mm_read_waitrequest                            : std_logic;                      -- mm_interconnect_0:KBandInput_1_mm_read_waitrequest -> KBandInput_1:mm_read_waitrequest
 	signal kbandinput_1_mm_read_address                                : std_logic_vector(30 downto 0);  -- KBandInput_1:mm_read_address -> mm_interconnect_0:KBandInput_1_mm_read_address
@@ -483,6 +562,12 @@ architecture rtl of KBandIPsubAffine is
 	signal mm_interconnect_0_kbandinput_1_csr_byteenable               : std_logic_vector(3 downto 0);   -- mm_interconnect_0:KBandInput_1_csr_byteenable -> KBandInput_1:csr_byteenable
 	signal mm_interconnect_0_kbandinput_1_csr_write                    : std_logic;                      -- mm_interconnect_0:KBandInput_1_csr_write -> KBandInput_1:csr_write
 	signal mm_interconnect_0_kbandinput_1_csr_writedata                : std_logic_vector(31 downto 0);  -- mm_interconnect_0:KBandInput_1_csr_writedata -> KBandInput_1:csr_writedata
+	signal mm_interconnect_0_kbandinput_2_csr_readdata                 : std_logic_vector(31 downto 0);  -- KBandInput_2:csr_readdata -> mm_interconnect_0:KBandInput_2_csr_readdata
+	signal mm_interconnect_0_kbandinput_2_csr_address                  : std_logic_vector(2 downto 0);   -- mm_interconnect_0:KBandInput_2_csr_address -> KBandInput_2:csr_address
+	signal mm_interconnect_0_kbandinput_2_csr_read                     : std_logic;                      -- mm_interconnect_0:KBandInput_2_csr_read -> KBandInput_2:csr_read
+	signal mm_interconnect_0_kbandinput_2_csr_byteenable               : std_logic_vector(3 downto 0);   -- mm_interconnect_0:KBandInput_2_csr_byteenable -> KBandInput_2:csr_byteenable
+	signal mm_interconnect_0_kbandinput_2_csr_write                    : std_logic;                      -- mm_interconnect_0:KBandInput_2_csr_write -> KBandInput_2:csr_write
+	signal mm_interconnect_0_kbandinput_2_csr_writedata                : std_logic_vector(31 downto 0);  -- mm_interconnect_0:KBandInput_2_csr_writedata -> KBandInput_2:csr_writedata
 	signal mm_interconnect_0_kbandoutput_descriptor_slave_waitrequest  : std_logic;                      -- KBandOutput:descriptor_slave_waitrequest -> mm_interconnect_0:KBandOutput_descriptor_slave_waitrequest
 	signal mm_interconnect_0_kbandoutput_descriptor_slave_byteenable   : std_logic_vector(15 downto 0);  -- mm_interconnect_0:KBandOutput_descriptor_slave_byteenable -> KBandOutput:descriptor_slave_byteenable
 	signal mm_interconnect_0_kbandoutput_descriptor_slave_write        : std_logic;                      -- mm_interconnect_0:KBandOutput_descriptor_slave_write -> KBandOutput:descriptor_slave_write
@@ -491,18 +576,29 @@ architecture rtl of KBandIPsubAffine is
 	signal mm_interconnect_0_kbandinput_1_descriptor_slave_byteenable  : std_logic_vector(15 downto 0);  -- mm_interconnect_0:KBandInput_1_descriptor_slave_byteenable -> KBandInput_1:descriptor_slave_byteenable
 	signal mm_interconnect_0_kbandinput_1_descriptor_slave_write       : std_logic;                      -- mm_interconnect_0:KBandInput_1_descriptor_slave_write -> KBandInput_1:descriptor_slave_write
 	signal mm_interconnect_0_kbandinput_1_descriptor_slave_writedata   : std_logic_vector(127 downto 0); -- mm_interconnect_0:KBandInput_1_descriptor_slave_writedata -> KBandInput_1:descriptor_slave_writedata
+	signal mm_interconnect_0_kbandinput_2_descriptor_slave_waitrequest : std_logic;                      -- KBandInput_2:descriptor_slave_waitrequest -> mm_interconnect_0:KBandInput_2_descriptor_slave_waitrequest
+	signal mm_interconnect_0_kbandinput_2_descriptor_slave_byteenable  : std_logic_vector(15 downto 0);  -- mm_interconnect_0:KBandInput_2_descriptor_slave_byteenable -> KBandInput_2:descriptor_slave_byteenable
+	signal mm_interconnect_0_kbandinput_2_descriptor_slave_write       : std_logic;                      -- mm_interconnect_0:KBandInput_2_descriptor_slave_write -> KBandInput_2:descriptor_slave_write
+	signal mm_interconnect_0_kbandinput_2_descriptor_slave_writedata   : std_logic_vector(127 downto 0); -- mm_interconnect_0:KBandInput_2_descriptor_slave_writedata -> KBandInput_2:descriptor_slave_writedata
 	signal mm_interconnect_0_onchip_mem_lw_s1_chipselect               : std_logic;                      -- mm_interconnect_0:onchip_mem_LW_s1_chipselect -> onchip_mem_LW:chipselect
-	signal mm_interconnect_0_onchip_mem_lw_s1_readdata                 : std_logic_vector(127 downto 0); -- onchip_mem_LW:readdata -> mm_interconnect_0:onchip_mem_LW_s1_readdata
-	signal mm_interconnect_0_onchip_mem_lw_s1_address                  : std_logic_vector(11 downto 0);  -- mm_interconnect_0:onchip_mem_LW_s1_address -> onchip_mem_LW:address
-	signal mm_interconnect_0_onchip_mem_lw_s1_byteenable               : std_logic_vector(15 downto 0);  -- mm_interconnect_0:onchip_mem_LW_s1_byteenable -> onchip_mem_LW:byteenable
+	signal mm_interconnect_0_onchip_mem_lw_s1_readdata                 : std_logic_vector(31 downto 0);  -- onchip_mem_LW:readdata -> mm_interconnect_0:onchip_mem_LW_s1_readdata
+	signal mm_interconnect_0_onchip_mem_lw_s1_address                  : std_logic_vector(12 downto 0);  -- mm_interconnect_0:onchip_mem_LW_s1_address -> onchip_mem_LW:address
+	signal mm_interconnect_0_onchip_mem_lw_s1_byteenable               : std_logic_vector(3 downto 0);   -- mm_interconnect_0:onchip_mem_LW_s1_byteenable -> onchip_mem_LW:byteenable
 	signal mm_interconnect_0_onchip_mem_lw_s1_write                    : std_logic;                      -- mm_interconnect_0:onchip_mem_LW_s1_write -> onchip_mem_LW:write
-	signal mm_interconnect_0_onchip_mem_lw_s1_writedata                : std_logic_vector(127 downto 0); -- mm_interconnect_0:onchip_mem_LW_s1_writedata -> onchip_mem_LW:writedata
+	signal mm_interconnect_0_onchip_mem_lw_s1_writedata                : std_logic_vector(31 downto 0);  -- mm_interconnect_0:onchip_mem_LW_s1_writedata -> onchip_mem_LW:writedata
 	signal mm_interconnect_0_onchip_mem_lw_s1_clken                    : std_logic;                      -- mm_interconnect_0:onchip_mem_LW_s1_clken -> onchip_mem_LW:clken
 	signal mm_interconnect_0_pio_0_s1_chipselect                       : std_logic;                      -- mm_interconnect_0:pio_0_s1_chipselect -> pio_0:chipselect
 	signal mm_interconnect_0_pio_0_s1_readdata                         : std_logic_vector(31 downto 0);  -- pio_0:readdata -> mm_interconnect_0:pio_0_s1_readdata
 	signal mm_interconnect_0_pio_0_s1_address                          : std_logic_vector(1 downto 0);   -- mm_interconnect_0:pio_0_s1_address -> pio_0:address
 	signal mm_interconnect_0_pio_0_s1_write                            : std_logic;                      -- mm_interconnect_0:pio_0_s1_write -> mm_interconnect_0_pio_0_s1_write:in
 	signal mm_interconnect_0_pio_0_s1_writedata                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:pio_0_s1_writedata -> pio_0:writedata
+	signal mm_interconnect_0_onchip_mem_lw2_s1_chipselect              : std_logic;                      -- mm_interconnect_0:onchip_mem_LW2_s1_chipselect -> onchip_mem_LW2:chipselect
+	signal mm_interconnect_0_onchip_mem_lw2_s1_readdata                : std_logic_vector(31 downto 0);  -- onchip_mem_LW2:readdata -> mm_interconnect_0:onchip_mem_LW2_s1_readdata
+	signal mm_interconnect_0_onchip_mem_lw2_s1_address                 : std_logic_vector(12 downto 0);  -- mm_interconnect_0:onchip_mem_LW2_s1_address -> onchip_mem_LW2:address
+	signal mm_interconnect_0_onchip_mem_lw2_s1_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:onchip_mem_LW2_s1_byteenable -> onchip_mem_LW2:byteenable
+	signal mm_interconnect_0_onchip_mem_lw2_s1_write                   : std_logic;                      -- mm_interconnect_0:onchip_mem_LW2_s1_write -> onchip_mem_LW2:write
+	signal mm_interconnect_0_onchip_mem_lw2_s1_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:onchip_mem_LW2_s1_writedata -> onchip_mem_LW2:writedata
+	signal mm_interconnect_0_onchip_mem_lw2_s1_clken                   : std_logic;                      -- mm_interconnect_0:onchip_mem_LW2_s1_clken -> onchip_mem_LW2:clken
 	signal mm_interconnect_0_ddr_s0_readdata                           : std_logic_vector(127 downto 0); -- DDR:s0_readdata -> mm_interconnect_0:DDR_s0_readdata
 	signal mm_interconnect_0_ddr_s0_waitrequest                        : std_logic;                      -- DDR:s0_waitrequest -> mm_interconnect_0:DDR_s0_waitrequest
 	signal mm_interconnect_0_ddr_s0_debugaccess                        : std_logic;                      -- mm_interconnect_0:DDR_s0_debugaccess -> DDR:s0_debugaccess
@@ -520,11 +616,11 @@ architecture rtl of KBandIPsubAffine is
 	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_write            : std_logic;                      -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_write -> onchip_mem_FPGA_Slave:write
 	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_writedata        : std_logic_vector(127 downto 0); -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_writedata -> onchip_mem_FPGA_Slave:writedata
 	signal mm_interconnect_0_onchip_mem_fpga_slave_s1_clken            : std_logic;                      -- mm_interconnect_0:onchip_mem_FPGA_Slave_s1_clken -> onchip_mem_FPGA_Slave:clken
-	signal rst_controller_reset_out_reset                              : std_logic;                      -- rst_controller:reset_out -> [DDR:reset, KBand21affine:reset_reset, mm_bridge_FPGA_Slave:reset, mm_bridge_LW:reset, mm_interconnect_0:mm_bridge_LW_reset_reset_bridge_in_reset_reset, onchip_mem_FPGA_Slave:reset, onchip_mem_LW:reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
-	signal rst_controller_reset_out_reset_req                          : std_logic;                      -- rst_controller:reset_req -> [onchip_mem_FPGA_Slave:reset_req, onchip_mem_LW:reset_req, rst_translator:reset_req_in]
+	signal rst_controller_reset_out_reset                              : std_logic;                      -- rst_controller:reset_out -> [DDR:reset, KBand21affine:reset_reset, mm_bridge_FPGA_Slave:reset, mm_bridge_LW:reset, mm_interconnect_0:mm_bridge_LW_reset_reset_bridge_in_reset_reset, onchip_mem_FPGA_Slave:reset, onchip_mem_LW2:reset, onchip_mem_LW:reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
+	signal rst_controller_reset_out_reset_req                          : std_logic;                      -- rst_controller:reset_req -> [onchip_mem_FPGA_Slave:reset_req, onchip_mem_LW2:reset_req, onchip_mem_LW:reset_req, rst_translator:reset_req_in]
 	signal reset_reset_n_ports_inv                                     : std_logic;                      -- reset_reset_n:inv -> rst_controller:reset_in0
 	signal mm_interconnect_0_pio_0_s1_write_ports_inv                  : std_logic;                      -- mm_interconnect_0_pio_0_s1_write:inv -> pio_0:write_n
-	signal rst_controller_reset_out_reset_ports_inv                    : std_logic;                      -- rst_controller_reset_out_reset:inv -> [KBandInput_1:reset_n_reset_n, KBandOutput:reset_n_reset_n, pio_0:reset_n]
+	signal rst_controller_reset_out_reset_ports_inv                    : std_logic;                      -- rst_controller_reset_out_reset:inv -> [KBandInput_1:reset_n_reset_n, KBandInput_2:reset_n_reset_n, KBandOutput:reset_n_reset_n, pio_0:reset_n]
 
 begin
 
@@ -567,7 +663,7 @@ begin
 	kband21affine : component KBandIP21
 		generic map (
 			NoCell    => 256,
-			dimH      => 5,
+			dimH      => 4,
 			dimSymbol => 32,
 			dimADN    => 3,
 			bitsOUT   => 128,
@@ -584,7 +680,10 @@ begin
 			oArrow_data  => kband21affine_oarrow_data,        --               .data
 			oArrow_valid => kband21affine_oarrow_valid,       --               .valid
 			reset_reset  => rst_controller_reset_out_reset,   --          reset.reset
-			iParameters  => pio_0_external_connection_export  --     Parameters.export
+			iParameters  => pio_0_external_connection_export, --     Parameters.export
+			iADN2_data   => kbandinput_2_st_source_data,      --          iADN2.data
+			iADN2_valid  => kbandinput_2_st_source_valid,     --               .valid
+			oADN2_ready  => kbandinput_2_st_source_ready      --               .ready
 		);
 
 	kbandinput_1 : component KBandIPsubAffine_KBandInput_1
@@ -611,6 +710,32 @@ begin
 			st_source_data               => kbandinput_1_st_source_data,                                 --        st_source.data
 			st_source_valid              => kbandinput_1_st_source_valid,                                --                 .valid
 			st_source_ready              => kbandinput_1_st_source_ready                                 --                 .ready
+		);
+
+	kbandinput_2 : component KBandIPsubAffine_KBandInput_2
+		port map (
+			mm_read_address              => kbandinput_2_mm_read_address,                                --          mm_read.address
+			mm_read_read                 => kbandinput_2_mm_read_read,                                   --                 .read
+			mm_read_byteenable           => kbandinput_2_mm_read_byteenable,                             --                 .byteenable
+			mm_read_readdata             => kbandinput_2_mm_read_readdata,                               --                 .readdata
+			mm_read_waitrequest          => kbandinput_2_mm_read_waitrequest,                            --                 .waitrequest
+			mm_read_readdatavalid        => kbandinput_2_mm_read_readdatavalid,                          --                 .readdatavalid
+			clock_clk                    => clk_clk,                                                     --            clock.clk
+			reset_n_reset_n              => rst_controller_reset_out_reset_ports_inv,                    --          reset_n.reset_n
+			csr_writedata                => mm_interconnect_0_kbandinput_2_csr_writedata,                --              csr.writedata
+			csr_write                    => mm_interconnect_0_kbandinput_2_csr_write,                    --                 .write
+			csr_byteenable               => mm_interconnect_0_kbandinput_2_csr_byteenable,               --                 .byteenable
+			csr_readdata                 => mm_interconnect_0_kbandinput_2_csr_readdata,                 --                 .readdata
+			csr_read                     => mm_interconnect_0_kbandinput_2_csr_read,                     --                 .read
+			csr_address                  => mm_interconnect_0_kbandinput_2_csr_address,                  --                 .address
+			descriptor_slave_write       => mm_interconnect_0_kbandinput_2_descriptor_slave_write,       -- descriptor_slave.write
+			descriptor_slave_waitrequest => mm_interconnect_0_kbandinput_2_descriptor_slave_waitrequest, --                 .waitrequest
+			descriptor_slave_writedata   => mm_interconnect_0_kbandinput_2_descriptor_slave_writedata,   --                 .writedata
+			descriptor_slave_byteenable  => mm_interconnect_0_kbandinput_2_descriptor_slave_byteenable,  --                 .byteenable
+			csr_irq_irq                  => kbandinput_2_csr_irq_irq,                                    --          csr_irq.irq
+			st_source_data               => kbandinput_2_st_source_data,                                 --        st_source.data
+			st_source_valid              => kbandinput_2_st_source_valid,                                --                 .valid
+			st_source_ready              => kbandinput_2_st_source_ready                                 --                 .ready
 		);
 
 	kbandoutput : component KBandIPsubAffine_KBandOutput
@@ -740,6 +865,21 @@ begin
 			freeze     => '0'                                            -- (terminated)
 		);
 
+	onchip_mem_lw2 : component KBandIPsubAffine_onchip_mem_LW2
+		port map (
+			clk        => clk_clk,                                        --   clk1.clk
+			address    => mm_interconnect_0_onchip_mem_lw2_s1_address,    --     s1.address
+			clken      => mm_interconnect_0_onchip_mem_lw2_s1_clken,      --       .clken
+			chipselect => mm_interconnect_0_onchip_mem_lw2_s1_chipselect, --       .chipselect
+			write      => mm_interconnect_0_onchip_mem_lw2_s1_write,      --       .write
+			readdata   => mm_interconnect_0_onchip_mem_lw2_s1_readdata,   --       .readdata
+			writedata  => mm_interconnect_0_onchip_mem_lw2_s1_writedata,  --       .writedata
+			byteenable => mm_interconnect_0_onchip_mem_lw2_s1_byteenable, --       .byteenable
+			reset      => rst_controller_reset_out_reset,                 -- reset1.reset
+			reset_req  => rst_controller_reset_out_reset_req,             --       .reset_req
+			freeze     => '0'                                             -- (terminated)
+		);
+
 	pio_0 : component KBandIPsubAffine_pio_0
 		port map (
 			clk        => clk_clk,                                    --                 clk.clk
@@ -762,6 +902,12 @@ begin
 			KBandInput_1_mm_read_read                      => kbandinput_1_mm_read_read,                                   --                                         .read
 			KBandInput_1_mm_read_readdata                  => kbandinput_1_mm_read_readdata,                               --                                         .readdata
 			KBandInput_1_mm_read_readdatavalid             => kbandinput_1_mm_read_readdatavalid,                          --                                         .readdatavalid
+			KBandInput_2_mm_read_address                   => kbandinput_2_mm_read_address,                                --                     KBandInput_2_mm_read.address
+			KBandInput_2_mm_read_waitrequest               => kbandinput_2_mm_read_waitrequest,                            --                                         .waitrequest
+			KBandInput_2_mm_read_byteenable                => kbandinput_2_mm_read_byteenable,                             --                                         .byteenable
+			KBandInput_2_mm_read_read                      => kbandinput_2_mm_read_read,                                   --                                         .read
+			KBandInput_2_mm_read_readdata                  => kbandinput_2_mm_read_readdata,                               --                                         .readdata
+			KBandInput_2_mm_read_readdatavalid             => kbandinput_2_mm_read_readdatavalid,                          --                                         .readdatavalid
 			KBandOutput_mm_write_address                   => kbandoutput_mm_write_address,                                --                     KBandOutput_mm_write.address
 			KBandOutput_mm_write_waitrequest               => kbandoutput_mm_write_waitrequest,                            --                                         .waitrequest
 			KBandOutput_mm_write_byteenable                => kbandoutput_mm_write_byteenable,                             --                                         .byteenable
@@ -807,6 +953,16 @@ begin
 			KBandInput_1_descriptor_slave_writedata        => mm_interconnect_0_kbandinput_1_descriptor_slave_writedata,   --                                         .writedata
 			KBandInput_1_descriptor_slave_byteenable       => mm_interconnect_0_kbandinput_1_descriptor_slave_byteenable,  --                                         .byteenable
 			KBandInput_1_descriptor_slave_waitrequest      => mm_interconnect_0_kbandinput_1_descriptor_slave_waitrequest, --                                         .waitrequest
+			KBandInput_2_csr_address                       => mm_interconnect_0_kbandinput_2_csr_address,                  --                         KBandInput_2_csr.address
+			KBandInput_2_csr_write                         => mm_interconnect_0_kbandinput_2_csr_write,                    --                                         .write
+			KBandInput_2_csr_read                          => mm_interconnect_0_kbandinput_2_csr_read,                     --                                         .read
+			KBandInput_2_csr_readdata                      => mm_interconnect_0_kbandinput_2_csr_readdata,                 --                                         .readdata
+			KBandInput_2_csr_writedata                     => mm_interconnect_0_kbandinput_2_csr_writedata,                --                                         .writedata
+			KBandInput_2_csr_byteenable                    => mm_interconnect_0_kbandinput_2_csr_byteenable,               --                                         .byteenable
+			KBandInput_2_descriptor_slave_write            => mm_interconnect_0_kbandinput_2_descriptor_slave_write,       --            KBandInput_2_descriptor_slave.write
+			KBandInput_2_descriptor_slave_writedata        => mm_interconnect_0_kbandinput_2_descriptor_slave_writedata,   --                                         .writedata
+			KBandInput_2_descriptor_slave_byteenable       => mm_interconnect_0_kbandinput_2_descriptor_slave_byteenable,  --                                         .byteenable
+			KBandInput_2_descriptor_slave_waitrequest      => mm_interconnect_0_kbandinput_2_descriptor_slave_waitrequest, --                                         .waitrequest
 			KBandOutput_csr_address                        => mm_interconnect_0_kbandoutput_csr_address,                   --                          KBandOutput_csr.address
 			KBandOutput_csr_write                          => mm_interconnect_0_kbandoutput_csr_write,                     --                                         .write
 			KBandOutput_csr_read                           => mm_interconnect_0_kbandoutput_csr_read,                      --                                         .read
@@ -831,6 +987,13 @@ begin
 			onchip_mem_LW_s1_byteenable                    => mm_interconnect_0_onchip_mem_lw_s1_byteenable,               --                                         .byteenable
 			onchip_mem_LW_s1_chipselect                    => mm_interconnect_0_onchip_mem_lw_s1_chipselect,               --                                         .chipselect
 			onchip_mem_LW_s1_clken                         => mm_interconnect_0_onchip_mem_lw_s1_clken,                    --                                         .clken
+			onchip_mem_LW2_s1_address                      => mm_interconnect_0_onchip_mem_lw2_s1_address,                 --                        onchip_mem_LW2_s1.address
+			onchip_mem_LW2_s1_write                        => mm_interconnect_0_onchip_mem_lw2_s1_write,                   --                                         .write
+			onchip_mem_LW2_s1_readdata                     => mm_interconnect_0_onchip_mem_lw2_s1_readdata,                --                                         .readdata
+			onchip_mem_LW2_s1_writedata                    => mm_interconnect_0_onchip_mem_lw2_s1_writedata,               --                                         .writedata
+			onchip_mem_LW2_s1_byteenable                   => mm_interconnect_0_onchip_mem_lw2_s1_byteenable,              --                                         .byteenable
+			onchip_mem_LW2_s1_chipselect                   => mm_interconnect_0_onchip_mem_lw2_s1_chipselect,              --                                         .chipselect
+			onchip_mem_LW2_s1_clken                        => mm_interconnect_0_onchip_mem_lw2_s1_clken,                   --                                         .clken
 			pio_0_s1_address                               => mm_interconnect_0_pio_0_s1_address,                          --                                 pio_0_s1.address
 			pio_0_s1_write                                 => mm_interconnect_0_pio_0_s1_write,                            --                                         .write
 			pio_0_s1_readdata                              => mm_interconnect_0_pio_0_s1_readdata,                         --                                         .readdata

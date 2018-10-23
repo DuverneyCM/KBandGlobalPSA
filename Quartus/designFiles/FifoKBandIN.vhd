@@ -44,12 +44,12 @@ ENTITY FifoKBandIN IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';
-		data		: IN STD_LOGIC_VECTOR (5 DOWNTO 0);
+		data		: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 		rdclk		: IN STD_LOGIC ;
 		rdreq		: IN STD_LOGIC ;
 		wrclk		: IN STD_LOGIC ;
 		wrreq		: IN STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (5 DOWNTO 0);
+		q		: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
 		wrfull		: OUT STD_LOGIC 
 	);
@@ -58,7 +58,7 @@ END FifoKBandIN;
 
 ARCHITECTURE SYN OF fifokbandin IS
 
-	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
 	SIGNAL sub_wire2	: STD_LOGIC ;
 
@@ -82,19 +82,19 @@ ARCHITECTURE SYN OF fifokbandin IS
 	);
 	PORT (
 			aclr	: IN STD_LOGIC ;
-			data	: IN STD_LOGIC_VECTOR (5 DOWNTO 0);
+			data	: IN STD_LOGIC_VECTOR (2 DOWNTO 0);
 			rdclk	: IN STD_LOGIC ;
 			rdreq	: IN STD_LOGIC ;
 			wrclk	: IN STD_LOGIC ;
 			wrreq	: IN STD_LOGIC ;
-			q	: OUT STD_LOGIC_VECTOR (5 DOWNTO 0);
+			q	: OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
 			rdempty	: OUT STD_LOGIC ;
 			wrfull	: OUT STD_LOGIC 
 	);
 	END COMPONENT;
 
 BEGIN
-	q    <= sub_wire0(5 DOWNTO 0);
+	q    <= sub_wire0(2 DOWNTO 0);
 	rdempty    <= sub_wire1;
 	wrfull    <= sub_wire2;
 
@@ -104,7 +104,7 @@ BEGIN
 		lpm_numwords => 16,
 		lpm_showahead => "OFF",
 		lpm_type => "dcfifo",
-		lpm_width => 6,
+		lpm_width => 3,--6,
 		lpm_widthu => 4,
 		overflow_checking => "OFF",
 		rdsync_delaypipe => 6,

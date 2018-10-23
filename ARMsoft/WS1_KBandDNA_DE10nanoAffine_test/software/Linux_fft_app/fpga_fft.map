@@ -1,36 +1,36 @@
-0000a43e t .divsi3_skip_div0_test
-0000a438 T __aeabi_idiv
-0000a6e8 W __aeabi_idiv0
-0000a6cc T __aeabi_idivmod
-0000a6e8 W __aeabi_ldiv0
-00012b88 B __bss_end__
-00012b80 B __bss_start
-00012b80 B __bss_start__
-00012b6c D __data_start
-0000a438 T __divsi3
+0000a546 t .divsi3_skip_div0_test
+0000a540 T __aeabi_idiv
+0000a7f0 W __aeabi_idiv0
+0000a7d4 T __aeabi_idivmod
+0000a7f0 W __aeabi_ldiv0
+00012c90 B __bss_end__
+00012c88 B __bss_start
+00012c88 B __bss_start__
+00012c74 D __data_start
+0000a540 T __divsi3
 000087dc t __do_global_dtors_aux
-00012a0c t __do_global_dtors_aux_fini_array_entry
-00012b70 D __dso_handle
-00012b88 B __end__
-00012a08 t __frame_dummy_init_array_entry
-0000aa04 r __FRAME_END__
+00012b14 t __do_global_dtors_aux_fini_array_entry
+00012c78 D __dso_handle
+00012c90 B __end__
+00012b10 t __frame_dummy_init_array_entry
+0000ab0c r __FRAME_END__
          w __gmon_start__
-00012a0c t __init_array_end
-00012a08 t __init_array_start
-00012a10 d __JCR_END__
-00012a10 d __JCR_LIST__
-0000a734 T __libc_csu_fini
-0000a6f4 T __libc_csu_init
+00012b14 t __init_array_end
+00012b10 t __init_array_start
+00012b18 d __JCR_END__
+00012b18 d __JCR_LIST__
+0000a83c T __libc_csu_fini
+0000a7fc T __libc_csu_init
          U __libc_start_main@@GLIBC_2.4
-00012b80 D __TMC_END__
-00012b88 B _bss_end__
-00012a14 d _DYNAMIC
-00012b80 D _edata
-00012b88 B _end
-0000a738 T _fini
-00012b04 d _GLOBAL_OFFSET_TABLE_
+00012c88 D __TMC_END__
+00012c90 B _bss_end__
+00012b1c d _DYNAMIC
+00012c88 D _edata
+00012c90 B _end
+0000a840 T _fini
+00012c0c d _GLOBAL_OFFSET_TABLE_
 0000860c T _init
-0000a740 R _IO_stdin_used
+0000a848 R _IO_stdin_used
          w _ITM_deregisterTMCloneTable
          w _ITM_registerTMCloneTable
          w _Jv_RegisterClasses
@@ -38,27 +38,27 @@
          U abort@@GLIBC_2.4
          U atoi@@GLIBC_2.4
 00008768 t call_weak_fn
-0000a270 T clear_irq
+0000a378 T clear_irq
          U clock@@GLIBC_2.4
          U close@@GLIBC_2.4
-00012b84 b completed.8884
-00009e08 T construct_extended_mm_to_mm_descriptor
-00009e70 T construct_extended_mm_to_mm_descriptor_64
-00009d40 T construct_extended_mm_to_st_descriptor
-00009da4 T construct_extended_mm_to_st_descriptor_64
-00009c78 T construct_extended_st_to_mm_descriptor
-00009cdc T construct_extended_st_to_mm_descriptor_64
-00009c40 T construct_standard_mm_to_mm_descriptor
-00009c08 T construct_standard_mm_to_st_descriptor
-00009bd0 T construct_standard_st_to_mm_descriptor
-00012b6c W data_start
+00012c8c b completed.8884
+00009f10 T construct_extended_mm_to_mm_descriptor
+00009f78 T construct_extended_mm_to_mm_descriptor_64
+00009e48 T construct_extended_mm_to_st_descriptor
+00009eac T construct_extended_mm_to_st_descriptor_64
+00009d80 T construct_extended_st_to_mm_descriptor
+00009de4 T construct_extended_st_to_mm_descriptor_64
+00009d48 T construct_standard_mm_to_mm_descriptor
+00009d10 T construct_standard_mm_to_st_descriptor
+00009cd8 T construct_standard_st_to_mm_descriptor
+00012c74 W data_start
 0000878c t deregister_tm_clones
-0000a3c0 T disable_global_interrupt_mask
-0000a370 T disable_stop_on_early_termination
-0000a320 T disable_stop_on_error
-0000a398 T enable_global_interrupt_mask
-0000a348 T enable_stop_on_early_termination
-0000a2f8 T enable_stop_on_error
+0000a4c8 T disable_global_interrupt_mask
+0000a478 T disable_stop_on_early_termination
+0000a428 T disable_stop_on_error
+0000a4a0 T enable_global_interrupt_mask
+0000a450 T enable_stop_on_early_termination
+0000a400 T enable_stop_on_error
          U exit@@GLIBC_2.4
          U fclose@@GLIBC_2.4
          U fopen@@GLIBC_2.4
@@ -67,7 +67,7 @@
          U fseek@@GLIBC_2.4
          U ftell@@GLIBC_2.4
          U fwrite@@GLIBC_2.4
-00012b74 D g_preparser_strings
+00012c7c D g_preparser_strings
 00008818 T main
          U mmap@@GLIBC_2.4
          U munmap@@GLIBC_2.4
@@ -76,33 +76,33 @@
          U printf@@GLIBC_2.4
          U puts@@GLIBC_2.4
          U raise@@GLIBC_2.4
-0000a0e0 T read_busy
-0000a030 T read_csr_control
-0000a04c T read_csr_read_descriptor_buffer_fill_level
-0000a0a4 T read_csr_read_sequence_number
-0000a088 T read_csr_response_buffer_fill_level
-0000a018 T read_csr_status
-0000a068 T read_csr_write_descriptor_buffer_fill_level
-0000a0c0 T read_csr_write_sequence_number
-0000a108 T read_descriptor_buffer_empty
-0000a130 T read_descriptor_buffer_full
-0000a248 T read_irq
-00009fc4 T read_mm_response
-0000a1d0 T read_resetting
-0000a158 T read_response_buffer_empty
-0000a180 T read_response_buffer_full
-0000a1a8 T read_stopped
-0000a220 T read_stopped_on_early_termination
-0000a1f8 T read_stopped_on_error
+0000a1e8 T read_busy
+0000a138 T read_csr_control
+0000a154 T read_csr_read_descriptor_buffer_fill_level
+0000a1ac T read_csr_read_sequence_number
+0000a190 T read_csr_response_buffer_fill_level
+0000a120 T read_csr_status
+0000a170 T read_csr_write_descriptor_buffer_fill_level
+0000a1c8 T read_csr_write_sequence_number
+0000a210 T read_descriptor_buffer_empty
+0000a238 T read_descriptor_buffer_full
+0000a350 T read_irq
+0000a0cc T read_mm_response
+0000a2d8 T read_resetting
+0000a260 T read_response_buffer_empty
+0000a288 T read_response_buffer_full
+0000a2b0 T read_stopped
+0000a328 T read_stopped_on_early_termination
+0000a300 T read_stopped_on_error
 000087b0 t register_tm_clones
-0000a2dc T reset_dispatcher
+0000a3e4 T reset_dispatcher
 00000000 a shift
          U sprintf@@GLIBC_2.4
-0000a410 T start_descriptors
-0000a2b4 T start_dispatcher
-00012b80 B stderr@@GLIBC_2.4
-0000a3e8 T stop_descriptors
-0000a28c T stop_dispatcher
+0000a518 T start_descriptors
+0000a3bc T start_dispatcher
+00012c88 B stderr@@GLIBC_2.4
+0000a4f0 T stop_descriptors
+0000a394 T stop_dispatcher
          U usleep@@GLIBC_2.4
-00009f2c T write_extended_descriptor
-00009ed8 T write_standard_descriptor
+0000a034 T write_extended_descriptor
+00009fe0 T write_standard_descriptor

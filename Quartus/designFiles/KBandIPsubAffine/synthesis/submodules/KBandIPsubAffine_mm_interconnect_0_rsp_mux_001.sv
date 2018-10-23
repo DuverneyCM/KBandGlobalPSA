@@ -44,8 +44,8 @@
 //   ARBITRATION_SCHEME   "no-arb"
 //   PIPELINE_ARB:        0
 //   PKT_TRANS_LOCK:      71 (arbitration locking enabled)
-//   ST_DATA_W:           111
-//   ST_CHANNEL_W:        8
+//   ST_DATA_W:           113
+//   ST_CHANNEL_W:        11
 // ------------------------------------------
 
 module KBandIPsubAffine_mm_interconnect_0_rsp_mux_001
@@ -54,15 +54,15 @@ module KBandIPsubAffine_mm_interconnect_0_rsp_mux_001
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [111-1   : 0]  sink0_data,
-    input [8-1: 0]  sink0_channel,
+    input [113-1   : 0]  sink0_data,
+    input [11-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [111-1   : 0]  sink1_data,
-    input [8-1: 0]  sink1_channel,
+    input [113-1   : 0]  sink1_data,
+    input [11-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
@@ -72,8 +72,8 @@ module KBandIPsubAffine_mm_interconnect_0_rsp_mux_001
     // Source
     // ----------------------
     output                      src_valid,
-    output [111-1    : 0] src_data,
-    output [8-1 : 0] src_channel,
+    output [113-1    : 0] src_data,
+    output [11-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -84,12 +84,12 @@ module KBandIPsubAffine_mm_interconnect_0_rsp_mux_001
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 111 + 8 + 2;
+    localparam PAYLOAD_W        = 113 + 11 + 2;
     localparam NUM_INPUTS       = 2;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 0;
-    localparam ST_DATA_W        = 111;
-    localparam ST_CHANNEL_W     = 8;
+    localparam ST_DATA_W        = 113;
+    localparam ST_CHANNEL_W     = 11;
     localparam PKT_TRANS_LOCK   = 71;
 
     // ------------------------------------------

@@ -3,6 +3,7 @@
 			clk_clk                  : in  std_logic                      := 'X';             -- clk
 			clk_int_clk              : in  std_logic                      := 'X';             -- clk
 			kbandinput_1_csr_irq_irq : out std_logic;                                         -- irq
+			kbandinput_2_csr_irq_irq : out std_logic;                                         -- irq
 			kbandoutput_csr_irq_irq  : out std_logic;                                         -- irq
 			m0_waitrequest           : in  std_logic                      := 'X';             -- waitrequest
 			m0_readdata              : in  std_logic_vector(127 downto 0) := (others => 'X'); -- readdata

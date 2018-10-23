@@ -138,7 +138,9 @@ int main(int argc, char *argv[]) {
 	if (isHV == -NoRegs) dirHV = -1;	// H
 		printf("isHV = %d\n",dirHV);
 		printf("dirHV = %d\n",dirHV);
+/**/
 
+/**/
 	//////BUSCAR LA POSICI�N DE LA FLECHA EN LA PRIMERA FILA DE FLECHAS (next row). SOLO DEBE HABER UNA FLECHA
 	currentFILA = currentFILA - 1; // next row
 	for (i=0; i<NoRegs; i++)

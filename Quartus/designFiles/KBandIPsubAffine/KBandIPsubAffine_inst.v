@@ -2,6 +2,7 @@
 		.clk_clk                  (<connected-to-clk_clk>),                  //                  clk.clk
 		.clk_int_clk              (<connected-to-clk_int_clk>),              //              clk_int.clk
 		.kbandinput_1_csr_irq_irq (<connected-to-kbandinput_1_csr_irq_irq>), // kbandinput_1_csr_irq.irq
+		.kbandinput_2_csr_irq_irq (<connected-to-kbandinput_2_csr_irq_irq>), // kbandinput_2_csr_irq.irq
 		.kbandoutput_csr_irq_irq  (<connected-to-kbandoutput_csr_irq_irq>),  //  kbandoutput_csr_irq.irq
 		.m0_waitrequest           (<connected-to-m0_waitrequest>),           //                   m0.waitrequest
 		.m0_readdata              (<connected-to-m0_readdata>),              //                     .readdata

@@ -1,39 +1,46 @@
 # # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
 # 
-preplace inst KBandIPsubAffine.onchip_mem_FPGA_Slave -pg 1 -lvl 3 -y 410
+preplace inst KBandIPsubAffine.onchip_mem_FPGA_Slave -pg 1 -lvl 4 -y 410
 preplace inst KBandIPsubAffine.clk_0 -pg 1 -lvl 1 -y 390
 preplace inst KBandIPsubAffine.KBandOutput.dispatcher_internal -pg 1
 preplace inst KBandIPsubAffine.KBandInput_1.dispatcher_internal -pg 1
 preplace inst KBandIPsubAffine.KBandInput_1.rst_inst -pg 1
-preplace inst KBandIPsubAffine.KBandInput_1 -pg 1 -lvl 2 -y 170
+preplace inst KBandIPsubAffine.KBandInput_1 -pg 1 -lvl 2 -y 50
 preplace inst KBandIPsubAffine.KBandOutput.rst_inst -pg 1
-preplace inst KBandIPsubAffine.mm_bridge_FPGA_Slave -pg 1 -lvl 4 -y 470
+preplace inst KBandIPsubAffine.KBandInput_2 -pg 1 -lvl 3 -y 160
+preplace inst KBandIPsubAffine.mm_bridge_FPGA_Slave -pg 1 -lvl 5 -y 470
 preplace inst KBandIPsubAffine.KBandOutput.cb_inst -pg 1
+preplace inst KBandIPsubAffine.KBandInput_2.read_mstr_internal -pg 1
 preplace inst KBandIPsubAffine.KBandInput_1.read_mstr_internal -pg 1
-preplace inst KBandIPsubAffine.pio_0 -pg 1 -lvl 3 -y 150
+preplace inst KBandIPsubAffine.KBandInput_2.cb_inst -pg 1
+preplace inst KBandIPsubAffine.pio_0 -pg 1 -lvl 4 -y 170
 preplace inst KBandIPsubAffine.clk_internal -pg 1 -lvl 2 -y 400
-preplace inst KBandIPsubAffine.KBandOutput -pg 1 -lvl 4 -y 250
+preplace inst KBandIPsubAffine.KBandOutput -pg 1 -lvl 5 -y 270
 preplace inst KBandIPsubAffine.KBandInput_1.cb_inst -pg 1
-preplace inst KBandIPsubAffine.onchip_mem_LW -pg 1 -lvl 3 -y 330
-preplace inst KBandIPsubAffine.KBand21affine -pg 1 -lvl 3 -y 30
+preplace inst KBandIPsubAffine.onchip_mem_LW -pg 1 -lvl 4 -y 310
+preplace inst KBandIPsubAffine.KBand21affine -pg 1 -lvl 4 -y 30
 preplace inst KBandIPsubAffine -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst KBandIPsubAffine.mm_bridge_LW -pg 1 -lvl 4 -y 590
-preplace inst KBandIPsubAffine.DDR -pg 1 -lvl 5 -y 540
+preplace inst KBandIPsubAffine.mm_bridge_LW -pg 1 -lvl 5 -y 590
+preplace inst KBandIPsubAffine.DDR -pg 1 -lvl 6 -y 540
 preplace inst KBandIPsubAffine.KBandOutput.write_mstr_internal -pg 1
+preplace inst KBandIPsubAffine.KBandInput_2.dispatcher_internal -pg 1
+preplace inst KBandIPsubAffine.KBandInput_2.rst_inst -pg 1
+preplace netloc FAN_OUT<net_container>KBandIPsubAffine</net_container>(SLAVE)mm_bridge_FPGA_Slave.clk,(SLAVE)pio_0.clk,(MASTER)clk_0.clk,(SLAVE)KBandOutput.clock,(SLAVE)KBandInput_1.clock,(SLAVE)KBand21affine.clock_external,(SLAVE)onchip_mem_LW.clk1,(SLAVE)mm_bridge_LW.clk,(SLAVE)KBandInput_2.clock,(SLAVE)onchip_mem_FPGA_Slave.clk1,(SLAVE)DDR.clk) 1 1 5 350 210 720 60 1180 400 1490 560 1780
 preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandIPsubAffine.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
-preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandIPsubAffine.kbandoutput_csr_irq,(SLAVE)KBandOutput.csr_irq) 1 0 4 NJ 330 NJ 330 NJ 300 NJ
-preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandIPsubAffine.sfpga,(SLAVE)mm_bridge_FPGA_Slave.s0) 1 0 4 NJ 540 NJ 540 NJ 540 NJ
-preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandIPsubAffine.kbandinput_1_csr_irq,(SLAVE)KBandInput_1.csr_irq) 1 0 2 NJ 220 NJ
-preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(MASTER)KBandIPsubAffine.m0,(MASTER)DDR.m0) 1 5 1 N
-preplace netloc INTERCONNECT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandInput_1.csr,(MASTER)mm_bridge_FPGA_Slave.m0,(MASTER)KBandInput_1.mm_read,(SLAVE)KBandInput_1.descriptor_slave,(SLAVE)pio_0.s1,(SLAVE)onchip_mem_FPGA_Slave.s1,(MASTER)KBandOutput.mm_write,(MASTER)mm_bridge_LW.m0,(SLAVE)DDR.s0,(SLAVE)onchip_mem_LW.s1,(SLAVE)KBandOutput.csr,(SLAVE)KBandOutput.descriptor_slave) 1 1 4 390 310 760 260 1100 210 1450
-preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandOutput.st_sink,(MASTER)KBand21affine.oArrow) 1 3 1 1080
-preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)mm_bridge_LW.s0,(SLAVE)KBandIPsubAffine.slw) 1 0 4 NJ 640 NJ 640 NJ 640 NJ
-preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandIPsubAffine.clk_int,(SLAVE)clk_internal.clk_in) 1 0 2 NJ 460 NJ
-preplace netloc FAN_OUT<net_container>KBandIPsubAffine</net_container>(SLAVE)clk_internal.clk_in_reset,(SLAVE)KBand21affine.reset,(SLAVE)mm_bridge_LW.reset,(SLAVE)KBandOutput.reset_n,(SLAVE)KBandInput_1.reset_n,(SLAVE)onchip_mem_LW.reset1,(MASTER)clk_0.clk_reset,(SLAVE)pio_0.reset,(SLAVE)onchip_mem_FPGA_Slave.reset1,(SLAVE)DDR.reset,(SLAVE)mm_bridge_FPGA_Slave.reset) 1 1 4 370 370 820 520 1140 580 1430
-preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBand21affine.clock_internal,(MASTER)clk_internal.clk) 1 2 1 740
-preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBand21affine.iADN1,(MASTER)KBandInput_1.st_source) 1 2 1 720
+preplace netloc FAN_OUT<net_container>KBandIPsubAffine</net_container>(SLAVE)mm_bridge_LW.reset,(MASTER)clk_0.clk_reset,(SLAVE)mm_bridge_FPGA_Slave.reset,(SLAVE)KBandInput_1.reset_n,(SLAVE)KBandInput_2.reset_n,(SLAVE)onchip_mem_FPGA_Slave.reset1,(SLAVE)clk_internal.clk_in_reset,(SLAVE)onchip_mem_LW.reset1,(SLAVE)pio_0.reset,(SLAVE)KBandOutput.reset_n,(SLAVE)KBand21affine.reset,(SLAVE)DDR.reset) 1 1 5 370 250 800 100 1120 500 1510 580 1800
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)clk_internal.clk_in,(SLAVE)KBandIPsubAffine.clk_int) 1 0 2 NJ 380 NJ
+preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(MASTER)clk_internal.clk,(SLAVE)KBand21affine.clock_internal) 1 2 2 NJ 410 1160
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandOutput.csr_irq,(SLAVE)KBandIPsubAffine.kbandoutput_csr_irq) 1 0 5 NJ 300 NJ 300 NJ 300 NJ 280 NJ
+preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(SLAVE)pio_0.external_connection,(SLAVE)KBand21affine.Parameters) 1 3 1 1200
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)mm_bridge_LW.s0,(SLAVE)KBandIPsubAffine.slw) 1 0 5 NJ 640 NJ 640 NJ 640 NJ 640 NJ
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandInput_1.csr_irq,(SLAVE)KBandIPsubAffine.kbandinput_1_csr_irq) 1 0 2 NJ 100 NJ
+preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(MASTER)KBandInput_2.st_source,(SLAVE)KBand21affine.iADN2) 1 3 1 1100
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandInput_2.csr_irq,(SLAVE)KBandIPsubAffine.kbandinput_2_csr_irq) 1 0 3 NJ 230 NJ 230 NJ
+preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(MASTER)KBand21affine.oArrow,(SLAVE)KBandOutput.st_sink) 1 4 1 1450
+preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(MASTER)KBandInput_1.st_source,(SLAVE)KBand21affine.iADN1) 1 2 2 780 80 NJ
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)mm_bridge_FPGA_Slave.s0,(SLAVE)KBandIPsubAffine.sfpga) 1 0 5 NJ 520 NJ 520 NJ 520 NJ 520 NJ
 preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(SLAVE)clk_0.clk_in,(SLAVE)KBandIPsubAffine.clk) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBand21affine.Parameters,(SLAVE)pio_0.external_connection) 1 2 1 840
-preplace netloc FAN_OUT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandInput_1.clock,(SLAVE)KBandOutput.clock,(SLAVE)mm_bridge_FPGA_Slave.clk,(SLAVE)pio_0.clk,(SLAVE)DDR.clk,(MASTER)clk_0.clk,(SLAVE)mm_bridge_LW.clk,(SLAVE)onchip_mem_LW.clk1,(SLAVE)KBand21affine.clock_external,(SLAVE)onchip_mem_FPGA_Slave.clk1) 1 1 4 350 350 800 500 1120 560 1410
-levelinfo -pg 1 0 140 1620
-levelinfo -hier KBandIPsubAffine 150 180 550 910 1280 1480 1570
+preplace netloc INTERCONNECT<net_container>KBandIPsubAffine</net_container>(SLAVE)KBandInput_1.csr,(SLAVE)KBandInput_2.descriptor_slave,(SLAVE)onchip_mem_FPGA_Slave.s1,(SLAVE)pio_0.s1,(SLAVE)onchip_mem_LW.s1,(MASTER)KBandInput_2.mm_read,(SLAVE)KBandInput_1.descriptor_slave,(SLAVE)KBandOutput.csr,(SLAVE)KBandInput_2.csr,(SLAVE)KBandOutput.descriptor_slave,(SLAVE)DDR.s0,(MASTER)mm_bridge_LW.m0,(MASTER)KBandOutput.mm_write,(MASTER)mm_bridge_FPGA_Slave.m0,(MASTER)KBandInput_1.mm_read) 1 1 5 390 190 760 120 1080 300 1510 230 1820
+preplace netloc EXPORT<net_container>KBandIPsubAffine</net_container>(MASTER)DDR.m0,(MASTER)KBandIPsubAffine.m0) 1 6 1 N
+levelinfo -pg 1 0 140 1990
+levelinfo -hier KBandIPsubAffine 150 180 550 920 1280 1650 1850 1940
