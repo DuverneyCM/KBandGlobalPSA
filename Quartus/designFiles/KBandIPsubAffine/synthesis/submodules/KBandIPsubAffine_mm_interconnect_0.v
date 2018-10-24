@@ -11,15 +11,13 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		input  wire         mm_bridge_LW_reset_reset_bridge_in_reset_reset, // mm_bridge_LW_reset_reset_bridge_in_reset.reset
 		input  wire [30:0]  KBandInput_1_mm_read_address,                   //                     KBandInput_1_mm_read.address
 		output wire         KBandInput_1_mm_read_waitrequest,               //                                         .waitrequest
-		input  wire [3:0]   KBandInput_1_mm_read_byteenable,                //                                         .byteenable
 		input  wire         KBandInput_1_mm_read_read,                      //                                         .read
-		output wire [31:0]  KBandInput_1_mm_read_readdata,                  //                                         .readdata
+		output wire [7:0]   KBandInput_1_mm_read_readdata,                  //                                         .readdata
 		output wire         KBandInput_1_mm_read_readdatavalid,             //                                         .readdatavalid
 		input  wire [30:0]  KBandInput_2_mm_read_address,                   //                     KBandInput_2_mm_read.address
 		output wire         KBandInput_2_mm_read_waitrequest,               //                                         .waitrequest
-		input  wire [3:0]   KBandInput_2_mm_read_byteenable,                //                                         .byteenable
 		input  wire         KBandInput_2_mm_read_read,                      //                                         .read
-		output wire [31:0]  KBandInput_2_mm_read_readdata,                  //                                         .readdata
+		output wire [7:0]   KBandInput_2_mm_read_readdata,                  //                                         .readdata
 		output wire         KBandInput_2_mm_read_readdatavalid,             //                                         .readdatavalid
 		input  wire [30:0]  KBandOutput_mm_write_address,                   //                     KBandOutput_mm_write.address
 		output wire         KBandOutput_mm_write_waitrequest,               //                                         .waitrequest
@@ -126,27 +124,27 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [31:0] mm_bridge_lw_m0_translator_avalon_universal_master_0_writedata;                          // mm_bridge_LW_m0_translator:uav_writedata -> mm_bridge_LW_m0_agent:av_writedata
 	wire    [2:0] mm_bridge_lw_m0_translator_avalon_universal_master_0_burstcount;                         // mm_bridge_LW_m0_translator:uav_burstcount -> mm_bridge_LW_m0_agent:av_burstcount
 	wire          kbandinput_2_mm_read_translator_avalon_universal_master_0_waitrequest;                   // KBandInput_2_mm_read_agent:av_waitrequest -> KBandInput_2_mm_read_translator:uav_waitrequest
-	wire   [31:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_readdata;                      // KBandInput_2_mm_read_agent:av_readdata -> KBandInput_2_mm_read_translator:uav_readdata
+	wire    [7:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_readdata;                      // KBandInput_2_mm_read_agent:av_readdata -> KBandInput_2_mm_read_translator:uav_readdata
 	wire          kbandinput_2_mm_read_translator_avalon_universal_master_0_debugaccess;                   // KBandInput_2_mm_read_translator:uav_debugaccess -> KBandInput_2_mm_read_agent:av_debugaccess
 	wire   [30:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_address;                       // KBandInput_2_mm_read_translator:uav_address -> KBandInput_2_mm_read_agent:av_address
 	wire          kbandinput_2_mm_read_translator_avalon_universal_master_0_read;                          // KBandInput_2_mm_read_translator:uav_read -> KBandInput_2_mm_read_agent:av_read
-	wire    [3:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_byteenable;                    // KBandInput_2_mm_read_translator:uav_byteenable -> KBandInput_2_mm_read_agent:av_byteenable
+	wire    [0:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_byteenable;                    // KBandInput_2_mm_read_translator:uav_byteenable -> KBandInput_2_mm_read_agent:av_byteenable
 	wire          kbandinput_2_mm_read_translator_avalon_universal_master_0_readdatavalid;                 // KBandInput_2_mm_read_agent:av_readdatavalid -> KBandInput_2_mm_read_translator:uav_readdatavalid
 	wire          kbandinput_2_mm_read_translator_avalon_universal_master_0_lock;                          // KBandInput_2_mm_read_translator:uav_lock -> KBandInput_2_mm_read_agent:av_lock
 	wire          kbandinput_2_mm_read_translator_avalon_universal_master_0_write;                         // KBandInput_2_mm_read_translator:uav_write -> KBandInput_2_mm_read_agent:av_write
-	wire   [31:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_writedata;                     // KBandInput_2_mm_read_translator:uav_writedata -> KBandInput_2_mm_read_agent:av_writedata
-	wire    [2:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_burstcount;                    // KBandInput_2_mm_read_translator:uav_burstcount -> KBandInput_2_mm_read_agent:av_burstcount
+	wire    [7:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_writedata;                     // KBandInput_2_mm_read_translator:uav_writedata -> KBandInput_2_mm_read_agent:av_writedata
+	wire    [0:0] kbandinput_2_mm_read_translator_avalon_universal_master_0_burstcount;                    // KBandInput_2_mm_read_translator:uav_burstcount -> KBandInput_2_mm_read_agent:av_burstcount
 	wire          kbandinput_1_mm_read_translator_avalon_universal_master_0_waitrequest;                   // KBandInput_1_mm_read_agent:av_waitrequest -> KBandInput_1_mm_read_translator:uav_waitrequest
-	wire   [31:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_readdata;                      // KBandInput_1_mm_read_agent:av_readdata -> KBandInput_1_mm_read_translator:uav_readdata
+	wire    [7:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_readdata;                      // KBandInput_1_mm_read_agent:av_readdata -> KBandInput_1_mm_read_translator:uav_readdata
 	wire          kbandinput_1_mm_read_translator_avalon_universal_master_0_debugaccess;                   // KBandInput_1_mm_read_translator:uav_debugaccess -> KBandInput_1_mm_read_agent:av_debugaccess
 	wire   [30:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_address;                       // KBandInput_1_mm_read_translator:uav_address -> KBandInput_1_mm_read_agent:av_address
 	wire          kbandinput_1_mm_read_translator_avalon_universal_master_0_read;                          // KBandInput_1_mm_read_translator:uav_read -> KBandInput_1_mm_read_agent:av_read
-	wire    [3:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_byteenable;                    // KBandInput_1_mm_read_translator:uav_byteenable -> KBandInput_1_mm_read_agent:av_byteenable
+	wire    [0:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_byteenable;                    // KBandInput_1_mm_read_translator:uav_byteenable -> KBandInput_1_mm_read_agent:av_byteenable
 	wire          kbandinput_1_mm_read_translator_avalon_universal_master_0_readdatavalid;                 // KBandInput_1_mm_read_agent:av_readdatavalid -> KBandInput_1_mm_read_translator:uav_readdatavalid
 	wire          kbandinput_1_mm_read_translator_avalon_universal_master_0_lock;                          // KBandInput_1_mm_read_translator:uav_lock -> KBandInput_1_mm_read_agent:av_lock
 	wire          kbandinput_1_mm_read_translator_avalon_universal_master_0_write;                         // KBandInput_1_mm_read_translator:uav_write -> KBandInput_1_mm_read_agent:av_write
-	wire   [31:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_writedata;                     // KBandInput_1_mm_read_translator:uav_writedata -> KBandInput_1_mm_read_agent:av_writedata
-	wire    [2:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_burstcount;                    // KBandInput_1_mm_read_translator:uav_burstcount -> KBandInput_1_mm_read_agent:av_burstcount
+	wire    [7:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_writedata;                     // KBandInput_1_mm_read_translator:uav_writedata -> KBandInput_1_mm_read_agent:av_writedata
+	wire    [0:0] kbandinput_1_mm_read_translator_avalon_universal_master_0_burstcount;                    // KBandInput_1_mm_read_translator:uav_burstcount -> KBandInput_1_mm_read_agent:av_burstcount
 	wire          kbandoutput_mm_write_translator_avalon_universal_master_0_waitrequest;                   // KBandOutput_mm_write_agent:av_waitrequest -> KBandOutput_mm_write_translator:uav_waitrequest
 	wire  [127:0] kbandoutput_mm_write_translator_avalon_universal_master_0_readdata;                      // KBandOutput_mm_write_agent:av_readdata -> KBandOutput_mm_write_translator:uav_readdata
 	wire          kbandoutput_mm_write_translator_avalon_universal_master_0_debugaccess;                   // KBandOutput_mm_write_translator:uav_debugaccess -> KBandOutput_mm_write_agent:av_debugaccess
@@ -484,12 +482,12 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire          mm_bridge_lw_m0_agent_cp_startofpacket;                                                  // mm_bridge_LW_m0_agent:cp_startofpacket -> router:sink_startofpacket
 	wire          mm_bridge_lw_m0_agent_cp_endofpacket;                                                    // mm_bridge_LW_m0_agent:cp_endofpacket -> router:sink_endofpacket
 	wire          kbandinput_2_mm_read_agent_cp_valid;                                                     // KBandInput_2_mm_read_agent:cp_valid -> router_001:sink_valid
-	wire  [112:0] kbandinput_2_mm_read_agent_cp_data;                                                      // KBandInput_2_mm_read_agent:cp_data -> router_001:sink_data
+	wire   [85:0] kbandinput_2_mm_read_agent_cp_data;                                                      // KBandInput_2_mm_read_agent:cp_data -> router_001:sink_data
 	wire          kbandinput_2_mm_read_agent_cp_ready;                                                     // router_001:sink_ready -> KBandInput_2_mm_read_agent:cp_ready
 	wire          kbandinput_2_mm_read_agent_cp_startofpacket;                                             // KBandInput_2_mm_read_agent:cp_startofpacket -> router_001:sink_startofpacket
 	wire          kbandinput_2_mm_read_agent_cp_endofpacket;                                               // KBandInput_2_mm_read_agent:cp_endofpacket -> router_001:sink_endofpacket
 	wire          kbandinput_1_mm_read_agent_cp_valid;                                                     // KBandInput_1_mm_read_agent:cp_valid -> router_002:sink_valid
-	wire  [112:0] kbandinput_1_mm_read_agent_cp_data;                                                      // KBandInput_1_mm_read_agent:cp_data -> router_002:sink_data
+	wire   [85:0] kbandinput_1_mm_read_agent_cp_data;                                                      // KBandInput_1_mm_read_agent:cp_data -> router_002:sink_data
 	wire          kbandinput_1_mm_read_agent_cp_ready;                                                     // router_002:sink_ready -> KBandInput_1_mm_read_agent:cp_ready
 	wire          kbandinput_1_mm_read_agent_cp_startofpacket;                                             // KBandInput_1_mm_read_agent:cp_startofpacket -> router_002:sink_startofpacket
 	wire          kbandinput_1_mm_read_agent_cp_endofpacket;                                               // KBandInput_1_mm_read_agent:cp_endofpacket -> router_002:sink_endofpacket
@@ -660,47 +658,47 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire          mm_bridge_lw_m0_limiter_rsp_src_startofpacket;                                           // mm_bridge_LW_m0_limiter:rsp_src_startofpacket -> mm_bridge_LW_m0_agent:rp_startofpacket
 	wire          mm_bridge_lw_m0_limiter_rsp_src_endofpacket;                                             // mm_bridge_LW_m0_limiter:rsp_src_endofpacket -> mm_bridge_LW_m0_agent:rp_endofpacket
 	wire          router_001_src_valid;                                                                    // router_001:src_valid -> KBandInput_2_mm_read_limiter:cmd_sink_valid
-	wire  [112:0] router_001_src_data;                                                                     // router_001:src_data -> KBandInput_2_mm_read_limiter:cmd_sink_data
+	wire   [85:0] router_001_src_data;                                                                     // router_001:src_data -> KBandInput_2_mm_read_limiter:cmd_sink_data
 	wire          router_001_src_ready;                                                                    // KBandInput_2_mm_read_limiter:cmd_sink_ready -> router_001:src_ready
 	wire   [10:0] router_001_src_channel;                                                                  // router_001:src_channel -> KBandInput_2_mm_read_limiter:cmd_sink_channel
 	wire          router_001_src_startofpacket;                                                            // router_001:src_startofpacket -> KBandInput_2_mm_read_limiter:cmd_sink_startofpacket
 	wire          router_001_src_endofpacket;                                                              // router_001:src_endofpacket -> KBandInput_2_mm_read_limiter:cmd_sink_endofpacket
-	wire  [112:0] kbandinput_2_mm_read_limiter_cmd_src_data;                                               // KBandInput_2_mm_read_limiter:cmd_src_data -> cmd_demux_001:sink_data
+	wire   [85:0] kbandinput_2_mm_read_limiter_cmd_src_data;                                               // KBandInput_2_mm_read_limiter:cmd_src_data -> cmd_demux_001:sink_data
 	wire          kbandinput_2_mm_read_limiter_cmd_src_ready;                                              // cmd_demux_001:sink_ready -> KBandInput_2_mm_read_limiter:cmd_src_ready
 	wire   [10:0] kbandinput_2_mm_read_limiter_cmd_src_channel;                                            // KBandInput_2_mm_read_limiter:cmd_src_channel -> cmd_demux_001:sink_channel
 	wire          kbandinput_2_mm_read_limiter_cmd_src_startofpacket;                                      // KBandInput_2_mm_read_limiter:cmd_src_startofpacket -> cmd_demux_001:sink_startofpacket
 	wire          kbandinput_2_mm_read_limiter_cmd_src_endofpacket;                                        // KBandInput_2_mm_read_limiter:cmd_src_endofpacket -> cmd_demux_001:sink_endofpacket
 	wire          rsp_mux_001_src_valid;                                                                   // rsp_mux_001:src_valid -> KBandInput_2_mm_read_limiter:rsp_sink_valid
-	wire  [112:0] rsp_mux_001_src_data;                                                                    // rsp_mux_001:src_data -> KBandInput_2_mm_read_limiter:rsp_sink_data
+	wire   [85:0] rsp_mux_001_src_data;                                                                    // rsp_mux_001:src_data -> KBandInput_2_mm_read_limiter:rsp_sink_data
 	wire          rsp_mux_001_src_ready;                                                                   // KBandInput_2_mm_read_limiter:rsp_sink_ready -> rsp_mux_001:src_ready
 	wire   [10:0] rsp_mux_001_src_channel;                                                                 // rsp_mux_001:src_channel -> KBandInput_2_mm_read_limiter:rsp_sink_channel
 	wire          rsp_mux_001_src_startofpacket;                                                           // rsp_mux_001:src_startofpacket -> KBandInput_2_mm_read_limiter:rsp_sink_startofpacket
 	wire          rsp_mux_001_src_endofpacket;                                                             // rsp_mux_001:src_endofpacket -> KBandInput_2_mm_read_limiter:rsp_sink_endofpacket
 	wire          kbandinput_2_mm_read_limiter_rsp_src_valid;                                              // KBandInput_2_mm_read_limiter:rsp_src_valid -> KBandInput_2_mm_read_agent:rp_valid
-	wire  [112:0] kbandinput_2_mm_read_limiter_rsp_src_data;                                               // KBandInput_2_mm_read_limiter:rsp_src_data -> KBandInput_2_mm_read_agent:rp_data
+	wire   [85:0] kbandinput_2_mm_read_limiter_rsp_src_data;                                               // KBandInput_2_mm_read_limiter:rsp_src_data -> KBandInput_2_mm_read_agent:rp_data
 	wire          kbandinput_2_mm_read_limiter_rsp_src_ready;                                              // KBandInput_2_mm_read_agent:rp_ready -> KBandInput_2_mm_read_limiter:rsp_src_ready
 	wire   [10:0] kbandinput_2_mm_read_limiter_rsp_src_channel;                                            // KBandInput_2_mm_read_limiter:rsp_src_channel -> KBandInput_2_mm_read_agent:rp_channel
 	wire          kbandinput_2_mm_read_limiter_rsp_src_startofpacket;                                      // KBandInput_2_mm_read_limiter:rsp_src_startofpacket -> KBandInput_2_mm_read_agent:rp_startofpacket
 	wire          kbandinput_2_mm_read_limiter_rsp_src_endofpacket;                                        // KBandInput_2_mm_read_limiter:rsp_src_endofpacket -> KBandInput_2_mm_read_agent:rp_endofpacket
 	wire          router_002_src_valid;                                                                    // router_002:src_valid -> KBandInput_1_mm_read_limiter:cmd_sink_valid
-	wire  [112:0] router_002_src_data;                                                                     // router_002:src_data -> KBandInput_1_mm_read_limiter:cmd_sink_data
+	wire   [85:0] router_002_src_data;                                                                     // router_002:src_data -> KBandInput_1_mm_read_limiter:cmd_sink_data
 	wire          router_002_src_ready;                                                                    // KBandInput_1_mm_read_limiter:cmd_sink_ready -> router_002:src_ready
 	wire   [10:0] router_002_src_channel;                                                                  // router_002:src_channel -> KBandInput_1_mm_read_limiter:cmd_sink_channel
 	wire          router_002_src_startofpacket;                                                            // router_002:src_startofpacket -> KBandInput_1_mm_read_limiter:cmd_sink_startofpacket
 	wire          router_002_src_endofpacket;                                                              // router_002:src_endofpacket -> KBandInput_1_mm_read_limiter:cmd_sink_endofpacket
-	wire  [112:0] kbandinput_1_mm_read_limiter_cmd_src_data;                                               // KBandInput_1_mm_read_limiter:cmd_src_data -> cmd_demux_002:sink_data
+	wire   [85:0] kbandinput_1_mm_read_limiter_cmd_src_data;                                               // KBandInput_1_mm_read_limiter:cmd_src_data -> cmd_demux_002:sink_data
 	wire          kbandinput_1_mm_read_limiter_cmd_src_ready;                                              // cmd_demux_002:sink_ready -> KBandInput_1_mm_read_limiter:cmd_src_ready
 	wire   [10:0] kbandinput_1_mm_read_limiter_cmd_src_channel;                                            // KBandInput_1_mm_read_limiter:cmd_src_channel -> cmd_demux_002:sink_channel
 	wire          kbandinput_1_mm_read_limiter_cmd_src_startofpacket;                                      // KBandInput_1_mm_read_limiter:cmd_src_startofpacket -> cmd_demux_002:sink_startofpacket
 	wire          kbandinput_1_mm_read_limiter_cmd_src_endofpacket;                                        // KBandInput_1_mm_read_limiter:cmd_src_endofpacket -> cmd_demux_002:sink_endofpacket
 	wire          rsp_mux_002_src_valid;                                                                   // rsp_mux_002:src_valid -> KBandInput_1_mm_read_limiter:rsp_sink_valid
-	wire  [112:0] rsp_mux_002_src_data;                                                                    // rsp_mux_002:src_data -> KBandInput_1_mm_read_limiter:rsp_sink_data
+	wire   [85:0] rsp_mux_002_src_data;                                                                    // rsp_mux_002:src_data -> KBandInput_1_mm_read_limiter:rsp_sink_data
 	wire          rsp_mux_002_src_ready;                                                                   // KBandInput_1_mm_read_limiter:rsp_sink_ready -> rsp_mux_002:src_ready
 	wire   [10:0] rsp_mux_002_src_channel;                                                                 // rsp_mux_002:src_channel -> KBandInput_1_mm_read_limiter:rsp_sink_channel
 	wire          rsp_mux_002_src_startofpacket;                                                           // rsp_mux_002:src_startofpacket -> KBandInput_1_mm_read_limiter:rsp_sink_startofpacket
 	wire          rsp_mux_002_src_endofpacket;                                                             // rsp_mux_002:src_endofpacket -> KBandInput_1_mm_read_limiter:rsp_sink_endofpacket
 	wire          kbandinput_1_mm_read_limiter_rsp_src_valid;                                              // KBandInput_1_mm_read_limiter:rsp_src_valid -> KBandInput_1_mm_read_agent:rp_valid
-	wire  [112:0] kbandinput_1_mm_read_limiter_rsp_src_data;                                               // KBandInput_1_mm_read_limiter:rsp_src_data -> KBandInput_1_mm_read_agent:rp_data
+	wire   [85:0] kbandinput_1_mm_read_limiter_rsp_src_data;                                               // KBandInput_1_mm_read_limiter:rsp_src_data -> KBandInput_1_mm_read_agent:rp_data
 	wire          kbandinput_1_mm_read_limiter_rsp_src_ready;                                              // KBandInput_1_mm_read_agent:rp_ready -> KBandInput_1_mm_read_limiter:rsp_src_ready
 	wire   [10:0] kbandinput_1_mm_read_limiter_rsp_src_channel;                                            // KBandInput_1_mm_read_limiter:rsp_src_channel -> KBandInput_1_mm_read_agent:rp_channel
 	wire          kbandinput_1_mm_read_limiter_rsp_src_startofpacket;                                      // KBandInput_1_mm_read_limiter:rsp_src_startofpacket -> KBandInput_1_mm_read_agent:rp_startofpacket
@@ -741,18 +739,6 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [10:0] cmd_demux_src8_channel;                                                                  // cmd_demux:src8_channel -> cmd_mux_008:sink0_channel
 	wire          cmd_demux_src8_startofpacket;                                                            // cmd_demux:src8_startofpacket -> cmd_mux_008:sink0_startofpacket
 	wire          cmd_demux_src8_endofpacket;                                                              // cmd_demux:src8_endofpacket -> cmd_mux_008:sink0_endofpacket
-	wire          cmd_demux_001_src0_valid;                                                                // cmd_demux_001:src0_valid -> cmd_mux_008:sink1_valid
-	wire  [112:0] cmd_demux_001_src0_data;                                                                 // cmd_demux_001:src0_data -> cmd_mux_008:sink1_data
-	wire          cmd_demux_001_src0_ready;                                                                // cmd_mux_008:sink1_ready -> cmd_demux_001:src0_ready
-	wire   [10:0] cmd_demux_001_src0_channel;                                                              // cmd_demux_001:src0_channel -> cmd_mux_008:sink1_channel
-	wire          cmd_demux_001_src0_startofpacket;                                                        // cmd_demux_001:src0_startofpacket -> cmd_mux_008:sink1_startofpacket
-	wire          cmd_demux_001_src0_endofpacket;                                                          // cmd_demux_001:src0_endofpacket -> cmd_mux_008:sink1_endofpacket
-	wire          cmd_demux_002_src0_valid;                                                                // cmd_demux_002:src0_valid -> cmd_mux_006:sink1_valid
-	wire  [112:0] cmd_demux_002_src0_data;                                                                 // cmd_demux_002:src0_data -> cmd_mux_006:sink1_data
-	wire          cmd_demux_002_src0_ready;                                                                // cmd_mux_006:sink1_ready -> cmd_demux_002:src0_ready
-	wire   [10:0] cmd_demux_002_src0_channel;                                                              // cmd_demux_002:src0_channel -> cmd_mux_006:sink1_channel
-	wire          cmd_demux_002_src0_startofpacket;                                                        // cmd_demux_002:src0_startofpacket -> cmd_mux_006:sink1_startofpacket
-	wire          cmd_demux_002_src0_endofpacket;                                                          // cmd_demux_002:src0_endofpacket -> cmd_mux_006:sink1_endofpacket
 	wire          cmd_demux_003_src0_valid;                                                                // cmd_demux_003:src0_valid -> cmd_mux_009:sink2_valid
 	wire  [220:0] cmd_demux_003_src0_data;                                                                 // cmd_demux_003:src0_data -> cmd_mux_009:sink2_data
 	wire          cmd_demux_003_src0_ready;                                                                // cmd_mux_009:sink2_ready -> cmd_demux_003:src0_ready
@@ -789,12 +775,6 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [10:0] rsp_demux_006_src0_channel;                                                              // rsp_demux_006:src0_channel -> rsp_mux:sink6_channel
 	wire          rsp_demux_006_src0_startofpacket;                                                        // rsp_demux_006:src0_startofpacket -> rsp_mux:sink6_startofpacket
 	wire          rsp_demux_006_src0_endofpacket;                                                          // rsp_demux_006:src0_endofpacket -> rsp_mux:sink6_endofpacket
-	wire          rsp_demux_006_src1_valid;                                                                // rsp_demux_006:src1_valid -> rsp_mux_002:sink0_valid
-	wire  [112:0] rsp_demux_006_src1_data;                                                                 // rsp_demux_006:src1_data -> rsp_mux_002:sink0_data
-	wire          rsp_demux_006_src1_ready;                                                                // rsp_mux_002:sink0_ready -> rsp_demux_006:src1_ready
-	wire   [10:0] rsp_demux_006_src1_channel;                                                              // rsp_demux_006:src1_channel -> rsp_mux_002:sink0_channel
-	wire          rsp_demux_006_src1_startofpacket;                                                        // rsp_demux_006:src1_startofpacket -> rsp_mux_002:sink0_startofpacket
-	wire          rsp_demux_006_src1_endofpacket;                                                          // rsp_demux_006:src1_endofpacket -> rsp_mux_002:sink0_endofpacket
 	wire          rsp_demux_007_src0_valid;                                                                // rsp_demux_007:src0_valid -> rsp_mux:sink7_valid
 	wire  [112:0] rsp_demux_007_src0_data;                                                                 // rsp_demux_007:src0_data -> rsp_mux:sink7_data
 	wire          rsp_demux_007_src0_ready;                                                                // rsp_mux:sink7_ready -> rsp_demux_007:src0_ready
@@ -807,12 +787,6 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [10:0] rsp_demux_008_src0_channel;                                                              // rsp_demux_008:src0_channel -> rsp_mux:sink8_channel
 	wire          rsp_demux_008_src0_startofpacket;                                                        // rsp_demux_008:src0_startofpacket -> rsp_mux:sink8_startofpacket
 	wire          rsp_demux_008_src0_endofpacket;                                                          // rsp_demux_008:src0_endofpacket -> rsp_mux:sink8_endofpacket
-	wire          rsp_demux_008_src1_valid;                                                                // rsp_demux_008:src1_valid -> rsp_mux_001:sink0_valid
-	wire  [112:0] rsp_demux_008_src1_data;                                                                 // rsp_demux_008:src1_data -> rsp_mux_001:sink0_data
-	wire          rsp_demux_008_src1_ready;                                                                // rsp_mux_001:sink0_ready -> rsp_demux_008:src1_ready
-	wire   [10:0] rsp_demux_008_src1_channel;                                                              // rsp_demux_008:src1_channel -> rsp_mux_001:sink0_channel
-	wire          rsp_demux_008_src1_startofpacket;                                                        // rsp_demux_008:src1_startofpacket -> rsp_mux_001:sink0_startofpacket
-	wire          rsp_demux_008_src1_endofpacket;                                                          // rsp_demux_008:src1_endofpacket -> rsp_mux_001:sink0_endofpacket
 	wire          rsp_demux_009_src2_valid;                                                                // rsp_demux_009:src2_valid -> rsp_mux_003:sink0_valid
 	wire  [220:0] rsp_demux_009_src2_data;                                                                 // rsp_demux_009:src2_data -> rsp_mux_003:sink0_data
 	wire          rsp_demux_009_src2_ready;                                                                // rsp_mux_003:sink0_ready -> rsp_demux_009:src2_ready
@@ -861,8 +835,20 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [10:0] mm_bridge_lw_m0_to_kbandinput_2_descriptor_slave_cmd_width_adapter_src_channel;          // mm_bridge_LW_m0_to_KBandInput_2_descriptor_slave_cmd_width_adapter:out_channel -> cmd_mux_005:sink0_channel
 	wire          mm_bridge_lw_m0_to_kbandinput_2_descriptor_slave_cmd_width_adapter_src_startofpacket;    // mm_bridge_LW_m0_to_KBandInput_2_descriptor_slave_cmd_width_adapter:out_startofpacket -> cmd_mux_005:sink0_startofpacket
 	wire          mm_bridge_lw_m0_to_kbandinput_2_descriptor_slave_cmd_width_adapter_src_endofpacket;      // mm_bridge_LW_m0_to_KBandInput_2_descriptor_slave_cmd_width_adapter:out_endofpacket -> cmd_mux_005:sink0_endofpacket
+	wire          cmd_demux_001_src0_valid;                                                                // cmd_demux_001:src0_valid -> KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:in_valid
+	wire   [85:0] cmd_demux_001_src0_data;                                                                 // cmd_demux_001:src0_data -> KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:in_data
+	wire          cmd_demux_001_src0_ready;                                                                // KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:in_ready -> cmd_demux_001:src0_ready
+	wire   [10:0] cmd_demux_001_src0_channel;                                                              // cmd_demux_001:src0_channel -> KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:in_channel
+	wire          cmd_demux_001_src0_startofpacket;                                                        // cmd_demux_001:src0_startofpacket -> KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:in_startofpacket
+	wire          cmd_demux_001_src0_endofpacket;                                                          // cmd_demux_001:src0_endofpacket -> KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:in_endofpacket
+	wire          kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_valid;                   // KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:out_valid -> cmd_mux_008:sink1_valid
+	wire  [112:0] kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_data;                    // KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:out_data -> cmd_mux_008:sink1_data
+	wire          kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_ready;                   // cmd_mux_008:sink1_ready -> KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:out_ready
+	wire   [10:0] kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_channel;                 // KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:out_channel -> cmd_mux_008:sink1_channel
+	wire          kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_startofpacket;           // KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:out_startofpacket -> cmd_mux_008:sink1_startofpacket
+	wire          kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_endofpacket;             // KBandInput_2_mm_read_to_onchip_mem_LW2_s1_cmd_width_adapter:out_endofpacket -> cmd_mux_008:sink1_endofpacket
 	wire          cmd_demux_001_src1_valid;                                                                // cmd_demux_001:src1_valid -> KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:in_valid
-	wire  [112:0] cmd_demux_001_src1_data;                                                                 // cmd_demux_001:src1_data -> KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:in_data
+	wire   [85:0] cmd_demux_001_src1_data;                                                                 // cmd_demux_001:src1_data -> KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:in_data
 	wire          cmd_demux_001_src1_ready;                                                                // KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:in_ready -> cmd_demux_001:src1_ready
 	wire   [10:0] cmd_demux_001_src1_channel;                                                              // cmd_demux_001:src1_channel -> KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:in_channel
 	wire          cmd_demux_001_src1_startofpacket;                                                        // cmd_demux_001:src1_startofpacket -> KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:in_startofpacket
@@ -873,8 +859,20 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [10:0] kbandinput_2_mm_read_to_ddr_s0_cmd_width_adapter_src_channel;                            // KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:out_channel -> cmd_mux_009:sink0_channel
 	wire          kbandinput_2_mm_read_to_ddr_s0_cmd_width_adapter_src_startofpacket;                      // KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:out_startofpacket -> cmd_mux_009:sink0_startofpacket
 	wire          kbandinput_2_mm_read_to_ddr_s0_cmd_width_adapter_src_endofpacket;                        // KBandInput_2_mm_read_to_DDR_s0_cmd_width_adapter:out_endofpacket -> cmd_mux_009:sink0_endofpacket
+	wire          cmd_demux_002_src0_valid;                                                                // cmd_demux_002:src0_valid -> KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:in_valid
+	wire   [85:0] cmd_demux_002_src0_data;                                                                 // cmd_demux_002:src0_data -> KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:in_data
+	wire          cmd_demux_002_src0_ready;                                                                // KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:in_ready -> cmd_demux_002:src0_ready
+	wire   [10:0] cmd_demux_002_src0_channel;                                                              // cmd_demux_002:src0_channel -> KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:in_channel
+	wire          cmd_demux_002_src0_startofpacket;                                                        // cmd_demux_002:src0_startofpacket -> KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:in_startofpacket
+	wire          cmd_demux_002_src0_endofpacket;                                                          // cmd_demux_002:src0_endofpacket -> KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:in_endofpacket
+	wire          kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_valid;                    // KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:out_valid -> cmd_mux_006:sink1_valid
+	wire  [112:0] kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_data;                     // KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:out_data -> cmd_mux_006:sink1_data
+	wire          kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_ready;                    // cmd_mux_006:sink1_ready -> KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:out_ready
+	wire   [10:0] kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_channel;                  // KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:out_channel -> cmd_mux_006:sink1_channel
+	wire          kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_startofpacket;            // KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:out_startofpacket -> cmd_mux_006:sink1_startofpacket
+	wire          kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_endofpacket;              // KBandInput_1_mm_read_to_onchip_mem_LW_s1_cmd_width_adapter:out_endofpacket -> cmd_mux_006:sink1_endofpacket
 	wire          cmd_demux_002_src1_valid;                                                                // cmd_demux_002:src1_valid -> KBandInput_1_mm_read_to_DDR_s0_cmd_width_adapter:in_valid
-	wire  [112:0] cmd_demux_002_src1_data;                                                                 // cmd_demux_002:src1_data -> KBandInput_1_mm_read_to_DDR_s0_cmd_width_adapter:in_data
+	wire   [85:0] cmd_demux_002_src1_data;                                                                 // cmd_demux_002:src1_data -> KBandInput_1_mm_read_to_DDR_s0_cmd_width_adapter:in_data
 	wire          cmd_demux_002_src1_ready;                                                                // KBandInput_1_mm_read_to_DDR_s0_cmd_width_adapter:in_ready -> cmd_demux_002:src1_ready
 	wire   [10:0] cmd_demux_002_src1_channel;                                                              // cmd_demux_002:src1_channel -> KBandInput_1_mm_read_to_DDR_s0_cmd_width_adapter:in_channel
 	wire          cmd_demux_002_src1_startofpacket;                                                        // cmd_demux_002:src1_startofpacket -> KBandInput_1_mm_read_to_DDR_s0_cmd_width_adapter:in_startofpacket
@@ -933,6 +931,30 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire   [10:0] kbandinput_2_descriptor_slave_to_mm_bridge_lw_m0_rsp_width_adapter_src_channel;          // KBandInput_2_descriptor_slave_to_mm_bridge_LW_m0_rsp_width_adapter:out_channel -> rsp_mux:sink5_channel
 	wire          kbandinput_2_descriptor_slave_to_mm_bridge_lw_m0_rsp_width_adapter_src_startofpacket;    // KBandInput_2_descriptor_slave_to_mm_bridge_LW_m0_rsp_width_adapter:out_startofpacket -> rsp_mux:sink5_startofpacket
 	wire          kbandinput_2_descriptor_slave_to_mm_bridge_lw_m0_rsp_width_adapter_src_endofpacket;      // KBandInput_2_descriptor_slave_to_mm_bridge_LW_m0_rsp_width_adapter:out_endofpacket -> rsp_mux:sink5_endofpacket
+	wire          rsp_demux_006_src1_valid;                                                                // rsp_demux_006:src1_valid -> onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:in_valid
+	wire  [112:0] rsp_demux_006_src1_data;                                                                 // rsp_demux_006:src1_data -> onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:in_data
+	wire          rsp_demux_006_src1_ready;                                                                // onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:in_ready -> rsp_demux_006:src1_ready
+	wire   [10:0] rsp_demux_006_src1_channel;                                                              // rsp_demux_006:src1_channel -> onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:in_channel
+	wire          rsp_demux_006_src1_startofpacket;                                                        // rsp_demux_006:src1_startofpacket -> onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:in_startofpacket
+	wire          rsp_demux_006_src1_endofpacket;                                                          // rsp_demux_006:src1_endofpacket -> onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:in_endofpacket
+	wire          onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_valid;                    // onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:out_valid -> rsp_mux_002:sink0_valid
+	wire   [85:0] onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_data;                     // onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:out_data -> rsp_mux_002:sink0_data
+	wire          onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_ready;                    // rsp_mux_002:sink0_ready -> onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:out_ready
+	wire   [10:0] onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_channel;                  // onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:out_channel -> rsp_mux_002:sink0_channel
+	wire          onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_startofpacket;            // onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:out_startofpacket -> rsp_mux_002:sink0_startofpacket
+	wire          onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_endofpacket;              // onchip_mem_LW_s1_to_KBandInput_1_mm_read_rsp_width_adapter:out_endofpacket -> rsp_mux_002:sink0_endofpacket
+	wire          rsp_demux_008_src1_valid;                                                                // rsp_demux_008:src1_valid -> onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:in_valid
+	wire  [112:0] rsp_demux_008_src1_data;                                                                 // rsp_demux_008:src1_data -> onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:in_data
+	wire          rsp_demux_008_src1_ready;                                                                // onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:in_ready -> rsp_demux_008:src1_ready
+	wire   [10:0] rsp_demux_008_src1_channel;                                                              // rsp_demux_008:src1_channel -> onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:in_channel
+	wire          rsp_demux_008_src1_startofpacket;                                                        // rsp_demux_008:src1_startofpacket -> onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:in_startofpacket
+	wire          rsp_demux_008_src1_endofpacket;                                                          // rsp_demux_008:src1_endofpacket -> onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:in_endofpacket
+	wire          onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_valid;                   // onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:out_valid -> rsp_mux_001:sink0_valid
+	wire   [85:0] onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_data;                    // onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:out_data -> rsp_mux_001:sink0_data
+	wire          onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_ready;                   // rsp_mux_001:sink0_ready -> onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:out_ready
+	wire   [10:0] onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_channel;                 // onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:out_channel -> rsp_mux_001:sink0_channel
+	wire          onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_startofpacket;           // onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:out_startofpacket -> rsp_mux_001:sink0_startofpacket
+	wire          onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_endofpacket;             // onchip_mem_LW2_s1_to_KBandInput_2_mm_read_rsp_width_adapter:out_endofpacket -> rsp_mux_001:sink0_endofpacket
 	wire          rsp_demux_009_src0_valid;                                                                // rsp_demux_009:src0_valid -> DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:in_valid
 	wire  [220:0] rsp_demux_009_src0_data;                                                                 // rsp_demux_009:src0_data -> DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:in_data
 	wire          rsp_demux_009_src0_ready;                                                                // DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:in_ready -> rsp_demux_009:src0_ready
@@ -940,7 +962,7 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire          rsp_demux_009_src0_startofpacket;                                                        // rsp_demux_009:src0_startofpacket -> DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:in_startofpacket
 	wire          rsp_demux_009_src0_endofpacket;                                                          // rsp_demux_009:src0_endofpacket -> DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:in_endofpacket
 	wire          ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_valid;                              // DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:out_valid -> rsp_mux_001:sink1_valid
-	wire  [112:0] ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_data;                               // DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:out_data -> rsp_mux_001:sink1_data
+	wire   [85:0] ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_data;                               // DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:out_data -> rsp_mux_001:sink1_data
 	wire          ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_ready;                              // rsp_mux_001:sink1_ready -> DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:out_ready
 	wire   [10:0] ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_channel;                            // DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:out_channel -> rsp_mux_001:sink1_channel
 	wire          ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_startofpacket;                      // DDR_s0_to_KBandInput_2_mm_read_rsp_width_adapter:out_startofpacket -> rsp_mux_001:sink1_startofpacket
@@ -952,7 +974,7 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	wire          rsp_demux_009_src1_startofpacket;                                                        // rsp_demux_009:src1_startofpacket -> DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:in_startofpacket
 	wire          rsp_demux_009_src1_endofpacket;                                                          // rsp_demux_009:src1_endofpacket -> DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:in_endofpacket
 	wire          ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_valid;                              // DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:out_valid -> rsp_mux_002:sink1_valid
-	wire  [112:0] ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_data;                               // DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:out_data -> rsp_mux_002:sink1_data
+	wire   [85:0] ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_data;                               // DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:out_data -> rsp_mux_002:sink1_data
 	wire          ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_ready;                              // rsp_mux_002:sink1_ready -> DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:out_ready
 	wire   [10:0] ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_channel;                            // DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:out_channel -> rsp_mux_002:sink1_channel
 	wire          ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_startofpacket;                      // DDR_s0_to_KBandInput_1_mm_read_rsp_width_adapter:out_startofpacket -> rsp_mux_002:sink1_startofpacket
@@ -1112,11 +1134,11 @@ module KBandIPsubAffine_mm_interconnect_0 (
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (31),
-		.AV_DATA_W                   (32),
+		.AV_DATA_W                   (8),
 		.AV_BURSTCOUNT_W             (1),
-		.AV_BYTEENABLE_W             (4),
+		.AV_BYTEENABLE_W             (1),
 		.UAV_ADDRESS_W               (31),
-		.UAV_BURSTCOUNT_W            (3),
+		.UAV_BURSTCOUNT_W            (1),
 		.USE_READ                    (1),
 		.USE_WRITE                   (0),
 		.USE_BEGINBURSTTRANSFER      (0),
@@ -1127,7 +1149,7 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
 		.USE_WRITERESPONSE           (0),
-		.AV_SYMBOLS_PER_WORD         (4),
+		.AV_SYMBOLS_PER_WORD         (1),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
 		.AV_CONSTANT_BURST_BEHAVIOR  (0),
@@ -1150,16 +1172,16 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		.uav_debugaccess        (kbandinput_2_mm_read_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
 		.av_address             (KBandInput_2_mm_read_address),                                            //      avalon_anti_master_0.address
 		.av_waitrequest         (KBandInput_2_mm_read_waitrequest),                                        //                          .waitrequest
-		.av_byteenable          (KBandInput_2_mm_read_byteenable),                                         //                          .byteenable
 		.av_read                (KBandInput_2_mm_read_read),                                               //                          .read
 		.av_readdata            (KBandInput_2_mm_read_readdata),                                           //                          .readdata
 		.av_readdatavalid       (KBandInput_2_mm_read_readdatavalid),                                      //                          .readdatavalid
 		.av_burstcount          (1'b1),                                                                    //               (terminated)
+		.av_byteenable          (1'b1),                                                                    //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                    //               (terminated)
 		.av_begintransfer       (1'b0),                                                                    //               (terminated)
 		.av_chipselect          (1'b0),                                                                    //               (terminated)
 		.av_write               (1'b0),                                                                    //               (terminated)
-		.av_writedata           (32'b00000000000000000000000000000000),                                    //               (terminated)
+		.av_writedata           (8'b00000000),                                                             //               (terminated)
 		.av_lock                (1'b0),                                                                    //               (terminated)
 		.av_debugaccess         (1'b0),                                                                    //               (terminated)
 		.uav_clken              (),                                                                        //               (terminated)
@@ -1172,11 +1194,11 @@ module KBandIPsubAffine_mm_interconnect_0 (
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (31),
-		.AV_DATA_W                   (32),
+		.AV_DATA_W                   (8),
 		.AV_BURSTCOUNT_W             (1),
-		.AV_BYTEENABLE_W             (4),
+		.AV_BYTEENABLE_W             (1),
 		.UAV_ADDRESS_W               (31),
-		.UAV_BURSTCOUNT_W            (3),
+		.UAV_BURSTCOUNT_W            (1),
 		.USE_READ                    (1),
 		.USE_WRITE                   (0),
 		.USE_BEGINBURSTTRANSFER      (0),
@@ -1187,7 +1209,7 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
 		.USE_WRITERESPONSE           (0),
-		.AV_SYMBOLS_PER_WORD         (4),
+		.AV_SYMBOLS_PER_WORD         (1),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
 		.AV_CONSTANT_BURST_BEHAVIOR  (0),
@@ -1210,16 +1232,16 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		.uav_debugaccess        (kbandinput_1_mm_read_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
 		.av_address             (KBandInput_1_mm_read_address),                                            //      avalon_anti_master_0.address
 		.av_waitrequest         (KBandInput_1_mm_read_waitrequest),                                        //                          .waitrequest
-		.av_byteenable          (KBandInput_1_mm_read_byteenable),                                         //                          .byteenable
 		.av_read                (KBandInput_1_mm_read_read),                                               //                          .read
 		.av_readdata            (KBandInput_1_mm_read_readdata),                                           //                          .readdata
 		.av_readdatavalid       (KBandInput_1_mm_read_readdatavalid),                                      //                          .readdatavalid
 		.av_burstcount          (1'b1),                                                                    //               (terminated)
+		.av_byteenable          (1'b1),                                                                    //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                    //               (terminated)
 		.av_begintransfer       (1'b0),                                                                    //               (terminated)
 		.av_chipselect          (1'b0),                                                                    //               (terminated)
 		.av_write               (1'b0),                                                                    //               (terminated)
-		.av_writedata           (32'b00000000000000000000000000000000),                                    //               (terminated)
+		.av_writedata           (8'b00000000),                                                             //               (terminated)
 		.av_lock                (1'b0),                                                                    //               (terminated)
 		.av_debugaccess         (1'b0),                                                                    //               (terminated)
 		.uav_clken              (),                                                                        //               (terminated)
@@ -2136,50 +2158,50 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_master_agent #(
-		.PKT_ORI_BURST_SIZE_H      (112),
-		.PKT_ORI_BURST_SIZE_L      (110),
-		.PKT_RESPONSE_STATUS_H     (109),
-		.PKT_RESPONSE_STATUS_L     (108),
-		.PKT_QOS_H                 (91),
-		.PKT_QOS_L                 (91),
-		.PKT_DATA_SIDEBAND_H       (89),
-		.PKT_DATA_SIDEBAND_L       (89),
-		.PKT_ADDR_SIDEBAND_H       (88),
-		.PKT_ADDR_SIDEBAND_L       (88),
-		.PKT_BURST_TYPE_H          (87),
-		.PKT_BURST_TYPE_L          (86),
-		.PKT_CACHE_H               (107),
-		.PKT_CACHE_L               (104),
-		.PKT_THREAD_ID_H           (100),
-		.PKT_THREAD_ID_L           (100),
-		.PKT_BURST_SIZE_H          (85),
-		.PKT_BURST_SIZE_L          (83),
-		.PKT_TRANS_EXCLUSIVE       (72),
-		.PKT_TRANS_LOCK            (71),
-		.PKT_BEGIN_BURST           (90),
-		.PKT_PROTECTION_H          (103),
-		.PKT_PROTECTION_L          (101),
-		.PKT_BURSTWRAP_H           (82),
-		.PKT_BURSTWRAP_L           (82),
-		.PKT_BYTE_CNT_H            (81),
-		.PKT_BYTE_CNT_L            (73),
-		.PKT_ADDR_H                (66),
-		.PKT_ADDR_L                (36),
-		.PKT_TRANS_COMPRESSED_READ (67),
-		.PKT_TRANS_POSTED          (68),
-		.PKT_TRANS_WRITE           (69),
-		.PKT_TRANS_READ            (70),
-		.PKT_DATA_H                (31),
+		.PKT_ORI_BURST_SIZE_H      (85),
+		.PKT_ORI_BURST_SIZE_L      (83),
+		.PKT_RESPONSE_STATUS_H     (82),
+		.PKT_RESPONSE_STATUS_L     (81),
+		.PKT_QOS_H                 (64),
+		.PKT_QOS_L                 (64),
+		.PKT_DATA_SIDEBAND_H       (62),
+		.PKT_DATA_SIDEBAND_L       (62),
+		.PKT_ADDR_SIDEBAND_H       (61),
+		.PKT_ADDR_SIDEBAND_L       (61),
+		.PKT_BURST_TYPE_H          (60),
+		.PKT_BURST_TYPE_L          (59),
+		.PKT_CACHE_H               (80),
+		.PKT_CACHE_L               (77),
+		.PKT_THREAD_ID_H           (73),
+		.PKT_THREAD_ID_L           (73),
+		.PKT_BURST_SIZE_H          (58),
+		.PKT_BURST_SIZE_L          (56),
+		.PKT_TRANS_EXCLUSIVE       (45),
+		.PKT_TRANS_LOCK            (44),
+		.PKT_BEGIN_BURST           (63),
+		.PKT_PROTECTION_H          (76),
+		.PKT_PROTECTION_L          (74),
+		.PKT_BURSTWRAP_H           (55),
+		.PKT_BURSTWRAP_L           (55),
+		.PKT_BYTE_CNT_H            (54),
+		.PKT_BYTE_CNT_L            (46),
+		.PKT_ADDR_H                (39),
+		.PKT_ADDR_L                (9),
+		.PKT_TRANS_COMPRESSED_READ (40),
+		.PKT_TRANS_POSTED          (41),
+		.PKT_TRANS_WRITE           (42),
+		.PKT_TRANS_READ            (43),
+		.PKT_DATA_H                (7),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_SRC_ID_H              (95),
-		.PKT_SRC_ID_L              (92),
-		.PKT_DEST_ID_H             (99),
-		.PKT_DEST_ID_L             (96),
-		.ST_DATA_W                 (113),
+		.PKT_BYTEEN_H              (8),
+		.PKT_BYTEEN_L              (8),
+		.PKT_SRC_ID_H              (68),
+		.PKT_SRC_ID_L              (65),
+		.PKT_DEST_ID_H             (72),
+		.PKT_DEST_ID_L             (69),
+		.ST_DATA_W                 (86),
 		.ST_CHANNEL_W              (11),
-		.AV_BURSTCOUNT_W           (3),
+		.AV_BURSTCOUNT_W           (1),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (1),
 		.BURSTWRAP_VALUE           (1),
@@ -2217,50 +2239,50 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_master_agent #(
-		.PKT_ORI_BURST_SIZE_H      (112),
-		.PKT_ORI_BURST_SIZE_L      (110),
-		.PKT_RESPONSE_STATUS_H     (109),
-		.PKT_RESPONSE_STATUS_L     (108),
-		.PKT_QOS_H                 (91),
-		.PKT_QOS_L                 (91),
-		.PKT_DATA_SIDEBAND_H       (89),
-		.PKT_DATA_SIDEBAND_L       (89),
-		.PKT_ADDR_SIDEBAND_H       (88),
-		.PKT_ADDR_SIDEBAND_L       (88),
-		.PKT_BURST_TYPE_H          (87),
-		.PKT_BURST_TYPE_L          (86),
-		.PKT_CACHE_H               (107),
-		.PKT_CACHE_L               (104),
-		.PKT_THREAD_ID_H           (100),
-		.PKT_THREAD_ID_L           (100),
-		.PKT_BURST_SIZE_H          (85),
-		.PKT_BURST_SIZE_L          (83),
-		.PKT_TRANS_EXCLUSIVE       (72),
-		.PKT_TRANS_LOCK            (71),
-		.PKT_BEGIN_BURST           (90),
-		.PKT_PROTECTION_H          (103),
-		.PKT_PROTECTION_L          (101),
-		.PKT_BURSTWRAP_H           (82),
-		.PKT_BURSTWRAP_L           (82),
-		.PKT_BYTE_CNT_H            (81),
-		.PKT_BYTE_CNT_L            (73),
-		.PKT_ADDR_H                (66),
-		.PKT_ADDR_L                (36),
-		.PKT_TRANS_COMPRESSED_READ (67),
-		.PKT_TRANS_POSTED          (68),
-		.PKT_TRANS_WRITE           (69),
-		.PKT_TRANS_READ            (70),
-		.PKT_DATA_H                (31),
+		.PKT_ORI_BURST_SIZE_H      (85),
+		.PKT_ORI_BURST_SIZE_L      (83),
+		.PKT_RESPONSE_STATUS_H     (82),
+		.PKT_RESPONSE_STATUS_L     (81),
+		.PKT_QOS_H                 (64),
+		.PKT_QOS_L                 (64),
+		.PKT_DATA_SIDEBAND_H       (62),
+		.PKT_DATA_SIDEBAND_L       (62),
+		.PKT_ADDR_SIDEBAND_H       (61),
+		.PKT_ADDR_SIDEBAND_L       (61),
+		.PKT_BURST_TYPE_H          (60),
+		.PKT_BURST_TYPE_L          (59),
+		.PKT_CACHE_H               (80),
+		.PKT_CACHE_L               (77),
+		.PKT_THREAD_ID_H           (73),
+		.PKT_THREAD_ID_L           (73),
+		.PKT_BURST_SIZE_H          (58),
+		.PKT_BURST_SIZE_L          (56),
+		.PKT_TRANS_EXCLUSIVE       (45),
+		.PKT_TRANS_LOCK            (44),
+		.PKT_BEGIN_BURST           (63),
+		.PKT_PROTECTION_H          (76),
+		.PKT_PROTECTION_L          (74),
+		.PKT_BURSTWRAP_H           (55),
+		.PKT_BURSTWRAP_L           (55),
+		.PKT_BYTE_CNT_H            (54),
+		.PKT_BYTE_CNT_L            (46),
+		.PKT_ADDR_H                (39),
+		.PKT_ADDR_L                (9),
+		.PKT_TRANS_COMPRESSED_READ (40),
+		.PKT_TRANS_POSTED          (41),
+		.PKT_TRANS_WRITE           (42),
+		.PKT_TRANS_READ            (43),
+		.PKT_DATA_H                (7),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_SRC_ID_H              (95),
-		.PKT_SRC_ID_L              (92),
-		.PKT_DEST_ID_H             (99),
-		.PKT_DEST_ID_L             (96),
-		.ST_DATA_W                 (113),
+		.PKT_BYTEEN_H              (8),
+		.PKT_BYTEEN_L              (8),
+		.PKT_SRC_ID_H              (68),
+		.PKT_SRC_ID_L              (65),
+		.PKT_DEST_ID_H             (72),
+		.PKT_DEST_ID_L             (69),
+		.ST_DATA_W                 (86),
 		.ST_CHANNEL_W              (11),
-		.AV_BURSTCOUNT_W           (3),
+		.AV_BURSTCOUNT_W           (1),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (0),
 		.BURSTWRAP_VALUE           (1),
@@ -4141,19 +4163,19 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_traffic_limiter #(
-		.PKT_DEST_ID_H             (99),
-		.PKT_DEST_ID_L             (96),
-		.PKT_SRC_ID_H              (95),
-		.PKT_SRC_ID_L              (92),
-		.PKT_BYTE_CNT_H            (81),
-		.PKT_BYTE_CNT_L            (73),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_TRANS_POSTED          (68),
-		.PKT_TRANS_WRITE           (69),
+		.PKT_DEST_ID_H             (72),
+		.PKT_DEST_ID_L             (69),
+		.PKT_SRC_ID_H              (68),
+		.PKT_SRC_ID_L              (65),
+		.PKT_BYTE_CNT_H            (54),
+		.PKT_BYTE_CNT_L            (46),
+		.PKT_BYTEEN_H              (8),
+		.PKT_BYTEEN_L              (8),
+		.PKT_TRANS_POSTED          (41),
+		.PKT_TRANS_WRITE           (42),
 		.MAX_OUTSTANDING_RESPONSES (4),
 		.PIPELINED                 (0),
-		.ST_DATA_W                 (113),
+		.ST_DATA_W                 (86),
 		.ST_CHANNEL_W              (11),
 		.VALID_WIDTH               (11),
 		.ENFORCE_ORDER             (1),
@@ -4191,19 +4213,19 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_traffic_limiter #(
-		.PKT_DEST_ID_H             (99),
-		.PKT_DEST_ID_L             (96),
-		.PKT_SRC_ID_H              (95),
-		.PKT_SRC_ID_L              (92),
-		.PKT_BYTE_CNT_H            (81),
-		.PKT_BYTE_CNT_L            (73),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_TRANS_POSTED          (68),
-		.PKT_TRANS_WRITE           (69),
+		.PKT_DEST_ID_H             (72),
+		.PKT_DEST_ID_L             (69),
+		.PKT_SRC_ID_H              (68),
+		.PKT_SRC_ID_L              (65),
+		.PKT_BYTE_CNT_H            (54),
+		.PKT_BYTE_CNT_L            (46),
+		.PKT_BYTEEN_H              (8),
+		.PKT_BYTEEN_L              (8),
+		.PKT_TRANS_POSTED          (41),
+		.PKT_TRANS_WRITE           (42),
 		.MAX_OUTSTANDING_RESPONSES (4),
 		.PIPELINED                 (0),
-		.ST_DATA_W                 (113),
+		.ST_DATA_W                 (86),
 		.ST_CHANNEL_W              (11),
 		.VALID_WIDTH               (11),
 		.ENFORCE_ORDER             (1),
@@ -4494,26 +4516,26 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_cmd_mux_006 cmd_mux_006 (
-		.clk                 (clk_0_clk_clk),                                  //       clk.clk
-		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_006_src_ready),                          //       src.ready
-		.src_valid           (cmd_mux_006_src_valid),                          //          .valid
-		.src_data            (cmd_mux_006_src_data),                           //          .data
-		.src_channel         (cmd_mux_006_src_channel),                        //          .channel
-		.src_startofpacket   (cmd_mux_006_src_startofpacket),                  //          .startofpacket
-		.src_endofpacket     (cmd_mux_006_src_endofpacket),                    //          .endofpacket
-		.sink0_ready         (cmd_demux_src6_ready),                           //     sink0.ready
-		.sink0_valid         (cmd_demux_src6_valid),                           //          .valid
-		.sink0_channel       (cmd_demux_src6_channel),                         //          .channel
-		.sink0_data          (cmd_demux_src6_data),                            //          .data
-		.sink0_startofpacket (cmd_demux_src6_startofpacket),                   //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src6_endofpacket),                     //          .endofpacket
-		.sink1_ready         (cmd_demux_002_src0_ready),                       //     sink1.ready
-		.sink1_valid         (cmd_demux_002_src0_valid),                       //          .valid
-		.sink1_channel       (cmd_demux_002_src0_channel),                     //          .channel
-		.sink1_data          (cmd_demux_002_src0_data),                        //          .data
-		.sink1_startofpacket (cmd_demux_002_src0_startofpacket),               //          .startofpacket
-		.sink1_endofpacket   (cmd_demux_002_src0_endofpacket)                  //          .endofpacket
+		.clk                 (clk_0_clk_clk),                                                                //       clk.clk
+		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                               // clk_reset.reset
+		.src_ready           (cmd_mux_006_src_ready),                                                        //       src.ready
+		.src_valid           (cmd_mux_006_src_valid),                                                        //          .valid
+		.src_data            (cmd_mux_006_src_data),                                                         //          .data
+		.src_channel         (cmd_mux_006_src_channel),                                                      //          .channel
+		.src_startofpacket   (cmd_mux_006_src_startofpacket),                                                //          .startofpacket
+		.src_endofpacket     (cmd_mux_006_src_endofpacket),                                                  //          .endofpacket
+		.sink0_ready         (cmd_demux_src6_ready),                                                         //     sink0.ready
+		.sink0_valid         (cmd_demux_src6_valid),                                                         //          .valid
+		.sink0_channel       (cmd_demux_src6_channel),                                                       //          .channel
+		.sink0_data          (cmd_demux_src6_data),                                                          //          .data
+		.sink0_startofpacket (cmd_demux_src6_startofpacket),                                                 //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src6_endofpacket),                                                   //          .endofpacket
+		.sink1_ready         (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_ready),         //     sink1.ready
+		.sink1_valid         (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_valid),         //          .valid
+		.sink1_channel       (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_channel),       //          .channel
+		.sink1_data          (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_data),          //          .data
+		.sink1_startofpacket (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_startofpacket), //          .startofpacket
+		.sink1_endofpacket   (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_endofpacket)    //          .endofpacket
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_cmd_mux cmd_mux_007 (
@@ -4534,26 +4556,26 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_cmd_mux_006 cmd_mux_008 (
-		.clk                 (clk_0_clk_clk),                                  //       clk.clk
-		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_008_src_ready),                          //       src.ready
-		.src_valid           (cmd_mux_008_src_valid),                          //          .valid
-		.src_data            (cmd_mux_008_src_data),                           //          .data
-		.src_channel         (cmd_mux_008_src_channel),                        //          .channel
-		.src_startofpacket   (cmd_mux_008_src_startofpacket),                  //          .startofpacket
-		.src_endofpacket     (cmd_mux_008_src_endofpacket),                    //          .endofpacket
-		.sink0_ready         (cmd_demux_src8_ready),                           //     sink0.ready
-		.sink0_valid         (cmd_demux_src8_valid),                           //          .valid
-		.sink0_channel       (cmd_demux_src8_channel),                         //          .channel
-		.sink0_data          (cmd_demux_src8_data),                            //          .data
-		.sink0_startofpacket (cmd_demux_src8_startofpacket),                   //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src8_endofpacket),                     //          .endofpacket
-		.sink1_ready         (cmd_demux_001_src0_ready),                       //     sink1.ready
-		.sink1_valid         (cmd_demux_001_src0_valid),                       //          .valid
-		.sink1_channel       (cmd_demux_001_src0_channel),                     //          .channel
-		.sink1_data          (cmd_demux_001_src0_data),                        //          .data
-		.sink1_startofpacket (cmd_demux_001_src0_startofpacket),               //          .startofpacket
-		.sink1_endofpacket   (cmd_demux_001_src0_endofpacket)                  //          .endofpacket
+		.clk                 (clk_0_clk_clk),                                                                 //       clk.clk
+		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                                // clk_reset.reset
+		.src_ready           (cmd_mux_008_src_ready),                                                         //       src.ready
+		.src_valid           (cmd_mux_008_src_valid),                                                         //          .valid
+		.src_data            (cmd_mux_008_src_data),                                                          //          .data
+		.src_channel         (cmd_mux_008_src_channel),                                                       //          .channel
+		.src_startofpacket   (cmd_mux_008_src_startofpacket),                                                 //          .startofpacket
+		.src_endofpacket     (cmd_mux_008_src_endofpacket),                                                   //          .endofpacket
+		.sink0_ready         (cmd_demux_src8_ready),                                                          //     sink0.ready
+		.sink0_valid         (cmd_demux_src8_valid),                                                          //          .valid
+		.sink0_channel       (cmd_demux_src8_channel),                                                        //          .channel
+		.sink0_data          (cmd_demux_src8_data),                                                           //          .data
+		.sink0_startofpacket (cmd_demux_src8_startofpacket),                                                  //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src8_endofpacket),                                                    //          .endofpacket
+		.sink1_ready         (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_ready),         //     sink1.ready
+		.sink1_valid         (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_valid),         //          .valid
+		.sink1_channel       (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_channel),       //          .channel
+		.sink1_data          (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_data),          //          .data
+		.sink1_startofpacket (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_startofpacket), //          .startofpacket
+		.sink1_endofpacket   (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_endofpacket)    //          .endofpacket
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_cmd_mux_009 cmd_mux_009 (
@@ -4891,49 +4913,49 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_rsp_mux_001 rsp_mux_001 (
-		.clk                 (clk_0_clk_clk),                                                      //       clk.clk
-		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                     // clk_reset.reset
-		.src_ready           (rsp_mux_001_src_ready),                                              //       src.ready
-		.src_valid           (rsp_mux_001_src_valid),                                              //          .valid
-		.src_data            (rsp_mux_001_src_data),                                               //          .data
-		.src_channel         (rsp_mux_001_src_channel),                                            //          .channel
-		.src_startofpacket   (rsp_mux_001_src_startofpacket),                                      //          .startofpacket
-		.src_endofpacket     (rsp_mux_001_src_endofpacket),                                        //          .endofpacket
-		.sink0_ready         (rsp_demux_008_src1_ready),                                           //     sink0.ready
-		.sink0_valid         (rsp_demux_008_src1_valid),                                           //          .valid
-		.sink0_channel       (rsp_demux_008_src1_channel),                                         //          .channel
-		.sink0_data          (rsp_demux_008_src1_data),                                            //          .data
-		.sink0_startofpacket (rsp_demux_008_src1_startofpacket),                                   //          .startofpacket
-		.sink0_endofpacket   (rsp_demux_008_src1_endofpacket),                                     //          .endofpacket
-		.sink1_ready         (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_ready),         //     sink1.ready
-		.sink1_valid         (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_valid),         //          .valid
-		.sink1_channel       (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_channel),       //          .channel
-		.sink1_data          (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_data),          //          .data
-		.sink1_startofpacket (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.sink1_endofpacket   (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_endofpacket)    //          .endofpacket
+		.clk                 (clk_0_clk_clk),                                                                 //       clk.clk
+		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                                // clk_reset.reset
+		.src_ready           (rsp_mux_001_src_ready),                                                         //       src.ready
+		.src_valid           (rsp_mux_001_src_valid),                                                         //          .valid
+		.src_data            (rsp_mux_001_src_data),                                                          //          .data
+		.src_channel         (rsp_mux_001_src_channel),                                                       //          .channel
+		.src_startofpacket   (rsp_mux_001_src_startofpacket),                                                 //          .startofpacket
+		.src_endofpacket     (rsp_mux_001_src_endofpacket),                                                   //          .endofpacket
+		.sink0_ready         (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_ready),         //     sink0.ready
+		.sink0_valid         (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_valid),         //          .valid
+		.sink0_channel       (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_channel),       //          .channel
+		.sink0_data          (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_data),          //          .data
+		.sink0_startofpacket (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
+		.sink0_endofpacket   (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_endofpacket),   //          .endofpacket
+		.sink1_ready         (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_ready),                    //     sink1.ready
+		.sink1_valid         (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_valid),                    //          .valid
+		.sink1_channel       (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_channel),                  //          .channel
+		.sink1_data          (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_data),                     //          .data
+		.sink1_startofpacket (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_startofpacket),            //          .startofpacket
+		.sink1_endofpacket   (ddr_s0_to_kbandinput_2_mm_read_rsp_width_adapter_src_endofpacket)               //          .endofpacket
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_rsp_mux_001 rsp_mux_002 (
-		.clk                 (clk_0_clk_clk),                                                      //       clk.clk
-		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                     // clk_reset.reset
-		.src_ready           (rsp_mux_002_src_ready),                                              //       src.ready
-		.src_valid           (rsp_mux_002_src_valid),                                              //          .valid
-		.src_data            (rsp_mux_002_src_data),                                               //          .data
-		.src_channel         (rsp_mux_002_src_channel),                                            //          .channel
-		.src_startofpacket   (rsp_mux_002_src_startofpacket),                                      //          .startofpacket
-		.src_endofpacket     (rsp_mux_002_src_endofpacket),                                        //          .endofpacket
-		.sink0_ready         (rsp_demux_006_src1_ready),                                           //     sink0.ready
-		.sink0_valid         (rsp_demux_006_src1_valid),                                           //          .valid
-		.sink0_channel       (rsp_demux_006_src1_channel),                                         //          .channel
-		.sink0_data          (rsp_demux_006_src1_data),                                            //          .data
-		.sink0_startofpacket (rsp_demux_006_src1_startofpacket),                                   //          .startofpacket
-		.sink0_endofpacket   (rsp_demux_006_src1_endofpacket),                                     //          .endofpacket
-		.sink1_ready         (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_ready),         //     sink1.ready
-		.sink1_valid         (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_valid),         //          .valid
-		.sink1_channel       (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_channel),       //          .channel
-		.sink1_data          (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_data),          //          .data
-		.sink1_startofpacket (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
-		.sink1_endofpacket   (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_endofpacket)    //          .endofpacket
+		.clk                 (clk_0_clk_clk),                                                                //       clk.clk
+		.reset               (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                               // clk_reset.reset
+		.src_ready           (rsp_mux_002_src_ready),                                                        //       src.ready
+		.src_valid           (rsp_mux_002_src_valid),                                                        //          .valid
+		.src_data            (rsp_mux_002_src_data),                                                         //          .data
+		.src_channel         (rsp_mux_002_src_channel),                                                      //          .channel
+		.src_startofpacket   (rsp_mux_002_src_startofpacket),                                                //          .startofpacket
+		.src_endofpacket     (rsp_mux_002_src_endofpacket),                                                  //          .endofpacket
+		.sink0_ready         (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_ready),         //     sink0.ready
+		.sink0_valid         (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_valid),         //          .valid
+		.sink0_channel       (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_channel),       //          .channel
+		.sink0_data          (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_data),          //          .data
+		.sink0_startofpacket (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
+		.sink0_endofpacket   (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_endofpacket),   //          .endofpacket
+		.sink1_ready         (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_ready),                   //     sink1.ready
+		.sink1_valid         (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_valid),                   //          .valid
+		.sink1_channel       (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_channel),                 //          .channel
+		.sink1_data          (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_data),                    //          .data
+		.sink1_startofpacket (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_startofpacket),           //          .startofpacket
+		.sink1_endofpacket   (ddr_s0_to_kbandinput_1_mm_read_rsp_width_adapter_src_endofpacket)              //          .endofpacket
 	);
 
 	KBandIPsubAffine_mm_interconnect_0_rsp_mux_003 rsp_mux_003 (
@@ -5175,28 +5197,94 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (66),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
+		.IN_PKT_ADDR_H                 (39),
+		.IN_PKT_ADDR_L                 (9),
+		.IN_PKT_DATA_H                 (7),
 		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (81),
-		.IN_PKT_BYTE_CNT_L             (73),
-		.IN_PKT_TRANS_COMPRESSED_READ  (67),
-		.IN_PKT_TRANS_WRITE            (69),
-		.IN_PKT_BURSTWRAP_H            (82),
-		.IN_PKT_BURSTWRAP_L            (82),
-		.IN_PKT_BURST_SIZE_H           (85),
-		.IN_PKT_BURST_SIZE_L           (83),
-		.IN_PKT_RESPONSE_STATUS_H      (109),
-		.IN_PKT_RESPONSE_STATUS_L      (108),
-		.IN_PKT_TRANS_EXCLUSIVE        (72),
-		.IN_PKT_BURST_TYPE_H           (87),
-		.IN_PKT_BURST_TYPE_L           (86),
-		.IN_PKT_ORI_BURST_SIZE_L       (110),
-		.IN_PKT_ORI_BURST_SIZE_H       (112),
-		.IN_ST_DATA_W                  (113),
+		.IN_PKT_BYTEEN_H               (8),
+		.IN_PKT_BYTEEN_L               (8),
+		.IN_PKT_BYTE_CNT_H             (54),
+		.IN_PKT_BYTE_CNT_L             (46),
+		.IN_PKT_TRANS_COMPRESSED_READ  (40),
+		.IN_PKT_TRANS_WRITE            (42),
+		.IN_PKT_BURSTWRAP_H            (55),
+		.IN_PKT_BURSTWRAP_L            (55),
+		.IN_PKT_BURST_SIZE_H           (58),
+		.IN_PKT_BURST_SIZE_L           (56),
+		.IN_PKT_RESPONSE_STATUS_H      (82),
+		.IN_PKT_RESPONSE_STATUS_L      (81),
+		.IN_PKT_TRANS_EXCLUSIVE        (45),
+		.IN_PKT_BURST_TYPE_H           (60),
+		.IN_PKT_BURST_TYPE_L           (59),
+		.IN_PKT_ORI_BURST_SIZE_L       (83),
+		.IN_PKT_ORI_BURST_SIZE_H       (85),
+		.IN_ST_DATA_W                  (86),
+		.OUT_PKT_ADDR_H                (66),
+		.OUT_PKT_ADDR_L                (36),
+		.OUT_PKT_DATA_H                (31),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (35),
+		.OUT_PKT_BYTEEN_L              (32),
+		.OUT_PKT_BYTE_CNT_H            (81),
+		.OUT_PKT_BYTE_CNT_L            (73),
+		.OUT_PKT_TRANS_COMPRESSED_READ (67),
+		.OUT_PKT_BURST_SIZE_H          (85),
+		.OUT_PKT_BURST_SIZE_L          (83),
+		.OUT_PKT_RESPONSE_STATUS_H     (109),
+		.OUT_PKT_RESPONSE_STATUS_L     (108),
+		.OUT_PKT_TRANS_EXCLUSIVE       (72),
+		.OUT_PKT_BURST_TYPE_H          (87),
+		.OUT_PKT_BURST_TYPE_L          (86),
+		.OUT_PKT_ORI_BURST_SIZE_L      (110),
+		.OUT_PKT_ORI_BURST_SIZE_H      (112),
+		.OUT_ST_DATA_W                 (113),
+		.ST_CHANNEL_W                  (11),
+		.OPTIMIZE_FOR_RSP              (0),
+		.RESPONSE_PATH                 (0),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter (
+		.clk                  (clk_0_clk_clk),                                                                 //       clk.clk
+		.reset                (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                                // clk_reset.reset
+		.in_valid             (cmd_demux_001_src0_valid),                                                      //      sink.valid
+		.in_channel           (cmd_demux_001_src0_channel),                                                    //          .channel
+		.in_startofpacket     (cmd_demux_001_src0_startofpacket),                                              //          .startofpacket
+		.in_endofpacket       (cmd_demux_001_src0_endofpacket),                                                //          .endofpacket
+		.in_ready             (cmd_demux_001_src0_ready),                                                      //          .ready
+		.in_data              (cmd_demux_001_src0_data),                                                       //          .data
+		.out_endofpacket      (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
+		.out_data             (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_data),          //          .data
+		.out_channel          (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_channel),       //          .channel
+		.out_valid            (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_valid),         //          .valid
+		.out_ready            (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_ready),         //          .ready
+		.out_startofpacket    (kbandinput_2_mm_read_to_onchip_mem_lw2_s1_cmd_width_adapter_src_startofpacket), //          .startofpacket
+		.in_command_size_data (3'b000)                                                                         // (terminated)
+	);
+
+	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (39),
+		.IN_PKT_ADDR_L                 (9),
+		.IN_PKT_DATA_H                 (7),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (8),
+		.IN_PKT_BYTEEN_L               (8),
+		.IN_PKT_BYTE_CNT_H             (54),
+		.IN_PKT_BYTE_CNT_L             (46),
+		.IN_PKT_TRANS_COMPRESSED_READ  (40),
+		.IN_PKT_TRANS_WRITE            (42),
+		.IN_PKT_BURSTWRAP_H            (55),
+		.IN_PKT_BURSTWRAP_L            (55),
+		.IN_PKT_BURST_SIZE_H           (58),
+		.IN_PKT_BURST_SIZE_L           (56),
+		.IN_PKT_RESPONSE_STATUS_H      (82),
+		.IN_PKT_RESPONSE_STATUS_L      (81),
+		.IN_PKT_TRANS_EXCLUSIVE        (45),
+		.IN_PKT_BURST_TYPE_H           (60),
+		.IN_PKT_BURST_TYPE_L           (59),
+		.IN_PKT_ORI_BURST_SIZE_L       (83),
+		.IN_PKT_ORI_BURST_SIZE_H       (85),
+		.IN_ST_DATA_W                  (86),
 		.OUT_PKT_ADDR_H                (174),
 		.OUT_PKT_ADDR_L                (144),
 		.OUT_PKT_DATA_H                (127),
@@ -5241,28 +5329,94 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (66),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
+		.IN_PKT_ADDR_H                 (39),
+		.IN_PKT_ADDR_L                 (9),
+		.IN_PKT_DATA_H                 (7),
 		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (81),
-		.IN_PKT_BYTE_CNT_L             (73),
-		.IN_PKT_TRANS_COMPRESSED_READ  (67),
-		.IN_PKT_TRANS_WRITE            (69),
-		.IN_PKT_BURSTWRAP_H            (82),
-		.IN_PKT_BURSTWRAP_L            (82),
-		.IN_PKT_BURST_SIZE_H           (85),
-		.IN_PKT_BURST_SIZE_L           (83),
-		.IN_PKT_RESPONSE_STATUS_H      (109),
-		.IN_PKT_RESPONSE_STATUS_L      (108),
-		.IN_PKT_TRANS_EXCLUSIVE        (72),
-		.IN_PKT_BURST_TYPE_H           (87),
-		.IN_PKT_BURST_TYPE_L           (86),
-		.IN_PKT_ORI_BURST_SIZE_L       (110),
-		.IN_PKT_ORI_BURST_SIZE_H       (112),
-		.IN_ST_DATA_W                  (113),
+		.IN_PKT_BYTEEN_H               (8),
+		.IN_PKT_BYTEEN_L               (8),
+		.IN_PKT_BYTE_CNT_H             (54),
+		.IN_PKT_BYTE_CNT_L             (46),
+		.IN_PKT_TRANS_COMPRESSED_READ  (40),
+		.IN_PKT_TRANS_WRITE            (42),
+		.IN_PKT_BURSTWRAP_H            (55),
+		.IN_PKT_BURSTWRAP_L            (55),
+		.IN_PKT_BURST_SIZE_H           (58),
+		.IN_PKT_BURST_SIZE_L           (56),
+		.IN_PKT_RESPONSE_STATUS_H      (82),
+		.IN_PKT_RESPONSE_STATUS_L      (81),
+		.IN_PKT_TRANS_EXCLUSIVE        (45),
+		.IN_PKT_BURST_TYPE_H           (60),
+		.IN_PKT_BURST_TYPE_L           (59),
+		.IN_PKT_ORI_BURST_SIZE_L       (83),
+		.IN_PKT_ORI_BURST_SIZE_H       (85),
+		.IN_ST_DATA_W                  (86),
+		.OUT_PKT_ADDR_H                (66),
+		.OUT_PKT_ADDR_L                (36),
+		.OUT_PKT_DATA_H                (31),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (35),
+		.OUT_PKT_BYTEEN_L              (32),
+		.OUT_PKT_BYTE_CNT_H            (81),
+		.OUT_PKT_BYTE_CNT_L            (73),
+		.OUT_PKT_TRANS_COMPRESSED_READ (67),
+		.OUT_PKT_BURST_SIZE_H          (85),
+		.OUT_PKT_BURST_SIZE_L          (83),
+		.OUT_PKT_RESPONSE_STATUS_H     (109),
+		.OUT_PKT_RESPONSE_STATUS_L     (108),
+		.OUT_PKT_TRANS_EXCLUSIVE       (72),
+		.OUT_PKT_BURST_TYPE_H          (87),
+		.OUT_PKT_BURST_TYPE_L          (86),
+		.OUT_PKT_ORI_BURST_SIZE_L      (110),
+		.OUT_PKT_ORI_BURST_SIZE_H      (112),
+		.OUT_ST_DATA_W                 (113),
+		.ST_CHANNEL_W                  (11),
+		.OPTIMIZE_FOR_RSP              (0),
+		.RESPONSE_PATH                 (0),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter (
+		.clk                  (clk_0_clk_clk),                                                                //       clk.clk
+		.reset                (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                               // clk_reset.reset
+		.in_valid             (cmd_demux_002_src0_valid),                                                     //      sink.valid
+		.in_channel           (cmd_demux_002_src0_channel),                                                   //          .channel
+		.in_startofpacket     (cmd_demux_002_src0_startofpacket),                                             //          .startofpacket
+		.in_endofpacket       (cmd_demux_002_src0_endofpacket),                                               //          .endofpacket
+		.in_ready             (cmd_demux_002_src0_ready),                                                     //          .ready
+		.in_data              (cmd_demux_002_src0_data),                                                      //          .data
+		.out_endofpacket      (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_endofpacket),   //       src.endofpacket
+		.out_data             (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_data),          //          .data
+		.out_channel          (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_channel),       //          .channel
+		.out_valid            (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_valid),         //          .valid
+		.out_ready            (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_ready),         //          .ready
+		.out_startofpacket    (kbandinput_1_mm_read_to_onchip_mem_lw_s1_cmd_width_adapter_src_startofpacket), //          .startofpacket
+		.in_command_size_data (3'b000)                                                                        // (terminated)
+	);
+
+	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (39),
+		.IN_PKT_ADDR_L                 (9),
+		.IN_PKT_DATA_H                 (7),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (8),
+		.IN_PKT_BYTEEN_L               (8),
+		.IN_PKT_BYTE_CNT_H             (54),
+		.IN_PKT_BYTE_CNT_L             (46),
+		.IN_PKT_TRANS_COMPRESSED_READ  (40),
+		.IN_PKT_TRANS_WRITE            (42),
+		.IN_PKT_BURSTWRAP_H            (55),
+		.IN_PKT_BURSTWRAP_L            (55),
+		.IN_PKT_BURST_SIZE_H           (58),
+		.IN_PKT_BURST_SIZE_L           (56),
+		.IN_PKT_RESPONSE_STATUS_H      (82),
+		.IN_PKT_RESPONSE_STATUS_L      (81),
+		.IN_PKT_TRANS_EXCLUSIVE        (45),
+		.IN_PKT_BURST_TYPE_H           (60),
+		.IN_PKT_BURST_TYPE_L           (59),
+		.IN_PKT_ORI_BURST_SIZE_L       (83),
+		.IN_PKT_ORI_BURST_SIZE_H       (85),
+		.IN_ST_DATA_W                  (86),
 		.OUT_PKT_ADDR_H                (174),
 		.OUT_PKT_ADDR_L                (144),
 		.OUT_PKT_DATA_H                (127),
@@ -5571,6 +5725,138 @@ module KBandIPsubAffine_mm_interconnect_0 (
 	);
 
 	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (66),
+		.IN_PKT_ADDR_L                 (36),
+		.IN_PKT_DATA_H                 (31),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (35),
+		.IN_PKT_BYTEEN_L               (32),
+		.IN_PKT_BYTE_CNT_H             (81),
+		.IN_PKT_BYTE_CNT_L             (73),
+		.IN_PKT_TRANS_COMPRESSED_READ  (67),
+		.IN_PKT_TRANS_WRITE            (69),
+		.IN_PKT_BURSTWRAP_H            (82),
+		.IN_PKT_BURSTWRAP_L            (82),
+		.IN_PKT_BURST_SIZE_H           (85),
+		.IN_PKT_BURST_SIZE_L           (83),
+		.IN_PKT_RESPONSE_STATUS_H      (109),
+		.IN_PKT_RESPONSE_STATUS_L      (108),
+		.IN_PKT_TRANS_EXCLUSIVE        (72),
+		.IN_PKT_BURST_TYPE_H           (87),
+		.IN_PKT_BURST_TYPE_L           (86),
+		.IN_PKT_ORI_BURST_SIZE_L       (110),
+		.IN_PKT_ORI_BURST_SIZE_H       (112),
+		.IN_ST_DATA_W                  (113),
+		.OUT_PKT_ADDR_H                (39),
+		.OUT_PKT_ADDR_L                (9),
+		.OUT_PKT_DATA_H                (7),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (8),
+		.OUT_PKT_BYTEEN_L              (8),
+		.OUT_PKT_BYTE_CNT_H            (54),
+		.OUT_PKT_BYTE_CNT_L            (46),
+		.OUT_PKT_TRANS_COMPRESSED_READ (40),
+		.OUT_PKT_BURST_SIZE_H          (58),
+		.OUT_PKT_BURST_SIZE_L          (56),
+		.OUT_PKT_RESPONSE_STATUS_H     (82),
+		.OUT_PKT_RESPONSE_STATUS_L     (81),
+		.OUT_PKT_TRANS_EXCLUSIVE       (45),
+		.OUT_PKT_BURST_TYPE_H          (60),
+		.OUT_PKT_BURST_TYPE_L          (59),
+		.OUT_PKT_ORI_BURST_SIZE_L      (83),
+		.OUT_PKT_ORI_BURST_SIZE_H      (85),
+		.OUT_ST_DATA_W                 (86),
+		.ST_CHANNEL_W                  (11),
+		.OPTIMIZE_FOR_RSP              (1),
+		.RESPONSE_PATH                 (1),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter (
+		.clk                  (clk_0_clk_clk),                                                                //       clk.clk
+		.reset                (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                               // clk_reset.reset
+		.in_valid             (rsp_demux_006_src1_valid),                                                     //      sink.valid
+		.in_channel           (rsp_demux_006_src1_channel),                                                   //          .channel
+		.in_startofpacket     (rsp_demux_006_src1_startofpacket),                                             //          .startofpacket
+		.in_endofpacket       (rsp_demux_006_src1_endofpacket),                                               //          .endofpacket
+		.in_ready             (rsp_demux_006_src1_ready),                                                     //          .ready
+		.in_data              (rsp_demux_006_src1_data),                                                      //          .data
+		.out_endofpacket      (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
+		.out_data             (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_data),          //          .data
+		.out_channel          (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_channel),       //          .channel
+		.out_valid            (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_valid),         //          .valid
+		.out_ready            (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_ready),         //          .ready
+		.out_startofpacket    (onchip_mem_lw_s1_to_kbandinput_1_mm_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
+		.in_command_size_data (3'b000)                                                                        // (terminated)
+	);
+
+	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (66),
+		.IN_PKT_ADDR_L                 (36),
+		.IN_PKT_DATA_H                 (31),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (35),
+		.IN_PKT_BYTEEN_L               (32),
+		.IN_PKT_BYTE_CNT_H             (81),
+		.IN_PKT_BYTE_CNT_L             (73),
+		.IN_PKT_TRANS_COMPRESSED_READ  (67),
+		.IN_PKT_TRANS_WRITE            (69),
+		.IN_PKT_BURSTWRAP_H            (82),
+		.IN_PKT_BURSTWRAP_L            (82),
+		.IN_PKT_BURST_SIZE_H           (85),
+		.IN_PKT_BURST_SIZE_L           (83),
+		.IN_PKT_RESPONSE_STATUS_H      (109),
+		.IN_PKT_RESPONSE_STATUS_L      (108),
+		.IN_PKT_TRANS_EXCLUSIVE        (72),
+		.IN_PKT_BURST_TYPE_H           (87),
+		.IN_PKT_BURST_TYPE_L           (86),
+		.IN_PKT_ORI_BURST_SIZE_L       (110),
+		.IN_PKT_ORI_BURST_SIZE_H       (112),
+		.IN_ST_DATA_W                  (113),
+		.OUT_PKT_ADDR_H                (39),
+		.OUT_PKT_ADDR_L                (9),
+		.OUT_PKT_DATA_H                (7),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (8),
+		.OUT_PKT_BYTEEN_L              (8),
+		.OUT_PKT_BYTE_CNT_H            (54),
+		.OUT_PKT_BYTE_CNT_L            (46),
+		.OUT_PKT_TRANS_COMPRESSED_READ (40),
+		.OUT_PKT_BURST_SIZE_H          (58),
+		.OUT_PKT_BURST_SIZE_L          (56),
+		.OUT_PKT_RESPONSE_STATUS_H     (82),
+		.OUT_PKT_RESPONSE_STATUS_L     (81),
+		.OUT_PKT_TRANS_EXCLUSIVE       (45),
+		.OUT_PKT_BURST_TYPE_H          (60),
+		.OUT_PKT_BURST_TYPE_L          (59),
+		.OUT_PKT_ORI_BURST_SIZE_L      (83),
+		.OUT_PKT_ORI_BURST_SIZE_H      (85),
+		.OUT_ST_DATA_W                 (86),
+		.ST_CHANNEL_W                  (11),
+		.OPTIMIZE_FOR_RSP              (1),
+		.RESPONSE_PATH                 (1),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter (
+		.clk                  (clk_0_clk_clk),                                                                 //       clk.clk
+		.reset                (mm_bridge_LW_reset_reset_bridge_in_reset_reset),                                // clk_reset.reset
+		.in_valid             (rsp_demux_008_src1_valid),                                                      //      sink.valid
+		.in_channel           (rsp_demux_008_src1_channel),                                                    //          .channel
+		.in_startofpacket     (rsp_demux_008_src1_startofpacket),                                              //          .startofpacket
+		.in_endofpacket       (rsp_demux_008_src1_endofpacket),                                                //          .endofpacket
+		.in_ready             (rsp_demux_008_src1_ready),                                                      //          .ready
+		.in_data              (rsp_demux_008_src1_data),                                                       //          .data
+		.out_endofpacket      (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_endofpacket),   //       src.endofpacket
+		.out_data             (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_data),          //          .data
+		.out_channel          (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_channel),       //          .channel
+		.out_valid            (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_valid),         //          .valid
+		.out_ready            (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_ready),         //          .ready
+		.out_startofpacket    (onchip_mem_lw2_s1_to_kbandinput_2_mm_read_rsp_width_adapter_src_startofpacket), //          .startofpacket
+		.in_command_size_data (3'b000)                                                                         // (terminated)
+	);
+
+	altera_merlin_width_adapter #(
 		.IN_PKT_ADDR_H                 (174),
 		.IN_PKT_ADDR_L                 (144),
 		.IN_PKT_DATA_H                 (127),
@@ -5593,25 +5879,25 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		.IN_PKT_ORI_BURST_SIZE_L       (218),
 		.IN_PKT_ORI_BURST_SIZE_H       (220),
 		.IN_ST_DATA_W                  (221),
-		.OUT_PKT_ADDR_H                (66),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
+		.OUT_PKT_ADDR_H                (39),
+		.OUT_PKT_ADDR_L                (9),
+		.OUT_PKT_DATA_H                (7),
 		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (81),
-		.OUT_PKT_BYTE_CNT_L            (73),
-		.OUT_PKT_TRANS_COMPRESSED_READ (67),
-		.OUT_PKT_BURST_SIZE_H          (85),
-		.OUT_PKT_BURST_SIZE_L          (83),
-		.OUT_PKT_RESPONSE_STATUS_H     (109),
-		.OUT_PKT_RESPONSE_STATUS_L     (108),
-		.OUT_PKT_TRANS_EXCLUSIVE       (72),
-		.OUT_PKT_BURST_TYPE_H          (87),
-		.OUT_PKT_BURST_TYPE_L          (86),
-		.OUT_PKT_ORI_BURST_SIZE_L      (110),
-		.OUT_PKT_ORI_BURST_SIZE_H      (112),
-		.OUT_ST_DATA_W                 (113),
+		.OUT_PKT_BYTEEN_H              (8),
+		.OUT_PKT_BYTEEN_L              (8),
+		.OUT_PKT_BYTE_CNT_H            (54),
+		.OUT_PKT_BYTE_CNT_L            (46),
+		.OUT_PKT_TRANS_COMPRESSED_READ (40),
+		.OUT_PKT_BURST_SIZE_H          (58),
+		.OUT_PKT_BURST_SIZE_L          (56),
+		.OUT_PKT_RESPONSE_STATUS_H     (82),
+		.OUT_PKT_RESPONSE_STATUS_L     (81),
+		.OUT_PKT_TRANS_EXCLUSIVE       (45),
+		.OUT_PKT_BURST_TYPE_H          (60),
+		.OUT_PKT_BURST_TYPE_L          (59),
+		.OUT_PKT_ORI_BURST_SIZE_L      (83),
+		.OUT_PKT_ORI_BURST_SIZE_H      (85),
+		.OUT_ST_DATA_W                 (86),
 		.ST_CHANNEL_W                  (11),
 		.OPTIMIZE_FOR_RSP              (1),
 		.RESPONSE_PATH                 (1),
@@ -5659,25 +5945,25 @@ module KBandIPsubAffine_mm_interconnect_0 (
 		.IN_PKT_ORI_BURST_SIZE_L       (218),
 		.IN_PKT_ORI_BURST_SIZE_H       (220),
 		.IN_ST_DATA_W                  (221),
-		.OUT_PKT_ADDR_H                (66),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
+		.OUT_PKT_ADDR_H                (39),
+		.OUT_PKT_ADDR_L                (9),
+		.OUT_PKT_DATA_H                (7),
 		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (81),
-		.OUT_PKT_BYTE_CNT_L            (73),
-		.OUT_PKT_TRANS_COMPRESSED_READ (67),
-		.OUT_PKT_BURST_SIZE_H          (85),
-		.OUT_PKT_BURST_SIZE_L          (83),
-		.OUT_PKT_RESPONSE_STATUS_H     (109),
-		.OUT_PKT_RESPONSE_STATUS_L     (108),
-		.OUT_PKT_TRANS_EXCLUSIVE       (72),
-		.OUT_PKT_BURST_TYPE_H          (87),
-		.OUT_PKT_BURST_TYPE_L          (86),
-		.OUT_PKT_ORI_BURST_SIZE_L      (110),
-		.OUT_PKT_ORI_BURST_SIZE_H      (112),
-		.OUT_ST_DATA_W                 (113),
+		.OUT_PKT_BYTEEN_H              (8),
+		.OUT_PKT_BYTEEN_L              (8),
+		.OUT_PKT_BYTE_CNT_H            (54),
+		.OUT_PKT_BYTE_CNT_L            (46),
+		.OUT_PKT_TRANS_COMPRESSED_READ (40),
+		.OUT_PKT_BURST_SIZE_H          (58),
+		.OUT_PKT_BURST_SIZE_L          (56),
+		.OUT_PKT_RESPONSE_STATUS_H     (82),
+		.OUT_PKT_RESPONSE_STATUS_L     (81),
+		.OUT_PKT_TRANS_EXCLUSIVE       (45),
+		.OUT_PKT_BURST_TYPE_H          (60),
+		.OUT_PKT_BURST_TYPE_L          (59),
+		.OUT_PKT_ORI_BURST_SIZE_L      (83),
+		.OUT_PKT_ORI_BURST_SIZE_H      (85),
+		.OUT_ST_DATA_W                 (86),
 		.ST_CHANNEL_W                  (11),
 		.OPTIMIZE_FOR_RSP              (1),
 		.RESPONSE_PATH                 (1),

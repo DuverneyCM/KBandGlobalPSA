@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="soc_system" kind="soc_system" version="1.0" fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.10.22.16:35:20 -->
+ <!-- 2018.10.23.19:22:43 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1540244117</value>
+  <value>1540340561</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1070,7 +1070,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="AUTO_GENERATION_ID">
    <type>java.lang.Integer</type>
-   <value>1540244117</value>
+   <value>1540340561</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -3725,7 +3725,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dimSymbol">
    <type>int</type>
-   <value>32</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -4022,7 +4022,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>iADN1_data</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>8</width>
     <role>data</role>
    </port>
    <port>
@@ -4386,7 +4386,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>iADN2_data</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>8</width>
     <role>data</role>
    </port>
    <port>
@@ -4436,7 +4436,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>32</value>
+   <value>8</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -4532,7 +4532,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>32</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -5161,15 +5161,9 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>mm_read_byteenable</name>
-    <direction>Output</direction>
-    <width>4</width>
-    <role>byteenable</role>
-   </port>
-   <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>8</width>
     <role>readdata</role>
    </port>
    <port>
@@ -6200,7 +6194,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="symbolsPerBeat">
     <type>int</type>
-    <value>4</value>
+    <value>1</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -6227,7 +6221,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>st_source_data</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>8</width>
     <role>data</role>
    </port>
    <port>
@@ -6277,7 +6271,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>32</value>
+   <value>8</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -6373,7 +6367,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>32</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -7002,15 +6996,9 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>mm_read_byteenable</name>
-    <direction>Output</direction>
-    <width>4</width>
-    <role>byteenable</role>
-   </port>
-   <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>32</width>
+    <width>8</width>
     <role>readdata</role>
    </port>
    <port>
@@ -8041,7 +8029,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="symbolsPerBeat">
     <type>int</type>
-    <value>4</value>
+    <value>1</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -8068,7 +8056,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>st_source_data</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>8</width>
     <role>data</role>
    </port>
    <port>
@@ -100236,7 +100224,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1540244117</value>
+   <value>1540340561</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -100256,7 +100244,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1540244117</value>
+   <value>1540340561</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -100272,7 +100260,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1540244117</value>
+   <value>1540340561</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

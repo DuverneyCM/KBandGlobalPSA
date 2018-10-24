@@ -180,8 +180,10 @@ int main(int argc, char **argv)
 	int noFile = 1;
 
 	//volatile unsigned int *valuei;
-	volatile unsigned int *valuei1;//, real, image;
-	volatile unsigned int *valuei2;//, real, image;
+	//volatile unsigned int *valuei1;//, real, image;
+	//volatile unsigned int *valuei2;//, real, image;
+	volatile char *valuei1;//, real, image;
+	volatile char *valuei2;//, real, image;
 	volatile unsigned int *valueo;//  output
 
 
@@ -378,8 +380,10 @@ int main(int argc, char **argv)
 	int dimPacketMAX;
 	int latenciaKBand = 6;//3*2; //Latency = 6
 	int usPause = 150;//200;
-	valuei1 = (unsigned int *)((int)hps_DATAin1);
-	valuei2 = (unsigned int *)((int)hps_DATAin2);
+	//valuei1 = (unsigned int *)((int)hps_DATAin1);
+	//valuei2 = (unsigned int *)((int)hps_DATAin2);
+	valuei1 = (char *)((int)hps_DATAin1);
+	valuei2 = (char *)((int)hps_DATAin2);
 	valueo = (unsigned int *)((int)hps_DATAout);
 
 
@@ -420,14 +424,14 @@ int main(int argc, char **argv)
 	//Pasar las secuencias A, B y CSR a la OnChip Memory
 	for (i=0; i<dimPacketMAX; i++) {
 		if (dimSeqA > dimSeqB){
-			if (i<dimPacketA)	seqA = ( (((unsigned int)dataIn1[i])<<24) );
+			if (i<dimPacketA)	seqA = ( ((char)dataIn1[i]) );//( (((unsigned int)dataIn1[i])<<24) );
 				else seqA = 0;
-			if (i>=offsetBand && i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i-offsetBand])<<24) );
+			if (i>=offsetBand && i<dimPacketB)	seqB = ( ((char)dataIn2[i-offsetBand]) );//( (((unsigned int)dataIn2[i-offsetBand])<<24) );
 				else seqB = 0;
 		}else{
-			if (i>=offsetBand && i<dimPacketA)	seqA = ( (((unsigned int)dataIn1[i-offsetBand])<<24) );
+			if (i>=offsetBand && i<dimPacketA)	seqA = ( ((char)dataIn1[i-offsetBand]) );//( (((unsigned int)dataIn1[i-offsetBand])<<24) );
 				else seqA = 0;
-			if (i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i])<<24) );
+			if (i<dimPacketB)	seqB = ( ((char)dataIn2[i]) );//( (((unsigned int)dataIn2[i])<<24) );
 				else seqB = 0;
 		}
 		//Flags
@@ -499,8 +503,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		}
 		//printf("TOKEN A\n");
 		//printf("tag0 \n");
-		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, dimPacketMAX * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, dimPacketMAX * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, dimPacketMAX /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, dimPacketMAX /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 		//printf("TOKEN B\n");
@@ -509,8 +513,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 			for (i=0; i<dimPacket; i++) 	valuei1[i]  = 0;
 			for (i=0; i<dimPacket; i++) 	valuei2[i]  = 0;
 			//enviar un paquete de ceros paquete para activar el IP (REVISAR EL offsetBand para un PACK )
-			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand + dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-			construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand + dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand + dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+			construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand + dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 			write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 			write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 		}
@@ -593,9 +597,9 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		//printf("dimPacketMAX = %d\n",dimPacketMAX);
 		if (noPacket != pack) {
 			for (i=0; i<dimPacketMAX; i++) {
-				if (i<dimPacketA)	seqA = ( (((unsigned int)dataIn1[i])<<24) );
+				if (i<dimPacketA)	seqA = ( ((char)dataIn1[i]) );//( (((unsigned int)dataIn1[i])<<24) );
 					else seqA = 0;
-				if (i<dimPacketB)	seqB = ( (((unsigned int)dataIn2[i])<<24) );
+				if (i<dimPacketB)	seqB = ( ((char)dataIn2[i]) );//( (((unsigned int)dataIn2[i])<<24) );
 					else seqB = 0;
 
 				//a = ( seqA | seqB );
@@ -619,8 +623,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		for (i=0; i<dimPacket; i++) 	valuei2[i]  = 0;
 
 		//enviar un paquete de ceros paquete para activar el IP
-		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (dimPacket) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 
@@ -641,8 +645,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 
 		//PAQUETE DE LATENCIA
 		//enviar un paquete de ceros paquete para activar el IP
-		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand) * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 

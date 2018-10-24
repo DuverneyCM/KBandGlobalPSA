@@ -9,8 +9,7 @@
 module KBandIPsubAffine_KBandInput_1 (
 		output wire [30:0]  mm_read_address,              //          mm_read.address
 		output wire         mm_read_read,                 //                 .read
-		output wire [3:0]   mm_read_byteenable,           //                 .byteenable
-		input  wire [31:0]  mm_read_readdata,             //                 .readdata
+		input  wire [7:0]   mm_read_readdata,             //                 .readdata
 		input  wire         mm_read_waitrequest,          //                 .waitrequest
 		input  wire         mm_read_readdatavalid,        //                 .readdatavalid
 		input  wire         clock_clk,                    //            clock.clk
@@ -26,7 +25,7 @@ module KBandIPsubAffine_KBandInput_1 (
 		input  wire [127:0] descriptor_slave_writedata,   //                 .writedata
 		input  wire [15:0]  descriptor_slave_byteenable,  //                 .byteenable
 		output wire         csr_irq_irq,                  //          csr_irq.irq
-		output wire [31:0]  st_source_data,               //        st_source.data
+		output wire [7:0]   st_source_data,               //        st_source.data
 		output wire         st_source_valid,              //                 .valid
 		input  wire         st_source_ready               //                 .ready
 	);
@@ -86,7 +85,7 @@ module KBandIPsubAffine_KBandInput_1 (
 	);
 
 	read_master #(
-		.DATA_WIDTH                (32),
+		.DATA_WIDTH                (8),
 		.LENGTH_WIDTH              (13),
 		.FIFO_DEPTH                (32),
 		.STRIDE_ENABLE             (0),
@@ -96,13 +95,13 @@ module KBandIPsubAffine_KBandInput_1 (
 		.ERROR_WIDTH               (8),
 		.CHANNEL_ENABLE            (0),
 		.CHANNEL_WIDTH             (8),
-		.BYTE_ENABLE_WIDTH         (4),
-		.BYTE_ENABLE_WIDTH_LOG2    (2),
+		.BYTE_ENABLE_WIDTH         (1),
+		.BYTE_ENABLE_WIDTH_LOG2    (1),
 		.ADDRESS_WIDTH             (31),
 		.FIFO_DEPTH_LOG2           (5),
 		.SYMBOL_WIDTH              (8),
-		.NUMBER_OF_SYMBOLS         (4),
-		.NUMBER_OF_SYMBOLS_LOG2    (2),
+		.NUMBER_OF_SYMBOLS         (1),
+		.NUMBER_OF_SYMBOLS_LOG2    (1),
 		.MAX_BURST_COUNT_WIDTH     (1),
 		.UNALIGNED_ACCESSES_ENABLE (0),
 		.ONLY_FULL_ACCESS_ENABLE   (1),
@@ -116,7 +115,6 @@ module KBandIPsubAffine_KBandInput_1 (
 		.reset                (~reset_n_reset_n),                              //      Clock_reset.reset
 		.master_address       (mm_read_address),                               // Data_Read_Master.address
 		.master_read          (mm_read_read),                                  //                 .read
-		.master_byteenable    (mm_read_byteenable),                            //                 .byteenable
 		.master_readdata      (mm_read_readdata),                              //                 .readdata
 		.master_waitrequest   (mm_read_waitrequest),                           //                 .waitrequest
 		.master_readdatavalid (mm_read_readdatavalid),                         //                 .readdatavalid
@@ -129,6 +127,7 @@ module KBandIPsubAffine_KBandInput_1 (
 		.src_response_data    (read_mstr_internal_response_source_data),       //  Response_Source.data
 		.src_response_valid   (read_mstr_internal_response_source_valid),      //                 .valid
 		.src_response_ready   (read_mstr_internal_response_source_ready),      //                 .ready
+		.master_byteenable    (),                                              //      (terminated)
 		.master_burstcount    (),                                              //      (terminated)
 		.src_sop              (),                                              //      (terminated)
 		.src_eop              (),                                              //      (terminated)
