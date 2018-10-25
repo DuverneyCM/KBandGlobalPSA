@@ -63,6 +63,8 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sTransmitir	:	std_logic;
 	signal	sLoadParameter	:	std_logic;
 	signal	sMatch, sMisMatch, sOG, sEG	:	std_logic_vector(dimLUT-1 downto 0);
+	signal	sirH1, sirHN, sorH1, sorHN		:	std_logic_vector(dimH-1 downto 0);
+	signal	sirG1, sirGN, sorG1, sorGN		:	std_logic_vector(dimH-1 downto 0);
 
 
 	component KbandSink is
@@ -140,8 +142,12 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			iADNv			:	in std_logic_vector(dimADN-1 downto 0);
 			iEnable		:	in std_logic;
 			iADNFinish	:	in std_logic;
+			irH1, irHN	:	in 	std_logic_vector(dimH-1 downto 0);
+			irG1, irGN	:	in 	std_logic_vector(dimH-1 downto 0);
 
 			-- Output ports
+			orH1,	orHN	:	out	std_logic_vector(dimH-1 downto 0);
+			orG1,	orGN	:	out	std_logic_vector(dimH-1 downto 0);
 			oADNfinish, oADNvalid				:	out std_logic;
 			flag						:	out	std_logic;
 		oArrows				:	out std_logic_vector(2*NoCell-1 downto 0)
@@ -248,12 +254,24 @@ BEGIN
 		iADNv			=>	sADN2,
 		iEnable		=>	sProcesar,
 		iADNFinish	=>	sADNfinish,
+		irH1			=>	sirH1,
+		irHN			=>	sirHN,
+		irG1			=>	sirG1,
+		irGN			=>	sirGN,
 		-- Output ports
+		orH1			=>	sorH1,
+		orHN			=>	sorHN,
+		orG1			=>	sorG1,
+		orGN			=>	sorGN,
 		oADNfinish		=>	sADNfinish,--sArrowEn,
 		oADNvalid		=>	sADNvalid,
 		flag				=>	sFlag,
 		oArrows			=>	sArrows
 	);
+	sirH1	<=	sorH1 - 1; --	sirH1	<= sorHN
+	sirHN	<=	sorHN - 1; --	sirHN	<=	sorH1
+	sirG1	<=	sorG1 - 1; --	sirH1	<= sorHN
+	sirGN	<=	sorGN - 1; --	sirHN	<=	sorH1
 
 	STSource	:	KbandSource
 	generic map(

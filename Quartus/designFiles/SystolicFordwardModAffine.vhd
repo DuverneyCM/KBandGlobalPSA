@@ -20,8 +20,12 @@ entity SystolicFordwardModAffine is
 		iADNv			:	in std_logic_vector(dimADN-1 downto 0);
 		iEnable		:	in std_logic;
 		iADNFinish	:	in std_logic;
+		irH1, irHN	:	in 	std_logic_vector(dimH-1 downto 0);
+		irG1, irGN	:	in 	std_logic_vector(dimH-1 downto 0);
 
 		-- Output ports
+		orH1,	orHN	:	out	std_logic_vector(dimH-1 downto 0);
+		orG1,	orGN	:	out	std_logic_vector(dimH-1 downto 0);
 		oADNfinish, oADNvalid				:	out std_logic;
 		flag						:	out	std_logic;
 		oArrows				:	out std_logic_vector(2*NoCell-1 downto 0)
@@ -241,11 +245,20 @@ begin
 
 	--crea los multiplexores
 	--son los registros que se conectan en U y L en los bordes
-	rH1(NoCell+1)	<=	rH1(NoCell)-1;		--rH2(NoCell);--(dimH-1 => '1', 1 => '1', others => '0'); --(others => '1');
-	sH(0)				<=	rH2(1);				--(dimH-1 => '1', 1 => '1', others => '0'); --sH
-	rG1(NoCell+1)	<=	rG1(NoCell)-1;		--rG2(NoCell);
-	sG(0)				<=	rG2(1);
-
+	--rH1(NoCell+1)	<=	rH1(NoCell)-1;		--rH2(NoCell);--(dimH-1 => '1', 1 => '1', others => '0'); --(others => '1');
+	--sH(0)				<=	rH2(1);				--(dimH-1 => '1', 1 => '1', others => '0'); --sH
+	--rG1(NoCell+1)	<=	rG1(NoCell)-1;		--rG2(NoCell);
+	--sG(0)				<=	rG2(1);
+	
+	orH1	<=	rH1(1);
+	orHN	<=	rH1(NoCell);
+	orG1	<=	rG1(1);
+	orGN	<=	rG1(NoCell);
+	rH1(NoCell+1)	<=	irH1;
+	sH(0)				<=	irHN;
+	rG1(NoCell+1)	<=	irG1;
+	sG(0)				<=	irGN;
+	
 	mux:
 	for i in 2 to NoCell generate
 		mux_HU: arrayHU(i) <=	rH1(i) when sDirection = '1' else rH1(i+1); --si el ultimo movimiento fue vertical (0)
