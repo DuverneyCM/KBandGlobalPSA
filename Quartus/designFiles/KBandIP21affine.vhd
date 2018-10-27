@@ -118,7 +118,10 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			iADNv			:	in std_logic_vector(dimADN-1 downto 0);
 			iEnable		:	in std_logic;
 			iADNFinish	:	in std_logic;
+			irH1, irHN	:	in 	std_logic_vector(dimH-1 downto 0);
+
 			-- Output ports
+			orH1,	orHN	:	out	std_logic_vector(dimH-1 downto 0);
 			oADNfinish, oADNvalid	:	out std_logic;
 			flag							:	out	std_logic;
 			oArrows						:	out std_logic_vector(2*NoCell-1 downto 0)

@@ -20,8 +20,10 @@ entity SystolicFordward is
 		iADNv			:	in std_logic_vector(dimADN-1 downto 0);
 		iEnable		:	in std_logic;
 		iADNFinish	:	in std_logic;
+		irH1, irHN	:	in 	std_logic_vector(dimH-1 downto 0);
 
 		-- Output ports
+		orH1,	orHN	:	out	std_logic_vector(dimH-1 downto 0);
 		oADNfinish, oADNvalid				:	out std_logic;
 		flag						:	out	std_logic;
 		oArrows				:	out std_logic_vector(2*NoCell-1 downto 0)
@@ -116,6 +118,9 @@ architecture rtl of SystolicFordward is
 			iADNb			:	in std_logic_vector(dimADN-1 downto 0);
 			iH				:	in std_logic_vector(dimH-1 downto 0);
 			iArrow		:	in std_logic_vector(1 downto 0);
+			iHGDiagEqual:	in std_logic;
+			iCero			:	in	std_logic;
+			iFinish		:	in	std_logic;
 			-- Output ports
 			oADNa			:	out std_logic_vector(dimADN-1 downto 0);
 			oADNb			:	out std_logic_vector(dimADN-1 downto 0);
@@ -149,7 +154,7 @@ begin
 			iHd			=>	rH2(i),
 			iHu			=>	arrayHU(i),
 			iHl			=>	arrayHL(i),
-			iADNFinish	=>	iADNFinish,
+			iADNFinish	=>	'0',--iADNFinish,
 
 			-- Output ports
 			oADNa			=>	sADNa(i),
@@ -180,6 +185,9 @@ begin
 			iADNb			=>	sADNb(i+1),
 			iH				=>	sH(i),
 			iArrow		=>	sArrow(i),
+			iHGDiagEqual=>	sHGDiagEqual(i),
+			iCero			=>	'0',--sBlockCero(i),
+			iFinish		=>	iADNFinish,--'0',--iADNFinish,
 			-- Output ports
 			oADNa			=>	rADNa(i),
 			oADNb			=>	rADNb(i),
@@ -212,8 +220,12 @@ begin
 
 	--crea los multiplexores
 	--son los registros que se conectan en U y L en los bordes
-	rH1(NoCell+1)	<=	rH2(NoCell);--(dimH-1 => '1', 1 => '1', others => '0'); --(others => '1');
-	sH(0)				<=	rH2(1);--(dimH-1 => '1', 1 => '1', others => '0'); --sH
+	--rH1(NoCell+1)	<=	rH2(NoCell);--(dimH-1 => '1', 1 => '1', others => '0'); --(others => '1');
+	--sH(0)				<=	rH2(1);--(dimH-1 => '1', 1 => '1', others => '0'); --sH
+	orH1	<=	rH1(1);
+	orHN	<=	rH1(NoCell);
+	rH1(NoCell+1)	<=	irH1;
+	sH(0)				<=	irHN;
 
 	mux:
 	for i in 2 to NoCell generate

@@ -90,9 +90,12 @@ begin
 					"0000" when others;
 
 	--detecta si hay elementos de secuencia para alinear. Datos invalidos se indica con 0
-	orADN	<=	LUTadn(3) or LUTadn(2) or LUTadn(1) or LUTadn(0);
-	datoInvalidoAux	<=	orADN;
-	oValid	<=	orADN;
+	--orADN	<=	LUTadn(3) or LUTadn(2) or LUTadn(1) or LUTadn(0);
+	--orADN	<=	'0' when LUTadn = (LUTadn'range => '0') else '1';
+	orADN	<=	'0' when iADNa = (iADNa'range => '0') or iADNb = (iADNb'range => '0') else '1';
+	--datoInvalidoAux	<=	orADN;
+	datoInvalidoAux	<=	'0' when sHGDiagEqual='1' or orADN='0' else '1';
+	oValid	<=	orADN;--datoInvalidoAux;
 
 	--Señales de entrada
 	Hdiag	<=	iHd;
@@ -109,16 +112,20 @@ begin
 	Resta2	<=	funcionDiag - mayorUL;
 	LessThan(2)	<=	Resta2(dimH-1);
 	mayorDUL	<=	funcionDiag when LessThan(2) = '0' else mayorUL;
-	sHGDiagEqual	<=	'1' when Hdiag = iGapDiag else '0';
-	oHGDiagEqual	<=	datoInvalidoAux;--sHGDiagEqual;
+	sHGDiagEqual	<=	'1' when funcionDiag = mayorUL else '0';
+	oHGDiagEqual	<=	not datoInvalidoAux;--sHGDiagEqual;
 
 	--efecto de borde NW (-w, -2w, -3w ...)
-	mayorT		<=	mayorDUL when	datoInvalidoAux = '1' else iH1;	--(others => '0');
+	mayorT		<=	mayorDUL when	(orADN = '1') else iH1;	--(others => '0');
 	sHinvalid	<=	mayorT - iW;
 	--salida valida
-	oH				<=	sHinvalid when iADNFinish = '0' else (others => '0');
+	oH				<=	sHinvalid;-- when iADNFinish = '0' else (others => '0');
 	--Flechas
-	oArrow(0)	<= ( not LessThan(2) or LessThan(1) )	and ( datoInvalidoAux );
-	oArrow(1)	<= ( not LessThan(2) or not LessThan(1) )	and ( datoInvalidoAux );
+	--oArrow(0)	<= ( not LessThan(2) or LessThan(1) )	and ( datoInvalidoAux );
+	--oArrow(1)	<= ( not LessThan(2) or not LessThan(1) )	and ( datoInvalidoAux );
+	oArrow	<=	"00" when orADN = '0' else --datoInvalidoAux = '0' else
+					"11" when LessThan(2) ='0' else
+					"01" when LessThan(1) = '1' else
+					"10" when LessThan(1) = '0';
 
 end rtl;

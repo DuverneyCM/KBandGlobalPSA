@@ -11,6 +11,7 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
+use ieee.std_logic_unsigned.all;
 
 ENTITY KBandIP21 is
 	generic(
@@ -30,9 +31,9 @@ ENTITY KBandIP21 is
 		iADN1_data   : in  std_logic_vector(dimSymbol-1 downto 0)	:= (others => '0'); --  iADN1.data
 		oADN1_ready  : out std_logic;                                        --       .ready
 		iADN1_valid  : in  std_logic	:= '0';             --       .valid
-		--iADN2_data   : in  std_logic_vector(dimSymbol-1 downto 0)	:= (others => '0'); --  iADN2.data
-		--oADN2_ready  : out std_logic;                                        --       .ready
-		--iADN2_valid  : in  std_logic  := '0';             --       .valid
+		iADN2_data   : in  std_logic_vector(dimSymbol-1 downto 0)	:= (others => '0'); --  iADN2.data
+		oADN2_ready  : out std_logic;                                        --       .ready
+		iADN2_valid  : in  std_logic  := '0';             --       .valid
 		-- Qsys source
 		oArrow_data  : out std_logic_vector(bitsOUT-1 downto 0);                    -- oArrow.data
 		iArrow_ready : in  std_logic  := '0';             --       .ready
@@ -63,6 +64,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sTransmitir	:	std_logic;
 	signal	sLoadParameter	:	std_logic;
 	signal	sMatch, sMisMatch, sOG, sEG	:	std_logic_vector(dimLUT-1 downto 0);
+	signal	sirH1, sirHN, sorH1, sorHN		:	std_logic_vector(dimH-1 downto 0);
 
 
 	component KbandSink is
@@ -73,13 +75,18 @@ ARCHITECTURE rtl OF KBandIP21 IS
 		);
 		port(
 			-- clk and reset interface
-			clk_ext, clk_int, reset									:	in		std_logic;
+			clk_ext, clk_int, reset													:	in		std_logic;
 			--Streamming Sink Interface
-			dout_Ready													:	out	std_logic;
-			din_Valid													:	in		std_logic;
-			din_Data														:	in		std_logic_vector(dimSymbol downto 1);
+			dout_Ready1													:	out	std_logic;
+			din_Valid1													:	in		std_logic;
+			din_Data1													:	in		std_logic_vector(dimSymbol downto 1);
+			--Streamming Sink Interface
+			dout_Ready2													:	out	std_logic;
+			din_Valid2													:	in		std_logic;
+			din_Data2													:	in		std_logic_vector(dimSymbol downto 1);
 			--interLogic Ports
 			iParameters			:	in	std_logic_vector(31 downto 0);
+			iLoadParameter	:	in	std_logic;
 			oMatch		:	out	std_logic_vector(dimLUT-1 downto 0);
 			oMisMatch	:	out	std_logic_vector(dimLUT-1 downto 0);
 			oOG				:	out	std_logic_vector(dimLUT-1 downto 0);
@@ -110,7 +117,10 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			iADNv			:	in std_logic_vector(dimADN-1 downto 0);
 			iEnable		:	in std_logic;
 			iADNFinish	:	in std_logic;
+			irH1, irHN	:	in 	std_logic_vector(dimH-1 downto 0);
+
 			-- Output ports
+			orH1,	orHN	:	out	std_logic_vector(dimH-1 downto 0);
 			oADNfinish, oADNvalid	:	out std_logic;
 			flag							:	out	std_logic;
 			oArrows						:	out std_logic_vector(2*NoCell-1 downto 0)
@@ -135,8 +145,12 @@ ARCHITECTURE rtl OF KBandIP21 IS
 			iADNv			:	in std_logic_vector(dimADN-1 downto 0);
 			iEnable		:	in std_logic;
 			iADNFinish	:	in std_logic;
+			irH1, irHN	:	in 	std_logic_vector(dimH-1 downto 0);
+			irG1, irGN	:	in 	std_logic_vector(dimH-1 downto 0);
 
 			-- Output ports
+			orH1,	orHN	:	out	std_logic_vector(dimH-1 downto 0);
+			orG1,	orGN	:	out	std_logic_vector(dimH-1 downto 0);
 			oADNfinish, oADNvalid				:	out std_logic;
 			flag						:	out	std_logic;
 		oArrows				:	out std_logic_vector(2*NoCell-1 downto 0)
@@ -200,11 +214,16 @@ BEGIN
 		clk_int		=>	clock_int,
 		reset			=>	reset_reset,
 		--Streamming Sink Interface
-		dout_Ready	=>	oADN1_ready,
-		din_Valid	=>	iADN1_valid,
-		din_Data		=>	iADN1_data,
+		dout_Ready1	=>	oADN1_ready,
+		din_Valid1	=>	iADN1_valid,
+		din_Data1	=>	iADN1_data,
+		--Streamming Sink Interface
+		dout_Ready2	=>	oADN2_ready,
+		din_Valid2	=>	iADN2_valid,
+		din_Data2	=>	iADN2_data,
 		--interLogic Ports
 		iParameters			=>	iParameters,
+		iLoadParameter		=>	sLoadParameter,
 		oMatch		=>	sMatch,
 		oMisMatch	=>	sMisMatch,
 		oOG		=>	sOG,
@@ -238,12 +257,18 @@ BEGIN
 		iADNv			=>	sADN2,
 		iEnable		=>	sProcesar,
 		iADNFinish	=>	sADNfinish,
+		irH1			=>	sirH1,
+		irHN			=>	sirHN,
 		-- Output ports
+		orH1			=>	sorH1,
+		orHN			=>	sorHN,
 		oADNfinish		=>	sADNfinish,--sArrowEn,
 		oADNvalid		=>	sADNvalid,
 		flag				=>	sFlag,
 		oArrows			=>	sArrows
 	);
+	sirH1	<=	sorH1 - 1; --	sirH1	<= sorHN
+	sirHN	<=	sorHN - 1; --	sirHN	<=	sorH1
 
 	STSource	:	KbandSource
 	generic map(

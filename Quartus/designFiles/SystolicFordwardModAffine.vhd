@@ -249,7 +249,7 @@ begin
 	--sH(0)				<=	rH2(1);				--(dimH-1 => '1', 1 => '1', others => '0'); --sH
 	--rG1(NoCell+1)	<=	rG1(NoCell)-1;		--rG2(NoCell);
 	--sG(0)				<=	rG2(1);
-	
+
 	orH1	<=	rH1(1);
 	orHN	<=	rH1(NoCell);
 	orG1	<=	rG1(1);
@@ -267,9 +267,9 @@ begin
 		mux_GL: arrayGL(i) <=	rG1(i) when sDirection = '0' else rG1(i-1);
 	end generate;
 	arrayHU(1) <=	rH1(1) when sDirection = '1' else rH1(2);
-	arrayHL(1) <=	rH1(1) when sDirection = '0' else sH(0); 
-	arrayGU(1) <=	rG1(1) when sDirection = '1' else rG1(2); 
-	arrayGL(1) <=	rG1(1) when sDirection = '0' else sG(0); 
+	arrayHL(1) <=	rH1(1) when sDirection = '0' else sH(0);
+	arrayGU(1) <=	rG1(1) when sDirection = '1' else rG1(2);
+	arrayGL(1) <=	rG1(1) when sDirection = '0' else sG(0);
 
 
 
