@@ -113,7 +113,7 @@ begin
 	LessThan(2)	<=	Resta2(dimH-1);
 	mayorDUL	<=	funcionDiag when LessThan(2) = '0' else mayorUL;
 	sHGDiagEqual	<=	'1' when funcionDiag = mayorUL else '0';
-	oHGDiagEqual	<=	not datoInvalidoAux;--sHGDiagEqual;
+	oHGDiagEqual	<=	sHGDiagEqual; --not datoInvalidoAux;--
 
 	--efecto de borde NW (-w, -2w, -3w ...)
 	mayorT		<=	mayorDUL when	(orADN = '1') else iH1;	--(others => '0');

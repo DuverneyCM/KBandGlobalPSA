@@ -656,7 +656,7 @@ begin
 
 	kband21affine : component KBandIP21
 		generic map (
-			NoCell    => 256,
+			NoCell    => 1024,
 			dimH      => 4,
 			dimSymbol => 8,
 			dimADN    => 3,

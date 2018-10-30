@@ -5,6 +5,7 @@ preplace inst soc_system.KBandIPsubAffine_0.onchip_mem_LW -pg 1
 preplace inst soc_system.hps_0.clk_0 -pg 1
 preplace inst soc_system.hps_clk_out -pg 1 -lvl 14 -y 620
 preplace inst soc_system.axi_bridge_for_acp_128_0 -pg 1 -lvl 12 -y 350
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_2.rst_inst -pg 1
 preplace inst soc_system.pll_0 -pg 1 -lvl 2 -y 220
 preplace inst soc_system.hps_0.axi_sdram -pg 1
 preplace inst soc_system -pg 1 -lvl 1 -y 40 -regy -20
@@ -19,10 +20,10 @@ preplace inst soc_system.hps_0.timer2 -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.pio_0 -pg 1
 preplace inst soc_system.hps_0.wd_timer0 -pg 1
 preplace inst soc_system.hps_0.i2c1 -pg 1
+preplace inst soc_system.hps_0.qspi -pg 1
 preplace inst soc_system.hps_0.timer3 -pg 1
 preplace inst soc_system.hps_0.wd_timer1 -pg 1
 preplace inst soc_system.hps_0.i2c2 -pg 1
-preplace inst soc_system.hps_0.qspi -pg 1
 preplace inst soc_system.hps_0.gpio0 -pg 1
 preplace inst soc_system.hps_0.i2c3 -pg 1
 preplace inst soc_system.hps_0.clkmgr -pg 1
@@ -31,12 +32,13 @@ preplace inst soc_system.hps_0.arm_a9_0 -pg 1
 preplace inst soc_system.hps_0.L2 -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.KBandInput_1.read_mstr_internal -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.KBandOutput.write_mstr_internal -pg 1
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_2.dispatcher_internal -pg 1
 preplace inst soc_system.hps_0.gpio2 -pg 1
 preplace inst soc_system.hps_0.arm_a9_1 -pg 1
 preplace inst soc_system.hps_0.uart0 -pg 1
 preplace inst soc_system.hps_0.uart1 -pg 1
-preplace inst soc_system.KBandIPsubAffine_0.KBandOutput.rst_inst -pg 1
 preplace inst soc_system.hps_0.spim0 -pg 1
+preplace inst soc_system.KBandIPsubAffine_0.KBandOutput.rst_inst -pg 1
 preplace inst soc_system.hps_0.spim1 -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.onchip_mem_FPGA_Slave -pg 1
 preplace inst soc_system.hps_0.timer -pg 1
@@ -44,21 +46,24 @@ preplace inst soc_system.hps_0.sysmgr -pg 1
 preplace inst soc_system.hps_0.l3regs -pg 1
 preplace inst soc_system.hps_0.f2s_periph_ref_clk -pg 1
 preplace inst soc_system.hps_0.axi_ocram -pg 1
-preplace inst soc_system.KBandIPsubAffine_0.KBandInput_1 -pg 1
 preplace inst soc_system.hps_0.sdmmc -pg 1
-preplace inst soc_system.sysid_qsys -pg 1 -lvl 5 -y 290
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_1 -pg 1
+preplace inst soc_system.sysid_qsys -pg 1 -lvl 5 -y 270
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_2 -pg 1
 preplace inst soc_system.fft_ddr_bridge -pg 1 -lvl 11 -y 250
 preplace inst soc_system.hps_0.arm_gic_0 -pg 1
 preplace inst soc_system.hps_0.rstmgr -pg 1
-preplace inst soc_system.KBandIPsubAffine_0.KBandInput_1.cb_inst -pg 1
 preplace inst soc_system.hps_0.usb0 -pg 1
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_1.cb_inst -pg 1
 preplace inst soc_system.hps_0.scu -pg 1
 preplace inst soc_system.hps_0.usb1 -pg 1
 preplace inst soc_system.lw_mm_bridge -pg 1 -lvl 4 -y 30
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_2.cb_inst -pg 1
 preplace inst soc_system.hps_0.hps_io -pg 1
 preplace inst soc_system.hps_0.nand0 -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.DDR -pg 1
 preplace inst soc_system.hps_0.gmac0 -pg 1
+preplace inst soc_system.KBandIPsubAffine_0.onchip_mem_LW2 -pg 1
 preplace inst soc_system.hps_0.gmac1 -pg 1
 preplace inst soc_system.hps_0 -pg 1 -lvl 13 -y 520
 preplace inst soc_system.hps_0.hps_io.border -pg 1
@@ -74,6 +79,7 @@ preplace inst soc_system.hps_0.fpga_interfaces -pg 1
 preplace inst soc_system.hps_0.f2s_sdram_ref_clk -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.KBandOutput.dispatcher_internal -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.KBandOutput.cb_inst -pg 1
+preplace inst soc_system.KBandIPsubAffine_0.KBandInput_2.read_mstr_internal -pg 1
 preplace inst soc_system.FPGA_Slave_mm_bridge -pg 1 -lvl 5 -y 440
 preplace inst soc_system.hps_0.sdrctl -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.KBandOutput -pg 1
@@ -81,28 +87,28 @@ preplace inst soc_system.hps_0.dma -pg 1
 preplace inst soc_system.intr_capturer_0 -pg 1 -lvl 5 -y 130
 preplace inst soc_system.hps_0.bridges -pg 1
 preplace inst soc_system.KBandIPsubAffine_0.clk_0 -pg 1
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.clk,(SLAVE)clk_0.clk_in) 1 0 1 NJ
 preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)pll_0.refclk,(MASTER)clk_0.clk) 1 1 1 N
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.memory,(SLAVE)soc_system.memory) 1 0 13 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ 750 NJ
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_debug_reset_req,(SLAVE)hps_0.f2h_debug_reset_req) 1 0 13 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ 590 NJ
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_axi_clock,(SLAVE)intr_capturer_0.clock,(SLAVE)axi_bridge_for_acp_128_0.clock,(SLAVE)KBandIPsubAffine_0.clk,(SLAVE)hps_0.h2f_lw_axi_clock,(SLAVE)hps_0.f2h_sdram0_clock,(SLAVE)sysid_qsys.clk,(SLAVE)fft_ddr_bridge.clock,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)lw_mm_bridge.clk,(MASTER)pll_0.outclk0,(SLAVE)FPGA_Slave_mm_bridge.clk) 1 2 11 NJ 230 700 160 1100 260 NJ 260 NJ 260 NJ 260 NJ 260 2360 210 2740 360 2970 610 3190
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)soc_system.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_stm_hw_events,(SLAVE)hps_0.f2h_stm_hw_events) 1 0 13 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)axi_bridge_for_acp_128_0.s0,(MASTER)fft_ddr_bridge.expanded_master) 1 11 1 2950
 preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_cold_reset_req,(SLAVE)hps_0.f2h_cold_reset_req) 1 0 13 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ 570 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)clk_0.clk_in,(SLAVE)soc_system.clk) 1 0 1 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)hps_0.h2f_reset,(SLAVE)hps_clk_out.clk_in_reset) 1 13 1 N
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)FPGA_Slave_mm_bridge.s0,(MASTER)hps_0.h2f_axi_master) 1 4 10 1080 530 NJ 480 NJ 480 NJ 480 NJ 480 NJ 480 NJ 480 NJ 480 NJ 480 3580
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)axi_bridge_for_acp_128_0.m0,(SLAVE)hps_0.f2h_axi_slave) 1 12 1 3190
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)FPGA_Slave_mm_bridge.s0,(MASTER)hps_0.h2f_axi_master) 1 4 10 1060 820 NJ 820 NJ 820 NJ 820 NJ 820 NJ 820 NJ 820 NJ 820 NJ 820 3600
 preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)hps_0.h2f_lw_axi_master,(SLAVE)lw_mm_bridge.s0) 1 3 11 740 800 NJ 800 NJ 800 NJ 800 NJ 800 NJ 800 NJ 800 NJ 800 NJ 800 NJ 800 3580
 preplace netloc EXPORT<net_container>soc_system</net_container>(MASTER)soc_system.hps_0_h2f_reset,(MASTER)hps_clk_out.clk_reset) 1 14 1 N
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)pll_0.outclk1,(SLAVE)KBandIPsubAffine_0.clk_int) 1 2 8 NJ 250 NJ 250 NJ 240 NJ 240 NJ 240 NJ 240 NJ 240 2380
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)KBandIPsubAffine_0.slw,(SLAVE)intr_capturer_0.avalon_slave_0,(MASTER)lw_mm_bridge.m0,(SLAVE)sysid_qsys.control_slave) 1 4 6 1060 280 NJ 380 NJ 380 NJ 380 NJ 380 NJ
-preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)intr_capturer_0.reset_sink,(SLAVE)KBandIPsubAffine_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)axi_bridge_for_acp_128_0.reset,(SLAVE)lw_mm_bridge.reset,(SLAVE)sysid_qsys.reset,(SLAVE)FPGA_Slave_mm_bridge.reset,(SLAVE)fft_ddr_bridge.reset,(SLAVE)pll_0.reset) 1 1 11 380 290 NJ 290 720 180 1040 400 NJ 400 NJ 400 NJ 400 NJ 400 2380 430 2760 380 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_clk_out.clk_in,(MASTER)hps_0.h2f_user1_clock) 1 13 1 3600
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)KBandIPsubAffine_0.m0,(SLAVE)fft_ddr_bridge.windowed_slave) 1 10 1 N
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_warm_reset_req,(SLAVE)soc_system.hps_0_f2h_warm_reset_req) 1 0 13 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)FPGA_Slave_mm_bridge.m0,(SLAVE)KBandIPsubAffine_0.sfpga) 1 5 5 1380 360 NJ 360 NJ 360 NJ 360 NJ
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_axi_slave,(MASTER)axi_bridge_for_acp_128_0.m0) 1 12 1 3170
-preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)fft_ddr_bridge.expanded_master,(SLAVE)axi_bridge_for_acp_128_0.s0) 1 11 1 2950
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.f2h_stm_hw_events,(SLAVE)soc_system.hps_0_f2h_stm_hw_events) 1 0 13 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ 650 NJ
-preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)hps_0.hps_io,(SLAVE)soc_system.hps_0_hps_io) 1 0 13 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ
-preplace netloc INTERCONNECT<net_container>soc_system</net_container>(MASTER)hps_0.f2h_irq0,(SLAVE)KBandIPsubAffine_0.kbandinput_1_csr_irq,(SLAVE)KBandIPsubAffine_0.kbandoutput_csr_irq,(MASTER)intr_capturer_0.interrupt_receiver) 1 5 9 1380 300 NJ 300 NJ 300 NJ 300 2360 460 NJ 460 NJ 460 NJ 460 3600
+preplace netloc INTERCONNECT<net_container>soc_system</net_container>(MASTER)intr_capturer_0.interrupt_receiver,(SLAVE)KBandIPsubAffine_0.kbandoutput_csr_irq,(SLAVE)KBandIPsubAffine_0.kbandinput_1_csr_irq,(SLAVE)KBandIPsubAffine_0.kbandinput_2_csr_irq,(MASTER)hps_0.f2h_irq0) 1 5 9 1380 300 NJ 300 NJ 300 NJ 300 2400 470 NJ 470 NJ 470 NJ 470 3580
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)FPGA_Slave_mm_bridge.clk,(SLAVE)hps_0.h2f_axi_clock,(SLAVE)intr_capturer_0.clock,(MASTER)pll_0.outclk0,(SLAVE)hps_0.f2h_axi_clock,(SLAVE)KBandIPsubAffine_0.clk,(SLAVE)hps_0.f2h_sdram0_clock,(SLAVE)lw_mm_bridge.clk,(SLAVE)hps_0.h2f_lw_axi_clock,(SLAVE)sysid_qsys.clk,(SLAVE)fft_ddr_bridge.clock,(SLAVE)axi_bridge_for_acp_128_0.clock) 1 2 11 560 160 700 160 1100 260 NJ 260 NJ 260 NJ 260 NJ 260 2400 210 2740 240 2970 440 3170
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)axi_bridge_for_acp_128_0.reset,(SLAVE)pll_0.reset,(SLAVE)KBandIPsubAffine_0.reset,(MASTER)clk_0.clk_reset,(SLAVE)sysid_qsys.reset,(SLAVE)FPGA_Slave_mm_bridge.reset,(SLAVE)fft_ddr_bridge.reset,(SLAVE)intr_capturer_0.reset_sink,(SLAVE)lw_mm_bridge.reset) 1 1 11 380 210 NJ 210 720 180 1040 360 NJ 360 NJ 360 NJ 360 NJ 360 2380 450 2740 380 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)hps_clk_out.clk_in_reset,(MASTER)hps_0.h2f_reset) 1 13 1 N
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)hps_0.h2f_user1_clock,(SLAVE)hps_clk_out.clk_in) 1 13 1 3620
+preplace netloc FAN_OUT<net_container>soc_system</net_container>(SLAVE)sysid_qsys.control_slave,(SLAVE)KBandIPsubAffine_0.slw,(SLAVE)intr_capturer_0.avalon_slave_0,(MASTER)lw_mm_bridge.m0) 1 4 6 1080 400 NJ 400 NJ 400 NJ 400 NJ 400 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)fft_ddr_bridge.windowed_slave,(MASTER)KBandIPsubAffine_0.m0) 1 10 1 N
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(MASTER)FPGA_Slave_mm_bridge.m0,(SLAVE)KBandIPsubAffine_0.sfpga) 1 5 5 1380 340 NJ 340 NJ 340 NJ 340 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_hps_io,(SLAVE)hps_0.hps_io) 1 0 13 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ
+preplace netloc POINT_TO_POINT<net_container>soc_system</net_container>(SLAVE)KBandIPsubAffine_0.clk_int,(MASTER)pll_0.outclk1) 1 2 8 NJ 250 NJ 250 NJ 380 NJ 280 NJ 280 NJ 280 NJ 280 NJ
+preplace netloc EXPORT<net_container>soc_system</net_container>(SLAVE)soc_system.hps_0_f2h_warm_reset_req,(SLAVE)hps_0.f2h_warm_reset_req) 1 0 13 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ 670 NJ
 levelinfo -pg 1 0 170 3970
 levelinfo -hier soc_system 180 210 430 680 940 1170 1590 1740 1990 2340 2620 2790 3040 3390 3670 3840

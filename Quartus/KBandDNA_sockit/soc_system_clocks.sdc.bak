@@ -3,8 +3,6 @@ create_clock -period 20 [get_ports clk_bot1]
 create_clock -period 40 [get_ports hps_i2c1_SCL]
 create_clock -period 40 [get_ports hps_usb1_CLK]
 
-derive_pll_clocks
-
 # for enhancing USB BlasterII to be reliable, 25MHz
 create_clock -name {altera_reserved_tck} -period 40 {altera_reserved_tck}
 set_input_delay -clock altera_reserved_tck -clock_fall 3 [get_ports altera_reserved_tdi]

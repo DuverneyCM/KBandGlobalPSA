@@ -16,116 +16,127 @@ NWSeqAlignAffine2::usage = "NWSeqAlignAffine2  "
 
 Begin["`Private`"]
 (* Implementation of the package *)
+(*Global variables*)
+diag = {1,1};
+up = {1,0};
+left = {0,1};
+invalid = {0,0};
+
 
 
 (* ::Subsection::Closed:: *)
-(*Traceback functions*)
+(*Compiler Load*)
+Needs["CCompilerDriver`"]
+$CCompiler = {"Compiler" ->
+   CCompilerDriver`GenericCCompiler`GenericCCompiler,
+  "CompilerInstallation" -> "C:\\mingw-w64\\mingw64\\bin",
+  "CompilerName" -> "gcc.exe"};
 
+(* ::Subsection::Closed:: *)
+(*Traceback functions*)
 
 (* TODO - gives a list of the starting at which 'subSeq' appears in 'seq' *)
 SeqPos[seq_List, subSeq_List] :=
 	ReplaceList[seq, {x___, Sequence @@ subSeq, ___} :> 1 + Length[{x}]];
 
 
-(* TODO - decode arrow in the tags "diag", "left", "up" or "invalid" *)
-DecodeArrow[curArrow_, indexH_, indexV_, seqA_, seqB_, lastArrowTag_] :=
-	If[indexH == 0 && indexV == 0, "invalid",
-	If[indexH == 0, "up",
-	If[indexV == 0, "left",
-	If[seqA[[indexH]]==seqB[[indexV]] && lastArrowTag=="diag", "diag",
-	Switch[curArrow,
-		{1,1}, "diag",
-		{1,0}, "up",
-		{0,1}, "left",
-		{0,0}, If[seqA[[indexH]]==seqB[[indexV]], "diag",lastArrowTag]
+	(* TODO - decode arrow in the tags "diag", "left", "up" or "invalid" *)
+	DecodeArrow[curArrow_, indexH_, indexV_, seqA_, seqB_, lastArrowTag_] :=
+		If[indexH == 0 && indexV == 0, invalid,
+		If[indexH == 0, up,
+		If[indexV == 0, left,
+		If[seqA[[indexH]]==seqB[[indexV]] && lastArrowTag==diag, diag,
+		Switch[curArrow,
+			{1,1}, diag,
+			{1,0}, up,
+			{0,1}, left,
+			{0,0}, If[seqA[[indexH]]==seqB[[indexV]], diag,lastArrowTag]
 
-					(*If[lastArrowTag=="diag",(*lastArrowTag],*)
-						If[indexH > indexV, "left", "up"]],
-					lastArrowTag]*)
-				(*"diag"*)
-				(*lastArrowTag*)
-	]]]]]
+		]]]]]
 
 
-(* TODO - gives a list with the next align indexes *)
-GetAlignIndexes[typeArrow_, indexH_, indexV_] :=
-	Switch[typeArrow,
-		"diag",	{indexH-1,indexV-1},
-		"up",	{indexH,indexV-1},
-		"left",	{indexH-1,indexV},
-		"invalid", {0,0}
-	]
+	(* TODO - gives a list with the next align indexes *)
+	GetAlignIndexes[typeArrow_, indexH_, indexV_] :=
+		Switch[typeArrow,
+			diag,	{indexH-1,indexV-1},
+			up,	{indexH,indexV-1},
+			left,	{indexH-1,indexV},
+			invalid, {0,0}
+		]
 
 
-(* TODO - gives a list with the next align symbols *)
-GetAlignSymbols[typeArrow_, indexH_, indexV_, seqA_, seqB_] :=
-	Switch[typeArrow,
-		"diag",	{seqA[[indexH]], seqB[[indexV]]},
-		"up",	{"_", seqB[[indexV]]},
-		"left",	{seqA[[indexH]], "_"},
-		"invalid", {"_","_"}
-	]
+	(* TODO - gives a list with the next align symbols *)
+	GetAlignSymbols[typeArrow_, indexH_, indexV_, seqA_, seqB_] :=
+		Switch[typeArrow,
+			diag,	{seqA[[indexH]], seqB[[indexV]]},
+			up,	{95 (*"_"*), seqB[[indexV]]},
+			left,	{seqA[[indexH]], 95 (*"_"*)},
+			invalid, {95,95} (*{"_","_"}*)
+		]
 
 
-(* TODO - add the align symbols to align sequences*)
-AddAlignSymbols[symbolA_, symbolB_] :=
-	Block[{},
-		Sow[symbolA, tagSeqA];
-		Sow[symbolB, tagSeqB];
-	]
+	(* TODO - add the align symbols to align sequences*)
+	AddAlignSymbols[symbolA_, symbolB_] :=
+		Block[{},
+			Sow[symbolA, tagSeqA];
+			Sow[symbolB, tagSeqB];
+		]
 
 
-(* TODO - gives a list with the next align symbols *)
-GetSimilarityAndDistance[AlignSymbols_, Similarity_, Distance_] :=
-	If[AlignSymbols[[1]] == AlignSymbols[[2]],
-		If[AlignSymbols[[1]] != "_",
-			{Similarity + 1, Distance},
-			{Similarity, Distance}
-		],{Similarity - 1, Distance + 1}
-	]
+	(* TODO - gives a list with the next align symbols *)
+	GetSimilarityAndDistance[AlignSymbols_, Similarity_, Distance_] :=
+		If[AlignSymbols[[1]] == AlignSymbols[[2]],
+			If[AlignSymbols[[1]] != 95, (*"_", *)
+				{Similarity + 1, Distance},
+				{Similarity, Distance}
+			],{Similarity - 1, Distance + 1}
+		]
 
 
-(* TODO - gives a list of the relative next arrow position: \'
-	Position of the Row [[1]] and Position of the Arrow in the Row [[2]] *)
-DecodePosNextArrow[typeArrow_, curDir_] :=
-	Switch[typeArrow,
-		"diag", {2,0},
-		"up", If[curDir == 0, {1,-1}, {1,0}],
-		"left",	If[curDir == 0, {1,0}, {1,1}],
-		"invalid", {0,0}
-	]
+	(* TODO - gives a list of the relative next arrow position: \'
+		Position of the Row [[1]] and Position of the Arrow in the Row [[2]] *)
+	DecodePosNextArrow[typeArrow_, curDir_] :=
+		Switch[typeArrow,
+			diag, {2,0},
+			up, If[curDir == 0, {1,-1}, {1,0}],
+			left,	If[curDir == 0, {1,0}, {1,1}],
+			invalid, {0,0}
+		]
 
 
-(* TODO - gives a list with the code of the next Arrow *)
-GetNextArrow[arrowMatrix_, indexArrow_, indexRow_] :=
-	Partition[arrowMatrix[[ -indexRow ]], 2] [[ indexArrow ]]
+	(* TODO - gives a list with the code of the next Arrow *)
+	GetNextArrow[arrowMatrix_, indexArrow_, indexRow_] :=
+		Partition[arrowMatrix[[ -indexRow ]], 2] [[ indexArrow ]]
 
 
-(* TODO - gives the next direction sweep *)
-GetNextDirectionSweep[curDirSweep_, posNextArrow_] :=
-	Mod[curDirSweep + posNextArrow[[1]], 2];
+	(* TODO - gives the next direction sweep *)
+	GetNextDirectionSweep[curDirSweep_, posNextArrow_] :=
+		Mod[curDirSweep + posNextArrow[[1]], 2];
 
 
-(* TODO - Traceback *)
-TracebackKBandNW[arrowMatrix_, flagD_, seqA_, seqB_] :=
-	Block[{h = Length@seqA, v = Length@seqB, newSeqA={}, newSeqB={}, similarity=0, distance=0,
-		indexRow, indexArrow, arrow, arrowTag, symbolA, symbolB, posNextArrow, flagDSweep },
+	(* TODO - Traceback *)
+	(*TracebackKBandNW[arrowMatrix_, flagD_, seqA_, seqB_] :=*)
+	TracebackKBandNW = Compile[
+		{{arrowMatrix,_Integer,2}, {flagD,_Integer}, {seqA,_Integer,1}, {seqB,_Integer,1}},
+		Block[{h = Length@seqA, v = Length@seqB, newSeqA={}, newSeqB={}, similarity=0, distance=0,
+			indexRow, indexArrow, arrow, arrowTag, symbolA, symbolB, posNextArrow, flagDSweep },
 
-		arrowTag = "diag";
-		flagDSweep = flagD;
-		{indexRow, indexArrow} = {1, Ceiling[SeqPos[arrowMatrix[[-1]], {1}][[1]]/2]};
-		Reap[While[h != 0 || v != 0,
-			arrow = GetNextArrow[arrowMatrix, indexArrow, indexRow];
-			arrowTag = DecodeArrow[arrow, h, v, seqA, seqB, arrowTag];
-			{symbolA, symbolB} = GetAlignSymbols[arrowTag, h, v, seqA, seqB];
-			AddAlignSymbols[symbolA, symbolB];
-			{h, v} = GetAlignIndexes[arrowTag, h, v];
-			posNextArrow = DecodePosNextArrow[arrowTag, flagDSweep];
-			{indexRow, indexArrow} = {indexRow + posNextArrow[[1]], indexArrow + posNextArrow[[2]]};
-			flagDSweep = GetNextDirectionSweep[flagDSweep, posNextArrow];
-			{similarity, distance} = GetSimilarityAndDistance[{symbolA, symbolB}, similarity, distance];
-		];{similarity, distance}]
-	]
+			arrowTag = diag;
+			flagDSweep = flagD;
+			{indexRow, indexArrow} = {1, Ceiling[SeqPos[arrowMatrix[[-1]], {1}][[1]]/2]};
+			Reap[While[h != 0 || v != 0,
+				arrow = GetNextArrow[arrowMatrix, indexArrow, indexRow];
+				arrowTag = DecodeArrow[arrow, h, v, seqA, seqB, arrowTag];
+				{symbolA, symbolB} = GetAlignSymbols[arrowTag, h, v, seqA, seqB];
+				AddAlignSymbols[symbolA, symbolB];
+				{h, v} = GetAlignIndexes[arrowTag, h, v];
+				posNextArrow = DecodePosNextArrow[arrowTag, flagDSweep];
+				{indexRow, indexArrow} = {indexRow + posNextArrow[[1]], indexArrow + posNextArrow[[2]]};
+				flagDSweep = GetNextDirectionSweep[flagDSweep, posNextArrow];
+				{similarity, distance} = GetSimilarityAndDistance[{symbolA, symbolB}, similarity, distance];
+			];{similarity, distance}]
+		]
+	, Parallelization->True, CompilationTarget->"C"]
 
 
 (* ::Subsection:: *)
@@ -171,124 +182,11 @@ ScoreMatrix =  Compile[
 (*Linear Gap*)
 
 
-(* TODO -  Solve the NW algorithm using a compiled function*)
-compileNWSeqAlign = Compile[
-	{{h,_Integer,2}, {lut,_Integer,1}, {gap,_Integer}, {flagD,_Integer}},
-	Block[{n, funDiag, funUp, funLeft, funEdge, invalidRow,
-		selMayor, mayorUL, mayorDUL, arrowsRow},
-
-		n = Length@lut;
-		funDiag = funUp = funLeft = funEdge = Table[0, {i, n}];
-		invalidRow = Total[Abs[lut]];
-		selMayor=Table[0,n,2];
-		mayorUL = mayorDUL = Table[0, {i, n}];
-		arrowsRow = Table[{0,0}, {i, n}];
-
-		(*
-		Table[If[flagD == 0,
-			funUp[[i-1]] = h[[i, 1]] - gap,
-   			funUp[[i-1]] = h[[i + 1, 1]] - gap], {i, 2, n + 1}
-   		];
-		Table[If[flagD == 0,
-			funLeft[[i-1]] = h[[i - 1, 1]] - gap,
-   			funLeft[[i-1]] = h[[i, 1]] - gap], {i, 2, n + 1}
-   		];
-
-   		Table[
-   			funDiag[[i-1]] = h[[i, 2]] + lut[[i-1]];
-   			funEdge[[i-1]] = h[[i, 1]] - gap;, {i, 2, n + 1}
-   		];
-   		*)
-
-   		If[flagD == 0,
-			funUp = Table[ h[[i, 1]] - gap, {i, 2, n + 1}];
-			funLeft = Table[ h[[i - 1, 1]] - gap, {i, 2, n + 1}];
-				,
-   			funUp = Table[ h[[i + 1, 1]] - gap, {i, 2, n + 1}];
-   			funLeft = Table[ h[[i, 1]] - gap, {i, 2, n + 1}];
-   		];
-   		funDiag	= h[[2;; n + 1, 2]] + lut;
-   		funEdge = h[[2;; n + 1, 1]] - gap;
-
-
-   		mayorUL = Max /@ ({funUp, funLeft}\[Transpose]);
-
-
-   		selMayor[[1;;-1,2]] = Table[If[funUp[[i]] < funLeft[[i]],1,0], {i, n}];
-   		selMayor[[1;;-1,1]] = Table[If[funDiag[[i]] < mayorUL[[i]],1,0], {i, n}];
-
-		(*
-		arrowsRow = Table[
-   			Switch[selMayor[[i]],
-				{0,0}, {1,1},
-				{1,0}, {0,1},
-				{0,1}, {1,1},
-				{1,1}, {1,0}
-			]
-   		,{i, n}];
-   		*)
-   		Table[
-   			arrowsRow[[i]] = Switch[selMayor[[i]],
-				{0,0}, {1,1},
-				{1,0}, {0,1},
-				{0,1}, {1,1},
-				{1,1}, {1,0}
-			];
-   		,{i, n}];
-   		arrowsRow = Table[
-			If[ lut[[i]] == 0, {0,0}, arrowsRow[[i]] ]
-		,{i, n}];
-
-
-   		(*
-   		Table[selMayor[[i,2]] = If[funUp[[i]] < funLeft[[i]],1,0], {i, n}];
-   		Table[selMayor[[i,1]] = If[funDiag[[i]] < mayorUL[[i]],1,0], {i, n}];
-
-   		Table[
-   			arrowsRow[[i]] = Switch[selMayor[[i]],
-				{0,0}, {1,1},
-				{1,0}, {0,1},
-				{0,1}, {1,1},
-				{1,1}, {1,0}
-			];
-			arrowsRow[[i]] = If[ lut[[i]] == 0, {0,0}, arrowsRow[[i]] ];
-   		,{i, n}];
-		*)
-		(*
-   		Table[
-   			mayorDUL[[i]] = Switch[arrowsRow[[i]],
-				{1,1}, funDiag[[i]], {1,0}, funLeft[[i]],
-				{0,1}, funUp[[i]],	{0,0}, 0];
-			mayorDUL[[i]] = If[lut[[i]] == 0, funEdge[[i]], mayorDUL[[i]] ];
-			(*mayorDUL[[i]] = If[invalidRow == 0, 0, mayorDUL[[i]] ];*)
-   		,{i, n}];
-   		If[invalidRow == 0, mayorDUL = Table[0, n]];
-   		*)
-   		(*
-   		mayorDUL = Table[
-   			 Switch[arrowsRow[[i]],
-				{1,1}, funDiag[[i]], {1,0}, funLeft[[i]],
-				{0,1}, funUp[[i]],	{0,0}, 0]
-			(*mayorDUL[[i]] = If[invalidRow == 0, 0, mayorDUL[[i]] ];*)
-   		,{i, n}];
-   		*)
-   		Table[
-   			mayorDUL[[i]] = Switch[arrowsRow[[i]],
-				{1,1}, funDiag[[i]], {1,0}, funLeft[[i]],
-				{0,1}, funUp[[i]],	{0,0}, 0];
-   		,{i, n}];
-   		mayorDUL = Table[
-   			If[lut[[i]] == 0, funEdge[[i]], mayorDUL[[i]] ]
-   		,{i, n}];
-   		If[invalidRow == 0, mayorDUL = Table[0, n]];
-
-		{arrowsRow, mayorDUL}
-	]
-]
-
-
 (* TODO -  Solve the NW algorithm using in-built functions *)
-NWSeqAlign[h_, valid_, lut_, gap_, flagD_] :=
+(*NWSeqAlign[h_, valid_, lut_, gap_, flagD_] :=*)
+
+NWSeqAlign = Compile[
+	{{h,_Integer, 2}, {valid,_Integer,1}, {lut,_Integer,1}, {gap,_Integer}, {flagD,_Integer}},
 	Block[{n, funDiag, funUp, funLeft, funEdge, invalidRow,
 		selMayor, mayorUL, mayorDUL, arrowsRow, casos},
 
@@ -320,8 +218,9 @@ NWSeqAlign[h_, valid_, lut_, gap_, flagD_] :=
    		If[invalidRow == 0, mayorDUL = Table[0, n]];
 
 		(*Seleccionar flecha asociada al mayor*)
-   		selMayor[[;;,2]] = Table[If[funUp[[i]] < funLeft[[i]],1,0], {i, n}];
-   		selMayor[[;;,1]] = Table[If[funDiag[[i]] < mayorUL[[i]],1,0], {i, n}];
+   		selMayor[[1;;-1,2]] = Table[If[funUp[[i]] < funLeft[[i]],1,0], {i, n}];
+   		selMayor[[1;;-1,1]] = Table[If[funDiag[[i]] < mayorUL[[i]],1,0], {i, n}];
+   		(*
 		arrowsRow = Table[
    			Switch[selMayor[[i]],
 				{0,0}, {1,1},
@@ -329,7 +228,12 @@ NWSeqAlign[h_, valid_, lut_, gap_, flagD_] :=
 				{0,1}, {1,1},
 				{1,1}, {1,0}
 			]
-   		,{i, n}];
+   		,{i, n}];*)
+   		arrowsRow = Table[{
+   			If[selMayor[[i]]=={1,0},0,1],
+   			If[selMayor[[i]]=={1,1},0,1]
+   			},{i, n}];
+
    		arrowsRow = Table[
 			If[valid[[i]] == 0, {0,0}, arrowsRow[[i]] ]
 		,{i, n}];
@@ -340,12 +244,17 @@ NWSeqAlign[h_, valid_, lut_, gap_, flagD_] :=
    		*)
 
 		{arrowsRow, mayorDUL}
+
 	]
+, Parallelization->True, CompilationTarget->"C"]
 
 
 
 (* TODO - Forward *)
-ForwardKBandNW[noPEs_, seqA_, seqB_, match_, mismatch_, gap_, offsetUser_] :=
+(*ForwardKBandNW[noPEs_, seqA_, seqB_, match_, mismatch_, gap_, offsetUser_] :=*)
+ForwardKBandNW = Compile[
+	{{noPEs,_Integer}, {seqA,_Integer,1}, {seqB,_Integer,1},
+		{match,_Integer}, {mismatch,_Integer}, {gap,_Integer}, {offsetUser,_Integer}},
 	Block[{lenA = Length@seqA, lenB = Length@seqB, enhSeqA, enhSeqB, lenSeqMax, offset,
 		validPEs, lutByPE, cycle, arrowsRow, matrixH, outputH, noCYCLE=1, noValidRows, inBufferA,
 		inBufferB, flagD },
@@ -353,15 +262,21 @@ ForwardKBandNW[noPEs_, seqA_, seqB_, match_, mismatch_, gap_, offsetUser_] :=
 		lenSeqMax = Max[lenA, lenB];
 		noValidRows = lenA + lenB - 1;
 		offset = Abs[Floor[(lenB - lenA)/2]] + offsetUser;
-		{enhSeqA, enhSeqB} = If[lenB > lenA,
+(*		{enhSeqA, enhSeqB} = If[lenB > lenA,
   			{Join[Table[0, offset], seqA, Table[0, (lenB-lenA) - offset]], seqB},
   			{seqA, Join[Table[0, offset], seqB, Table[0, (lenA-lenB) - offset]]}
   		];
-  		enhSeqA = Join[enhSeqA,Table[0,noPEs+offset]];
-  		enhSeqB = Join[enhSeqB,Table[0,noPEs+offset]];
+*)
+		enhSeqA = If[lenB > lenA,
+  			Join[Table[0, {i,offset}], seqA, Table[0, {i,(lenB-lenA) - offset}]], seqA ];
+		enhSeqB = If[lenB > lenA,
+  			seqB, Join[Table[0, {i,offset}], seqB, Table[0, {i,(lenA-lenB) - offset}]] ];
+
+  		enhSeqA = Join[enhSeqA,Table[0,{i,noPEs+offset}]];
+  		enhSeqB = Join[enhSeqB,Table[0,{i,noPEs+offset}]];
 
   		inBufferA = inBufferB = validPEs = lutByPE = Table[0., noPEs];
-  		matrixH = Table[-10^15{1, 1}, noPEs + 2];
+  		matrixH = Table[-10^15{1, 1}, {i,noPEs + 2}];
 
   		flagD = 0;
 
@@ -370,58 +285,18 @@ ForwardKBandNW[noPEs_, seqA_, seqB_, match_, mismatch_, gap_, offsetUser_] :=
   			{validPEs, lutByPE} = ScoreMatrix[inBufferA, inBufferB, match, mismatch, gap, noPEs];
 
   			{arrowsRow, outputH} = NWSeqAlign[matrixH, validPEs, lutByPE, gap, flagD];
-  				Sow[arrowsRow//Flatten, tagArrow]; Sow[outputH, tagMatrixH];
+  				Sow[arrowsRow//Flatten, tagArrow];
+  				Sow[outputH, tagMatrixH];
 
   			matrixH[[;;,2]] = matrixH[[;;,1]];
   			matrixH[[2;;-2,1]] = outputH;
 
   			If[flagD == 1, noCYCLE++];
-  			flagD = Mod[flagD + 1, 2];
+  			flagD = If[flagD==1,0,1];(*Mod[flagD + 1, 2];*)
   		];flagD]
+	]
+, Parallelization->True, CompilationTarget->"C"]
 
-  	]
-
-
-(* TODO - Compiled Versions *)
-(*
-compileForwardKBandNW = Compile[
-	{{noPEs,_Integer}, {seqA,_Integer,1}, {seqB,_Integer,1}, {match,_Integer}, {mismatch,_Integer}, {gap,_Integer}, {offsetUser,_Integer}},
-	Block[{lenA = Length@seqA, lenB = Length@seqB, enhSeqA, enhSeqB, lenSeqMax, offset,
-		lutByPE, cycle, arrowsRow, matrixH, outputH, noCYCLE=1, noValidRows, inBufferA, inBufferB, arrow, posNextArrow, flagD },
-
-		lenSeqMax = Max[lenA, lenB];
-		noValidRows = lenA + lenB - 1;
-		offset = Abs[Floor[(lenB - lenA)/2]] + offsetUser;
-		{enhSeqA, enhSeqB} = If[lenB > lenA,
-  			{Join[Table[0, offset], seqA, Table[0, (lenB-lenA) - offset]], seqB},
-  			{seqA, Join[Table[0, offset], seqB, Table[0, (lenA-lenB) - offset]]}
-  		];
-  		enhSeqA = Join[enhSeqA,Table[0,noPEs+offset]];
-  		enhSeqB = Join[enhSeqB,Table[0,noPEs+offset]];
-
-  		inBufferA = inBufferB = lutByPE = Table[0, noPEs];
-  		matrixH = Table[-10^15{1, 1}, noPEs + 2];
-
-  		flagD = 0;
-
-  		Reap[For[cycle=1, cycle <= (noPEs + offset + noValidRows), cycle++,
-  			{inBufferA, inBufferB} = LoadInputBuffer[enhSeqA[[noCYCLE]], enhSeqB[[noCYCLE]], inBufferA, inBufferB, flagD];
-  			lutByPE = ScoreMatrix[inBufferA, inBufferB, match, mismatch, noPEs];
-
-  			{arrowsRow, outputH} = compileNWSeqAlign[matrixH, lutByPE, gap, flagD];
-  				Sow[arrowsRow//Flatten, tagArrow]; (*Sow[outputH, tagMatrixH];*)
-
-  			matrixH[[1;;-1,2]] = matrixH[[1;;-1,1]];
-  			matrixH[[2;;-2,1]] = outputH;
-
-  			If[flagD == 1, noCYCLE++];
-  			flagD = Mod[flagD + 1, 2];
-  		];flagD]
-
-  	]
-
-]
-*)
 
 
 (* ::Subsubsection:: *)

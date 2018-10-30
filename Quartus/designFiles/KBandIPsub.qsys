@@ -315,7 +315,7 @@
   <parameter name="USE_RESPONSE" value="0" />
  </module>
  <module name="KBand21_0" kind="KBand21" version="1.0" enabled="1">
-  <parameter name="NoCell" value="256" />
+  <parameter name="NoCell" value="1024" />
   <parameter name="bitsOUT" value="128" />
   <parameter name="dimADN" value="3" />
   <parameter name="dimH" value="4" />
@@ -453,7 +453,7 @@
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module name="clk_0" kind="clock_source" version="16.1" enabled="1">
-  <parameter name="clockFrequency" value="200000000" />
+  <parameter name="clockFrequency" value="100000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
   <parameter name="resetSynchronousEdges" value="NONE" />
@@ -600,7 +600,7 @@
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="200000000" />
+  <parameter name="clockRate" value="100000000" />
   <parameter name="direction" value="Output" />
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
