@@ -254,11 +254,11 @@ begin
 	orHN	<=	rH1(NoCell);
 	orG1	<=	rG1(1);
 	orGN	<=	rG1(NoCell);
-	rH1(NoCell+1)	<=	irH1;
-	sH(0)				<=	irHN;
-	rG1(NoCell+1)	<=	irG1;
-	sG(0)				<=	irGN;
-	
+	rH1(NoCell+1)	<=	irHN;
+	sH(0)				<=	irH1;
+	rG1(NoCell+1)	<=	irGN;
+	sG(0)				<=	irG1;
+
 	mux:
 	for i in 2 to NoCell generate
 		mux_HU: arrayHU(i) <=	rH1(i) when sDirection = '1' else rH1(i+1); --si el ultimo movimiento fue vertical (0)

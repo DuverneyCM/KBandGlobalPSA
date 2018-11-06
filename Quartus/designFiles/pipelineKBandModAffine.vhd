@@ -72,6 +72,9 @@ begin
 			--end if;
 			--Second Delay
 			--se podría considerar eliminar este retardo para ahorrar hardware
+			if (iEnable = '1' AND clearH2 = '0') then
+				sH2		<=	sH1;
+			end if;
 			if (iEnable = '1') then
 		--		if (iCero = '1' or iFinish = '1') then
 		--			sH1	<= (others => '0');
@@ -79,7 +82,8 @@ begin
 		--			sH1	<=	iH;
 		--		end if;
 
-				sH2		<= sH1mux;
+				--sH2		<= sH1mux;	----------------------
+				
 				sH1		<= iH;
 			end if;
 			--registros de desplazamiento para aminoH y aminoV, cargan de forma alternada

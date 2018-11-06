@@ -224,8 +224,8 @@ begin
 	--sH(0)				<=	rH2(1);--(dimH-1 => '1', 1 => '1', others => '0'); --sH
 	orH1	<=	rH1(1);
 	orHN	<=	rH1(NoCell);
-	rH1(NoCell+1)	<=	irH1;
-	sH(0)				<=	irHN;
+	sH(0)				<=	irH1;
+	rH1(NoCell+1)	<=	irHN;
 
 	mux:
 	for i in 2 to NoCell generate

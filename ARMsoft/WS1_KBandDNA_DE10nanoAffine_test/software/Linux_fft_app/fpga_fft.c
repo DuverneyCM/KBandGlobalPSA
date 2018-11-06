@@ -379,7 +379,7 @@ int main(int argc, char **argv)
 	unsigned seqA, seqB, pack;
 	int dimPacketMAX;
 	int latenciaKBand = 6;//3*2; //Latency = 6
-	int usPause = 150;//200;
+	int usPause = 200;//200;
 	//valuei1 = (unsigned int *)((int)hps_DATAin1);
 	//valuei2 = (unsigned int *)((int)hps_DATAin2);
 	valuei1 = (char *)((int)hps_DATAin1);

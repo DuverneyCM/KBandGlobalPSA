@@ -136,7 +136,12 @@ int main(int argc, char *argv[]) {
 		//si dirHV sigue siendo cero, error en el archivo
 	if (isHV == NoRegs) dirHV = 1;		// V
 	if (isHV == -NoRegs) dirHV = -1;	// H
-		printf("isHV = %d\n",dirHV);
+	if (atoi(argv[10])==1)	dirHV = dirHV;
+	if (atoi(argv[10])==-1)	dirHV = -dirHV;
+	if (atoi(argv[10])==2)	dirHV = 1;
+	if (atoi(argv[10])==-2)	dirHV = -1;
+	//dirHV =dirHV*atoi(argv[10]);
+		printf("isHV = %d\n",isHV);
 		printf("dirHV = %d\n",dirHV);
 /**/
 

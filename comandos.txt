@@ -1,0 +1,65 @@
+root@cyclone5:~# cat start_fpga.sh
+#!/bin/sh
+
+set_bridge () {
+    bridge=$1
+    value=$2
+
+    echo $value > "/sys/class/fpga-bridge/$bridge/enable"
+}
+
+RBF="$1"
+
+set_bridge hps2fpga 0
+set_bridge fpga2hps 0
+set_bridge lwhps2fpga 0
+
+# Program the FPGA
+dd if="$RBF" of=/dev/fpga0 || exit 1
+
+# Enable the LWHPS2FPGA bridge
+set_bridge hps2fpga 1
+set_bridge fpga2hps 1
+set_bridge lwhps2fpga 1
+
+
+
+
+
+
+root@cyclone5:~#
+echo 0 > "/sys/class/fpga-bridge/hps2fpga/enable"
+
+
+mount /dev/mmcblk0p1 /mnt/SDK/
+
+scp seqAnew.txt
+Duverney@192.168.137.1:f:/GitHub/KBandGlobalPSA/ARMsoft/
+
+scp Duverney@192.168.137.1:f:/GitHub/KBandGlobalPSA/ARMsoft/
+WS1_KBandDNA_DE10nanoAffine_test/software/Linux_fft_app/
+fpga_fft ~/duver/KBandNW
+
+scp Duverney@192.168.137.1:f:/GitHub/KBandGlobalPSA/ARMsoft/
+WS1_KBandDNA_DE10nano_test/software/Linux_fft_app/fpga_fft
+~/duver/KBandNW
+
+./fpga_fft 1024 sequences-singleLine/NM_001354943.1.fa
+sequences-singleLine/NM_001354944.1.fa arrows/arrowsHPS 0
+
+./tracebackhps 1024 sequences-singleLine/NM_001354943.1.fa
+sequences-singleLine/NM_001354944.1.fa arrows/arrowsHPS 1
+seqAnew.txt seqBnew.txt seqAin.bin seqBin.bin
+
+scp Duverney@192.168.137.1:~/Documents/Quartus/
+traceback_hps/tracebackhps ~/duver/KBandNW
+
+scp Duverney@192.168.137.1:f:/GitHub/KBandGlobalPSA/ARMsoft/
+traceback_hps/tracebackhps ~/duver/KBandNW
+
+scp Duverney@192.168.137.1:~/Documents/Quartus/SocKit-
+Rocketboard/WS1-IntroToSoC-dna/software/Linux_fft_app/fpga_fft
+~/duver/KBandNW
+
+hexdump -s 0x8f480	//offset
+hexdump -n 0xff000	//cantidad
