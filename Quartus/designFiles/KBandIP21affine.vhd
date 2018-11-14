@@ -13,15 +13,15 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 use ieee.std_logic_unsigned.all;
 
-ENTITY KBandIP21 is
+ENTITY KBandIP21affine is
 	generic(
-		NoCell		: 	natural  :=	32;
-		dimH			: 	natural  :=	8;
-		dimSymbol	:	natural	:=	32;
+		NoCell		: 	natural  :=	256;
+		dimH			: 	natural  :=	32;
+		dimSymbol	:	natural	:=	8;
 		dimADN		: 	natural  :=	3;
-		bitsOUT		:	natural	:=	64; --Source data width
+		bitsOUT		:	natural	:=	128; --Source data width
 		widthu		:	natural	:=	6; --2**w = #regs
-		dimLUT		:	natural  :=	4
+		dimLUT		:	natural  :=	8
 	);
 	port (
 		clock_ext    : in  std_logic  := '0';             --  clock.clk
@@ -44,9 +44,9 @@ ENTITY KBandIP21 is
 		oDirection		:	out std_logic
 
 	);
-END ENTITY KBandIP21;
+END ENTITY KBandIP21affine;
 
-ARCHITECTURE rtl OF KBandIP21 IS
+ARCHITECTURE rtl OF KBandIP21affine IS
 
 	signal	sADN1, sADN2			:	std_logic_vector(dimADN downto 1);
 	signal	sDirection, sProcesar:	std_logic;
@@ -56,7 +56,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sArrow_data  			:	std_logic_vector(bitsOUT-1 downto 0);
 
 	signal	sArrow_valid			: std_logic;
-	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket ¿De donde saco esta señal?
+	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket Ãƒâ€šÃ‚Â¿De donde saco esta seÃƒÆ’Ã‚Â±al?
 	signal	sSourceEmpty			: std_logic;
 	signal	sSinkRead, sSourceWrite		: std_logic;
 	signal	sSourceSendDirection	:	std_logic;

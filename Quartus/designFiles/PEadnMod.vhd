@@ -87,7 +87,7 @@ begin
 					iMisMatch 	when "011110",
 					iMisMatch 	when "011111",
 					iMatch 		when "011011",
-					"0000" when others;
+					(others => '0') when others;
 
 	--detecta si hay elementos de secuencia para alinear. Datos invalidos se indica con 0
 	--orADN	<=	LUTadn(3) or LUTadn(2) or LUTadn(1) or LUTadn(0);
@@ -97,12 +97,12 @@ begin
 	datoInvalidoAux	<=	'0' when sHGDiagEqual='1' or orADN='0' else '1';
 	oValid	<=	orADN;--datoInvalidoAux;
 
-	--Señales de entrada
+	--SeÃ±ales de entrada
 	Hdiag	<=	iHd;
 	Hup	<=	iHu;
 	Hleft	<=	iHl;
 
-	--funcion de decisión
+	--funcion de decisiÃ³n
 	funcionDiag		<=	Hdiag + ( (dimH-1 downto dimLUT => LUTadn(dimLUT-1)) & LUTadn );
 
 	--Comparaciones

@@ -15,13 +15,13 @@ use ieee.std_logic_unsigned.all;
 
 ENTITY KBandIP21 is
 	generic(
-		NoCell		: 	natural  :=	32;
-		dimH			: 	natural  :=	8;
-		dimSymbol	:	natural	:=	32;
+		NoCell		: 	natural  :=	2048;
+		dimH			: 	natural  :=	3;
+		dimSymbol	:	natural	:=	8;
 		dimADN		: 	natural  :=	3;
-		bitsOUT		:	natural	:=	64; --Source data width
-		widthu		:	natural	:=	6; --2**w = #regs
-		dimLUT		:	natural  :=	4
+		bitsOUT		:	natural	:=	128; --Source data width
+		widthu		:	natural	:=	3; --2**w = #regs
+		dimLUT		:	natural  :=	3
 	);
 	port (
 		clock_ext    : in  std_logic  := '0';             --  clock.clk
@@ -56,7 +56,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sArrow_data  			:	std_logic_vector(bitsOUT-1 downto 0);
 
 	signal	sArrow_valid			: std_logic;
-	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket ¿De donde saco esta señal?
+	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket Ãƒâ€šÃ‚Â¿De donde saco esta seÃƒÆ’Ã‚Â±al?
 	signal	sSourceEmpty			: std_logic;
 	signal	sSinkRead, sSourceWrite		: std_logic;
 	signal	sSourceSendDirection	:	std_logic;

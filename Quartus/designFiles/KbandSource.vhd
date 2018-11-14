@@ -114,7 +114,12 @@ begin
 						sdout_Data(39 downto 32) & sdout_Data(47 downto 40) & sdout_Data(55 downto 48) & sdout_Data(63 downto 56) &
 						sdout_Data(71 downto 64) & sdout_Data(79 downto 72) & sdout_Data(87 downto 80) & sdout_Data(95 downto 88) &
 						sdout_Data(103 downto 96) & sdout_Data(111 downto 104) & sdout_Data(119 downto 112) & sdout_Data(127 downto 120);
-
+						
+						--sdout_Data(135 downto 128) & sdout_Data(143 downto 136) & sdout_Data(151 downto 144) & sdout_Data(159 downto 152) &
+						--sdout_Data(167 downto 160) & sdout_Data(175 downto 168) & sdout_Data(183 downto 176) & sdout_Data(191 downto 184) &
+						--sdout_Data(199 downto 192) & sdout_Data(207 downto 200) & sdout_Data(215 downto 208) & sdout_Data(223 downto 216) &
+						--sdout_Data(231 downto 224) & sdout_Data(239 downto 232) & sdout_Data(247 downto 240) & sdout_Data(255 downto 248);
+						
 	--dout_Data	<=	sdout_Data when iSendDirection = '0' else
 		--				(others => iDirection);
 

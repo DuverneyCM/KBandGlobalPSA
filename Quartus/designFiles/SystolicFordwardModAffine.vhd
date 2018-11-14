@@ -4,8 +4,8 @@ use ieee.std_logic_unsigned.all;
 
 entity SystolicFordwardModAffine is
 	generic(
-		NoCell			: 	natural  :=	64;
-		dimH			: 	natural  :=	4;
+		NoCell			: 	natural  :=	2752;
+		dimH			: 	natural  :=	3;
 		dimADN		: 	natural  :=	3;
 		dimLUT	:	natural  :=	3
 	);
@@ -227,7 +227,7 @@ begin
 	sADNb(NoCell+1)	<=	iADNh;
 	sADNa(0)				<=	iADNv;
 
-	--Sincronizacion de dirección
+	--Sincronizacion de direcciÃƒÂ³n
 	--Direction
 	process (CLOCK_50, reset)
 	begin

@@ -12,7 +12,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-ENTITY KBandIP21 is
+ENTITY KBandIP21affine2in is
 	generic(
 		NoCell		: 	natural  :=	32;
 		dimH			: 	natural  :=	8;
@@ -43,9 +43,9 @@ ENTITY KBandIP21 is
 		oDirection		:	out std_logic
 
 	);
-END ENTITY KBandIP21;
+END ENTITY KBandIP21affine2in;
 
-ARCHITECTURE rtl OF KBandIP21 IS
+ARCHITECTURE rtl OF KBandIP21affine2in IS
 
 	signal	sADN1, sADN2			:	std_logic_vector(dimADN downto 1);
 	signal	sDirection, sProcesar:	std_logic;
@@ -55,7 +55,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sArrow_data  			:	std_logic_vector(bitsOUT-1 downto 0);
 
 	signal	sArrow_valid			: std_logic;
-	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket ¿De donde saco esta señal?
+	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket Â¿De donde saco esta seÃ±al?
 	signal	sSourceEmpty			: std_logic;
 	signal	sSinkRead, sSourceWrite		: std_logic;
 	signal	sSourceSendDirection	:	std_logic;
