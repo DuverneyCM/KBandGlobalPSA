@@ -1,0 +1,460 @@
+IP Upgrade report for DE10_NANO_SoC_GHRD
+Mon Sep 30 14:34:34 2019
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. IP Upgrade Summary
+  3. Successfully Upgraded IP Components
+  4. Failed Upgrade IP Components
+  5. IP Upgrade Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------+
+; IP Upgrade Summary                                                         ;
++------------------------------+---------------------------------------------+
+; IP Components Upgrade Status ; Passed - Mon Sep 30 14:34:34 2019           ;
+; Quartus Prime Version        ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                ; DE10_NANO_SoC_GHRD                          ;
+; Top-level Entity Name        ; DE10_NANO_SoC_GHRD                          ;
+; Family                       ; Cyclone V                                   ;
++------------------------------+---------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Successfully Upgraded IP Components                                                                                                                                             ;
++--------------+------------------------------+---------+-------------------------------------+-----------------------------------+-------------------------------------+---------+
+; Entity Name  ; Component Name               ; Version ; Original Source File                ; Generation File Path              ; New Source File                     ; Message ;
++--------------+------------------------------+---------+-------------------------------------+-----------------------------------+-------------------------------------+---------+
+; hps_reset    ; In-System Sources and Probes ; 16.1    ; ../ip/altsource_probe/hps_reset.qip ; ../ip/altsource_probe/hps_reset.v ; ../ip/altsource_probe/hps_reset.qip ;         ;
+; FifoKBandOUT ; FIFO                         ; 16.1    ; ../designFiles/FifoKBandOUT.qip     ; ../designFiles/FifoKBandOUT.vhd   ; ../designFiles/FifoKBandOUT.qip     ;         ;
+; FifoKBandIN  ; FIFO                         ; 16.1    ; ../designFiles/FifoKBandIN.qip      ; ../designFiles/FifoKBandIN.vhd    ; ../designFiles/FifoKBandIN.qip      ;         ;
++--------------+------------------------------+---------+-------------------------------------+-----------------------------------+-------------------------------------+---------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Failed Upgrade IP Components                                                                                                                                                     ;
++-------------+----------------+---------+-------------------------------------+----------------------+-----------------+----------------------------------------------------------+
+; Entity Name ; Component Name ; Version ; Original Source File                ; Generation File Path ; New Source File ; Message                                                  ;
++-------------+----------------+---------+-------------------------------------+----------------------+-----------------+----------------------------------------------------------+
+; soc_system  ; Qsys           ; 16.1    ; soc_system/synthesis/soc_system.qip ; soc_system.qsys      ;                 ; Error upgrading Platform Designer file "soc_system.qsys" ;
++-------------+----------------+---------+-------------------------------------+----------------------+-----------------+----------------------------------------------------------+
+
+
++---------------------+
+; IP Upgrade Messages ;
++---------------------+
+Info (11902): Backing up file "../ip/altsource_probe/hps_reset.v" to "../ip/altsource_probe/hps_reset.BAK.v"
+Info (11837): Started upgrading IP component In-System Sources and Probes with file "../ip/altsource_probe/hps_reset.v"
+Info (11902): Backing up file "../designFiles/FifoKBandOUT.vhd" to "../designFiles/FifoKBandOUT.BAK.vhd"
+Info (11837): Started upgrading IP component FIFO with file "../designFiles/FifoKBandOUT.vhd"
+Info (11902): Backing up file "../designFiles/FifoKBandIN.vhd" to "../designFiles/FifoKBandIN.BAK.vhd"
+Info (11837): Started upgrading IP component FIFO with file "../designFiles/FifoKBandIN.vhd"
+Info (11902): Backing up file "soc_system.qsys" to "soc_system.BAK.qsys"
+Info (11902): Backing up file "soc_system/synthesis/soc_system.vhd" to "soc_system.BAK.vhd"
+Info (11837): Started upgrading IP component Qsys with file "soc_system.qsys"
+Info: 2019.09.30.14:24:05 Info: Starting to upgrade the IP cores in the Platform Designer system
+Info: 2019.09.30.14:24:05 Info: Finished upgrading the ip cores
+Info: 2019.09.30.14:24:28 Info: Saving generation log to E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system
+Info: 2019.09.30.14:24:28 Info: Starting: Create simulation model
+Info: 2019.09.30.14:24:28 Info: qsys-generate E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system.qsys --simulation=VHDL --allow-mixed-language-simulation --output-directory=E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system\simulation --family="Cyclone V" --part=5CSEBA6U23I7
+Info: 2019.09.30.14:24:28 Info: Loading KBandDNA_DE10nano
+Info: 2019.09.30.14:24:28 Info: Reading input file
+Info: 2019.09.30.14:24:28 Info: Adding FPGA_Slave_mm_bridge [altera_avalon_mm_bridge 18.1]
+Info: 2019.09.30.14:24:28 Info: Parameterizing module FPGA_Slave_mm_bridge
+Info: 2019.09.30.14:24:28 Info: Adding KBandIPsub [KBandIPsub 1.0]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module KBandIPsub
+Info: 2019.09.30.14:24:29 Info: Adding axi_bridge_for_acp_128_0 [axi_bridge_for_acp_128 1.0]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module axi_bridge_for_acp_128_0
+Info: 2019.09.30.14:24:29 Info: Adding clk_0 [clock_source 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module clk_0
+Info: 2019.09.30.14:24:29 Info: Adding fft_ddr_bridge [altera_address_span_extender 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module fft_ddr_bridge
+Info: 2019.09.30.14:24:29 Info: Adding fpga_only_master [altera_jtag_avalon_master 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module fpga_only_master
+Info: 2019.09.30.14:24:29 Info: Adding hps_0 [altera_hps 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module hps_0
+Info: 2019.09.30.14:24:29 Info: Adding hps_clk_out [clock_source 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module hps_clk_out
+Info: 2019.09.30.14:24:29 Info: Adding intr_capturer_0 [intr_capturer 1.0]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module intr_capturer_0
+Info: 2019.09.30.14:24:29 Info: Adding lw_mm_bridge [altera_avalon_mm_bridge 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module lw_mm_bridge
+Info: 2019.09.30.14:24:29 Info: Adding pll_0 [altera_pll 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module pll_0
+Info: 2019.09.30.14:24:29 Info: Adding sysid_qsys [altera_avalon_sysid_qsys 18.1]
+Info: 2019.09.30.14:24:29 Info: Parameterizing module sysid_qsys
+Info: 2019.09.30.14:24:29 Info: Building connections
+Info: 2019.09.30.14:24:29 Info: Parameterizing connections
+Info: 2019.09.30.14:24:29 Info: Validating
+Info: 2019.09.30.14:24:35 Info: Done reading input file
+Info: 2019.09.30.14:24:40 Info: soc_system.KBandIPsub.KBandOutput: Response information port is disabled. Enable the response port if data transfer information is required by host
+Warning: 2019.09.30.14:24:40 Warning: soc_system.KBandIPsub.clk_0.clk
+Info: 2019.09.30.14:24:40 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 63
+Info: 2019.09.30.14:24:40 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: 2019.09.30.14:24:40 Info: soc_system.pll_0: The legal reference clock frequency is 5.0 MHz..700.0 MHz
+Info: 2019.09.30.14:24:40 Info: soc_system.pll_0: Able to implement PLL with user settings
+Info: 2019.09.30.14:24:40 Info: soc_system.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: 2019.09.30.14:24:40 Info: soc_system.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Warning: 2019.09.30.14:24:40 Warning: soc_system.fft_ddr_bridge: fft_ddr_bridge.cntl must be connected to an Avalon-MM master
+Warning: 2019.09.30.14:24:40 Warning: soc_system.hps_0: hps_0.f2h_sdram0_data must be connected to an Avalon-MM master
+Info: 2019.09.30.14:24:41 Info: soc_system: Generating soc_system "soc_system" for SIM_VHDL
+Info: 2019.09.30.14:24:47 Info: Interconnect is inserted between master fft_ddr_bridge.expanded_master and slave axi_bridge_for_acp_128_0.s0 because the master is of type avalon and the slave is of type axi.
+Info: 2019.09.30.14:24:48 Info: Interconnect is inserted between master hps_0.h2f_axi_master and slave FPGA_Slave_mm_bridge.s0 because the master is of type axi and the slave is of type avalon.
+Info: 2019.09.30.14:24:54 Info: Interconnect is inserted between master KBandIPsub.m0 and slave fft_ddr_bridge.windowed_slave because the master has address signal 30 bit wide, but the slave is 26 bit wide.
+Info: 2019.09.30.14:24:54 Info: Interconnect is inserted between master KBandIPsub.m0 and slave fft_ddr_bridge.windowed_slave because the master has debugaccess signal 1 bit wide, but the slave is 0 bit wide.
+Warning: 2019.09.30.14:24:54 Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
+Warning: 2019.09.30.14:24:54 Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
+Warning: 2019.09.30.14:24:54 Warning: hps_0.f2h_irq1: Cannot connect clock for irq_mapper_001.sender
+Warning: 2019.09.30.14:24:54 Warning: hps_0.f2h_irq1: Cannot connect reset for irq_mapper_001.sender
+Info: 2019.09.30.14:25:02 Info: FPGA_Slave_mm_bridge: "soc_system" instantiated altera_avalon_mm_bridge "FPGA_Slave_mm_bridge"
+Info: 2019.09.30.14:25:08 Info: KBandIPsub: "soc_system" instantiated KBandIPsub "KBandIPsub"
+Info: 2019.09.30.14:25:08 Info: axi_bridge_for_acp_128_0: "soc_system" instantiated axi_bridge_for_acp_128 "axi_bridge_for_acp_128_0"
+Info: 2019.09.30.14:25:08 Info: fft_ddr_bridge: "soc_system" instantiated altera_address_span_extender "fft_ddr_bridge"
+Info: 2019.09.30.14:25:09 Info: fpga_only_master: "soc_system" instantiated altera_jtag_avalon_master "fpga_only_master"
+Info: 2019.09.30.14:25:09 Info: hps_0: "Running  for module: hps_0"
+Info: 2019.09.30.14:25:09 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 63
+Info: 2019.09.30.14:25:10 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: 2019.09.30.14:25:12 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: 2019.09.30.14:25:12 Info: intr_capturer_0: "soc_system" instantiated intr_capturer "intr_capturer_0"
+Info: 2019.09.30.14:25:12 Info: pll_0: Generating simgen model
+Info: 2019.09.30.14:25:54 Info: pll_0: Simgen was successful
+Info: 2019.09.30.14:25:54 Info: pll_0: "soc_system" instantiated altera_pll "pll_0"
+Info: 2019.09.30.14:25:54 Info: sysid_qsys: "soc_system" instantiated altera_avalon_sysid_qsys "sysid_qsys"
+Info: 2019.09.30.14:26:03 Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: 2019.09.30.14:26:07 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:26:09 Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: 2019.09.30.14:26:13 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:26:16 Info: mm_interconnect_2: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: 2019.09.30.14:26:19 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:26:20 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:26:20 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:26:21 Info: mm_interconnect_3: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_3"
+Info: 2019.09.30.14:26:24 Info: mm_interconnect_6: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_6"
+Info: 2019.09.30.14:26:24 Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
+Info: 2019.09.30.14:26:24 Info: irq_mapper_001: "soc_system" instantiated altera_irq_mapper "irq_mapper_001"
+Info: 2019.09.30.14:26:24 Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"
+Error: 2019.09.30.14:26:24 Error: KBand21_0: KBand21 does not support generation for VHDL Simulation. Generation is available for: Quartus Synthesis.
+Error: 2019.09.30.14:26:24 Error: Generation stopped, 104 or more modules remaining
+Info: 2019.09.30.14:26:24 Info: soc_system: Done "soc_system" with 71 modules, 25 files
+Error: 2019.09.30.14:26:24 Error: qsys-generate failed with exit code 1: 2 Errors, 7 Warnings
+Info: 2019.09.30.14:26:24 Info: Finished: Create simulation model
+Info: 2019.09.30.14:26:24 Info: Starting: Create Modelsim Project.
+Info: 2019.09.30.14:26:24 Info: sim-script-gen --spd=E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system\soc_system.spd --output-directory=E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:24 Info: Doing: ip-make-simscript --spd=E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system\soc_system.spd --output-directory=E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:29 Info: Generating the following file(s) for MODELSIM simulator in E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:29 Info:     mentor
+Info: 2019.09.30.14:26:29 Info: Skipping VCS script generation since VHDL file $QUARTUS_INSTALL_DIR/eda/sim_lib
+Info: 2019.09.30.14:26:29 Info: Generating the following file(s) for VCSMX simulator in E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:29 Info:     synopsys/vcsmx
+Info: 2019.09.30.14:26:29 Info:     synopsys/vcsmx
+Info: 2019.09.30.14:26:29 Info: Generating the following file(s) for NCSIM simulator in E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:29 Info:     cadence
+Info: 2019.09.30.14:26:29 Info:     cadence
+Info: 2019.09.30.14:26:29 Info:     cadence
+Info: 2019.09.30.14:26:29 Info:     17 .cds.lib files in cadence/cds_libs
+Info: 2019.09.30.14:26:29 Info: Generating the following file(s) for RIVIERA simulator in E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:29 Info:     aldec
+Info: 2019.09.30.14:26:29 Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/simulation
+Info: 2019.09.30.14:26:29 Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: 2019.09.30.14:26:29 Info: Finished: Create Modelsim Project.
+Info: 2019.09.30.14:26:29 Info: Starting: Create block symbol file (.bsf)
+Info: 2019.09.30.14:26:29 Info: qsys-generate E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system.qsys --block-symbol-file --output-directory=E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system --family="Cyclone V" --part=5CSEBA6U23I7
+Info: 2019.09.30.14:26:29 Info: Loading KBandDNA_DE10nano
+Info: 2019.09.30.14:26:30 Info: Reading input file
+Info: 2019.09.30.14:26:30 Info: Adding FPGA_Slave_mm_bridge [altera_avalon_mm_bridge 18.1]
+Info: 2019.09.30.14:26:30 Info: Parameterizing module FPGA_Slave_mm_bridge
+Info: 2019.09.30.14:26:30 Info: Adding KBandIPsub [KBandIPsub 1.0]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module KBandIPsub
+Info: 2019.09.30.14:26:31 Info: Adding axi_bridge_for_acp_128_0 [axi_bridge_for_acp_128 1.0]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module axi_bridge_for_acp_128_0
+Info: 2019.09.30.14:26:31 Info: Adding clk_0 [clock_source 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module clk_0
+Info: 2019.09.30.14:26:31 Info: Adding fft_ddr_bridge [altera_address_span_extender 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module fft_ddr_bridge
+Info: 2019.09.30.14:26:31 Info: Adding fpga_only_master [altera_jtag_avalon_master 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module fpga_only_master
+Info: 2019.09.30.14:26:31 Info: Adding hps_0 [altera_hps 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module hps_0
+Info: 2019.09.30.14:26:31 Info: Adding hps_clk_out [clock_source 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module hps_clk_out
+Info: 2019.09.30.14:26:31 Info: Adding intr_capturer_0 [intr_capturer 1.0]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module intr_capturer_0
+Info: 2019.09.30.14:26:31 Info: Adding lw_mm_bridge [altera_avalon_mm_bridge 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module lw_mm_bridge
+Info: 2019.09.30.14:26:31 Info: Adding pll_0 [altera_pll 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module pll_0
+Info: 2019.09.30.14:26:31 Info: Adding sysid_qsys [altera_avalon_sysid_qsys 18.1]
+Info: 2019.09.30.14:26:31 Info: Parameterizing module sysid_qsys
+Info: 2019.09.30.14:26:31 Info: Building connections
+Info: 2019.09.30.14:26:31 Info: Parameterizing connections
+Info: 2019.09.30.14:26:31 Info: Validating
+Info: 2019.09.30.14:26:42 Info: Done reading input file
+Info: 2019.09.30.14:26:47 Info: soc_system.KBandIPsub.KBandOutput: Response information port is disabled. Enable the response port if data transfer information is required by host
+Warning: 2019.09.30.14:26:47 Warning: soc_system.KBandIPsub.clk_0.clk
+Info: 2019.09.30.14:26:47 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 63
+Info: 2019.09.30.14:26:47 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: 2019.09.30.14:26:47 Info: soc_system.pll_0: The legal reference clock frequency is 5.0 MHz..700.0 MHz
+Info: 2019.09.30.14:26:47 Info: soc_system.pll_0: Able to implement PLL with user settings
+Info: 2019.09.30.14:26:47 Info: soc_system.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: 2019.09.30.14:26:47 Info: soc_system.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Warning: 2019.09.30.14:26:47 Warning: soc_system.fft_ddr_bridge: fft_ddr_bridge.cntl must be connected to an Avalon-MM master
+Warning: 2019.09.30.14:26:47 Warning: soc_system.hps_0: hps_0.f2h_sdram0_data must be connected to an Avalon-MM master
+Info: 2019.09.30.14:26:48 Info: qsys-generate succeeded.
+Info: 2019.09.30.14:26:48 Info: Finished: Create block symbol file (.bsf)
+Info: 2019.09.30.14:26:48 Info:
+Info: 2019.09.30.14:26:48 Info: Starting: Create HDL design files for synthesis
+Info: 2019.09.30.14:26:48 Info: qsys-generate E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system.qsys --synthesis=VHDL --output-directory=E:\GitHub\KBandGlobalPSA\Quartus\KBandDNA_DE10nano\soc_system\synthesis --family="Cyclone V" --part=5CSEBA6U23I7
+Info: 2019.09.30.14:26:48 Info: Loading KBandDNA_DE10nano
+Info: 2019.09.30.14:26:49 Info: Reading input file
+Info: 2019.09.30.14:26:49 Info: Adding FPGA_Slave_mm_bridge [altera_avalon_mm_bridge 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module FPGA_Slave_mm_bridge
+Info: 2019.09.30.14:26:49 Info: Adding KBandIPsub [KBandIPsub 1.0]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module KBandIPsub
+Info: 2019.09.30.14:26:49 Info: Adding axi_bridge_for_acp_128_0 [axi_bridge_for_acp_128 1.0]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module axi_bridge_for_acp_128_0
+Info: 2019.09.30.14:26:49 Info: Adding clk_0 [clock_source 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module clk_0
+Info: 2019.09.30.14:26:49 Info: Adding fft_ddr_bridge [altera_address_span_extender 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module fft_ddr_bridge
+Info: 2019.09.30.14:26:49 Info: Adding fpga_only_master [altera_jtag_avalon_master 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module fpga_only_master
+Info: 2019.09.30.14:26:49 Info: Adding hps_0 [altera_hps 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module hps_0
+Info: 2019.09.30.14:26:49 Info: Adding hps_clk_out [clock_source 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module hps_clk_out
+Info: 2019.09.30.14:26:49 Info: Adding intr_capturer_0 [intr_capturer 1.0]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module intr_capturer_0
+Info: 2019.09.30.14:26:49 Info: Adding lw_mm_bridge [altera_avalon_mm_bridge 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module lw_mm_bridge
+Info: 2019.09.30.14:26:49 Info: Adding pll_0 [altera_pll 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module pll_0
+Info: 2019.09.30.14:26:49 Info: Adding sysid_qsys [altera_avalon_sysid_qsys 18.1]
+Info: 2019.09.30.14:26:49 Info: Parameterizing module sysid_qsys
+Info: 2019.09.30.14:26:49 Info: Building connections
+Info: 2019.09.30.14:26:49 Info: Parameterizing connections
+Info: 2019.09.30.14:26:49 Info: Validating
+Info: 2019.09.30.14:26:57 Info: Done reading input file
+Info: 2019.09.30.14:27:02 Info: soc_system.KBandIPsub.KBandOutput: Response information port is disabled. Enable the response port if data transfer information is required by host
+Warning: 2019.09.30.14:27:02 Warning: soc_system.KBandIPsub.clk_0.clk
+Info: 2019.09.30.14:27:02 Info: soc_system.hps_0: HPS Main PLL counter settings: n = 0  m = 63
+Info: 2019.09.30.14:27:02 Info: soc_system.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: 2019.09.30.14:27:02 Info: soc_system.pll_0: The legal reference clock frequency is 5.0 MHz..700.0 MHz
+Info: 2019.09.30.14:27:02 Info: soc_system.pll_0: Able to implement PLL with user settings
+Info: 2019.09.30.14:27:02 Info: soc_system.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: 2019.09.30.14:27:02 Info: soc_system.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Warning: 2019.09.30.14:27:02 Warning: soc_system.fft_ddr_bridge: fft_ddr_bridge.cntl must be connected to an Avalon-MM master
+Warning: 2019.09.30.14:27:02 Warning: soc_system.hps_0: hps_0.f2h_sdram0_data must be connected to an Avalon-MM master
+Info: 2019.09.30.14:27:06 Info: soc_system: Generating soc_system "soc_system" for QUARTUS_SYNTH
+Info: 2019.09.30.14:27:11 Info: Interconnect is inserted between master fft_ddr_bridge.expanded_master and slave axi_bridge_for_acp_128_0.s0 because the master is of type avalon and the slave is of type axi.
+Info: 2019.09.30.14:27:16 Info: Interconnect is inserted between master hps_0.h2f_axi_master and slave FPGA_Slave_mm_bridge.s0 because the master is of type axi and the slave is of type avalon.
+Info: 2019.09.30.14:27:18 Info: Interconnect is inserted between master KBandIPsub.m0 and slave fft_ddr_bridge.windowed_slave because the master has address signal 30 bit wide, but the slave is 26 bit wide.
+Info: 2019.09.30.14:27:18 Info: Interconnect is inserted between master KBandIPsub.m0 and slave fft_ddr_bridge.windowed_slave because the master has debugaccess signal 1 bit wide, but the slave is 0 bit wide.
+Warning: 2019.09.30.14:27:18 Warning: hps_0.f2h_irq0: Cannot connect clock for irq_mapper.sender
+Warning: 2019.09.30.14:27:18 Warning: hps_0.f2h_irq0: Cannot connect reset for irq_mapper.sender
+Warning: 2019.09.30.14:27:18 Warning: hps_0.f2h_irq1: Cannot connect clock for irq_mapper_001.sender
+Warning: 2019.09.30.14:27:18 Warning: hps_0.f2h_irq1: Cannot connect reset for irq_mapper_001.sender
+Info: 2019.09.30.14:27:24 Info: FPGA_Slave_mm_bridge: "soc_system" instantiated altera_avalon_mm_bridge "FPGA_Slave_mm_bridge"
+Info: 2019.09.30.14:27:28 Info: KBandIPsub: "soc_system" instantiated KBandIPsub "KBandIPsub"
+Info: 2019.09.30.14:27:28 Info: axi_bridge_for_acp_128_0: "soc_system" instantiated axi_bridge_for_acp_128 "axi_bridge_for_acp_128_0"
+Info: 2019.09.30.14:27:28 Info: fft_ddr_bridge: "soc_system" instantiated altera_address_span_extender "fft_ddr_bridge"
+Info: 2019.09.30.14:27:29 Info: fpga_only_master: "soc_system" instantiated altera_jtag_avalon_master "fpga_only_master"
+Info: 2019.09.30.14:27:29 Info: hps_0: "Running  for module: hps_0"
+Info: 2019.09.30.14:27:30 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 63
+Info: 2019.09.30.14:27:30 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Info: 2019.09.30.14:27:37 Info: hps_0: "soc_system" instantiated altera_hps "hps_0"
+Info: 2019.09.30.14:27:38 Info: intr_capturer_0: "soc_system" instantiated intr_capturer "intr_capturer_0"
+Info: 2019.09.30.14:27:38 Info: pll_0: "soc_system" instantiated altera_pll "pll_0"
+Info: 2019.09.30.14:27:38 Info: sysid_qsys: "soc_system" instantiated altera_avalon_sysid_qsys "sysid_qsys"
+Info: 2019.09.30.14:27:38 Info: mm_interconnect_0: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: 2019.09.30.14:27:39 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:27:39 Info: mm_interconnect_1: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: 2019.09.30.14:27:40 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:27:41 Info: mm_interconnect_2: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: 2019.09.30.14:27:42 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:27:43 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:27:43 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:27:45 Info: mm_interconnect_3: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_3"
+Info: 2019.09.30.14:27:46 Info: mm_interconnect_6: "soc_system" instantiated altera_mm_interconnect "mm_interconnect_6"
+Info: 2019.09.30.14:27:46 Info: irq_mapper: "soc_system" instantiated altera_irq_mapper "irq_mapper"
+Info: 2019.09.30.14:27:46 Info: irq_mapper_001: "soc_system" instantiated altera_irq_mapper "irq_mapper_001"
+Info: 2019.09.30.14:27:46 Info: rst_controller: "soc_system" instantiated altera_reset_controller "rst_controller"
+Info: 2019.09.30.14:27:46 Info: KBand21_0: "KBandIPsub" instantiated KBand21 "KBand21_0"
+Info: 2019.09.30.14:27:47 Info: KBandInput_1: "KBandIPsub" instantiated altera_msgdma "KBandInput_1"
+Info: 2019.09.30.14:27:47 Info: KBandInput_2: "KBandIPsub" instantiated altera_msgdma "KBandInput_2"
+Info: 2019.09.30.14:27:48 Info: KBandOutput: "KBandIPsub" instantiated altera_msgdma "KBandOutput"
+Info: 2019.09.30.14:27:49 Info: onchip_mem_FPGA_Slave: Starting RTL generation for module 'soc_system_KBandIPsub_onchip_mem_FPGA_Slave'
+Info: 2019.09.30.14:27:49 Info: onchip_mem_FPGA_Slave:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_KBandIPsub_onchip_mem_FPGA_Slave --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0022_onchip_mem_FPGA_Slave_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0022_onchip_mem_FPGA_Slave_gen/
+Info: 2019.09.30.14:28:27 Info: onchip_mem_FPGA_Slave: Done RTL generation for module 'soc_system_KBandIPsub_onchip_mem_FPGA_Slave'
+Info: 2019.09.30.14:28:32 Info: onchip_mem_FPGA_Slave: "KBandIPsub" instantiated altera_avalon_onchip_memory2 "onchip_mem_FPGA_Slave"
+Info: 2019.09.30.14:28:33 Info: onchip_mem_LW: Starting RTL generation for module 'soc_system_KBandIPsub_onchip_mem_LW'
+Info: 2019.09.30.14:28:33 Info: onchip_mem_LW:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_KBandIPsub_onchip_mem_LW --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0023_onchip_mem_LW_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0023_onchip_mem_LW_gen/
+Info: 2019.09.30.14:28:35 Info: onchip_mem_LW: Done RTL generation for module 'soc_system_KBandIPsub_onchip_mem_LW'
+Info: 2019.09.30.14:28:35 Info: onchip_mem_LW: "KBandIPsub" instantiated altera_avalon_onchip_memory2 "onchip_mem_LW"
+Info: 2019.09.30.14:28:35 Info: onchip_mem_LW2: Starting RTL generation for module 'soc_system_KBandIPsub_onchip_mem_LW2'
+Info: 2019.09.30.14:28:35 Info: onchip_mem_LW2:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=soc_system_KBandIPsub_onchip_mem_LW2 --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0024_onchip_mem_LW2_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0024_onchip_mem_LW2_gen/
+Info: 2019.09.30.14:28:35 Info: onchip_mem_LW2: Done RTL generation for module 'soc_system_KBandIPsub_onchip_mem_LW2'
+Info: 2019.09.30.14:28:35 Info: onchip_mem_LW2: "KBandIPsub" instantiated altera_avalon_onchip_memory2 "onchip_mem_LW2"
+Info: 2019.09.30.14:28:36 Info: pio_0: Starting RTL generation for module 'soc_system_KBandIPsub_pio_0'
+Info: 2019.09.30.14:28:36 Info: pio_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=soc_system_KBandIPsub_pio_0 --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0025_pio_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8169_2099812589031389621.dir/0025_pio_0_gen/
+Info: 2019.09.30.14:28:36 Info: pio_0: Done RTL generation for module 'soc_system_KBandIPsub_pio_0'
+Info: 2019.09.30.14:28:36 Info: pio_0: "KBandIPsub" instantiated altera_avalon_pio "pio_0"
+Info: 2019.09.30.14:28:41 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:41 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:41 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:42 Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:42 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:42 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:42 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:43 Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:43 Info: avalon_st_adapter_008: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:43 Info: avalon_st_adapter_009: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:28:43 Info: avalon_st_adapter_010: Inserting error_adapter: error_adapter_0
+Info: 2019.09.30.14:30:54 Info: mm_interconnect_0: "KBandIPsub" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: 2019.09.30.14:30:56 Info: jtag_phy_embedded_in_jtag_master: "fpga_only_master" instantiated altera_jtag_dc_streaming "jtag_phy_embedded_in_jtag_master"
+Info: 2019.09.30.14:30:56 Info: timing_adt: "fpga_only_master" instantiated timing_adapter "timing_adt"
+Info: 2019.09.30.14:30:56 Info: fifo: "fpga_only_master" instantiated altera_avalon_sc_fifo "fifo"
+Info: 2019.09.30.14:30:57 Info: b2p: "fpga_only_master" instantiated altera_avalon_st_bytes_to_packets "b2p"
+Info: 2019.09.30.14:30:57 Info: p2b: "fpga_only_master" instantiated altera_avalon_st_packets_to_bytes "p2b"
+Info: 2019.09.30.14:30:57 Info: transacto: "fpga_only_master" instantiated altera_avalon_packets_to_master "transacto"
+Info: 2019.09.30.14:30:57 Info: b2p_adapter: "fpga_only_master" instantiated channel_adapter "b2p_adapter"
+Info: 2019.09.30.14:30:57 Info: p2b_adapter: "fpga_only_master" instantiated channel_adapter "p2b_adapter"
+Info: 2019.09.30.14:30:58 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
+Info: 2019.09.30.14:30:59 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
+Info: 2019.09.30.14:30:59 Info: fft_ddr_bridge_expanded_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "fft_ddr_bridge_expanded_master_translator"
+Info: 2019.09.30.14:30:59 Info: fft_ddr_bridge_expanded_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "fft_ddr_bridge_expanded_master_agent"
+Info: 2019.09.30.14:30:59 Info: axi_bridge_for_acp_128_0_s0_agent: "mm_interconnect_0" instantiated altera_merlin_axi_slave_ni "axi_bridge_for_acp_128_0_s0_agent"
+Info: 2019.09.30.14:30:59 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:00 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: 2019.09.30.14:31:03 Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: 2019.09.30.14:31:10 Info: fft_ddr_bridge_expanded_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "fft_ddr_bridge_expanded_master_limiter"
+Info: 2019.09.30.14:31:10 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:10 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:11 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2019.09.30.14:31:11 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2019.09.30.14:31:11 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2019.09.30.14:31:11 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2019.09.30.14:31:11 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:11 Info: FPGA_Slave_mm_bridge_s0_translator: "mm_interconnect_1" instantiated altera_merlin_slave_translator "FPGA_Slave_mm_bridge_s0_translator"
+Info: 2019.09.30.14:31:12 Info: hps_0_h2f_axi_master_agent: "mm_interconnect_1" instantiated altera_merlin_axi_master_ni "hps_0_h2f_axi_master_agent"
+Info: 2019.09.30.14:31:12 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:13 Info: FPGA_Slave_mm_bridge_s0_agent: "mm_interconnect_1" instantiated altera_merlin_slave_agent "FPGA_Slave_mm_bridge_s0_agent"
+Info: 2019.09.30.14:31:13 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:13 Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
+Info: 2019.09.30.14:31:13 Info: router_002: "mm_interconnect_1" instantiated altera_merlin_router "router_002"
+Info: 2019.09.30.14:31:17 Info: FPGA_Slave_mm_bridge_s0_burst_adapter: "mm_interconnect_1" instantiated altera_merlin_burst_adapter "FPGA_Slave_mm_bridge_s0_burst_adapter"
+Info: 2019.09.30.14:31:17 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:17 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:17 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:17 Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2019.09.30.14:31:17 Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2019.09.30.14:31:17 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:17 Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2019.09.30.14:31:17 Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2019.09.30.14:31:17 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:18 Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: 2019.09.30.14:31:18 Info: router: "mm_interconnect_2" instantiated altera_merlin_router "router"
+Info: 2019.09.30.14:31:18 Info: router_003: "mm_interconnect_2" instantiated altera_merlin_router "router_003"
+Info: 2019.09.30.14:31:18 Info: cmd_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2019.09.30.14:31:18 Info: cmd_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2019.09.30.14:31:18 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:18 Info: rsp_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2019.09.30.14:31:18 Info: rsp_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2019.09.30.14:31:18 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:20 Info: avalon_st_adapter: "mm_interconnect_2" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: 2019.09.30.14:31:20 Info: router: "mm_interconnect_3" instantiated altera_merlin_router "router"
+Info: 2019.09.30.14:31:20 Info: router_001: "mm_interconnect_3" instantiated altera_merlin_router "router_001"
+Info: 2019.09.30.14:31:20 Info: cmd_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2019.09.30.14:31:20 Info: cmd_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2019.09.30.14:31:20 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:20 Info: rsp_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2019.09.30.14:31:20 Info: rsp_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2019.09.30.14:31:20 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:20 Info: dispatcher_internal: "KBandInput_1" instantiated modular_sgdma_dispatcher "dispatcher_internal"
+Info: 2019.09.30.14:31:21 Info: read_mstr_internal: "KBandInput_1" instantiated dma_read_master "read_mstr_internal"
+Info: 2019.09.30.14:31:23 Info: write_mstr_internal: "KBandOutput" instantiated dma_write_master "write_mstr_internal"
+Info: 2019.09.30.14:31:23 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: 2019.09.30.14:31:24 Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: 2019.09.30.14:31:24 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: 2019.09.30.14:31:24 Info: router_003: "mm_interconnect_0" instantiated altera_merlin_router "router_003"
+Info: 2019.09.30.14:31:24 Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
+Info: 2019.09.30.14:31:24 Info: router_005: "mm_interconnect_0" instantiated altera_merlin_router "router_005"
+Info: 2019.09.30.14:31:25 Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
+Info: 2019.09.30.14:31:25 Info: router_011: "mm_interconnect_0" instantiated altera_merlin_router "router_011"
+Info: 2019.09.30.14:31:25 Info: router_013: "mm_interconnect_0" instantiated altera_merlin_router "router_013"
+Info: 2019.09.30.14:31:25 Info: router_014: "mm_interconnect_0" instantiated altera_merlin_router "router_014"
+Info: 2019.09.30.14:31:25 Info: router_015: "mm_interconnect_0" instantiated altera_merlin_router "router_015"
+Info: 2019.09.30.14:31:25 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2019.09.30.14:31:25 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: 2019.09.30.14:31:25 Info: cmd_demux_003: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_003"
+Info: 2019.09.30.14:31:25 Info: cmd_demux_004: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_004"
+Info: 2019.09.30.14:31:25 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: cmd_mux_003: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_003"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: cmd_mux_006: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_006"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: cmd_mux_009: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_009"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: cmd_mux_010: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_010"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2019.09.30.14:31:25 Info: rsp_demux_003: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_003"
+Info: 2019.09.30.14:31:25 Info: rsp_demux_006: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_006"
+Info: 2019.09.30.14:31:25 Info: rsp_demux_009: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_009"
+Info: 2019.09.30.14:31:25 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: rsp_mux_003: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_003"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: rsp_mux_004: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_004"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: mm_bridge_LW_m0_to_KBandOutput_descriptor_slave_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "mm_bridge_LW_m0_to_KBandOutput_descriptor_slave_cmd_width_adapter"
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:25 Info: Reusing file E:/GitHub/KBandGlobalPSA/Quartus/KBandDNA_DE10nano/soc_system/synthesis/submodules
+Info: 2019.09.30.14:31:26 Info: avalon_st_adapter_003: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_003"
+Info: 2019.09.30.14:34:07 Info: border: "hps_io" instantiated altera_interface_generator "border"
+Info: 2019.09.30.14:34:07 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: 2019.09.30.14:34:07 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: 2019.09.30.14:34:07 Info: error_adapter_0: "avalon_st_adapter_003" instantiated error_adapter "error_adapter_0"
+Info: 2019.09.30.14:34:07 Info: soc_system: Done "soc_system" with 108 modules, 194 files
+Info: 2019.09.30.14:34:11 Info: qsys-generate succeeded.
+Info: 2019.09.30.14:34:11 Info: Finished: Create HDL design files for synthesis
+Info (11904): Restoring file "soc_system.BAK.qsys" to "soc_system.qsys"
+Error (14923): Error upgrading Platform Designer file "soc_system.qsys"
+Info (11131): Completed upgrading IP component In-System Sources and Probes with file "../ip/altsource_probe/hps_reset.v"
+Info (11131): Completed upgrading IP component FIFO with file "../designFiles/FifoKBandOUT.vhd"
+Info (11131): Completed upgrading IP component FIFO with file "../designFiles/FifoKBandIN.vhd"
+Error (11890): Unable to automatically upgrade Platform Designer component. Please manually upgrade "soc_system.qsys" in Platform Designer
+Error (23031): Evaluation of Tcl script c:/intelfpga_lite/18.1/quartus/common/tcl/internal/ip_regen/ip_regen.tcl unsuccessful
+Error: Quartus Prime Shell was unsuccessful. 6 errors, 17 warnings
+    Error: Peak virtual memory: 4884 megabytes
+    Error: Processing ended: Mon Sep 30 14:34:46 2019
+    Error: Elapsed time: 00:11:40
+    Error: Total CPU time (on all processors): 00:04:18
+
+

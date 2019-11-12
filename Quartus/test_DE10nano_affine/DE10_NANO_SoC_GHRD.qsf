@@ -492,7 +492,6 @@ set_global_assignment -name VHDL_FILE ../designFiles/KbandSource.vhd
 set_global_assignment -name VHDL_FILE ../designFiles/KbandSink.vhd
 set_global_assignment -name VHDL_FILE ../designFiles/KbandControl.vhd
 set_global_assignment -name SDC_FILE DE10_NANO_SOC_GHRD.sdc
-set_global_assignment -name QIP_FILE soc_system/synthesis/soc_system.qip
 set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
 set_global_assignment -name CDF_FILE output_files/Chain1.cdf
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top

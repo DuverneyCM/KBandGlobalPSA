@@ -442,7 +442,7 @@
  <module
    name="FPGA_Slave_mm_bridge"
    kind="altera_avalon_mm_bridge"
-   version="16.1"
+   version="18.1"
    enabled="1">
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="10" />
@@ -458,26 +458,26 @@
   <parameter name="USE_RESPONSE" value="0" />
  </module>
  <module name="KBandIPsub" kind="KBandIPsub" version="1.0" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="9" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="5" />
   <parameter name="AUTO_CLK_CLOCK_RATE" value="100000000" />
-  <parameter name="AUTO_CLK_INT_CLOCK_DOMAIN" value="10" />
+  <parameter name="AUTO_CLK_INT_CLOCK_DOMAIN" value="6" />
   <parameter name="AUTO_CLK_INT_CLOCK_RATE" value="50000000" />
-  <parameter name="AUTO_CLK_INT_RESET_DOMAIN" value="10" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="9" />
+  <parameter name="AUTO_CLK_INT_RESET_DOMAIN" value="6" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="5" />
   <parameter name="AUTO_DEVICE" value="5CSEBA6U23I7" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="7" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
   <parameter name="AUTO_M0_ADDRESS_MAP"><![CDATA[<address-map><slave name='fft_ddr_bridge.windowed_slave' start='0x0' end='0x40000000' /></address-map>]]></parameter>
   <parameter name="AUTO_M0_ADDRESS_WIDTH" value="AddressWidth = 30" />
-  <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_KBandIPsub</parameter>
+  <parameter name="AUTO_UNIQUE_ID">soc_system_KBandIPsub</parameter>
  </module>
  <module
    name="axi_bridge_for_acp_128_0"
    kind="axi_bridge_for_acp_128"
    version="1.0"
    enabled="1" />
- <module name="clk_0" kind="clock_source" version="16.1" enabled="1">
+ <module name="clk_0" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
@@ -486,7 +486,7 @@
  <module
    name="fft_ddr_bridge"
    kind="altera_address_span_extender"
-   version="16.1"
+   version="18.1"
    enabled="1">
   <parameter name="BURSTCOUNT_WIDTH" value="5" />
   <parameter name="DATA_WIDTH" value="128" />
@@ -500,7 +500,7 @@
  <module
    name="fpga_only_master"
    kind="altera_jtag_avalon_master"
-   version="16.1"
+   version="18.1"
    enabled="1">
   <parameter name="AUTO_DEVICE" value="5CSEBA6U23I7" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
@@ -511,7 +511,7 @@
   <parameter name="PLI_PORT" value="50000" />
   <parameter name="USE_PLI" value="0" />
  </module>
- <module name="hps_0" kind="altera_hps" version="16.1" enabled="1">
+ <module name="hps_0" kind="altera_hps" version="18.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
   <parameter name="ACV_PHY_CLK_ADD_FR_PHASE" value="0.0" />
@@ -1041,7 +1041,7 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
- <module name="hps_clk_out" kind="clock_source" version="16.1" enabled="1">
+ <module name="hps_clk_out" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="50000000" />
@@ -1054,7 +1054,7 @@
  <module
    name="lw_mm_bridge"
    kind="altera_avalon_mm_bridge"
-   version="16.1"
+   version="18.1"
    enabled="1">
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="10" />
@@ -1069,7 +1069,7 @@
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
   <parameter name="USE_RESPONSE" value="0" />
  </module>
- <module name="pll_0" kind="altera_pll" version="16.1" enabled="1">
+ <module name="pll_0" kind="altera_pll" version="18.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
   <parameter name="device" value="5CSEBA6U23I7" />
@@ -1132,7 +1132,7 @@
   <parameter name="gui_cascade_outclk_index" value="0" />
   <parameter name="gui_channel_spacing" value="0.0" />
   <parameter name="gui_clk_bad" value="false" />
-  <parameter name="gui_device_speed_grade" value="1" />
+  <parameter name="gui_device_speed_grade" value="2" />
   <parameter name="gui_divide_factor_c0" value="1" />
   <parameter name="gui_divide_factor_c1" value="1" />
   <parameter name="gui_divide_factor_c10" value="1" />
@@ -1275,13 +1275,13 @@
  <module
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
-   version="16.1"
+   version="18.1"
    enabled="1">
   <parameter name="id" value="-1395321854" />
  </module>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="fft_ddr_bridge.expanded_master"
    end="axi_bridge_for_acp_128_0.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -1290,7 +1290,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="hps_0.h2f_axi_master"
    end="FPGA_Slave_mm_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -1299,7 +1299,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="hps_0.h2f_lw_axi_master"
    end="lw_mm_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
@@ -1308,7 +1308,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="lw_mm_bridge.m0"
    end="intr_capturer_0.avalon_slave_0">
   <parameter name="arbitrationPriority" value="1" />
@@ -1317,7 +1317,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="lw_mm_bridge.m0"
    end="sysid_qsys.control_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -1326,7 +1326,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="axi_bridge_for_acp_128_0.m0"
    end="hps_0.f2h_axi_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -1335,7 +1335,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="FPGA_Slave_mm_bridge.m0"
    end="KBandIPsub.sfpga">
   <parameter name="arbitrationPriority" value="1" />
@@ -1344,7 +1344,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="lw_mm_bridge.m0"
    end="KBandIPsub.slw">
   <parameter name="arbitrationPriority" value="1" />
@@ -1353,7 +1353,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="KBandIPsub.m0"
    end="fft_ddr_bridge.windowed_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -1362,170 +1362,170 @@
  </connection>
  <connection
    kind="avalon"
-   version="16.1"
+   version="18.1"
    start="fpga_only_master.master"
    end="lw_mm_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="16.1" start="clk_0.clk" end="pll_0.refclk" />
+ <connection kind="clock" version="18.1" start="clk_0.clk" end="pll_0.refclk" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="hps_0.h2f_user1_clock"
    end="hps_clk_out.clk_in" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="lw_mm_bridge.clk" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="fpga_only_master.clk" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="FPGA_Slave_mm_bridge.clk" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="sysid_qsys.clk" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="KBandIPsub.clk" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="intr_capturer_0.clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="axi_bridge_for_acp_128_0.clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="fft_ddr_bridge.clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="hps_0.f2h_sdram0_clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="hps_0.h2f_axi_clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk0"
    end="hps_0.h2f_lw_axi_clock" />
  <connection
    kind="clock"
-   version="16.1"
+   version="18.1"
    start="pll_0.outclk1"
    end="KBandIPsub.clk_int" />
  <connection
    kind="interrupt"
-   version="16.1"
+   version="18.1"
    start="hps_0.f2h_irq0"
    end="KBandIPsub.kbandinput_1_csr_irq">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
-   version="16.1"
+   version="18.1"
    start="hps_0.f2h_irq0"
    end="KBandIPsub.kbandinput_2_csr_irq">
   <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
-   version="16.1"
+   version="18.1"
    start="hps_0.f2h_irq0"
    end="KBandIPsub.kbandoutput_csr_irq">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
-   version="16.1"
+   version="18.1"
    start="intr_capturer_0.interrupt_receiver"
    end="KBandIPsub.kbandinput_1_csr_irq">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
-   version="16.1"
+   version="18.1"
    start="intr_capturer_0.interrupt_receiver"
    end="KBandIPsub.kbandinput_2_csr_irq">
   <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
-   version="16.1"
+   version="18.1"
    start="intr_capturer_0.interrupt_receiver"
    end="KBandIPsub.kbandoutput_csr_irq">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="fpga_only_master.clk_reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="sysid_qsys.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="lw_mm_bridge.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="axi_bridge_for_acp_128_0.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="fft_ddr_bridge.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="FPGA_Slave_mm_bridge.reset" />
- <connection kind="reset" version="16.1" start="clk_0.clk_reset" end="pll_0.reset" />
+ <connection kind="reset" version="18.1" start="clk_0.clk_reset" end="pll_0.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="KBandIPsub.reset" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="clk_0.clk_reset"
    end="intr_capturer_0.reset_sink" />
  <connection
    kind="reset"
-   version="16.1"
+   version="18.1"
    start="hps_0.h2f_reset"
    end="hps_clk_out.clk_in_reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

@@ -173,40 +173,30 @@ void const *g_preparser_strings[] = {
 
 int main(int argc, char **argv)
 {
-	clock_t beginT = clock();
+	printf("\n\nHello from SoC FPGA to everyone!\n");
+	printf("This program was called with \"%s\".\n", argv[0]);
+
+//	clock_t beginT = clock();
+		printf("memoria asignada");
 	int i = 0;
 	int a = 0;
 	int mem;
 	int noFile = 1;
-
-	//volatile unsigned int *valuei;
-	//volatile unsigned int *valuei1;//, real, image;
-	//volatile unsigned int *valuei2;//, real, image;
-	volatile char *valuei1;//, real, image;
-	volatile char *valuei2;//, real, image;
-	volatile unsigned int *valueo;//  output
-
-
-
-
+	
+	//////MAPEAR IP EN ESPACIO DE MEMORIA HPS
 	void *mappedBaseLW;	// where linux sees the lw bridge.
 	void *mappedBaseSLAVE;
 	void *ACPinputBuffer;
-
-
-	printf("\n\nHello from SoC FPGA to everyone!\n");
-	printf("This program was called with \"%s\".\n", argv[0]);
-
-
-	//////MAPEAR IP EN ESPACIO DE MEMORIA HPS
 	// need to open a file.	/* Open /dev/mem */
+
 		if ((mem = open("/dev/mem", O_RDWR | O_SYNC)) == -1)
 			fprintf(stderr, "Cannot open /dev/mem\n"), exit(1);
 	// now map it into lw bridge space
+		
 		mappedBaseLW = mmap(0, ALT_LWFPGASLVS_SPAN, PROT_READ | PROT_WRITE, MAP_SHARED, mem, ALT_LWFPGASLVS_OFST);
 		mappedBaseSLAVE = mmap(0, FPGA_SLAVES_SPAN, PROT_READ | PROT_WRITE, MAP_SHARED, mem, FPGA_SLAVES_BASE);
 		ACPinputBuffer     = mmap(0, FPGA_ACP_SPAN, PROT_READ | PROT_WRITE, MAP_SHARED, mem, FPGA_ACP_BASE);
-
+		
 		if (mappedBaseLW == (void *)-1) {
 			printf("Memory map failed. error %i\n", (int)mappedBaseLW);
 			perror("mmap");
@@ -221,12 +211,27 @@ int main(int argc, char **argv)
 		}
 
 
+	//volatile unsigned int *valuei;
+	//volatile unsigned int *valuei1;//, real, image;
+	//volatile unsigned int *valuei2;//, real, image;
+	volatile char *valuei1;//, real, image;
+	volatile char *valuei2;//, real, image;
+	volatile unsigned int *valueo;//  output
+	//valuei1 = (unsigned int *)((int)hps_DATAin1);
+	//valuei2 = (unsigned int *)((int)hps_DATAin2);
+	valuei1 = (char *)((int)hps_DATAin1);
+	valuei2 = (char *)((int)hps_DATAin2);
+	valueo = (unsigned int *)((int)hps_DATAout);
+	printf("%d %d %d\n",(int)valuei1,(int)valuei2,(int)valueo);
+
+
 		//Definir archivos a utilizar, tanto fuentes como destinos
 		FILE *fseqA;
 		FILE *fseqB;
 		FILE *farrows;
 
-		sgdma_standard_descriptor descriptorIN1, descriptorIN2, descriptorOUT;
+		sgdma_standard_descriptor descriptorIN1, descriptorIN2;
+		sgdma_standard_descriptor descriptorOUT;
 		// now that the fpga space is mapped we need to clear out the onchip ram so it is ready for data
 
 
@@ -380,11 +385,7 @@ int main(int argc, char **argv)
 	int dimPacketMAX;
 	int latenciaKBand = 6;//3*2; //Latency = 6
 	int usPause = 200;//200;
-	//valuei1 = (unsigned int *)((int)hps_DATAin1);
-	//valuei2 = (unsigned int *)((int)hps_DATAin2);
-	valuei1 = (char *)((int)hps_DATAin1);
-	valuei2 = (char *)((int)hps_DATAin2);
-	valueo = (unsigned int *)((int)hps_DATAout);
+
 
 
 	//Primer paquete no genera flechas
@@ -490,7 +491,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		//printf("lastPairSeq = %x\n", a);
 		//printf("lastPairSeq = %x\n", (int)valuei[i]);
 		////////////////////////////////////////////////////////////////////////////////////////////
-/**/
+printf("%d %d %d %d %d\n",(int)valueo,(int)obuffer,usPause,latenciaKBand,dimPacketMAXout);
+
 	for (pack=1; pack<=noPacket; pack++) {
 
 		if (pack % 200 == 0){
@@ -503,8 +505,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		}
 		//printf("TOKEN A\n");
 		//printf("tag0 \n");
-		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, dimPacketMAX /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, dimPacketMAX /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, dimPacketMAX , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, dimPacketMAX , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 		//printf("TOKEN B\n");
@@ -513,11 +515,12 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 			for (i=0; i<dimPacket; i++) 	valuei1[i]  = 0;
 			for (i=0; i<dimPacket; i++) 	valuei2[i]  = 0;
 			//enviar un paquete de ceros paquete para activar el IP (REVISAR EL offsetBand para un PACK )
-			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand + dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-			construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand + dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+			construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand + dimPacket) , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+			construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand + dimPacket) , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 			write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 			write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 		}
+		
 		//printf("TOKEN C\n");
 		//Configurar y Enviar descriptores DMA output	- 	HAY QUE RESTARLE A ESTE PAQUETE Y AUMENTARLE AL PAQUETE FINAL
 		if (pack == 2) { //primer paquete leido
@@ -552,6 +555,7 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		//printf("tag2 \n");
 
 
+
 	//Packet Process Time = 500us
 		if (pack >= 1)	{
 			usleep( usPause );
@@ -561,16 +565,21 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 
 		if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 			printf("ERROR sgdma from fft sgdma status 0x%x ( should be 2)\n", (unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE));
-		else {
+		else {		
 		// now read the results from memory
 			if (pack == 2) {
 				printf("Pack = %d, escribiendo en archivo %d filas\n", pack,(dimPacketMAXout - offsetBand - latenciaKBand) );
 				for (i=0; i<(dimPacketMAXout - offsetBand - latenciaKBand)*NoRegsFila; i++) {
+					//printf("Guardando Paquete %d\n", valuei1[i]);
 					obuffer[i] = valueo[i];
 				}
+
+				printf("Guardando Paquete\n");
 				for (i=0; i<(dimPacketMAXout - offsetBand - latenciaKBand)*NoRegsFila; i++) {
 					fwrite(&obuffer[i], sizeof(int), 1, farrows);
 				}
+				//printf("Paquete guardado \n");
+
 			}
 			if ( noPacket == 1 ) {
 				printf("Pack = %d, write %d filas\n", pack, (dimPacketMAXout) );
@@ -580,12 +589,14 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 				}
 			}
 			if ( pack > 2 ) {
+
 				printf("Pack = %d, write %d filas\n", pack, (2*dimPacketMAX) );
 				for (i=0; i<(2*dimPacketMAX)*NoRegsFila; i++) {
 					a = valueo[i];
 					fwrite(&a, sizeof(int), 1, farrows);
 				}
-			}
+
+			}			
 		}
 		//printf("tag3 \n");
 		//printf("TOKEN F\n");
@@ -623,8 +634,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		for (i=0; i<dimPacket; i++) 	valuei2[i]  = 0;
 
 		//enviar un paquete de ceros paquete para activar el IP
-		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (dimPacket) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (dimPacket) , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (dimPacket) , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 
@@ -645,8 +656,8 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 
 		//PAQUETE DE LATENCIA
 		//enviar un paquete de ceros paquete para activar el IP
-		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
-		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand) /** 4*/, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, (latenciaKBand) , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
+		construct_standard_mm_to_st_descriptor(&descriptorIN2, (alt_u32 *) DMA_DATAin2, (latenciaKBand) , DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 		write_standard_descriptor(KBANDINPUT_2_CSR_BASE, KBANDINPUT_2_DESCRIPTOR_SLAVE_BASE, &descriptorIN2);
 
@@ -666,7 +677,7 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 		}
 
 	}
-/**/
+
 
 	valueo = (unsigned int *)((int)mappedBaseLW + SYSID_QSYS_BASE);
 
@@ -680,9 +691,9 @@ if ((unsigned int)read_csr_status(KBANDOUTPUT_CSR_BASE) != 2)
 	munmap(ACPinputBuffer, FPGA_ACP_SPAN);
 	close(mem);
 
-	clock_t endT = clock();
-	double timeSpent = (double)(beginT - endT)/ CLOCKS_BY_SEC;
-	printf("timeSpent = %f \n", timeSpent );
+//	clock_t endT = clock();
+//	double timeSpent = (double)(beginT - endT)/ CLOCKS_BY_SEC;
+//	printf("timeSpent = %f \n", timeSpent );
 
 
 

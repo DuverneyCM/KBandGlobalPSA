@@ -53,8 +53,8 @@ int main(int argc, char *argv[]) {
 	FILE *farrows;
 	FILE *fnewseqA;		//w
 	FILE *fnewseqB;
-	FILE *fnewIndexA;
-	FILE *fnewIndexB;
+//	FILE *fnewIndexA;
+//	FILE *fnewIndexB;
 	char arrowFILEname[32];
 	//Abrir archivos a LEER con flechas, y las secuencias A y B
 	fseqA =		fopen(argv[2],"r");
@@ -63,8 +63,8 @@ int main(int argc, char *argv[]) {
 	//Abrir archivos a ESCRIBIR con flechas, y las secuencias A y B
 	fnewseqA	= fopen(argv[6],"w+");
 	fnewseqB	= fopen(argv[7],"w+");
-	fnewIndexA	= fopen(argv[8],"w");
-	fnewIndexB	= fopen(argv[9],"w");
+//	fnewIndexA	= fopen(argv[8],"w");
+//	fnewIndexB	= fopen(argv[9],"w");
 
 
 	//////CARGAR SECUENCIAS DE ENTRADA Y SALIDA, MANEJADAS CON VARIABLES
@@ -209,7 +209,6 @@ int main(int argc, char *argv[]) {
 		cntLocal = cnt%dimPackSeq;
 
 
-
 		//**	DecodeArrow	**
 		//////DECODIFICAR LA FLECHA
 		if 		(posSeqA == -1)	lastArrowTag = 2;
@@ -224,6 +223,8 @@ int main(int argc, char *argv[]) {
 		}
 		else	lastArrowTag = ARROW;
 
+		if (posSeqA<280)  printf("%d",ARROW);
+		if (posSeqA<280)  printf("[%d] ",lastArrowTag);
 
 
 		//**	GetAlignSymbols	**
@@ -389,8 +390,8 @@ int main(int argc, char *argv[]) {
 	fclose(farrows);
 	fclose(fnewseqA);
 	fclose(fnewseqB);
-	fclose(fnewIndexA);
-	fclose(fnewIndexB);
+//	fclose(fnewIndexA);
+//	fclose(fnewIndexB);
 
 	clock_t endT = clock();
 	double timeSpent = (double)(beginT - endT)/ CLOCKS_BY_SEC;

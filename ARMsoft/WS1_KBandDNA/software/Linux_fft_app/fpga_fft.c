@@ -411,6 +411,7 @@ int main(int argc, char **argv)
 
 		}
 		//printf("tag0 \n");
+		printf("ciclo %d ", pack);
 		construct_standard_mm_to_st_descriptor(&descriptorIN1, (alt_u32 *) DMA_DATAin1, /**/dimPacketMAX * 4, DESCRIPTOR_CONTROL_GENERATE_SOP_MASK | DESCRIPTOR_CONTROL_GENERATE_EOP_MASK);
 		write_standard_descriptor(KBANDINPUT_1_CSR_BASE, KBANDINPUT_1_DESCRIPTOR_SLAVE_BASE, &descriptorIN1);
 

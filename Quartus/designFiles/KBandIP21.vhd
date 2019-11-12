@@ -15,7 +15,7 @@ use ieee.std_logic_unsigned.all;
 
 ENTITY KBandIP21 is
 	generic(
-		NoCell		: 	natural  :=	2048;
+		NoCell		: 	natural  :=	32;
 		dimH			: 	natural  :=	3;
 		dimSymbol	:	natural	:=	8;
 		dimADN		: 	natural  :=	3;
@@ -56,7 +56,7 @@ ARCHITECTURE rtl OF KBandIP21 IS
 	signal	sArrow_data  			:	std_logic_vector(bitsOUT-1 downto 0);
 
 	signal	sArrow_valid			: std_logic;
-	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket Ãƒâ€šÃ‚Â¿De donde saco esta seÃƒÆ’Ã‚Â±al?
+	signal	sSink1Empty, sFinalPacket	: std_logic; --sFinalPacket ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿De donde saco esta seÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±al?
 	signal	sSourceEmpty			: std_logic;
 	signal	sSinkRead, sSourceWrite		: std_logic;
 	signal	sSourceSendDirection	:	std_logic;

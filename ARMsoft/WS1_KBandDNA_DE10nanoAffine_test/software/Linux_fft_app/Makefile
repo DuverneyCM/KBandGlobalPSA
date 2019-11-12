@@ -26,7 +26,11 @@
 # *
 
 # set SOPCINFO to the directory that contains the sopcinfo for the fft project
+PROJECT_ROOT := /cygdrive/e/GitHub/KBandGlobalPSA/ARMsoft/WS1_KBandDNA
+#SOPCINFO := $(PROJECT_ROOT)/soc_system.sopcinfo
 SOPCINFO := ../../soc_system.sopcinfo
+QUARTUS_ROOT := /cygdrive/c/intelFPGA/18.1/quartus
+SOPC_CHF := ${QUARTUS_ROOT}/sopc_builder/bin/sopc-create-header-files
 
 QSYS_HDR := hps_0.h
 QSYS_HDR_DIR := qsys_headers
@@ -55,10 +59,16 @@ CROSS_COMPILE := arm-linux-gnueabihf-
 CC := $(CROSS_COMPILE)gcc
 NM := $(CROSS_COMPILE)nm
 
-ifeq ($(or $(COMSPEC),$(ComSpec)),)
-RM := rm -rf
+#ifeq ($(or $(COMSPEC),$(ComSpec)),)
+#RM := rm -rf
+#else
+#RM := cs-rm -rf
+#endif
+
+ifdef ComSpec
+RM=del /F /Q
 else
-RM := cs-rm -rf
+RM=rm -rf
 endif
 
 ELF ?= $(basename $(firstword $(C_SRC)))
@@ -66,22 +76,25 @@ OBJ := $(patsubst %.c,%.o,$(C_SRC))
 
 .PHONY: all
 all:  $(ELF) $(QSYS_HDR_DIR)/$(QSYS_HDR)
-
 QSYS_HDR := hps_0.h
 QSYS_HDR_DIR := qsys_headers
-
 $(QSYS_HDR_DIR)/$(QSYS_HDR): $(SOPCINFO)
+#	echo "hello, duver $(PWD)\n"
 	mkdir -p $(QSYS_HDR_DIR)
 #	ls 
 #	/cygdrive/c/intelFPGA/16.1/quartus/sopc_builder
 #	/cygdrive/c/intelFPGA/16.1/quartus/sopc_builder/bin/sopc-create-header-files ../../soc_system.sopcinfo --output-dir $(QSYS_HDR_DIR)
 #	/cygdrive/c/intelFPGA/16.1/quartus/sopc_builder/bin/sopc-create-header-files $< --output-dir $(QSYS_HDR_DIR)
 #	$(PATH)
-	sopc-create-header-files $< --output-dir $(QSYS_HDR_DIR)
+#	$(PWD)
+#	sopc-create-header-files $< --output-dir $(QSYS_HDR_DIR)
+	${SOPC_CHF} $< --output-dir $(QSYS_HDR_DIR)
+#	sopc-create-header-files $< --output-dir $(QSYS_HDR_DIR)
 # 	sopc-create-header-files $(SOPCINFO) --output-dir $(QSYS_HDR_DIR)
 	
 .PHONY:
 clean:
+
 	$(RM) $(ELF) $(OBJ) *.objdump *.map *.d msgdma/*.d
 	$(RM) $(QSYS_HDR_DIR)
 

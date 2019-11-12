@@ -1,0 +1,39 @@
+	KBandIPsubPro u0 (
+		.m0_waitrequest           (_connected_to_m0_waitrequest_),           //   input,    width = 1,                   m0.waitrequest
+		.m0_readdata              (_connected_to_m0_readdata_),              //   input,  width = 128,                     .readdata
+		.m0_readdatavalid         (_connected_to_m0_readdatavalid_),         //   input,    width = 1,                     .readdatavalid
+		.m0_burstcount            (_connected_to_m0_burstcount_),            //  output,    width = 5,                     .burstcount
+		.m0_writedata             (_connected_to_m0_writedata_),             //  output,  width = 128,                     .writedata
+		.m0_address               (_connected_to_m0_address_),               //  output,   width = 30,                     .address
+		.m0_write                 (_connected_to_m0_write_),                 //  output,    width = 1,                     .write
+		.m0_read                  (_connected_to_m0_read_),                  //  output,    width = 1,                     .read
+		.m0_byteenable            (_connected_to_m0_byteenable_),            //  output,   width = 16,                     .byteenable
+		.m0_debugaccess           (_connected_to_m0_debugaccess_),           //  output,    width = 1,                     .debugaccess
+		.kbandinput_1_csr_irq_irq (_connected_to_kbandinput_1_csr_irq_irq_), //  output,    width = 1, kbandinput_1_csr_irq.irq
+		.kbandinput_2_csr_irq_irq (_connected_to_kbandinput_2_csr_irq_irq_), //  output,    width = 1, kbandinput_2_csr_irq.irq
+		.kbandoutput_csr_irq_irq  (_connected_to_kbandoutput_csr_irq_irq_),  //  output,    width = 1,  kbandoutput_csr_irq.irq
+		.clk_clk                  (_connected_to_clk_clk_),                  //   input,    width = 1,                  clk.clk
+		.reset_reset_n            (_connected_to_reset_reset_n_),            //   input,    width = 1,                reset.reset_n
+		.clk_int_clk              (_connected_to_clk_int_clk_),              //   input,    width = 1,              clk_int.clk
+		.sfpga_waitrequest        (_connected_to_sfpga_waitrequest_),        //  output,    width = 1,                sfpga.waitrequest
+		.sfpga_readdata           (_connected_to_sfpga_readdata_),           //  output,   width = 64,                     .readdata
+		.sfpga_readdatavalid      (_connected_to_sfpga_readdatavalid_),      //  output,    width = 1,                     .readdatavalid
+		.sfpga_burstcount         (_connected_to_sfpga_burstcount_),         //   input,    width = 1,                     .burstcount
+		.sfpga_writedata          (_connected_to_sfpga_writedata_),          //   input,   width = 64,                     .writedata
+		.sfpga_address            (_connected_to_sfpga_address_),            //   input,   width = 18,                     .address
+		.sfpga_write              (_connected_to_sfpga_write_),              //   input,    width = 1,                     .write
+		.sfpga_read               (_connected_to_sfpga_read_),               //   input,    width = 1,                     .read
+		.sfpga_byteenable         (_connected_to_sfpga_byteenable_),         //   input,    width = 8,                     .byteenable
+		.sfpga_debugaccess        (_connected_to_sfpga_debugaccess_),        //   input,    width = 1,                     .debugaccess
+		.slw_waitrequest          (_connected_to_slw_waitrequest_),          //  output,    width = 1,                  slw.waitrequest
+		.slw_readdata             (_connected_to_slw_readdata_),             //  output,   width = 32,                     .readdata
+		.slw_readdatavalid        (_connected_to_slw_readdatavalid_),        //  output,    width = 1,                     .readdatavalid
+		.slw_burstcount           (_connected_to_slw_burstcount_),           //   input,    width = 1,                     .burstcount
+		.slw_writedata            (_connected_to_slw_writedata_),            //   input,   width = 32,                     .writedata
+		.slw_address              (_connected_to_slw_address_),              //   input,   width = 17,                     .address
+		.slw_write                (_connected_to_slw_write_),                //   input,    width = 1,                     .write
+		.slw_read                 (_connected_to_slw_read_),                 //   input,    width = 1,                     .read
+		.slw_byteenable           (_connected_to_slw_byteenable_),           //   input,    width = 4,                     .byteenable
+		.slw_debugaccess          (_connected_to_slw_debugaccess_)           //   input,    width = 1,                     .debugaccess
+	);
+

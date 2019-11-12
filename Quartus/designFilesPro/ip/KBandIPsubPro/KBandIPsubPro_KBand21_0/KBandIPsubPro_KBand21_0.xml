@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy
+ date="2019.05.15.16:24:18"
+ outputDirectory="F:/GitHub/KBandGlobalPSA/Quartus/designFiles/ip/KBandIPsubPro/KBandIPsubPro_KBand21_0/">
+ <perimeter>
+  <parameter
+     name="AUTO_GENERATION_ID"
+     type="Integer"
+     defaultValue="0"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_UNIQUE_ID"
+     type="String"
+     defaultValue=""
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_FAMILY"
+     type="String"
+     defaultValue="Stratix 10"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE"
+     type="String"
+     defaultValue="1SG280HU2F50E2VG"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_DEVICE_SPEEDGRADE"
+     type="String"
+     defaultValue="2"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_INTERNAL_CLOCK_RATE"
+     type="Long"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_INTERNAL_CLOCK_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_INTERNAL_RESET_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_EXTERNAL_CLOCK_RATE"
+     type="Long"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_EXTERNAL_CLOCK_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <parameter
+     name="AUTO_CLOCK_EXTERNAL_RESET_DOMAIN"
+     type="Integer"
+     defaultValue="-1"
+     onHdl="0"
+     affectsHdl="1" />
+  <interface name="reset" kind="reset" start="0">
+   <property name="associatedClock" value="clock_external" />
+   <property name="synchronousEdges" value="DEASSERT" />
+   <port name="reset_reset" direction="input" role="reset" width="1" />
+  </interface>
+  <interface name="iADN1" kind="avalon_streaming" start="0">
+   <property name="associatedClock" value="clock_external" />
+   <property name="associatedReset" value="reset" />
+   <property name="beatsPerCycle" value="1" />
+   <property name="dataBitsPerSymbol" value="8" />
+   <property name="emptyWithinPacket" value="false" />
+   <property name="errorDescriptor" value="" />
+   <property name="firstSymbolInHighOrderBits" value="true" />
+   <property name="highOrderSymbolAtMSB" value="false" />
+   <property name="maxChannel" value="0" />
+   <property name="packetDescription" value="" />
+   <property name="prSafe" value="false" />
+   <property name="readyAllowance" value="0" />
+   <property name="readyLatency" value="0" />
+   <property name="symbolsPerBeat" value="1" />
+   <port name="iADN1_data" direction="input" role="data" width="8" />
+   <port name="oADN1_ready" direction="output" role="ready" width="1" />
+   <port name="iADN1_valid" direction="input" role="valid" width="1" />
+  </interface>
+  <interface name="oArrow" kind="avalon_streaming" start="1">
+   <property name="associatedClock" value="clock_external" />
+   <property name="associatedReset" value="reset" />
+   <property name="beatsPerCycle" value="1" />
+   <property name="dataBitsPerSymbol" value="8" />
+   <property name="emptyWithinPacket" value="false" />
+   <property name="errorDescriptor" value="" />
+   <property name="firstSymbolInHighOrderBits" value="true" />
+   <property name="highOrderSymbolAtMSB" value="false" />
+   <property name="maxChannel" value="0" />
+   <property name="packetDescription" value="" />
+   <property name="prSafe" value="false" />
+   <property name="readyAllowance" value="0" />
+   <property name="readyLatency" value="0" />
+   <property name="symbolsPerBeat" value="1" />
+   <port name="oArrow_data" direction="output" role="data" width="128" />
+   <port name="iArrow_ready" direction="input" role="ready" width="1" />
+   <port name="oArrow_valid" direction="output" role="valid" width="1" />
+  </interface>
+  <interface name="clock_internal" kind="clock" start="0">
+   <property name="clockRate" value="50000000" />
+   <property name="externallyDriven" value="false" />
+   <property name="ptfSchematicName" value="" />
+   <port name="clock_int" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="clock_external" kind="clock" start="0">
+   <property name="clockRate" value="200000000" />
+   <property name="externallyDriven" value="false" />
+   <property name="ptfSchematicName" value="" />
+   <port name="clock_ext" direction="input" role="clk" width="1" />
+  </interface>
+  <interface name="Parameters" kind="conduit" start="0">
+   <property name="associatedClock" value="" />
+   <property name="associatedReset" value="" />
+   <property name="prSafe" value="false" />
+   <port name="iParameters" direction="input" role="export" width="32" />
+  </interface>
+  <interface name="iADN2" kind="avalon_streaming" start="0">
+   <property name="associatedClock" value="clock_external" />
+   <property name="associatedReset" value="reset" />
+   <property name="beatsPerCycle" value="1" />
+   <property name="dataBitsPerSymbol" value="8" />
+   <property name="emptyWithinPacket" value="false" />
+   <property name="errorDescriptor" value="" />
+   <property name="firstSymbolInHighOrderBits" value="true" />
+   <property name="highOrderSymbolAtMSB" value="false" />
+   <property name="maxChannel" value="0" />
+   <property name="packetDescription" value="" />
+   <property name="prSafe" value="false" />
+   <property name="readyAllowance" value="0" />
+   <property name="readyLatency" value="0" />
+   <property name="symbolsPerBeat" value="1" />
+   <port name="iADN2_data" direction="input" role="data" width="8" />
+   <port name="iADN2_valid" direction="input" role="valid" width="1" />
+   <port name="oADN2_ready" direction="output" role="ready" width="1" />
+  </interface>
+ </perimeter>
+ <entity
+   kind="KBandIPsubPro_KBand21_0"
+   version="1.0"
+   name="KBandIPsubPro_KBand21_0">
+  <parameter name="AUTO_CLOCK_EXTERNAL_CLOCK_RATE" value="-1" />
+  <parameter name="AUTO_CLOCK_INTERNAL_CLOCK_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLOCK_INTERNAL_RESET_DOMAIN" value="-1" />
+  <parameter name="AUTO_CLOCK_EXTERNAL_RESET_DOMAIN" value="-1" />
+  <parameter name="AUTO_GENERATION_ID" value="0" />
+  <parameter name="AUTO_DEVICE" value="1SG280HU2F50E2VG" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix 10" />
+  <parameter name="AUTO_UNIQUE_ID" value="" />
+  <parameter name="AUTO_CLOCK_EXTERNAL_CLOCK_DOMAIN" value="-1" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
+  <parameter name="AUTO_CLOCK_INTERNAL_CLOCK_RATE" value="-1" />
+  <generatedFiles>
+   <file
+       path="F:\GitHub\KBandGlobalPSA\Quartus\designFiles\ip\KBandIPsubPro\KBandIPsubPro_KBand21_0\synth\KBandIPsubPro_KBand21_0.vhd"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="F:\GitHub\KBandGlobalPSA\Quartus\designFiles\ip\KBandIPsubPro\KBandIPsubPro_KBand21_0\synth\KBandIPsubPro_KBand21_0.vhd"
+       attributes="CONTAINS_INLINE_CONFIGURATION" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file
+       path="F:/GitHub/KBandGlobalPSA/Quartus/designFiles/ip/KBandIPsubPro/KBandIPsubPro_KBand21_0.ip" />
+  </sourceFiles>
+  <childSourceFiles>
+   <file path="F:/GitHub/KBandGlobalPSA/Quartus/designFiles/KBand21_hw.tcl" />
+  </childSourceFiles>
+  <messages>
+   <message level="Info" culprit="KBandIPsubPro_KBand21_0">"Generating: KBandIPsubPro_KBand21_0"</message>
+   <message level="Info" culprit="KBandIPsubPro_KBand21_0">"Generating: KBandIP21"</message>
+  </messages>
+ </entity>
+ <entity kind="KBand21" version="1.0" name="KBandIP21">
+  <parameter name="NoCell" value="1024" />
+  <parameter name="widthu" value="3" />
+  <parameter name="dimSymbol" value="8" />
+  <parameter name="dimADN" value="3" />
+  <parameter name="dimLUT" value="4" />
+  <parameter name="dimH" value="4" />
+  <parameter name="bitsOUT" value="128" />
+  <generatedFiles>
+   <file
+       path="F:\GitHub\KBandGlobalPSA\Quartus\designFiles\ip\KBandIPsubPro\KBandIPsubPro_KBand21_0\KBand21_10\synth\KBandIP21.vhd"
+       attributes="" />
+  </generatedFiles>
+  <childGeneratedFiles>
+   <file
+       path="F:\GitHub\KBandGlobalPSA\Quartus\designFiles\ip\KBandIPsubPro\KBandIPsubPro_KBand21_0\KBand21_10\synth\KBandIP21.vhd"
+       attributes="" />
+  </childGeneratedFiles>
+  <sourceFiles>
+   <file path="F:/GitHub/KBandGlobalPSA/Quartus/designFiles/KBand21_hw.tcl" />
+  </sourceFiles>
+  <childSourceFiles/>
+  <instantiator instantiator="KBandIPsubPro_KBand21_0" as="KBand21_0" />
+  <messages>
+   <message level="Info" culprit="KBandIPsubPro_KBand21_0">"Generating: KBandIP21"</message>
+  </messages>
+ </entity>
+</deploy>

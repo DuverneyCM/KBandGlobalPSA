@@ -188,9 +188,9 @@ begin
 	sOG				<=	sParameters(15 downto 8);
 	sEG				<=	sParameters(7 downto 0);
 
-	oMatch		<=	sMatch(dimLUT-1 downto 0);--"0001";
-	oMisMatch	<=	sMisMatch(dimLUT-1 downto 0);--"1111";
-	oOG				<=	sOG(dimLUT-1 downto 0); --"0010";
-	oEG				<=	sEG(dimLUT-1 downto 0); --"0001";
+	oMatch		<=	"0001";--sMatch(dimLUT-1 downto 0);--"0001";
+	oMisMatch	<=	"1111";--sMisMatch(dimLUT-1 downto 0);--"1111";
+	oOG				<=	"0010";--sOG(dimLUT-1 downto 0); --"0010";
+	oEG				<=	"0001";--sEG(dimLUT-1 downto 0); --"0001";
 
 end rtl;

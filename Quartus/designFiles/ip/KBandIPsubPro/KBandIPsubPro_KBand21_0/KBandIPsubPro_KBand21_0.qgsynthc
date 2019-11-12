@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<node xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:altera="http://www.altera.com/XMLSchema/Qsys/SystemTree">
+  <instanceKey xsi:type="xs:string">KBandIPsubPro_KBand21_0</instanceKey>
+  <instanceData xsi:type="data">
+    <parameters></parameters>
+    <interconnectAssignments></interconnectAssignments>
+    <className>KBandIPsubPro_KBand21_0</className>
+    <version>1.0</version>
+    <name>KBandIPsubPro_KBand21_0</name>
+    <uniqueName>KBandIPsubPro_KBand21_0</uniqueName>
+    <nonce>0</nonce>
+    <incidentConnections></incidentConnections>
+  </instanceData>
+  <children>
+    <node>
+      <instanceKey xsi:type="xs:string">KBand21_0</instanceKey>
+      <instanceData xsi:type="data">
+        <parameters>
+          <parameter>
+            <name>NoCell</name>
+            <value>1024</value>
+          </parameter>
+          <parameter>
+            <name>bitsOUT</name>
+            <value>128</value>
+          </parameter>
+          <parameter>
+            <name>dimADN</name>
+            <value>3</value>
+          </parameter>
+          <parameter>
+            <name>dimH</name>
+            <value>4</value>
+          </parameter>
+          <parameter>
+            <name>dimLUT</name>
+            <value>4</value>
+          </parameter>
+          <parameter>
+            <name>dimSymbol</name>
+            <value>8</value>
+          </parameter>
+          <parameter>
+            <name>widthu</name>
+            <value>3</value>
+          </parameter>
+        </parameters>
+        <interconnectAssignments></interconnectAssignments>
+        <className>KBand21</className>
+        <version>1.0</version>
+        <name>KBand21_0</name>
+        <uniqueName>KBandIP21</uniqueName>
+        <fixedName>KBandIP21</fixedName>
+        <nonce>0</nonce>
+        <incidentConnections></incidentConnections>
+        <path>KBandIPsubPro_KBand21_0.KBand21_0</path>
+      </instanceData>
+      <children></children>
+    </node>
+  </children>
+</node>
